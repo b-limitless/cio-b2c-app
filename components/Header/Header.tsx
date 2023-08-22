@@ -105,9 +105,27 @@ export default function Header() {
             </div>
         </div>
 
-        <div className={styles.col}>
+        <div className={styles.col + ' ' + styles.side__menu}>
             <div className={styles.menu}>
-                clothing
+                <ul>
+                    <input type="radio" name="radio-side-menu" id="clothing" className={styles.radio__side__menu}/>
+                    <label htmlFor="clothing">
+                    <li>
+                        clothin
+                    </li>
+                    </label>
+
+                    <input type="radio" name="radio-side-menu" id="contact" className={styles.radio__side__menu}/>
+                    <label htmlFor="contact">
+                    <li>
+                        Contact
+                    </li>
+                    </label>
+
+                    
+                    
+                    
+                </ul>
             </div>
             <div className={styles.icon}>
                 <Image

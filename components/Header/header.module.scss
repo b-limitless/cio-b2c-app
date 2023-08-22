@@ -1,42 +1,77 @@
-@import '../../styles/variables';
+@import "../../styles/variables";
+@import "../../styles/functions";
 .header {
-    margin: 1rem;
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .col {
     display: flex;
-    justify-content: space-between;
+    .nav {
+      ul {
+        list-style: none;
+        display: flex;
+        column-gap: 10.71px;
+        .navigation__radio {
+          display: none;
+        }
+
+        .navigation__radio:checked + label > li {
+          border-bottom: 1px solid $dark;
+          color: $dark;
+          font-weight: 700;
+        }
+
+        li {
+          display: flex;
+          column-gap: 6px;
+          align-items: center;
+          padding: 8px 0;
+          color: $gray;
+          font-size: 11px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: 1.1px;
+          text-transform: uppercase;
+          font-family: $default-font;
+        }
+      }
+    }
+
+    .menu {
+      ul {
+        list-style: none;
+        display: flex;
+        column-gap: 8px;
+        li {
+          font-family: $default-font;
+          text-transform: uppercase;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          text-transform: uppercase;
+          padding: 13px 0;
+        }
+      }
+    }
+  }
+  .side__menu {
+    display: flex;
+    column-gap: pxToRem(46);
     align-items: center;
 
-    .col {
-        display: flex;
-        .nav {
-            ul {
-                list-style: none;
-                display: flex;
-                column-gap: 10.71px;
-                .navigation__radio {
-                    display: none;
-                }
-                
-                .navigation__radio:checked + label > li  {
-                    border-bottom: 1px solid $dark;
-                    color:  $dark;
-                    font-weight: 700;
-                }
-                
-                li {
-                    display: flex;
-                    column-gap: 6px;
-                    align-items: center;
-                    padding: 8px 0;
-                    color: $gray;
-                    font-size: 11px;
-                    font-style: normal;
-                    font-weight: 500;
-                    line-height: normal;
-                    letter-spacing: 1.1px;
-                    text-transform: uppercase;
-                }
-            }
+    ul {
+        list-style: none;
+        .radio__side__menu {
+            display: none;
         }
-        
+        .radio__side__menu:checked + label > li {
+            font-weight: 700;
+            border-bottom: 3px solid $dark;
+        }
     }
+  }
 }
