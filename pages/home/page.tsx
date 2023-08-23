@@ -7,7 +7,7 @@ import { Button } from 'components/Button';
 export default function Home() {
     return (
         <div className={styles.page__container}>
-            <Header />
+            <Header showNavigation/>
             <div className={styles.mid__content}>
                 <div className={styles.col}>
                     <div className={styles.contents}>

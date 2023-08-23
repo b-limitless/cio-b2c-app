@@ -7,6 +7,12 @@
   justify-content: space-between;
 // column-gap: 107px;
 
+@media only screen and (width <= $bp-small) {
+  flex-direction: column;
+  // width: 100vw !important;
+  row-gap: 1rem;
+}
+
   .col {
     .contents {
       display: flex;

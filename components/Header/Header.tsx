@@ -4,8 +4,11 @@ import Image from 'next/image';
 import { productNavigation } from 'config/product';
 import Navigation from './Navigation';
 
+interface HeaderInterface {
+    showNavigation?: boolean
+}
 
-export default function Header() {
+export default function Header({showNavigation}: HeaderInterface) {
   return (
     <header className={styles.header}>
         <div className={styles.col}>
@@ -16,11 +19,11 @@ export default function Header() {
         alt='logo'
         />
         </div>
-        <div className={styles.col}>
+        {showNavigation && <div className={styles.col}>
             <div className={styles.nav}>
                 <Navigation data={productNavigation}/>
             </div>
-        </div>
+        </div>}
 
         <div className={styles.col + ' ' + styles.side__menu}>
             <div className={styles.menu}>

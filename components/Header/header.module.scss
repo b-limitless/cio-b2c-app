@@ -6,6 +6,12 @@
   justify-content: space-between;
   align-items: center;
 
+  @media only screen and (width <= $bp-small) {
+    flex-direction: column;
+    // width: 100vw !important;
+    row-gap: 1rem;
+  }
+
   .col {
     display: flex;
     .nav {
@@ -64,6 +70,9 @@
     align-items: center;
 
     ul {
+      li {
+        min-height: 56.5px;
+      }
         list-style: none;
         .radio__side__menu {
             display: none;
