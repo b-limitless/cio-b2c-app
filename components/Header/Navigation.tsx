@@ -2,13 +2,13 @@ import React from 'react';
 import styles from './header.module.scss';
 import Image from 'next/image';
 
-interface navigationRow {
+export interface navigationRow {
     title: string;
     value: string;
 }
 
 
-interface NavigationInterface {
+export interface NavigationInterface {
     data: navigationRow[]
 }
 
