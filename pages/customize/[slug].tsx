@@ -5,6 +5,9 @@ import { productNavigation } from 'config/product';
 import Image from 'next/image';
 import { Button } from 'components/Button';
 import styles from './customize.module.scss';
+import Febric from './Febric';
+
+const countArray = new Array(20).fill(0);
 
 export default function Customize() {
     const router = useRouter();
@@ -31,8 +34,10 @@ export default function Customize() {
                     </div>
 
                     <div className={styles.febrics}>
+                        {countArray.map((i) => <Febric key={i}/>)}
                         
-                        <div className={styles.febric}>
+                        
+                        {/* <div className={styles.febric}>
                             <div className={styles.img}>
                                 <Image alt='' src='/img/febric-thumnail.png' width={140} height={103} ></Image>
 
@@ -127,7 +132,7 @@ export default function Customize() {
                                 </div>
                             </div>
 
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className={styles.model}>

@@ -3,7 +3,7 @@
 .main__content {
   margin-top: 35px;
   display: grid;
-  grid-template-columns: pxToRem(481) 1fr pxToRem(337);
+  grid-template-columns: pxToRem(calc(482 + 11)) 1fr pxToRem(337);
   column-gap: 1rem;
   margin: 0 6px;
   .filter {
@@ -40,9 +40,15 @@
         margin-top: 21px;
         display: flex;
         flex-wrap: wrap;
+        // display: grid;
+        // grid-template-columns: 1fr 1fr 1fr;
         column-gap: 1rem;
+        height: calc(100vh - (2.5rem + 56.5px + 4.5rem + 11px + 21px + 21px));
+        overflow: auto;
+        padding-right: 11px;
 
         .febric {
+           
             display: flex;
             flex-direction: column;
 
@@ -107,3 +113,25 @@
     }
   }
 }
+
+
+/* Target the entire scrollbar */
+.febrics::-webkit-scrollbar {
+    width: 1px; /* Width of the scrollbar */
+  }
+  
+  /* Track */
+  .febrics::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color of the track */
+  }
+  
+  /* Handle */
+  .febrics::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar handle */
+    border-radius: 5px; /* Rounded corners for the handle */
+  }
+  
+  /* On hover */
+  .febrics::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color of the handle on hover */
+  }
