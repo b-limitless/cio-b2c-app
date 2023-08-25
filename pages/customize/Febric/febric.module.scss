@@ -37,7 +37,7 @@
       row-gap: 4px;
 
       .name {
-        color: #000;
+        color: $dark;
         font-family: $default-font;
         font-size: 13px;
         font-style: normal;
@@ -45,7 +45,7 @@
         line-height: normal;
       }
       .price {
-        color: var(--gray-medium-2, #848484);
+        color: $gray-medium-4;
         font-family: $default-font;
         font-size: 9px;
         font-style: normal;
@@ -55,7 +55,7 @@
       .type {
         display: flex;
         .fade {
-          color: var(--gray-medium-2, #848484);
+          color: $gray-medium-4;
           font-family: $default-font;
           font-size: 9px;
           font-style: normal;
@@ -63,7 +63,7 @@
           line-height: normal;
         }
         .bold {
-          color: var(--gray-medium-4, #4d4d4f);
+          color: $gray-medium-4;
           font-family: $default-font;
           font-size: 9px;
           font-style: normal;

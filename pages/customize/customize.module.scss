@@ -8,6 +8,14 @@
   grid-template-columns: pxToRem(calc(482 + 11)) 1fr pxToRem(337);
   column-gap: 1rem;
   padding: 0 33px 0 6px;
+
+
+
+  @media only screen and (width <= $bp-small) {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 0 6px 0 6px;
+  }
   .filter {
     padding: pxToRem(72) 18px 18px 11px;
     background: $light;
@@ -51,6 +59,12 @@
 
       :nth-child(n + 4) {
         margin-top: 24px;
+      }
+
+      @media screen and (width <= $bp-small) {
+        :nth-child(n + 3) {
+            margin-top: 24px;
+          }
       }
 
       .febric {
@@ -118,6 +132,12 @@
     margin-top: calc(111px - 55px);
     img {
         height: auto;
+
+        @media only screen and (width <= $bp-small) {
+            width: 100%;
+        }
+
+
     }
   }
 
@@ -146,7 +166,7 @@
       .price {
         color: $gray;
         font-family: Euclid Circular A;
-        font-size: 32px;
+        font-size: pxToRem(32);
         font-style: normal;
         font-weight: 300;
         line-height: normal;
