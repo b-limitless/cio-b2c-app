@@ -1,5 +1,7 @@
 @import "../../styles/functions";
 @import "../../styles/variables";
+@import "../../styles/minxin/scroolbar.scss";
+
 .main__content {
   margin-top: 35px;
   display: grid;
@@ -46,6 +48,8 @@
         height: calc(100vh - (2.5rem + 56.5px + 4.5rem + 11px + 21px + 21px));
         overflow: auto;
         padding-right: 11px;
+
+        @include scroolbar;
 
         :nth-child(n + 4) {
             /* Your styles here */
@@ -118,25 +122,3 @@
     }
   }
 }
-
-
-/* Target the entire scrollbar */
-.febrics::-webkit-scrollbar {
-    width: 1px; /* Width of the scrollbar */
-  }
-  
-  /* Track */
-  .febrics::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Color of the track */
-  }
-  
-  /* Handle */
-  .febrics::-webkit-scrollbar-thumb {
-    background-color: #888; /* Color of the scrollbar handle */
-    border-radius: 5px; /* Rounded corners for the handle */
-  }
-  
-  /* On hover */
-  .febrics::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Color of the handle on hover */
-  }
