@@ -47,6 +47,11 @@
         overflow: auto;
         padding-right: 11px;
 
+        :nth-child(n + 4) {
+            /* Your styles here */
+            margin-top: 24px;
+          }
+
         .febric {
            
             display: flex;
