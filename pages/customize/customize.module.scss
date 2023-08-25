@@ -7,7 +7,7 @@
   display: grid;
   grid-template-columns: pxToRem(calc(482 + 11)) 1fr pxToRem(337);
   column-gap: 1rem;
-  margin: 0 6px;
+  padding: 0 33px 0 6px;
   .filter {
     padding: pxToRem(72) 18px 18px 11px;
     background: var(--light-1, #fff);
@@ -39,86 +39,173 @@
       }
     }
     .febrics {
-        margin-top: 21px;
+      margin-top: 21px;
+      display: flex;
+      flex-wrap: wrap;
+      // display: grid;
+      // grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 1rem;
+      height: calc(100vh - (2.5rem + 56.5px + 4.5rem + 11px + 21px + 21px));
+      overflow: auto;
+      padding-right: 11px;
+
+      @include scroolbar;
+
+      :nth-child(n + 4) {
+        /* Your styles here */
+        margin-top: 24px;
+      }
+
+      .febric {
         display: flex;
-        flex-wrap: wrap;
-        // display: grid;
-        // grid-template-columns: 1fr 1fr 1fr;
-        column-gap: 1rem;
-        height: calc(100vh - (2.5rem + 56.5px + 4.5rem + 11px + 21px + 21px));
-        overflow: auto;
-        padding-right: 11px;
+        flex-direction: column;
 
-        @include scroolbar;
-
-        :nth-child(n + 4) {
-            /* Your styles here */
-            margin-top: 24px;
+        .img {
+          .feature {
+            display: none;
           }
-
-        .febric {
-           
+          .search__icon {
+            display: none;
+          }
+        }
+        .short__description {
+          display: flex;
+          justify-content: space-between;
+          .col {
             display: flex;
             flex-direction: column;
+            row-gap: 4px;
 
-
-            .img {
-                .feature {
-                    display: none;
-                }
-                .search__icon {
-                    display: none;
-                }
+            .name {
+              color: #000;
+              font-family: $default-font;
+              font-size: 13px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: normal;
             }
-            .short__description {
-                display: flex;
-                justify-content: space-between;
-                .col {
-                    display: flex;
-                    flex-direction: column;
-                    row-gap: 4px;
-                   
-
-                    .name {
-                        color: #000;
-                        font-family: $default-font;
-                        font-size: 13px;
-                        font-style: normal;
-                        font-weight: 500;
-                        line-height: normal;
-                    }
-                    .price {
-                        color: var(--gray-medium-2, #848484);
-                        font-family: $default-font;
-                        font-size: 9px;
-                        font-style: normal;
-                        font-weight: 500;
-                        line-height: normal;
-                    }
-                    .type {
-                        display: flex;
-                        .fade {
-                            color: var(--gray-medium-2, #848484);
-                            font-family: $default-font;
-                            font-size: 9px;
-                            font-style: normal;
-                            font-weight: 500;
-                            line-height: normal;
-                        }
-                        .bold {
-                            color: var(--gray-medium-4, #4D4D4F);
-                            font-family: $default-font;
-                            font-size: 9px;
-                            font-style: normal;
-                            font-weight: 500;
-                            line-height: normal;
-                        }
-                    }
-
-                }
+            .price {
+              color: var(--gray-medium-2, #848484);
+              font-family: $default-font;
+              font-size: 9px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: normal;
             }
+            .type {
+              display: flex;
+              .fade {
+                color: var(--gray-medium-2, #848484);
+                font-family: $default-font;
+                font-size: 9px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+              }
+              .bold {
+                color: var(--gray-medium-4, #4d4d4f);
+                font-family: $default-font;
+                font-size: 9px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+              }
+            }
+          }
         }
-        
+      }
+    }
+  }
+
+  .model {
+    margin-top: calc(111px - 55px);
+    img {
+        height: auto;
+    }
+  }
+
+  .infomration {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    row-gap: 51px;
+
+    .row {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      align-items: flex-end;
+
+      .name {
+        color: #000;
+        font-family: $default-font;
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-transform: uppercase;
+      }
+
+      .price {
+        color: var(--gray-medium-2, #848484);
+        font-family: Euclid Circular A;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        margin-top: 7px;
+      }
+      .feature {
+        color: #000;
+        font-family: Euclid Circular A;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      .type {
+        color: var(--gray-medium-2, #848484);
+        font-family: Euclid Circular A;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+      .ref {
+        margin-top: 7px;
+        color: var(--gray-medium-2, #848484);
+        font-family: Euclid Circular A;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+      .detail__action {
+        color: var(--dark-blue-1, #1b365c);
+        font-family: Euclid Circular A;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        padding: 0 0 1px 0;
+        border-bottom: 1px solid #1b365c;
+      }
+      .receives__when {
+        // 10px is row gap 10px + 7px
+        margin-top: 7px; 
+      }
+      .icons {
+        margin-top: 13px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        column-gap: 12px;
+
+        * {
+            cursor: pointer;
+        }
+
+      }
     }
   }
 }
