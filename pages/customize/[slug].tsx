@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { Button } from 'components/Button';
 import styles from './customize.module.scss';
 import Febric from './Febric';
+import Filter from './Febric/Filter';
+import { CheckboxWithLabel } from '@pasal/cio-component-library';
 
 const countArray = new Array(20).fill(0);
 
@@ -13,9 +15,11 @@ export default function Customize() {
     const router = useRouter();
 
     return (
+        <>
+        <Filter/>
         <div className={styles.container}>
             <Header navigations={productNavigation} showNavigation />
-
+            
             <main className={styles.main__content}>
                 <div className={styles.filter}>
                     <div className={styles.action}>
@@ -34,7 +38,7 @@ export default function Customize() {
                     </div>
 
                     <div className={styles.febrics}>
-                        {countArray.map((i) => <Febric key={i}/>)}
+                        {countArray.map((_, i) => <Febric key={'febri-item' + i}/>)}
                     </div>
                 </div>
                 <div className={styles.model}>
@@ -76,5 +80,7 @@ export default function Customize() {
                 </div>
             </main>
         </div>
+        </>
+        
     )
 }

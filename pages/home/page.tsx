@@ -1,11 +1,15 @@
+'use client';
 import React from 'react';
 import styles from './home.module.scss';
 import Header from 'components/Header/Header';
 import Image from 'next/image';
 import { Button } from 'components/Button';
+import { ClientInteraction, CheckboxWithLabel } from '@pasal/cio-component-library';
 
 export default function Home() {
     return (
+        <>
+       
         <div className={styles.page__container}>
             <Header showNavigation/>
             <div className={styles.mid__content}>
@@ -40,5 +44,7 @@ export default function Home() {
             </div>
 
         </div>
+        </>
+        
     )
 }

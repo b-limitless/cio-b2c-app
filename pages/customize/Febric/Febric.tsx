@@ -1,9 +1,11 @@
 import React from 'react';
 import styles from './febric.module.scss';
 import Image from 'next/image';
+import Filter from './Filter';
 
 export default function Febric() {
     return (
+        <>
         <div className={styles.febric}>
             <div className={styles.img}>
                 <Image alt='' src='/img/febric-thumnail.png' width={140} height={103} ></Image>
@@ -36,5 +38,7 @@ export default function Febric() {
             </div>
 
         </div>
+        </>
+        
     )
 }
