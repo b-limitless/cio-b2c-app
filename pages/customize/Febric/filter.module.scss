@@ -1,5 +1,6 @@
 @import "../../../styles/functions";
 @import "../../../styles/variables";
+@import "../../../styles/minxin/scroolbar.scss";
 .filter {
   position: fixed;
   top: 103px;
@@ -48,6 +49,10 @@
 
   .toggle__container {
     margin-top: calc(39px - 23.01px);
+    height: calc(100vh - (103px + 56px + 21.01px + 19.5px + 15.99px));
+    overflow: auto;
+
+    @include scroolbar();
     .item {
       display: flex;
       flex-direction: column;
@@ -71,6 +76,7 @@
         align-items: center;
         padding: 23.01px 15px 21px 23px;
         border-bottom: 1px solid #e5e5e5;
+        text-transform: uppercase;
       }
 
       .form__element {
@@ -85,8 +91,13 @@
           padding: 39.01px calc(49px - 9px) 25px calc(57px - 9px);
         }
         .colors {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
+        //   display: grid;
+        //   grid-template-columns: repeat(4, 1fr);
+        display: flex;
+        flex-wrap: wrap;
+          padding: 39.01px calc(49px - 9px) 25px 24px;
+          
+         
 
           .color__checkbox:checked + .label > .color {
             border: 2px solid #000000;
