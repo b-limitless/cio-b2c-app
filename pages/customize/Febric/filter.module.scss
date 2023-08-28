@@ -84,6 +84,24 @@
           grid-template-columns: 1fr 1fr;
           padding: 39.01px calc(49px - 9px) 25px calc(57px - 9px);
         }
+        .colors {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+
+          .color__checkbox:checked + .label > .color {
+            border: 2px solid #000000;
+          }
+
+          .label {
+            border-bottom: none;
+            .color {
+              width: 30px;
+              height: 30px;
+              background-color: red;
+              border-radius: 100%;
+            }
+          }
+        }
       }
     }
   }
