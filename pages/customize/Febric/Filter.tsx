@@ -2,12 +2,7 @@ import React from 'react'
 import styles from './filter.module.scss';
 import Image from 'next/image';
 import { CheckboxWithLabel } from 'components/Checkbox/Checkbox';
-
-
-
-
 export default function Filter() {
-    
     return (
         <div className={styles.filter}>
             <div className={styles.header }>
@@ -26,9 +21,10 @@ export default function Filter() {
                     Febrics
                 </span>
             </div>
-            
             <div className={styles.toggle__container}>
                 <div className={styles.item}>
+                        <input hidden type='checkbox' name='' id='category' className={styles.options__checkbox}/>
+                        
                         <label htmlFor='category' className={styles.label}>
                             <span className={styles.title}>
                                 CATEGORY
@@ -37,17 +33,41 @@ export default function Filter() {
                                 <Image width={14} height={8} src={'/icon/arrow-up.svg'} alt=''></Image>
                             </span>
                         </label>
-                        <input hidden type='checkbox' name='' id='category' />
-                       
+                        
                         <div className={styles.form__element}>
-                            <CheckboxWithLabel label='New'/> 
-                            <CheckboxWithLabel label='Eco/Organic'/>
-                            <CheckboxWithLabel label='New'/>
-                            <CheckboxWithLabel label='Eco/Organic'/>
-                            <CheckboxWithLabel label='New'/>
-                            <CheckboxWithLabel label='Eco/Organic'/>
+                            <div className={styles.wrapper}>
+                                <CheckboxWithLabel label='New'/> 
+                                <CheckboxWithLabel label='Eco/Organic'/>
+                                <CheckboxWithLabel label='New'/>
+                                <CheckboxWithLabel label='Eco/Organic'/>
+                                <CheckboxWithLabel label='New'/>
+                                <CheckboxWithLabel label='Eco/Organic'/>
+                            </div>
                         </div>
-                    
+                </div>
+
+                <div className={styles.item}>
+                        <input hidden type='checkbox' name='' id='material' className={styles.options__checkbox}/>
+                        
+                        <label htmlFor='material' className={styles.label}>
+                            <span className={styles.title}>
+                                MATERIAL
+                            </span>
+                            <span className={styles.indicator}>
+                                <Image width={14} height={8} src={'/icon/arrow-up.svg'} alt=''></Image>
+                            </span>
+                        </label>
+                        
+                        <div className={styles.form__element}>
+                            <div className={styles.wrapper}>
+                                <CheckboxWithLabel label='New'/> 
+                                <CheckboxWithLabel label='Eco/Organic'/>
+                                <CheckboxWithLabel label='New'/>
+                                <CheckboxWithLabel label='Eco/Organic'/>
+                                <CheckboxWithLabel label='New'/>
+                                <CheckboxWithLabel label='Eco/Organic'/>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
