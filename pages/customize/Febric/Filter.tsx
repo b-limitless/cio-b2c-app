@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from './filter.module.scss';
 import Image from 'next/image';
-import { CheckboxWithLabel } from '@pasal/cio-component-library';
+import { CheckboxWithLabel } from 'components/Checkbox/Checkbox';
+
 
 
 
@@ -39,12 +40,12 @@ export default function Filter() {
                         <input hidden type='checkbox' name='' id='category' />
                        
                         <div className={styles.form__element}>
-                            {/* <CheckboxWithLabel label='New'/> */}
-                            {/* <CheckboxWithLabel label='Eco/Organic'/>
+                            <CheckboxWithLabel label='New'/> 
+                            <CheckboxWithLabel label='Eco/Organic'/>
                             <CheckboxWithLabel label='New'/>
                             <CheckboxWithLabel label='Eco/Organic'/>
                             <CheckboxWithLabel label='New'/>
-                            <CheckboxWithLabel label='Eco/Organic'/> */}
+                            <CheckboxWithLabel label='Eco/Organic'/>
                         </div>
                     
                 </div>

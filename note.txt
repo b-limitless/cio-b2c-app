@@ -1,0 +1,15 @@
+
+
+Pros
+=======
+1. In out next app we do not have a lots of component which can be used from component library
+2. Copy required component and use inside next app
+3. We we need client interaction then we can copy and pest in next app use them like any other normal app
+4. If client interaction need to be integrated in any other js app than it can be used as I have tested in react 18 with node 18 version its working file and it will work with static sites as well by importing the build file.
+5. In next case we can manually use them in codebase
+
+
+Cons
+====
+1. In the term of client interaction need to be updated two places - Perhaps would be okay
+

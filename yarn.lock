@@ -262,7 +262,7 @@
   "resolved" "https://registry.npmjs.org/@mui/core-downloads-tracker/-/core-downloads-tracker-5.14.6.tgz"
   "version" "5.14.6"
 
-"@mui/material@^5.13.5":
+"@mui/material@^5.13.5", "@mui/material@^5.14.6":
   "integrity" "sha512-C3UgGrmtvcGkQkm0ONBU7bTdapTjQc2Se3b2354xMmU7lgSgW7VM6EP9wIH5XqqoJ60m9l/s9kbTWX0Y+EaWvA=="
   "resolved" "https://registry.npmjs.org/@mui/material/-/material-5.14.6.tgz"
   "version" "5.14.6"
@@ -329,10 +329,10 @@
     "prop-types" "^15.8.1"
     "react-is" "^18.2.0"
 
-"@next/env@13.4.19":
-  "integrity" "sha512-FsAT5x0jF2kkhNkKkukhsyYOrRqtSxrEhfliniIq0bwWbuXLgyt3Gv0Ml+b91XwjwArmuP7NxCiGd++GGKdNMQ=="
-  "resolved" "https://registry.npmjs.org/@next/env/-/env-13.4.19.tgz"
-  "version" "13.4.19"
+"@next/env@13.4.12":
+  "integrity" "sha512-RmHanbV21saP/6OEPBJ7yJMuys68cIf8OBBWd7+uj40LdpmswVAwe1uzeuFyUsd6SfeITWT3XnQfn6wULeKwDQ=="
+  "resolved" "https://registry.npmjs.org/@next/env/-/env-13.4.12.tgz"
+  "version" "13.4.12"
 
 "@next/eslint-plugin-next@13.4.19":
   "integrity" "sha512-N/O+zGb6wZQdwu6atMZHbR7T9Np5SUFUjZqCbj0sXm+MwQO35M8TazVB4otm87GkXYs2l6OPwARd3/PUWhZBVQ=="
@@ -341,10 +341,15 @@
   dependencies:
     "glob" "7.1.7"
 
-"@next/swc-darwin-x64@13.4.19":
-  "integrity" "sha512-jyzO6wwYhx6F+7gD8ddZfuqO4TtpJdw3wyOduR4fxTUCm3aLw7YmHGYNjS0xRSYGAkLpBkH1E0RcelyId6lNsw=="
-  "resolved" "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-13.4.19.tgz"
+"@next/font@^13.4.19":
+  "integrity" "sha512-yOuSRYfqksWcaG/sATr1/DEGvvI8gnmAAnQCCZ0+L9p4Pio3/DMu71J56YHh9Hz84LDN4tMVzuux0ssCuM50sA=="
+  "resolved" "https://registry.npmjs.org/@next/font/-/font-13.4.19.tgz"
   "version" "13.4.19"
+
+"@next/swc-darwin-x64@13.4.12":
+  "integrity" "sha512-WRvH7RxgRHlC1yb5oG0ZLx8F7uci9AivM5/HGGv9ZyG2Als8Ij64GC3d+mQ5sJhWjusyU6T6V1WKTUoTmOB0zQ=="
+  "resolved" "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-13.4.12.tgz"
+  "version" "13.4.12"
 
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
@@ -1862,12 +1867,12 @@
   "resolved" "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   "version" "1.4.0"
 
-"next@13.4.19":
-  "integrity" "sha512-HuPSzzAbJ1T4BD8e0bs6B9C1kWQ6gv8ykZoRWs5AQoiIuqbGHHdQO7Ljuvg05Q0Z24E2ABozHe6FxDvI6HfyAw=="
-  "resolved" "https://registry.npmjs.org/next/-/next-13.4.19.tgz"
-  "version" "13.4.19"
+"next@13.4.12":
+  "integrity" "sha512-eHfnru9x6NRmTMcjQp6Nz0J4XH9OubmzOa7CkWL+AUrUxpibub3vWwttjduu9No16dug1kq04hiUUpo7J3m3Xw=="
+  "resolved" "https://registry.npmjs.org/next/-/next-13.4.12.tgz"
+  "version" "13.4.12"
   dependencies:
-    "@next/env" "13.4.19"
+    "@next/env" "13.4.12"
     "@swc/helpers" "0.5.1"
     "busboy" "1.6.0"
     "caniuse-lite" "^1.0.30001406"
@@ -1876,15 +1881,15 @@
     "watchpack" "2.4.0"
     "zod" "3.21.4"
   optionalDependencies:
-    "@next/swc-darwin-arm64" "13.4.19"
-    "@next/swc-darwin-x64" "13.4.19"
-    "@next/swc-linux-arm64-gnu" "13.4.19"
-    "@next/swc-linux-arm64-musl" "13.4.19"
-    "@next/swc-linux-x64-gnu" "13.4.19"
-    "@next/swc-linux-x64-musl" "13.4.19"
-    "@next/swc-win32-arm64-msvc" "13.4.19"
-    "@next/swc-win32-ia32-msvc" "13.4.19"
-    "@next/swc-win32-x64-msvc" "13.4.19"
+    "@next/swc-darwin-arm64" "13.4.12"
+    "@next/swc-darwin-x64" "13.4.12"
+    "@next/swc-linux-arm64-gnu" "13.4.12"
+    "@next/swc-linux-arm64-musl" "13.4.12"
+    "@next/swc-linux-x64-gnu" "13.4.12"
+    "@next/swc-linux-x64-musl" "13.4.12"
+    "@next/swc-win32-arm64-msvc" "13.4.12"
+    "@next/swc-win32-ia32-msvc" "13.4.12"
+    "@next/swc-win32-x64-msvc" "13.4.12"
 
 "normalize-path@^3.0.0", "normalize-path@~3.0.0":
   "integrity" "sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA=="
