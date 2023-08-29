@@ -1,6 +1,13 @@
 @import "../../../styles/functions";
 @import "../../../styles/variables";
 @import "../../../styles/minxin/scroolbar.scss";
+
+.hide {
+    left: -425px;
+}
+.show {
+    left: 0px;
+}
 .filter {
   position: fixed;
   top: 103px;
@@ -10,6 +17,9 @@
   max-width: 425px;
   z-index: 1;
   width: 100%;
+  transition: left .35s ease-in;
+
+  
 
   .header {
     display: flex;

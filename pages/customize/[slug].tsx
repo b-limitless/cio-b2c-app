@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Header from 'components/Header/Header';
 import { productNavigation } from 'config/product';
@@ -13,17 +13,19 @@ const countArray = new Array(20).fill(0);
 
 export default function Customize() {
     const router = useRouter();
+    const [showFilterModel, setShowFilterModel] = useState(false);
 
+    console.log(showFilterModel)
     return (
         <>
-        <Filter/>
+       <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel}/>
         <div className={styles.container}>
             <Header navigations={productNavigation} showNavigation />
             
             <main className={styles.main__content}>
                 <div className={styles.filter}>
                     <div className={styles.action}>
-                        <Image src='/icon/filter.svg' width={14} height={10} alt='filter'></Image>
+                        <Image src='/icon/filter.svg' width={14} height={10} alt='filter' onClick={() => setShowFilterModel(true)}></Image>
                         <div className={styles.text}>
                             <span className={styles.febric}>
                             FILTERS

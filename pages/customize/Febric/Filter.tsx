@@ -3,15 +3,19 @@ import Image from 'next/image';
 import FilterItem from './FilterItem';
 import styles from './filter.module.scss';
 
-export default function Filter() {
+interface FilterInterface {
+    setShowFilterModel:Function;
+    showFilterModel:boolean;
+}
+export default function Filter({setShowFilterModel, showFilterModel}: FilterInterface) {
     return (
-        <div className={styles.filter}>
+        <div className={styles.filter + ' ' + (showFilterModel ? styles.show : styles.hide)}>
             <div className={styles.header}>
                 <span className={styles.title}>
                     FILTER
                 </span>
                 <span className={styles.close}>
-                    <Image src='/icon/close.svg' width={16} height={16} alt='' />
+                    <Image src='/icon/close.svg' width={16} height={16} alt='' onClick={() => setShowFilterModel(false)}/>
                 </span>
             </div>
             <div className={styles.num__febrics}>
