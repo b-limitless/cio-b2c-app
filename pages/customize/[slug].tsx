@@ -8,16 +8,22 @@ import styles from './customize.module.scss';
 import Febric from './Febric';
 import Filter from './Febric/Filter';
 import { CheckboxWithLabel } from '@pasal/cio-component-library';
+import FebricDetails from './FebricDetails';
 
 const countArray = new Array(20).fill(0);
 
 export default function Customize() {
     const router = useRouter();
     const [showFilterModel, setShowFilterModel] = useState(false);
+    const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(false);
 
     console.log(showFilterModel)
     return (
         <>
+        
+     {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel}/>
+     }
+       
        <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel}/>
         <div className={styles.container}>
             <Header navigations={productNavigation} showNavigation />
@@ -40,7 +46,7 @@ export default function Customize() {
                     </div>
 
                     <div className={styles.febrics}>
-                        {countArray.map((_, i) => <Febric key={'febri-item' + i}/>)}
+                        {countArray.map((_, i) => <Febric key={'febri-item' + i} setShowFebricDetailsModel={setShowFebricDetailsModel}/>)}
                     </div>
                 </div>
                 <div className={styles.model}>

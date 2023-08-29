@@ -3,14 +3,18 @@ import styles from './febric.module.scss';
 import Image from 'next/image';
 import Filter from './Filter';
 
-export default function Febric() {
+interface FebricInterface {
+    setShowFebricDetailsModel:Function;
+}
+
+export default function Febric({setShowFebricDetailsModel}: FebricInterface) {
     return (
         <>
         <div className={styles.febric}>
             <div className={styles.img}>
                 <Image alt='' src='/img/febric-thumnail.png' width={140} height={103} ></Image>
 
-                <Image src={'/icon/search.svg'} className={styles.search__icon} width={14} height={14} alt='search'></Image>
+                <Image src={'/icon/search.svg'} className={styles.search__icon} width={14} height={14} alt='search' onClick={() => setShowFebricDetailsModel(true)}></Image>
 
                 <span className={styles.feature}>
                     NEW
