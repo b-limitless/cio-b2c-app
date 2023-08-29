@@ -1,13 +1,12 @@
-export interface ColorInterface {
-  title: string;
-  hex: string;
+export interface FebricBase {
+  name: string;
+  code: string;
+}
+export interface ColorInterface extends FebricBase {
   i: number;
 }
 
-
-export interface FilterItemInterface {
-  label: string;
-  value: string;
+export interface FilterItemInterface extends FebricBase {
   childrens: any[];
   type: string;
 }

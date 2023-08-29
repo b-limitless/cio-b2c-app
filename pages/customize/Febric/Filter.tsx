@@ -29,7 +29,8 @@ export default function Filter({setShowFilterModel, showFilterModel}: FilterInte
             <div className={styles.toggle__container}>
                 {filterData.map((filter, i) => <FilterItem
                     key={`filter-item-${i}`}
-                    label={filter.label} value={filter.value}
+                    name={filter.name} 
+                    code={filter.code}
                     childrens={filter.childrens}
                     type={filter.type}
                 />

@@ -4,41 +4,15 @@ import Image from "next/image";
 import { CheckboxWithLabel } from "components/Checkbox/Checkbox";
 import Color from "./Color";
 
-const colors = [{
-    title: "Red",
-    hex: "#FF0000"
-},
-{
-    title: "green",
-    hex: "green"
-},
-{
-    title: "blue",
-    hex: "blue"
-},
-{
-    title: "Red",
-    hex: "#FF0000"
-},
-{
-    title: "green",
-    hex: "green"
-},
-{
-    title: "blue",
-    hex: "blue"
-}
-]
 
 
-
-const FilterItem = ({ label, value, childrens, type }: FilterItemInterface) => {
+const FilterItem = ({ name, code, childrens, type }: FilterItemInterface) => {
     return <div className={styles.item}>
-        <input hidden type='checkbox' name='' id={value} className={styles.options__checkbox} />
+        <input hidden type='checkbox' name='' id={code} className={styles.options__checkbox} />
 
-        <label htmlFor={value} className={styles.label}>
+        <label htmlFor={code} className={styles.label}>
             <span className={styles.title}>
-                {label}
+                {name}
             </span>
             <span className={styles.indicator}>
                 <Image width={14} height={8} src={'/icon/arrow-up.svg'} alt=''></Image>
@@ -46,18 +20,18 @@ const FilterItem = ({ label, value, childrens, type }: FilterItemInterface) => {
         </label>
 
         <div className={styles.form__element}>
-            {type === 'text' && 
-            <div className={styles.wrapper}>
-                {childrens.map((children, i) => <CheckboxWithLabel key={`${i}-filter-checkbox`} label={children.label} />)}
-            </div>}
+            {type === 'text' &&
+                <div className={styles.wrapper}>
+                    {childrens.map((children, i) => <CheckboxWithLabel key={`${i}-filter-checkbox`} label={children.name} />)}
+                </div>}
 
 
-            {type === 'color' && 
-            <div className={styles.colors}>
-                {colors.map((color, i) => <Color i={i} key={`${color}-${i}`} title={color.title} hex={color.hex} />)}
-            </div>}
+            {type === 'color' &&
+                <div className={styles.colors}>
+                    {childrens.map((color, i) => <Color i={i} key={`${color}-${i}`} name={color.name} code={color.code} />)}
+                </div>}
 
-            
+
         </div>
     </div>
 }

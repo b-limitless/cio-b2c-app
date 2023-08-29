@@ -1,11 +1,11 @@
 import { ColorInterface } from "./filter.interface"
 import styles from './filter.module.scss';
 
-const Color = ({ title, hex, i }: ColorInterface) => {
+const Color = ({ name, code, i }: ColorInterface) => {
     return <>
-        <input type="checkbox" hidden name="color" id={title + hex + i} className={styles.color__checkbox} />
-        <label htmlFor={title + hex + i} className={styles.label}>
-            <span className={styles.color} style={{ backgroundColor: `${hex}` }}></span>
+        <input type="checkbox" hidden name="color" id={name + code + i} className={styles.color__checkbox} />
+        <label htmlFor={name + code + i} className={styles.label}>
+            <span className={styles.color} style={{ backgroundColor: `${code}` }}></span>
         </label>
     </>
 }

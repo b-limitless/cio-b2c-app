@@ -185,5 +185,41 @@ export const febricTypes = [
     },
   ];
   
+
+  export const febricColor = [
+    {
+      name: "Gray",
+      code: "#808080",
+    },
+    {
+      name: "Navy Blue",
+      code: "#000080",
+    },
+    {
+      name: "Black",
+      code: "#000000",
+    },
+    {
+      name: "White",
+      code: "#ffffff",
+    },
+    {
+      name: "Khaki",
+      code: "#c3b091",
+    },
+    {
+      name: "Brown",
+      code: "#a52a2a",
+    },
+    {
+      name: "Charcoal",
+      code: "#36454f",
+    },
+    {
+      name: "Olive",
+      code: "#808000",
+    },
+    // Add more colors as needed
+  ];
   
   export const excellence = [{name: 0, code: 0},{name: 1, code: 1}, {name: 2, code: 2}]
