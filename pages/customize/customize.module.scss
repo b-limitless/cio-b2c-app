@@ -20,10 +20,17 @@
     padding: pxToRem(72) 18px 18px 11px;
     background: $light;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+    .title {
+      font-family: $default-font;
+      padding-bottom: 13.61px;
+      border-bottom: 1px solid #E5E5E5;
+    }
     .action {
       display: flex;
       align-items: center;
       column-gap: 9px;
+      margin-top: 29.39px;
       .text {
         display: flex;
         column-gap: 4px;
@@ -51,7 +58,7 @@
       display: flex;
       flex-wrap: wrap;
       column-gap: 1rem;
-      height: calc(100vh - (2.5rem + 56.5px + 4.5rem + 11px + 21px + 40px));
+      height: calc(100vh - (2.5rem + 56.5px + 4.5rem + 11px + 21px + 40px + 20.39px + 61.4px));
       overflow: auto;
       padding-right: 11px;
 

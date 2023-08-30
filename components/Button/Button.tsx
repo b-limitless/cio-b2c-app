@@ -8,8 +8,9 @@ interface ButtonInterface {
     children:ReactNode;
     type: buttonType;
     variant: buttonVariant;
+    [x:string]:any;
 }
-export default function Button({children, type, variant}: ButtonInterface) {
+export default function Button({children, type, variant, ...rest}: ButtonInterface) {
   
   let buttonBaseClass = styles.btn;
   
@@ -22,7 +23,7 @@ export default function Button({children, type, variant}: ButtonInterface) {
   }
   
   return (
-    <button className={buttonBaseClass}>
+    <button className={buttonBaseClass} {...rest}>
         {children}
     </button>
   )

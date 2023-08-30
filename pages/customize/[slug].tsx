@@ -9,15 +9,28 @@ import Febric from './Febric';
 import Filter from './Febric/Filter';
 import { CheckboxWithLabel } from '@pasal/cio-component-library';
 import FebricDetails from './FebricDetails';
+import { SelectionProcess, SelectionTypes } from './enums';
+import { selectClasses } from '@mui/material';
 
 const countArray = new Array(20).fill(0);
+
+
 
 export default function Customize() {
     const router = useRouter();
     const [showFilterModel, setShowFilterModel] = useState(false);
     const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(false);
+    const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
 
-    console.log(showFilterModel)
+    const nextStepHandler = () => {
+        // First get the index of selected step 
+        console.log("hello world")
+        const findIndex = Object.keys(SelectionProcess).indexOf(designJourney);
+        // Add one to that index 
+        const getNextValue = Object.values(SelectionProcess)[findIndex + 1];
+        setDesignJourney(getNextValue);
+    }
+
     return (
         <>
         
@@ -26,10 +39,13 @@ export default function Customize() {
        
        <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel}/>
         <div className={styles.container}>
-            <Header navigations={productNavigation} showNavigation />
+            <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
             
             <main className={styles.main__content}>
+
                 <div className={styles.filter}>
+                <div className={styles.title}>Select {designJourney}</div>
+                    <>
                     <div className={styles.action}>
                         <Image src='/icon/filter.svg' width={14} height={10} alt='filter' onClick={() => setShowFilterModel(true)}></Image>
                         <div className={styles.text}>
@@ -48,6 +64,8 @@ export default function Customize() {
                     <div className={styles.febrics}>
                         {countArray.map((_, i) => <Febric key={'febri-item' + i} setShowFebricDetailsModel={setShowFebricDetailsModel}/>)}
                     </div>
+                    </>
+                    
                 </div>
                 <div className={styles.model}>
                     <Image src='/img/shirt.png' width={503} height={600} alt='model' />
@@ -74,7 +92,7 @@ export default function Customize() {
                         </div>
                     </div>
                     <div className={styles.row}>
-                        <Button variant='primary' type='square'>
+                        <Button variant='primary' type='square' onClick={() => nextStepHandler()}>
                             <span>Next</span>
                         </Button>
                         <div className={styles.receives__when}>

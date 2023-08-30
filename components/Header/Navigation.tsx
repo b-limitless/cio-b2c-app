@@ -1,21 +1,29 @@
 import React from 'react';
 import styles from './header.module.scss';
 import Image from 'next/image';
+import { SelectionTypes } from 'pages/customize/enums';
 
 export interface navigationRow {
     title: string;
     value: string;
+    designJourney?: SelectionTypes;
+    setDesignJourney?: Function;
+    
 }
 
 
 export interface NavigationInterface {
     data: navigationRow[]
+    designJourney?: SelectionTypes;
+    setDesignJourney?:Function;
 }
 
-const NavigationItem = ({ title, value }: navigationRow) => {
+const NavigationItem = ({ title, value, designJourney, setDesignJourney }: navigationRow) => {
+
+    console.log("setDesignJourney, ", setDesignJourney)
     return <>
-        <input type="radio" className={styles.navigation__radio} name="navigation" id={value} />
-        <label htmlFor={value}>
+        <input type="radio" className={styles.navigation__radio} name="navigation" id={value} checked={designJourney === value} readOnly/>
+        <label htmlFor={value} onClick={() => setDesignJourney ? setDesignJourney(value) : null}>
             <li>
                 <span>
                     {title}
@@ -34,10 +42,10 @@ const NavigationItem = ({ title, value }: navigationRow) => {
     </>
 }
 
-export default function Navigation({ data }: NavigationInterface) {
+export default function Navigation({ data, designJourney, setDesignJourney }: NavigationInterface) {
     return (
         <ul>
-            {data.map((item: navigationRow, i) => <NavigationItem key={`navigation-item-${i}`} title={item.title} value={item.value} />)}
+            {data.map((item: navigationRow, i) => <NavigationItem key={`navigation-item-${i}`} title={item.title} value={item.value} designJourney={designJourney} setDesignJourney={setDesignJourney}/>)}
         </ul>
     )
 }

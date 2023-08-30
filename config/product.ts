@@ -1,18 +1,14 @@
 export const productNavigation = [
     {
-        title: "fabric", 
-        value: "febric"
+        title: "fabrics", 
+        value: "febrics"
     }, 
     {
-        title: "style", 
-        value: "style"
+        title: "styles", 
+        value: "styles"
     }, 
     {
-        title: "accent", 
-        value: "accent"
+        title: "accents", 
+        value: "accents"
     }, 
-    {
-        title: "something", 
-        value: "something"
-    }
 ]

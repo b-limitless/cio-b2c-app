@@ -2,14 +2,19 @@ import React from 'react';
 import styles from './header.module.scss';
 import Image from 'next/image';
 import Navigation, { navigationRow } from './Navigation';
+import { SelectionTypes } from 'pages/customize/enums';
 
 
 interface HeaderInterface {
     showNavigation?: boolean;
     navigations?: navigationRow[]
+    designJourney?: SelectionTypes;
+    setDesignJourney?: Function;
 }
 
-export default function Header({ showNavigation, navigations }: HeaderInterface) {
+export default function Header({ showNavigation, navigations, designJourney, setDesignJourney}: HeaderInterface) {
+
+    console.log("setDesignJourney", setDesignJourney)
     return (
         <header className={styles.header}>
             <div className={styles.col}>
@@ -22,7 +27,7 @@ export default function Header({ showNavigation, navigations }: HeaderInterface)
             </div>
             {showNavigation && navigations && <div className={styles.col}>
                 <div className={styles.nav}>
-                    <Navigation data={navigations} />
+                    <Navigation data={navigations} designJourney={designJourney} setDesignJourney={setDesignJourney}/ >
                 </div>
             </div>}
 
