@@ -1,11 +1,62 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from './styles.module.scss';
+import ProductStyles from './ProductStyles';
+
+// Defining the data for the styles
+const productStyles = [{
+    label: 'collars',
+    code: 'collars', 
+    childrens: [
+        {
+            label: 'button down',
+            code: 'button_down',
+            mediaUrl: '/icon/collars/button-down.svg'
+        }, 
+        {
+            label: 'button down',
+            code: 'button_down',
+            mediaUrl: '/icon/collars/button-down.svg'
+        }, 
+        {
+            label: 'button down',
+            code: 'button_down',
+            mediaUrl: '/icon/collars/button-down.svg'
+        }
+    ]
+},
+{
+    label: 'cuff',
+    code: 'cuff', 
+    childrens: [
+        {
+            label: 'button down',
+            code: 'button_down',
+            mediaUrl: '/icon/collars/button-down.svg'
+        }, 
+        {
+            label: 'button down',
+            code: 'button_down',
+            mediaUrl: '/icon/collars/button-down.svg'
+        }, 
+        {
+            label: 'button down',
+            code: 'button_down',
+            mediaUrl: '/icon/collars/button-down.svg'
+        }
+    ]
+}
+]
+
+const ProductStyle = () => {
+
+}
 
 export default function Styles() {
   return (
    <div className={styles.styles__container}>
-        <div className={styles.row}>
+     {productStyles.map((product, i) => <ProductStyles key={`product-style-${i}`} label={product.label} childrens={product.childrens} code={product.code}/>)}
+        {/* <div className={styles.row}>
             <div className={styles.title}>COLLARS</div>
             <div className={styles.items}>
                 <>
@@ -29,7 +80,7 @@ export default function Styles() {
                 </>
                 
             </div>
-        </div>
+        </div> */}
         {/* <div className={styles.row}>
             <div className={styles.title}>COLLARS</div>
             <div className={styles.items}>
