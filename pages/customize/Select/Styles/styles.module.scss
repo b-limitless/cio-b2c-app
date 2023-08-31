@@ -1,0 +1,57 @@
+@import "styles/functions";
+@import "styles/variables";
+@import "styles/minxin/scroolbar.scss";
+
+.styles__container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+    margin-top: 20.39px;
+    .row {
+        display: flex;
+        flex-direction: column;
+        row-gap: 23px;
+        .title {
+            color: #000;
+            font-family: $default-font;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+        .items {
+            display: flex;
+            column-gap: 24px;
+            align-items: center;
+
+        .item {
+            position: relative;
+        }
+
+         & .checkbox:checked + .item::before {
+            position: absolute;
+
+            content: url('/icon/checked.svg');
+            top: -14px;
+         }
+            .item {
+                .col {
+                display: flex;
+                flex-direction: column;
+                row-gap: 10.07px;
+                align-items: center;
+
+                .style__name {
+                    color: var(--dark-blue-1, #1B365C);
+                    font-family: $default-font;
+                    font-size: 10px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    text-transform: uppercase;
+                }
+                }
+            }
+            }
+    }
+}

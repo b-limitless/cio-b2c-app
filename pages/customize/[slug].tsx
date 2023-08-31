@@ -11,8 +11,11 @@ import { CheckboxWithLabel } from '@pasal/cio-component-library';
 import FebricDetails from './FebricDetails';
 import { SelectionProcess, SelectionTypes } from './enums';
 import { selectClasses } from '@mui/material';
+import Febrics from './Select/Febrics';
+import Styles from './Select/Styles';
+import Accents from './Select/Accents';
 
-const countArray = new Array(20).fill(0);
+
 
 
 
@@ -24,7 +27,6 @@ export default function Customize() {
 
     const nextStepHandler = () => {
         // First get the index of selected step 
-        console.log("hello world")
         const findIndex = Object.keys(SelectionProcess).indexOf(designJourney);
         // Add one to that index 
         const getNextValue = Object.values(SelectionProcess)[findIndex + 1];
@@ -45,7 +47,10 @@ export default function Customize() {
 
                 <div className={styles.filter}>
                 <div className={styles.title}>Select {designJourney}</div>
-                    <>
+
+                    {/* Base on different selection different component need to be shown */}
+                    {/* types would be febric, styles, accents  */}
+                    {/* <>
                     <div className={styles.action}>
                         <Image src='/icon/filter.svg' width={14} height={10} alt='filter' onClick={() => setShowFilterModel(true)}></Image>
                         <div className={styles.text}>
@@ -64,7 +69,15 @@ export default function Customize() {
                     <div className={styles.febrics}>
                         {countArray.map((_, i) => <Febric key={'febri-item' + i} setShowFebricDetailsModel={setShowFebricDetailsModel}/>)}
                     </div>
-                    </>
+                    </> */}
+                    {designJourney === 'febrics' && <Febrics 
+                      setShowFilterModel={setShowFilterModel} 
+                      setShowFebricDetailsModel={setShowFebricDetailsModel}
+                    />}
+
+                    {designJourney === 'styles' && <Styles/>}
+
+                    {designJourney === 'accents' && <Accents/>}
                     
                 </div>
                 <div className={styles.model}>

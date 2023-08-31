@@ -19,8 +19,6 @@ export interface NavigationInterface {
 }
 
 const NavigationItem = ({ title, value, designJourney, setDesignJourney }: navigationRow) => {
-
-    console.log("setDesignJourney, ", setDesignJourney)
     return <>
         <input type="radio" className={styles.navigation__radio} name="navigation" id={value} checked={designJourney === value} readOnly/>
         <label htmlFor={value} onClick={() => setDesignJourney ? setDesignJourney(value) : null}>
