@@ -40,7 +40,7 @@ export default function ProductStyles({ label, childrens, code }: ProductStylesI
                     key={`items-${i}`}
                     name={code}
                     id={`styles-children-${code}-${i}`}
-                    title={children.title}
+                    title={children.label}
                     mediaUrl={children.mediaUrl}
                 />)}
                 {/* <>

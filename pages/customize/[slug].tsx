@@ -42,7 +42,6 @@ export default function Customize() {
        <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel}/>
         <div className={styles.container}>
             <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
-            
             <main className={styles.main__content}>
 
                 <div className={styles.filter}>

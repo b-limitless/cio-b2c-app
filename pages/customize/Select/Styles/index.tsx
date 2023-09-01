@@ -1,111 +1,65 @@
-import React from 'react';
-import Image from 'next/image';
-import styles from './styles.module.scss';
 import ProductStyles from './ProductStyles';
+import styles from './styles.module.scss';
 
 // Defining the data for the styles
 const productStyles = [{
     label: 'collars',
-    code: 'collars', 
+    code: 'collars',
     childrens: [
         {
             label: 'button down',
             code: 'button_down',
             mediaUrl: '/icon/collars/button-down.svg'
-        }, 
+        },
         {
-            label: 'button down',
-            code: 'button_down',
-            mediaUrl: '/icon/collars/button-down.svg'
-        }, 
+            label: 'club',
+            code: 'club',
+            mediaUrl: '/icon/collars/club.svg'
+        },
         {
-            label: 'button down',
-            code: 'button_down',
-            mediaUrl: '/icon/collars/button-down.svg'
+            label: 'cutway',
+            code: 'cutway',
+            mediaUrl: '/icon/collars/cutway.svg'
+        },
+        {
+            label: 'straight',
+            code: 'straight',
+            mediaUrl: '/icon/collars/straight.svg'
         }
     ]
 },
 {
     label: 'cuff',
-    code: 'cuff', 
+    code: 'cuff',
     childrens: [
         {
-            label: 'button down',
+            label: 'french',
             code: 'button_down',
-            mediaUrl: '/icon/collars/button-down.svg'
-        }, 
+            mediaUrl: '/icon/cuff/french.svg'
+        },
         {
-            label: 'button down',
-            code: 'button_down',
-            mediaUrl: '/icon/collars/button-down.svg'
-        }, 
+            label: 'one button',
+            code: 'one_button',
+            mediaUrl: '/icon/cuff/one-button.svg'
+        },
         {
-            label: 'button down',
+            label: 'three button',
             code: 'button_down',
-            mediaUrl: '/icon/collars/button-down.svg'
+            mediaUrl: '/icon/cuff/three-button.svg'
+        },
+        {
+            label: 'two button',
+            code: 'two_button',
+            mediaUrl: '/icon/cuff/two-button.svg'
         }
     ]
 }
 ]
 
-const ProductStyle = () => {
-
-}
-
 export default function Styles() {
-  return (
-   <div className={styles.styles__container}>
-     {productStyles.map((product, i) => <ProductStyles key={`product-style-${i}`} label={product.label} childrens={product.childrens} code={product.code}/>)}
-        {/* <div className={styles.row}>
-            <div className={styles.title}>COLLARS</div>
-            <div className={styles.items}>
-                <>
-                <input className={styles.checkbox}type='radio' name='collar' id='style-1' hidden/>
-                <label className={styles.item} htmlFor='style-1'>
-                <span className={styles.col}>
-                    <Image src='/icon/collars/button-down.svg' width={60} height={51.93} alt='styles'/>
-                    <span className={styles.style__name}>Button down</span>
-                </span>
-                </label>
-                </>
-
-                <>
-                <input className={styles.checkbox}type='radio' name='collar' id='style-2' hidden/>
-                <label className={styles.item} htmlFor='style-2'>
-                <span className={styles.col}>
-                    <Image src='/icon/collars/button-down.svg' width={60} height={51.93} alt='styles'/>
-                    <span className={styles.style__name}>Button down</span>
-                </span>
-                </label>
-                </>
-                
-            </div>
-        </div> */}
-        {/* <div className={styles.row}>
-            <div className={styles.title}>COLLARS</div>
-            <div className={styles.items}>
-                <div className={styles.item}>
-                <div className={styles.col}>
-                    <Image src='/icon/collars/button-down.svg' width={60} height={51.93} alt='styles'/>
-                    <div className={styles.style__name}>Button down</div>
-                </div>
-                </div>
-               
-                <div className={styles.item}>
-                <div className={styles.col}>
-                    <Image src='/icon/collars/button-down.svg' width={60} height={51.93} alt='styles'/>
-                    <div className={styles.style__name}>Button down</div>
-                </div>
-                </div>
-
-                <div className={styles.item}>
-                <div className={styles.col}>
-                    <Image src='/icon/collars/button-down.svg' width={60} height={51.93} alt='styles'/>
-                    <div className={styles.style__name}>Button down</div>
-                </div>
-                </div>
-            </div>
-        </div> */}
-   </div>
-  )
+    return (
+        <div className={styles.styles__container}>
+            {productStyles.map((product, i) => <ProductStyles key={`product-style-${i}`} label={product.label} childrens={product.childrens} code={product.code} />)}
+        </div>
+    )
 }
