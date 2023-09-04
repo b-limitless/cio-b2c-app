@@ -1,5 +1,6 @@
 @import "styles/functions";
 @import "styles/variables";
+@import "styles/minxin/scroolbar";
 
 .cart__container {
   margin-top: 83px;
@@ -18,12 +19,23 @@
     column-gap: 82px;
     justify-content: space-between;
     margin-top: 25px;
+    align-items: flex-start;
+
+    @media only screen and (width < $bp-small) {
+        flex-direction:column-reverse;
+        row-gap: 1rem;
+    }
 
     .items {
       display: flex;
       flex-direction: column;
       row-gap: 18px;
       width: 100%;
+      height: calc(100vh  - (56px + 83px + 1rem + 25px + 80px));
+      overflow: auto;
+
+      @include scroolbar();
+
 
       .row {
         padding: 32px 25px;
@@ -142,6 +154,93 @@
 
     .summary {
       max-width: 468px;
+      padding: 2rem 2rem;
+      background-color: $light;
+      border-radius: 6px;
+
+      .summary__details {
+        display: flex;
+        flex-direction: column;
+        row-gap: 3rem;
+
+        .row {
+            .title {
+              
+                font-family: $default-font;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                display: flex;
+                column-gap: 3px;
+                justify-content: center;
+
+                .dark__text {
+                    color: var(--Dark-1, #1A1A1C);
+                }
+                .green__text {
+                    color: var(--Green-1, #007405);
+                }
+            }
+            .gray__text {
+                margin-top: 1rem;
+                color: var(--Gray-Medium-2, #848484);
+                font-family: $default-font;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                display: flex;
+                
+                
+            }
+
+            .tr {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1rem 0;
+
+                .price {
+                    color: var(--Gray-Medium-2, #848484);
+                    font-family: $default-font;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                .free {
+                    color: var(--Green-1, #007405);
+                    font-family: Euclid Circular A;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                }
+                .label {
+                    color: var(--Dark-1, #1A1A1C);
+                    font-family: $default-font;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+                .total {
+                    color: var(--Dark-1, #1A1A1C);
+                    font-family: $default-font;
+                    font-size: 24px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                button {
+                    font-size: 14px !important;
+                }
+            }
+        }
+      }
     }
   }
 }

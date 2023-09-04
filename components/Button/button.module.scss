@@ -11,9 +11,10 @@
   text-transform: uppercase;
   display: flex;
   justify-content: center;
-  padding: 19px 56px 19.87px 57px;
+  padding: 19px 56px;
   column-gap: 15px;
   font-family: $default-font;
+  align-items: center;
   //   font-family: $default;
 }
 .primary {

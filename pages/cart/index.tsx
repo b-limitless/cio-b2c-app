@@ -5,8 +5,69 @@ import styles from './cart.module.scss';
 import Image from 'next/image';
 import { Button } from 'components/Button';
 
+const CartItem = () => {
+  return <div className={styles.row}>
+    <div className={styles.media}>
+      <Image src={'/img/cart-shirt.png'} width={140} height={176.83} alt='' />
+    </div>
+    <div className={styles.description}>
+      <div className={styles.group}>
+        <div className={styles.name}>
+          TAILORED SHIRT(X 2)
+        </div>
+        <div className={styles.type}>
+          COTTON, BLUE
+        </div>
+      </div>
+      <div className={styles.group}>
+        <div className={styles.price}>
+          $152
+        </div>
+        <div className={styles.delivery}>
+          Delivery in 6 Weeks
+        </div>
+      </div>
+      <div className={styles.group}>
+        <div className={styles.modify}>Modify</div>
+      </div>
+    </div>
+    <div className={styles.actions}>
+      <label className={styles.humburger} htmlFor='cart-item-1-menu'>
+        <Image src='/icon/humburg.svg' width={20} height={20} alt='menu' />
+      </label>
+      <input type="checkbox" name="" id="cart-item-1-menu" hidden className={styles.menu__checkbox} />
+
+      <div className={styles.menu}>
+        <ul>
+          <li>
+            <span className={styles.icon}><Image src='/icon/add.svg' width={20} height={20} alt='menu' /></span>
+            <span className={styles.text}>Add/Remove</span>
+          </li>
+          <li>
+            <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
+            <span className={styles.text}>Duplicate</span>
+          </li>
+          <li>
+            <span className={styles.icon}><Image src='/icon/eye.svg' width={20} height={20} alt='menu' /></span>
+            <span className={styles.text}>View</span>
+          </li>
+          <li>
+            <span className={styles.icon}><Image src='/icon/delete.svg' width={20} height={20} alt='menu' /></span>
+            <span className={styles.text}>Delete</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>;
+}
+
+const countNum = new Array(10).fill(0);
+
 // cart-shirt, add, copy, eye, delete, hunburg
 export default function Cart() {
+  // console.log(window.innerHeight)
+  // console.log(window.document.body.scrollHeight)
   return (
     <>
       <Header />
@@ -15,60 +76,8 @@ export default function Cart() {
 
         <div className={styles.cart__details}>
           <div className={styles.items}>
-            <div className={styles.row}>
-              <div className={styles.media}>
-                <Image src={'/img/cart-shirt.png'} width={140} height={176.83} alt='' />
-              </div>
-              <div className={styles.description}>
-                <div className={styles.group}>
-                  <div className={styles.name}>
-                    TAILORED SHIRT(X 2)
-                  </div>
-                  <div className={styles.type}>
-                    COTTON, BLUE
-                  </div>
-                </div>
-                <div className={styles.group}>
-                  <div className={styles.price}>
-                    $152
-                  </div>
-                  <div className={styles.delivery}>
-                    Delivery in 6 Weeks
-                  </div>
-                </div>
-                <div className={styles.group}>
-                  <div className={styles.modify}>Modify</div>
-                </div>
-              </div>
-              <div className={styles.actions}>
-                <label className={styles.humburger} htmlFor='cart-item-1-menu'>
-                  <Image src='/icon/humburg.svg' width={20} height={20} alt='menu' />
-                </label>
-                <input type="checkbox" name="" id="cart-item-1-menu" hidden className={styles.menu__checkbox}/>
-
-                <div className={styles.menu}>
-                  <ul>
-                    <li>
-                      <span className={styles.icon}><Image src='/icon/add.svg' width={20} height={20} alt='menu' /></span>
-                      <span className={styles.text}>Add/Remove</span>
-                    </li>
-                    <li>
-                      <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
-                      <span className={styles.text}>Duplicate</span>
-                    </li>
-                    <li>
-                      <span className={styles.icon}><Image src='/icon/eye.svg' width={20} height={20} alt='menu' /></span>
-                      <span className={styles.text}>View</span>
-                    </li>
-                    <li>
-                      <span className={styles.icon}><Image src='/icon/delete.svg' width={20} height={20} alt='menu' /></span>
-                      <span className={styles.text}>Delete</span>
-                    </li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
+            {countNum.map((_, i) => <CartItem key={i}/>)}
+            
           </div>
           <div className={styles.summary}>
             <div className={styles.summary__details}>
@@ -81,9 +90,12 @@ export default function Cart() {
                     Free shipping
                   </span>
                 </div>
-                <div className={styles.gray__text}>fig
-                  Your order will be sent grouped in different packages,
-                  the delivery time is specified under for each product
+                <div className={styles.gray__text}>
+                  <p>
+                    Your order will be sent grouped in different packages,
+                    the delivery time is specified under for each product
+                  </p>
+
                 </div>
               </div>
 
