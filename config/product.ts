@@ -11,4 +11,23 @@ export const productNavigation = [
         title: "accents", 
         value: "accents"
     }, 
+
+]
+export const measurementNavigation = [
+    {
+        title: "measurement", 
+        value: "measurement"
+    }, 
+    {
+        title: "shipping", 
+        value: "shipping"
+    }, 
+    {
+        title: "payment options", 
+        value: "payment_options"
+    }, 
+    {
+        title: "order completed", 
+        value: "order_completed"
+    }
 ]

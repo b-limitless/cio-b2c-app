@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './header.module.scss';
 import Image from 'next/image';
-import { SelectionTypes } from 'pages/customize/enums';
+import { OrderProcessType, SelectionTypes } from 'pages/customize/enums';
 
 export interface navigationRow {
     title: string;
@@ -14,7 +14,7 @@ export interface navigationRow {
 
 export interface NavigationInterface {
     data: navigationRow[]
-    designJourney?: SelectionTypes;
+    designJourney?: SelectionTypes | OrderProcessType;
     setDesignJourney?:Function;
 }
 
