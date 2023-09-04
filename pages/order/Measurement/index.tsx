@@ -1,7 +1,8 @@
 import { Button } from 'components/Button'
 import Input from 'components/Input'
 import Select from 'components/Select'
-import React from 'react'
+import React from 'react';
+import Image from 'next/image';
 
 export default function Measurment() {
     return (
@@ -55,6 +56,32 @@ export default function Measurment() {
                     <Button variant='primary' type='square'>
                         Next
                     </Button>
+                </div>
+            </div>
+            <div className="styles video__guide">
+                <Image src='/img/video.png' width={1190} height={670} alt='' />
+            </div>
+            <div className="styles time__tape">
+                <div className="styles col">
+                    <Image src='/icon/time.svg' width={60} height={60} alt='time' />
+                    <span className="styles sub">Are you in a hurry?</span>
+                    <span className="styles uppercase">
+                        COMPLETE YOUR ORDER
+                    </span>
+                    <span className="styles rest">
+                        and take your measurements later
+                    </span>
+                </div>
+
+                <div className="styles col">
+                    <Image src='/icon/time.svg' width={60} height={60} alt='time' />
+                    <span className="styles sub">Are you in a hurry?</span>
+                    <span className="styles uppercase">
+                        COMPLETE YOUR ORDER
+                    </span>
+                    <span className="styles rest">
+                        and take your measurements later
+                    </span>
                 </div>
             </div>
         </div>
