@@ -2,43 +2,146 @@
 @import "styles/variables";
 
 .cart__container {
-    margin-top: 83px;
-    padding:1rem;
+  margin-top: 83px;
+  padding: 1rem;
 
-    .title {
-        color: var(--Dark-1, #1A1A1C);
-        font-family: $default-font;
-        font-size: 32px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        
-    }
-    .cart__details {
+  .title {
+    color: var(--Dark-1, #1a1a1c);
+    font-family: $default-font;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .cart__details {
+    display: flex;
+    column-gap: 82px;
+    justify-content: space-between;
+    margin-top: 25px;
+
+    .items {
+      display: flex;
+      flex-direction: column;
+      row-gap: 18px;
+      width: 100%;
+
+      .row {
+        padding: 32px 25px;
         display: flex;
-        column-gap: 82px;
-        justify-content: space-between;
-        margin-top: 25px;
+        column-gap: 19px;
+        border-radius: 6px;
+        background-color: var(--Light-1, #fff);
 
-        .items {
+        .description {
+          margin-right: auto;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .group {
             display: flex;
             flex-direction: column;
-            row-gap: 18px;
-            width: 100%;
+            row-gap: 6px;
 
-
-            .row {
-                display: flex;
-                column-gap: 19px;
-
-                .description {
-                    margin-right: auto;
-                }
+            .name {
+              color: #000;
+              font-family: $default-font;
+              font-size: 16px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
             }
+            .type {
+              color: var(--Gray-Medium-2, #848484);
+              font-family: $default-font;
+              font-size: 16px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+            }
+            .modify {
+              color: var(--Dark-Blue-1, #1b365c);
+              font-family: $default-font;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: normal;
+            }
+            .price {
+              color: #000;
+              font-family: $default-font;
+              font-size: 20px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+            }
+            .delivery {
+              color: var(--Gray-Medium-2, #848484);
+              font-family: $default-font;
+              font-size: 15px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+            }
+          }
         }
+        .actions {
+          position: relative;
 
-        .summary {
-            max-width: 468px;
+          .menu__checkbox:checked + .menu {
+            display: inherit;
+            padding: 15px 5px;
+            height: auto;
+          }
+
+          .menu {
+            height: 0;
+            overflow: hidden;
+            position: absolute;
+            right: 0;
+            background: var(--Light-1, #fff);
+            box-shadow: 0px -1px 4px 0px rgba(0, 0, 0, 0.25),
+              0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            width: 112px;
+            transition: all 0.2s ease-out;
+
+            ul {
+              list-style: none;
+              li {
+                display: flex;
+                column-gap: 3px;
+                cursor: pointer;
+                align-items: center;
+                opacity: 0.9;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                .icon {
+                  img {
+                    width: 12px;
+                    height: 12px;
+                  }
+                }
+
+                .text {
+                  color: var(--Gray-Medium-2, #848484);
+                  font-family: $default-font;
+                  font-size: 12px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                }
+              }
+            }
+          }
         }
+      }
     }
+
+    .summary {
+      max-width: 468px;
+    }
+  }
 }

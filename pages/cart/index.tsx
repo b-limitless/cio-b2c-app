@@ -41,7 +41,32 @@ export default function Cart() {
                 </div>
               </div>
               <div className={styles.actions}>
-                Actions
+                <label className={styles.humburger} htmlFor='cart-item-1-menu'>
+                  <Image src='/icon/humburg.svg' width={20} height={20} alt='menu' />
+                </label>
+                <input type="checkbox" name="" id="cart-item-1-menu" hidden className={styles.menu__checkbox}/>
+
+                <div className={styles.menu}>
+                  <ul>
+                    <li>
+                      <span className={styles.icon}><Image src='/icon/add.svg' width={20} height={20} alt='menu' /></span>
+                      <span className={styles.text}>Add/Remove</span>
+                    </li>
+                    <li>
+                      <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
+                      <span className={styles.text}>Duplicate</span>
+                    </li>
+                    <li>
+                      <span className={styles.icon}><Image src='/icon/eye.svg' width={20} height={20} alt='menu' /></span>
+                      <span className={styles.text}>View</span>
+                    </li>
+                    <li>
+                      <span className={styles.icon}><Image src='/icon/delete.svg' width={20} height={20} alt='menu' /></span>
+                      <span className={styles.text}>Delete</span>
+                    </li>
+                  </ul>
+                </div>
+
               </div>
             </div>
           </div>
@@ -79,7 +104,7 @@ export default function Cart() {
 
                 <div className={styles.tr}>
                   <Button variant='primary' type='square'>
-                    <Image src={'/icon/rular.svg'} width={30} height={30} alt=''/>
+                    <Image src={'/icon/rular.svg'} width={30} height={30} alt='' />
                     <span>MEASUREMENT AND CHECKOUT</span>
                   </Button>
                 </div>
