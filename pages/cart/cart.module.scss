@@ -7,7 +7,7 @@
   padding: 1rem;
 
   .title {
-    color: var(--Dark-1, #1a1a1c);
+    color: $dark;
     font-family: $default-font;
     font-size: 32px;
     font-style: normal;
@@ -42,7 +42,7 @@
         display: flex;
         column-gap: 19px;
         border-radius: 6px;
-        background-color: var(--Light-1, #fff);
+        background-color:$light;
 
         .description {
           margin-right: auto;
@@ -64,7 +64,7 @@
               line-height: normal;
             }
             .type {
-              color: var(--Gray-Medium-2, #848484);
+              color: $gray;
               font-family: $default-font;
               font-size: 16px;
               font-style: normal;
@@ -72,7 +72,7 @@
               line-height: normal;
             }
             .modify {
-              color: var(--Dark-Blue-1, #1b365c);
+              color: $Dark-Blue-1;
               font-family: $default-font;
               font-size: 14px;
               font-style: normal;
@@ -88,7 +88,7 @@
               line-height: normal;
             }
             .delivery {
-              color: var(--Gray-Medium-2, #848484);
+              color: $gray-medium-4;
               font-family: $default-font;
               font-size: 15px;
               font-style: normal;
@@ -111,7 +111,7 @@
             overflow: hidden;
             position: absolute;
             right: 0;
-            background: var(--Light-1, #fff);
+            background:$light;
             box-shadow: 0px -1px 4px 0px rgba(0, 0, 0, 0.25),
               0px 4px 4px 0px rgba(0, 0, 0, 0.25);
             width: 112px;
@@ -138,7 +138,7 @@
                 }
 
                 .text {
-                  color: var(--Gray-Medium-2, #848484);
+                  color: $gray-medium-4;
                   font-family: $default-font;
                   font-size: 12px;
                   font-style: normal;
@@ -176,15 +176,15 @@
                 justify-content: center;
 
                 .dark__text {
-                    color: var(--Dark-1, #1A1A1C);
+                    color: $dark;
                 }
                 .green__text {
-                    color: var(--Green-1, #007405);
+                    color: $green;
                 }
             }
             .gray__text {
                 margin-top: 1rem;
-                color: var(--Gray-Medium-2, #848484);
+                color: $gray-medium-4;
                 font-family: $default-font;
                 font-size: 14px;
                 font-style: normal;
@@ -202,7 +202,7 @@
                 padding: 1rem 0;
 
                 .price {
-                    color: var(--Gray-Medium-2, #848484);
+                    color: $gray-medium-4;
                     font-family: $default-font;
                     font-size: 18px;
                     font-style: normal;
@@ -211,15 +211,15 @@
                 }
 
                 .free {
-                    color: var(--Green-1, #007405);
-                    font-family: Euclid Circular A;
+                    color: $green;
+                    font-family: $default-font;
                     font-size: 18px;
                     font-style: normal;
                     font-weight: 500;
                     line-height: normal;
                 }
                 .label {
-                    color: var(--Dark-1, #1A1A1C);
+                    color: $dark;
                     font-family: $default-font;
                     font-size: 18px;
                     font-style: normal;
@@ -227,7 +227,7 @@
                     line-height: normal;
                 }
                 .total {
-                    color: var(--Dark-1, #1A1A1C);
+                    color: $dark;
                     font-family: $default-font;
                     font-size: 24px;
                     font-style: normal;
