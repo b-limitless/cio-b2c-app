@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Header from 'components/Header/Header';
 import { productNavigation } from 'config/product';
@@ -32,6 +32,18 @@ export default function Customize() {
         const getNextValue = Object.values(SelectionProcess)[findIndex + 1];
         setDesignJourney(getNextValue);
     }
+
+    useEffect(() => {
+        if(showFilterModel) {
+            document.body.style.overflow = 'hidden';
+            // document.body.style.display='none';
+        }
+
+        if(!showFilterModel) {
+            document.body.style.overflow = 'auto';
+        }
+
+    }, [showFilterModel])
 
     return (
         <>

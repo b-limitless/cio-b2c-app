@@ -2,6 +2,7 @@
 @import "../../../styles/variables";
 @import "../../../styles/minxin/scroolbar.scss";
 
+
 .hide {
     left: -425px;
 }
@@ -19,6 +20,14 @@
   width: 100%;
   transition: left .35s ease-in;
 
+  @media only screen and (width < $bp-small) {
+    
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
   
 
   .header {
