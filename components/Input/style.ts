@@ -1,6 +1,9 @@
 import { colors } from "config/colors";
 
 export const style:any = {
+  "&.MuiFormControl-root": {
+    width: "100%"
+  },
   input: {
     borderRadius: "6px",
     fontWeight: "400",
@@ -10,7 +13,9 @@ export const style:any = {
     color: "rgba(0, 0, 0, 0.87)",
     padding: "16px 12px",
     fontFamily: "Poppins, sans-serif !important",
+    width: "100%"
   },
+  
   "& label.Mui-focused": {
     color: colors.primary,
   },
