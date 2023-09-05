@@ -21,7 +21,7 @@ const Select: React.FC<SelectInterface> = ({ options, label, value, onChange, id
     return (
 
         <FormControl sx={
-            { ...style, minWidth: 140 }
+            { ...style, minWidth: 140, width: '100%' }
 
         }
             error={rest.error}
