@@ -4,10 +4,11 @@ import Input from 'components/Input';
 import Select from 'components/Select';
 import { Button } from 'components/Button';
 import { countries } from 'config/countries';
+import FormTemplate from '../template/form';
 
 export default function Shipping() {
   return (
-    <div className={styles.container}>
+    <FormTemplate>
       <div className={styles.shipping}>
         <div className={styles.form__row}>
           <Input label='First Name' />
@@ -31,7 +32,7 @@ export default function Shipping() {
           />
         </div>
         <div className={styles.form__row}>
-          <Input label='Email address' type='email'/>
+          <Input label='Email address' type='email' />
         </div>
         <div className={styles.form__row}>
           <Button variant='primary' type='square'>
@@ -39,6 +40,8 @@ export default function Shipping() {
           </Button>
         </div>
       </div>
-    </div>
+    </FormTemplate>
+
+
   )
 }

@@ -4,6 +4,7 @@ import { OrderProcessType } from 'pages/customize/enums';
 import { useState } from 'react';
 import Measurement from './Measurement';
 import Shipping from './Shipping';
+import Payment from './Payments';
 export default function Order() {
     const [measurementJourney, setMeasurementJourney] = useState<OrderProcessType>('measurement');
     return (
