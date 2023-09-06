@@ -23,14 +23,23 @@ export default function Payment() {
 
 
   return (
-    <FormTemplate>
-      {isNextButtonClicked && selectedPaymentOpition === PaymentOptions.creditCard && <CreditCard/>}
-      {isNextButtonClicked && selectedPaymentOpition === PaymentOptions.paypal && <Paypal/>}
-      {!isNextButtonClicked && <Options
-        setSelectedPaymentOption={setSelectedPaymentOption}
-        selectedPaymentOpition={selectedPaymentOpition}
-        setIsNextButtonClicked={setIsNextButtonClicked}
-      />}
-    </FormTemplate>
+    <>
+      {isNextButtonClicked && <div className={styles.back} onClick={() => setIsNextButtonClicked(false)}>
+        <Image src='/icon/arrow-left-to-right.svg' width={18} height={12} alt='Back'></Image>
+      </div>
+      }
+      <FormTemplate>
+
+        {isNextButtonClicked && selectedPaymentOpition === PaymentOptions.creditCard && <CreditCard />}
+        {isNextButtonClicked && selectedPaymentOpition === PaymentOptions.paypal && <Paypal />}
+        {!isNextButtonClicked && <Options
+          setSelectedPaymentOption={setSelectedPaymentOption}
+          selectedPaymentOpition={selectedPaymentOpition}
+          setIsNextButtonClicked={setIsNextButtonClicked}
+        />}
+      </FormTemplate>
+
+    </>
+
   )
 }

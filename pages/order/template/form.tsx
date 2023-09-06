@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import styles from './form.module.scss';
 
 interface FormTemplate {
@@ -6,8 +6,11 @@ interface FormTemplate {
 }
 export default function FormTemplate({ children }: FormTemplate) {
     return (
+
+
         <div className={styles.container}>
             {children}
         </div>
+
     )
 }

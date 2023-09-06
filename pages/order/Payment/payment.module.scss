@@ -1,6 +1,13 @@
 @import "styles/functions";
 @import "styles/variables";
 @import "styles/minxin/scroolbar.scss";
+
+.back {
+    max-width: 651px;
+    margin: auto;
+    padding: 2rem 0;
+}
+
 .payment__container {
     display: flex;
     flex-direction: column;
