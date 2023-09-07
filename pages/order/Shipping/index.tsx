@@ -5,8 +5,9 @@ import Select from 'components/Select';
 import { Button } from 'components/Button';
 import { countries } from 'config/countries';
 import FormTemplate from '../template/form';
+import { OrderCommonInterface } from '../common.interface';
 
-export default function Shipping() {
+export default function Shipping({measurementJourney, setMeasurementJourney, nextStageHandler}:OrderCommonInterface) {
   return (
     <FormTemplate>
       <div className={styles.shipping}>
@@ -35,7 +36,7 @@ export default function Shipping() {
           <Input label='Email address' type='email' />
         </div>
         <div className={styles.form__row}>
-          <Button variant='primary' type='square'>
+          <Button variant='primary' type='square' onClick={() => nextStageHandler()}>
             Continue to payment
           </Button>
         </div>

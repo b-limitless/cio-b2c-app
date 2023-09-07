@@ -3,8 +3,9 @@ import FormTemplate from '../template/form';
 import Image from 'next/image';
 import { Button } from 'components/Button';
 import styles from './completed.module.scss';
+import { OrderCommonInterface } from '../common.interface';
 
-export default function OrderCompleted() {
+export default function OrderCompleted({measurementJourney, setMeasurementJourney, nextStageHandler}:OrderCommonInterface) {
     return (
         <FormTemplate>
             <div className={styles.order__completed}>

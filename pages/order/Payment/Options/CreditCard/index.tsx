@@ -6,8 +6,11 @@ import InputAdornments from 'components/Input/InputAdorments';
 import Image from 'next/image';
 import Select from 'components/Select';
 import { countries } from 'config/countries';
+import { Base } from 'pages/order/common.interface';
 
-export default function CreditCard() {
+
+
+export default function CreditCard({nextStageHandler}: Base) {
   return (
     <div className={styles.credit__card}>
       <div className={styles.card__infomration}>
@@ -52,7 +55,7 @@ export default function CreditCard() {
 
 
       <div className={styles.button__row}>
-        <Button variant='primary' type='square'>
+        <Button variant='primary' type='square' onClick={() => nextStageHandler()}>
           Complete Payment - $10
         </Button>
       </div>

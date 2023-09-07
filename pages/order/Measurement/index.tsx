@@ -5,12 +5,14 @@ import Select from 'components/Select'
 import React from 'react';
 import Image from 'next/image';
 import styles from './measurement.module.scss';
-
+import { OrderCommonInterface } from '../common.interface';
+import { nextStage } from 'functions/nextStage';
 const ages = [{name: "0-18", value: "0-18"}];
 const height = [{name: "5", value: "5"}];
 const inches = [{name: "1", value: "1"}];
 
-export default function Measurment() {
+export default function Measurment({measurementJourney, setMeasurementJourney, nextStageHandler}:OrderCommonInterface) {
+    
     return (
         <div className={styles.measurement__container}>
             <div className={styles.measurement__form}>
@@ -59,7 +61,7 @@ export default function Measurment() {
                 </p>
                 </div>
                 <div className={styles.actions}>
-                    <Button variant='primary' type='square'>
+                    <Button variant='primary' type='square' onClick={() => nextStageHandler()}>
                         Next
                     </Button>
                 </div>
