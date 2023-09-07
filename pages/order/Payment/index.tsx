@@ -18,8 +18,8 @@ import Options from './Options/Payment/inde';
 // type paymentOptions = `${PaymentOptions}` | null;
 
 export default function Payment() {
-  const [selectedPaymentOpition, setSelectedPaymentOption] = useState<PaymentOptionsTypes>(null)
-  const [isNextButtonClicked, setIsNextButtonClicked] = useState<boolean>(false);
+  const [selectedPaymentOpition, setSelectedPaymentOption] = useState<PaymentOptionsTypes>('creditCard')
+  const [isNextButtonClicked, setIsNextButtonClicked] = useState<boolean>(true);
 
 
   return (
