@@ -1,16 +1,14 @@
 'use client';
-import React from 'react';
-import styles from './home.module.scss';
+import { Button } from 'components/Button';
 import Header from 'components/Header/Header';
 import Image from 'next/image';
-import { Button } from 'components/Button';
-import { ClientInteraction, CheckboxWithLabel } from '@pasal/cio-component-library';
 import Link from 'next/link';
+import styles from './home.module.scss';
 
 export default function Home() {
     return (
         <>
-       {/* <ClientInteraction/> */}
+     
        
         <div className={styles.page__container}>
             <Header showNavigation/>
