@@ -1,14 +1,15 @@
 import Header from 'components/Header/Header';
 import { measurementNavigation } from 'config/product';
-import { OrderProcessType, OrderProcess } from 'pages/customize/enums';
+import { OrderProcessType, OrderProcess, SelectionProcess, combinedTypes } from 'types/enums';
 import { useState } from 'react';
 import Measurement from './Measurement';
 import Shipping from './Shipping';
 import Payment from './Payment';
 import OrderCompleted from './Completed';
 import { nextStage } from 'functions/nextStage';
+import { SelectionTypes } from 'types/enums';
 export default function Order() {
-    const [measurementJourney, setMeasurementJourney] = useState<OrderProcessType>('measurement');
+    const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
 
     const nextStageHandler = () => {
         

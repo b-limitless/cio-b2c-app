@@ -6,7 +6,7 @@ import InputAdornments from 'components/Input/InputAdorments';
 import Image from 'next/image';
 import Select from 'components/Select';
 import { countries } from 'config/countries';
-import { Base } from 'pages/order/common.interface';
+import { Base } from 'types/common.interface';
 
 
 

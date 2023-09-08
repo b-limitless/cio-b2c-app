@@ -2,13 +2,14 @@ import React from 'react';
 import styles from './header.module.scss';
 import Image from 'next/image';
 import Navigation, { navigationRow } from './Navigation';
-import { OrderProcessType, SelectionTypes } from 'pages/customize/enums';
+import { OrderProcessType, SelectionTypes, combinedTypes } from 'types/enums';
+
 
 
 interface HeaderInterface {
     showNavigation?: boolean;
     navigations?: navigationRow[]
-    designJourney?: SelectionTypes | OrderProcessType;
+    designJourney?: combinedTypes;
     setDesignJourney?: Function;
 }
 

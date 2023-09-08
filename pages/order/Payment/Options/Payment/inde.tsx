@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './payment.module.scss';
 import Image from 'next/image';
-import { PaymentOptions, PaymentOptionsTypes } from 'pages/order/types';
+import { PaymentOptions, PaymentOptionsTypes } from 'types';
 import { Button } from 'components/Button';
 
 

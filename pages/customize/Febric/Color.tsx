@@ -1,4 +1,4 @@
-import { ColorInterface } from "./filter.interface"
+import { ColorInterface } from "../../../types/filter.interface"
 import styles from './filter.module.scss';
 
 const Color = ({ name, code, i }: ColorInterface) => {

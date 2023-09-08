@@ -14,3 +14,6 @@ export enum OrderProcess {
 }
 
 export type OrderProcessType = `${OrderProcess}`;
+
+
+export type combinedTypes = OrderProcessType | SelectionTypes;

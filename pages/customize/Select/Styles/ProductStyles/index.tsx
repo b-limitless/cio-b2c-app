@@ -36,7 +36,7 @@ export default function ProductStyles({ label, childrens, code }: ProductStylesI
         <div className={styles.row}>
             <div className={styles.title}>{label}</div>
             <div className={styles.items}>
-                {childrens.map((children, i) => <Items
+                {childrens && childrens.map((children, i) => <Items
                     key={`items-${i}`}
                     name={code}
                     id={`styles-children-${code}-${i}`}

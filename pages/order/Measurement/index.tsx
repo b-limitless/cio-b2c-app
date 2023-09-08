@@ -5,7 +5,7 @@ import Select from 'components/Select'
 import React from 'react';
 import Image from 'next/image';
 import styles from './measurement.module.scss';
-import { OrderCommonInterface } from '../common.interface';
+import { OrderCommonInterface } from '../../../types/common.interface';
 import { nextStage } from 'functions/nextStage';
 const ages = [{name: "0-18", value: "0-18"}];
 const height = [{name: "5", value: "5"}];

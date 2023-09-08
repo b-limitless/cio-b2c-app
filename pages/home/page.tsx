@@ -10,6 +10,7 @@ import Link from 'next/link';
 export default function Home() {
     return (
         <>
+       {/* <ClientInteraction/> */}
        
         <div className={styles.page__container}>
             <Header showNavigation/>

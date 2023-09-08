@@ -9,11 +9,12 @@ import Febric from './Febric';
 import Filter from './Febric/Filter';
 import { CheckboxWithLabel } from '@pasal/cio-component-library';
 import FebricDetails from './FebricDetails';
-import { SelectionProcess, SelectionTypes } from './enums';
+import { SelectionProcess, SelectionTypes } from '../../types/enums';
 import { selectClasses } from '@mui/material';
 import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import Accents from './Select/Accents';
+import { OrderProcessType } from '../../types/enums';
 
 
 
@@ -61,6 +62,7 @@ export default function Customize() {
        
        <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel}/>
         <div className={styles.container}>
+            {/* @ts-ignore */}
             <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
             <main className={styles.main__content}>
 

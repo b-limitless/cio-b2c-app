@@ -1,4 +1,4 @@
-import { OrderProcessType } from "pages/customize/enums";
+import { OrderProcessType } from "types/enums";
 
 export interface Base {
   nextStageHandler: Function;

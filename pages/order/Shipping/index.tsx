@@ -5,7 +5,7 @@ import Select from 'components/Select';
 import { Button } from 'components/Button';
 import { countries } from 'config/countries';
 import FormTemplate from '../template/form';
-import { OrderCommonInterface } from '../common.interface';
+import { OrderCommonInterface } from '../../../types/common.interface';
 
 export default function Shipping({measurementJourney, setMeasurementJourney, nextStageHandler}:OrderCommonInterface) {
   return (
