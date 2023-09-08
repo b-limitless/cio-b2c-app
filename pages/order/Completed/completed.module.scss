@@ -36,4 +36,12 @@
         }
     }
 
+    a {
+        display: flex;
+
+        button {
+            flex-grow: 1;
+        }
+    }
+
 }

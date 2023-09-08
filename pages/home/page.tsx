@@ -5,6 +5,7 @@ import Header from 'components/Header/Header';
 import Image from 'next/image';
 import { Button } from 'components/Button';
 import { ClientInteraction, CheckboxWithLabel } from '@pasal/cio-component-library';
+import Link from 'next/link';
 
 export default function Home() {
     return (
@@ -28,12 +29,16 @@ export default function Home() {
                             Shirts that fit you perfectly. Choose a custom dress shirt designed by you. Make a statement with a made to measure shirt perfect for any occasions, whether it {'\\'} s business or casual we will tailor the perfect men s dress shirt for you. Buy the best custom dress shirt online.
                         </div>
 
+                        <Link href="/customize/shirt">
+
                         <Button variant='primary' type='round'>
                             <span>Design shirt</span>
                             <span>
                                 <Image width={7} height={12} src="/icon/arrow-right-bold.svg" alt="" />
                             </span>
                         </Button>
+                        </Link>
+                        
 
 
                     </div>

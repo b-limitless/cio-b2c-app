@@ -19,13 +19,21 @@ import Accents from './Select/Accents';
 
 
 
+
 export default function Customize() {
     const router = useRouter();
     const [showFilterModel, setShowFilterModel] = useState(false);
     const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(false);
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
 
+   
+
     const nextStepHandler = () => {
+
+        if(designJourney === SelectionProcess.accents) {
+            router.push('/order');
+            return;
+        }
         // First get the index of selected step 
         const findIndex = Object.keys(SelectionProcess).indexOf(designJourney);
         // Add one to that index 
