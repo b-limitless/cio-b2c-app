@@ -15,6 +15,7 @@ import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import Accents from './Select/Accents';
 import { OrderProcessType } from '../../types/enums';
+import Shirt3DModel from './3DModel/Shirt';
 
 
 
@@ -66,31 +67,10 @@ export default function Customize() {
             <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
             <main className={styles.main__content}>
 
-                <div className={styles.filter}>
+                {/* <div className={styles.filter}>
                 <div className={styles.title}>Select {designJourney}</div>
 
-                    {/* Base on different selection different component need to be shown */}
-                    {/* types would be febric, styles, accents  */}
-                    {/* <>
-                    <div className={styles.action}>
-                        <Image src='/icon/filter.svg' width={14} height={10} alt='filter' onClick={() => setShowFilterModel(true)}></Image>
-                        <div className={styles.text}>
-                            <span className={styles.febric}>
-                            FILTERS
-                            </span>
-                            
-                            <span className={styles.count}>
-                            (100 Febrics)
-                            </span>
-                                 
-                        </div>
-                        
-                    </div>
-
-                    <div className={styles.febrics}>
-                        {countArray.map((_, i) => <Febric key={'febri-item' + i} setShowFebricDetailsModel={setShowFebricDetailsModel}/>)}
-                    </div>
-                    </> */}
+            
                     {designJourney === 'febrics' && <Febrics 
                       setShowFilterModel={setShowFilterModel} 
                       setShowFebricDetailsModel={setShowFebricDetailsModel}
@@ -100,11 +80,13 @@ export default function Customize() {
 
                     {designJourney === 'accents' && <Accents/>}
                     
-                </div>
+                </div> */}
                 <div className={styles.model}>
-                    <Image src='/img/shirt.png' width={503} height={600} alt='model' />
+                   
+                    {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
+                    <Shirt3DModel/>
                 </div>
-                <div className={styles.infomration}>
+                {/* <div className={styles.infomration}>
                     <div className={styles.row}>
                         <div className={styles.name}>
                             custom shirt
@@ -137,10 +119,38 @@ export default function Customize() {
                             <Image src='/icon/share.svg' width={24} height={20} alt='share' />
                         </div>
                     </div>
-                </div>
+                </div> */}
             </main>
         </div>
         </>
         
     )
 }
+
+
+// export async function getStaticPaths() {
+//     // Generate dynamic paths based on your data
+//     // Example: Fetch slugs from an API or database
+//     const paths = ['/customize/slug']; // Replace with your actual data fetching logic
+  
+//     return {
+//       paths,
+//       fallback: false, // Set to true if you want to handle unknown slugs at runtime
+//     };
+//   }
+
+
+//   type props = {
+//     params: any;
+//   };
+//   export async function getStaticProps({ params }: props) {
+//     // Fetch data based on the current slug
+//     const data = {}; // Replace with your actual data fetching logic
+  
+//     return {
+//       props: {
+//         data,
+//       },
+//     };
+//   }
+  
