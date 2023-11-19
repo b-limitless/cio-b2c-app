@@ -53,9 +53,9 @@ const Model = () => {
     //   o.receiveShadow = true;
     }
   });
-  scene.scale.set(2, 2, 2);
+  scene.scale.set(6, 6, 6);
   // Optionally adjust position or scale here
-  scene.position.y = -2.5;
+  scene.position.y = -7;
   scene.position.x = 0;
 
   return <primitive object={scene} />;

@@ -67,7 +67,7 @@ export default function Customize() {
             <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
             <main className={styles.main__content}>
 
-                {/* <div className={styles.filter}>
+                <div className={styles.filter}>
                 <div className={styles.title}>Select {designJourney}</div>
 
             
@@ -80,13 +80,13 @@ export default function Customize() {
 
                     {designJourney === 'accents' && <Accents/>}
                     
-                </div> */}
+                </div>
                 <div className={styles.model}>
                    
                     {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
                     <Shirt3DModel/>
                 </div>
-                {/* <div className={styles.infomration}>
+                <div className={styles.infomration}>
                     <div className={styles.row}>
                         <div className={styles.name}>
                             custom shirt
@@ -119,7 +119,7 @@ export default function Customize() {
                             <Image src='/icon/share.svg' width={24} height={20} alt='share' />
                         </div>
                     </div>
-                </div> */}
+                </div>
             </main>
         </div>
         </>
