@@ -15,7 +15,8 @@ const BACKGROUND_COLOR = 0xf1f1f1;
 
 const Shirt3DModel = () => {
   return (
-    <Canvas style={{ background: `#${BACKGROUND_COLOR.toString(16)}` }}>
+    <Canvas>
+        
       <ambientLight />
       <directionalLight position={[5, 5, 5]} intensity={2} />
       <directionalLight position={[-5, -5, -5]} intensity={2} />
