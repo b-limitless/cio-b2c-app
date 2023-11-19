@@ -15,9 +15,10 @@ const BACKGROUND_COLOR = 0xf1f1f1;
 
 const Shirt3DModel = () => {
   return (
-    <Canvas>
+    <Canvas style={{ background: `#${BACKGROUND_COLOR.toString(16)}` }}>
       <ambientLight />
-      <directionalLight position={[5, 5, 5]} intensity={0.5} />
+      <directionalLight position={[5, 5, 5]} intensity={2} />
+      <directionalLight position={[-5, -5, -5]} intensity={2} />
       <pointLight position={[100, 100, 100]} />
       <hemisphereLight color={0xffffff} intensity={0.6} position={[100, 50, 0]} />
       <perspectiveCamera
@@ -57,6 +58,7 @@ const Model = () => {
   // Optionally adjust position or scale here
   scene.position.y = -7;
   scene.position.x = 0;
+  
 
   return <primitive object={scene} />;
 };
