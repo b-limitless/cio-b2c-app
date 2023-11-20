@@ -40,6 +40,7 @@ const Shirt3DModel = () => {
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
+      <CollarModel/>
       <Model />
     </Canvas>
   );
@@ -64,8 +65,18 @@ const Model = () => {
   return <primitive object={scene} />;
 };
 
+const CollarModel = () => {
+    const { scene } = useLoader(GLTFLoader, '/models/collars/collar-2.glb');
+
+    scene.scale.set(6, 6, 6);
+    // Optionally adjust position or scale here
+    scene.position.y = -7;
+    scene.position.x = 0;
+    
+  
+    return <primitive object={scene} />;
+};
+
+
+
 export default dynamic(() => Promise.resolve(Shirt3DModel), { ssr: false });
-// export default Shirt3DModel;
-
-
-// export default ;

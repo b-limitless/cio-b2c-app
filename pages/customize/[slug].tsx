@@ -18,7 +18,66 @@ import { OrderProcessType } from '../../types/enums';
 import Shirt3DModel from './3DModel/Shirt';
 
 
+//  State that need for the model customization
+// If this is shirt
 
+// Style
+
+const customization = {
+    febric: {
+
+    },
+    collar: {
+        id: 12,
+        model: 'URL for the model to load from CDN'
+    }, 
+    scuff: {
+        id: 13,
+        model: 'URL for the model to load'
+    }, 
+    sleeves: {
+        id: 13,
+        model: 'URL for the model to load'
+    },
+    checkpocket: {
+        id: 13,
+        model: 'URL for the model to load'
+    }
+}
+
+type ContrastedCollars = 'By default' | 'All' | 'Inner febric';
+type ContrastedCuffs = 'By default' | 'All' | 'Inner febric';
+type ConstrastedStitch = 'By default' | 'All' | 'Only cuffs'
+
+const accent = {
+    collar: {
+        selected: 'By Default', 
+        febric: {
+            id: null
+        }
+    }, 
+    cuff: {
+        selected: 'By Default',
+        febric: {
+            id: null
+        }
+    }, 
+    buttonWhole: {
+
+    }, 
+    buttonThread: {
+
+    }, 
+    buttons: {
+        
+    }
+}
+
+const orderInitialState = {
+    shippingAddress: {},
+    billingAddress: {},
+    orderTotal: 0,
+}
 
 
 
