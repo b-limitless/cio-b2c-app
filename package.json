@@ -17,6 +17,7 @@
     "@pasal/cio-component-library": "^70.0.0",
     "@react-three/drei": "^9.88.16",
     "@react-three/fiber": "^8.15.11",
+    "@reduxjs/toolkit": "^1.9.7",
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",

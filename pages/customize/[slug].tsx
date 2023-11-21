@@ -23,10 +23,7 @@ import Shirt3DModel from './3DModel/Shirt';
 
 // Style
 
-const customization = {
-    febric: {
-
-    },
+const model = {
     collar: {
         id: 12,
         model: 'URL for the model to load from CDN'
@@ -53,24 +50,17 @@ const accent = {
     collar: {
         selected: 'By Default', 
         febric: {
-            id: null
+            id: null,
+            url: 'http://'
         }
     }, 
     cuff: {
         selected: 'By Default',
         febric: {
-            id: null
+            id: null, 
+            url: 'http://'
         }
     }, 
-    buttonWhole: {
-
-    }, 
-    buttonThread: {
-
-    }, 
-    buttons: {
-        
-    }
 }
 
 const orderInitialState = {
