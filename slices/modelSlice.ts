@@ -66,3 +66,7 @@ const modelSlice = createSlice({
 //     },
 //   },
 // };
+
+export const {updateModel} = modelSlice.actions;
+export default modelSlice.reducer
+
