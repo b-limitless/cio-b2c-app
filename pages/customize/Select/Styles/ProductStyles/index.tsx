@@ -46,7 +46,7 @@ export default function ProductStyles({ label, childrens, code }: ProductStylesI
                     id={`styles-children-${code}-${i}`}
                     title={children.label}
                     mediaUrl={children.mediaUrl}
-                    onClickHanlder={() => dispatchSelectedModelConfig({id:children.id, model: children.model})}
+                    onClickHanlder={() => dispatchSelectedModelConfig({id:children.id, model: `${children.model}?timestamp=${Date.now()}`})}
                     
                 />)}
                 {}

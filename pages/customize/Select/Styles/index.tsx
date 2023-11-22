@@ -12,28 +12,29 @@ const productStyles = [{
             label: 'button down',
             code: 'button_down',
             mediaUrl: '/icon/collars/button-down.svg',
-            model: '/models/collars/collar-2.glb'
+            model: `/models/collars/collar-3.glb`
         },
         {
             id: 2,
             label: 'club',
             code: 'club',
             mediaUrl: '/icon/collars/club.svg', 
-            model: '/models/collars/collar-1.glb'
+            model: `/models/collars/collar-2.glb`
         },
         {
             id:3,
             label: 'cutway',
             code: 'cutway',
             mediaUrl: '/icon/collars/cutway.svg',
-            model: '/models/collars/collar-3.glb'
+            model: `/models/collars/collar-1.glb`
         },
-        {
-            id:4,
-            label: 'straight',
-            code: 'straight',
-            mediaUrl: '/icon/collars/straight.svg'
-        }
+        // {
+        //     id:4,
+        //     label: 'straight',
+        //     code: 'straight',
+        //     mediaUrl: '/icon/collars/straight.svg', 
+        //     model: '/models/collars/collar-1.glb'
+        // }
     ]
 },
 {

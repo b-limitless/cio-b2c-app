@@ -18,6 +18,8 @@ import { OrderProcessType } from '../../types/enums';
 import Shirt3DModel from './3DModel/Shirt';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
+import dynamic from 'next/dynamic';
+
 
 
 //  State that need for the model customization
@@ -78,8 +80,9 @@ export default function Customize() {
     const [showFilterModel, setShowFilterModel] = useState(false);
     const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(false);
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
+    const [counter, setCounter] = useState(0);
 
-    const {model: {collar}} = useSelector((state:RootState) => state);
+    const {collar} = useSelector((state:RootState) => state.model);
 
 
 

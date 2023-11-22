@@ -1,3 +1,5 @@
+// 'use client';
+
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
 
@@ -42,7 +44,7 @@ interface ModelActionInterface {
 const initialState: ModelActionInterface = {
   collar: {
     id: 12,
-    model: '/models/collars/collar-2.glb',
+    model: `/models/collars/collar-3.glb?timestamp=${Date.now()}`,
   }
 };
 
