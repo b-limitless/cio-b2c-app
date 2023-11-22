@@ -3,7 +3,6 @@ import React, { Fragment } from 'react';
 import styles from '../styles.module.scss';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
-// import { useDispatch } from 'react-redux';
 import { MouseEventHandler } from 'react';
 import { updateModel } from 'slices/modelSlice';
 interface ItemInterface {

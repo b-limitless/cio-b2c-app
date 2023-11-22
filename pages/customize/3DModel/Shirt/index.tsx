@@ -10,10 +10,11 @@ import dynamic from 'next/dynamic';
 import { HemisphereLight, PerspectiveCamera } from 'three';
 
 
+interface Collar {
+  collar:string;
+}
 
-const BACKGROUND_COLOR = 0xf1f1f1;
-
-const Shirt3DModel = () => {
+const Shirt3DModel = ({collar}: Collar) => {
   return (
     <Canvas>
         
@@ -40,7 +41,7 @@ const Shirt3DModel = () => {
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
-      <CollarModel/>
+      <CollarModel collar={collar}/>
       <Model />
     </Canvas>
   );
@@ -51,7 +52,7 @@ const Model = () => {
 
   scene.traverse((o:any) => {
     if (o.isMesh) {
-      console.log("o", o)
+      // console.log("o", o)
     //   o.castShadow = true;
     //   o.receiveShadow = true;
     }
@@ -65,8 +66,12 @@ const Model = () => {
   return <primitive object={scene} />;
 };
 
-const CollarModel = () => {
-    const { scene } = useLoader(GLTFLoader, '/models/collars/collar-2.glb');
+const CollarModel = ({collar}: Collar) => {
+ 
+    // const collarModelURL =  collar ?? '/models/collars/collar-2.glb';
+    // console.log("collarModelURL", collarModelURL);
+
+    const { scene } = useLoader(GLTFLoader, collar);
 
     scene.scale.set(6, 6, 6);
     // Optionally adjust position or scale here

@@ -28,20 +28,29 @@ interface UpdateModelAction {
   payload: ModelType[modelKeys];
 }
 
-interface initialState {
-  model: ModelType | null;
+type RowType = {
+  id: number;
+  model: string;
 }
 
-const initialState: initialState = {
-  model: null,
-  //   accent: null,
+interface ModelActionInterface {
+  collar : RowType
+}
+
+
+
+const initialState: ModelActionInterface = {
+  collar: {
+    id: 12,
+    model: '/models/collars/collar-2.glb',
+  }
 };
 
 const modelSlice = createSlice({
   name: 'model',
   initialState,
   reducers: {
-    updateModel: (state: initialState, action: PayloadAction<UpdateModelAction>) => {
+    updateModel: (state: ModelActionInterface, action: PayloadAction<UpdateModelAction>) => {
       return {
         ...state,
         [action.payload.key]: action.payload.payload,

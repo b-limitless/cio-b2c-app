@@ -17,7 +17,7 @@ import Accents from './Select/Accents';
 import { OrderProcessType } from '../../types/enums';
 import Shirt3DModel from './3DModel/Shirt';
 import { useSelector } from 'react-redux';
-import { RootState } from '@react-three/fiber';
+import { RootState } from 'store';
 
 
 //  State that need for the model customization
@@ -79,7 +79,9 @@ export default function Customize() {
     const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(false);
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
 
-    const state = useSelector((state:RootState) => state);
+    const {model: {collar}} = useSelector((state:RootState) => state);
+
+
 
     const nextStepHandler = () => {
 
@@ -138,8 +140,10 @@ export default function Customize() {
                 <div className={styles.model}>
                    
                     {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
+                    
                     <Shirt3DModel
                     
+                    collar={collar.model}
                     />
                 </div>
                 <div className={styles.infomration}>
