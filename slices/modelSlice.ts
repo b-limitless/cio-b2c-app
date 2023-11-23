@@ -26,6 +26,11 @@ type ModelType = typeof modelProperties;
 type modelKeys = keyof ModelType;
 type ModelKeys = keyof ModelType;
 
+interface UpdateModelAction {
+  key: modelKeys;
+  payload: ModelType[modelKeys];
+}
+
 type RowType = {
   id: number;
   model: string;
