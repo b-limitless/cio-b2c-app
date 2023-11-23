@@ -8,36 +8,30 @@ const modelProperties = {
     id: 12,
     model: 'URL for the model to load from CDN',
   },
-  scuff: {
-    id: 13,
-    model: 'URL for the model to load',
-  },
-  sleeves: {
-    id: 13,
-    model: 'URL for the model to load',
-  },
-  checkpocket: {
-    id: 13,
-    model: 'URL for the model to load',
-  },
-};
+  // scuff: {
+  //   id: 13,
+  //   model: 'URL for the model to load',
+  // },
+  // sleeves: {
+  //   id: 13,
+  //   model: 'URL for the model to load',
+  // },
+  // checkpocket: {
+  //   id: 13,
+  //   model: 'URL for the model to load',
+  // },
+} as const;
 
 type ModelType = typeof modelProperties;
 type modelKeys = keyof ModelType;
-
-interface UpdateModelAction {
-  key: modelKeys;
-  payload: ModelType[modelKeys];
-}
+type ModelKeys = keyof ModelType;
 
 type RowType = {
   id: number;
   model: string;
 }
 
-interface ModelActionInterface {
-  collar : RowType
-}
+type ModelActionInterface = Record<ModelKeys, RowType>
 
 
 
