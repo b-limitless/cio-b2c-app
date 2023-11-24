@@ -46,6 +46,8 @@ const model = {
     }
 }
 
+
+
 type ContrastedCollars = 'By default' | 'All' | 'Inner febric';
 type ContrastedCuffs = 'By default' | 'All' | 'Inner febric';
 type ConstrastedStitch = 'By default' | 'All' | 'Only cuffs'
@@ -82,10 +84,11 @@ export default function Customize() {
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
     const [counter, setCounter] = useState(0);
 
-    const {collar} = useSelector((state:RootState) => state.model);
+    const {collar, febric} = useSelector((state:RootState) => state.model);
+    const {model: febricURI} = febric;
 
 
-
+// Hello
     const nextStepHandler = () => {
 
         if(designJourney === SelectionProcess.accents) {
@@ -127,7 +130,8 @@ export default function Customize() {
                 <div className={styles.title}>Select {designJourney}</div>
 
             
-                    {designJourney === 'febrics' && <Febrics 
+                    {designJourney === 'febrics' && 
+                     <Febrics 
                       setShowFilterModel={setShowFilterModel} 
                       setShowFebricDetailsModel={setShowFebricDetailsModel}
                     />}
@@ -145,8 +149,8 @@ export default function Customize() {
                     {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
                     
                     <Shirt3DModel
-                    
                     collar={collar.model}
+                    febricURI={febricURI}
                     />
                 </div>
                 <div className={styles.infomration}>

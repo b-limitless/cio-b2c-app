@@ -8,6 +8,11 @@ const modelProperties = {
     id: 12,
     model: 'URL for the model to load from CDN',
   },
+  febric: {
+    id: 12, 
+    model: '/img/febric1.jpg'
+
+  }
   // scuff: {
   //   id: 13,
   //   model: 'URL for the model to load',
@@ -34,6 +39,7 @@ interface UpdateModelAction {
 type RowType = {
   id: number;
   model: string;
+  
 }
 
 type ModelActionInterface = Record<ModelKeys, RowType>
@@ -44,6 +50,10 @@ const initialState: ModelActionInterface = {
   collar: {
     id: 12,
     model: `/models/collars/collar-3.glb?timestamp=${Date.now()}`,
+  }, 
+  febric: {
+    id: 12,
+    model: `/img/febric-6.jpg?timestamp=${Date.now()}`,
   }
 };
 

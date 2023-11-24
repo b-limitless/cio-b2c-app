@@ -26,9 +26,31 @@ export default function Febrics({setShowFilterModel, setShowFebricDetailsModel}:
         </div>
         
     </div>
-
+  
     <div className={styles.febrics}>
-        {countArray.map((_, i) => <Febric key={'febri-item' + i} setShowFebricDetailsModel={setShowFebricDetailsModel}/>)}
+      <>
+      <Febric 
+          febricImageURI='/img/febric1.jpg'
+          key={'febri-item' + 100} 
+          setShowFebricDetailsModel={setShowFebricDetailsModel}/>
+
+      <Febric 
+          febricImageURI='/img/febric-5.jpg'
+          key={'febri-item' + 'feb-5'} 
+          setShowFebricDetailsModel={setShowFebricDetailsModel}/>
+
+<Febric 
+          febricImageURI='/img/febric-6.jpg'
+          key={'febri-item' + 'feb-6'} 
+          setShowFebricDetailsModel={setShowFebricDetailsModel}/>
+
+      {countArray.map((_, i) => <Febric 
+          febricImageURI='/img/febric-thumnail.png'
+          key={'febri-item' + i} 
+          setShowFebricDetailsModel={setShowFebricDetailsModel}/>)}
+      
+      </>
+        
     </div>
     </>
   )
