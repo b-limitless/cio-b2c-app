@@ -1,17 +1,19 @@
+import Image from 'next/image';
 import React from 'react';
 import styles from './febric.module.scss';
-import Image from 'next/image';
-import Filter from './Filter';
 
 interface FebricInterface {
     setShowFebricDetailsModel: Function;
     febricImageURI: string;
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    [x:string]:any
+    
 }
 
-export default function Febric({ setShowFebricDetailsModel, febricImageURI }: FebricInterface) {
+export default function Febric({ setShowFebricDetailsModel, febricImageURI, onClick }: FebricInterface) {
     return (
         <>
-            <div className={styles.febric}>
+            <div className={styles.febric} onClick={(e:any) => onClick(e)}>
                 <div className={styles.img}>
                     <Image alt='' src={febricImageURI} width={140} height={103} ></Image>
 

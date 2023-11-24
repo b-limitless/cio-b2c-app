@@ -31,9 +31,9 @@ type ModelType = typeof modelProperties;
 type modelKeys = keyof ModelType;
 type ModelKeys = keyof ModelType;
 
-interface UpdateModelAction {
+export  interface UpdateModelAction {
   key: modelKeys;
-  payload: ModelType[modelKeys];
+  payload: RowType;
 }
 
 type RowType = {

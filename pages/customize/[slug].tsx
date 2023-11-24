@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { Button } from 'components/Button';
 import Header from 'components/Header/Header';
 import { productNavigation } from 'config/product';
 import Image from 'next/image';
-import { Button } from 'components/Button';
-import styles from './customize.module.scss';
-import Febric from './Febric';
-import Filter from './Febric/Filter';
-import { CheckboxWithLabel } from '@pasal/cio-component-library';
-import FebricDetails from './FebricDetails';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { UpdateModelAction, updateModel } from 'slices/modelSlice';
+import { RootState } from 'store';
 import { SelectionProcess, SelectionTypes } from '../../types/enums';
-import { selectClasses } from '@mui/material';
+import Shirt3DModel from './3DModel/Shirt';
+import Filter from './Febric/Filter';
+import FebricDetails from './FebricDetails';
+import Accents from './Select/Accents';
 import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
-import Accents from './Select/Accents';
-import { OrderProcessType } from '../../types/enums';
-import Shirt3DModel from './3DModel/Shirt';
-import { useSelector } from 'react-redux';
-import { RootState } from 'store';
-import dynamic from 'next/dynamic';
+import styles from './customize.module.scss';
 
 
 
@@ -87,6 +83,8 @@ export default function Customize() {
     const {collar, febric} = useSelector((state:RootState) => state.model);
     const {model: febricURI} = febric;
 
+    const dispatch = useDispatch();
+
 
 // Hello
     const nextStepHandler = () => {
@@ -112,7 +110,13 @@ export default function Customize() {
             document.body.style.overflow = 'auto';
         }
 
-    }, [showFilterModel])
+    }, [showFilterModel]);
+
+    const updateFebricHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateModelAction) => {
+        event.stopPropagation();
+        const {key, payload} = params;
+       dispatch(updateModel({key, payload}));
+    }
 
     return (
         <>
@@ -134,6 +138,9 @@ export default function Customize() {
                      <Febrics 
                       setShowFilterModel={setShowFilterModel} 
                       setShowFebricDetailsModel={setShowFebricDetailsModel}
+                      onClickHandler={updateFebricHandler}
+
+
                     />}
 
                     {designJourney === 'styles' && 
