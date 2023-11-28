@@ -23,6 +23,7 @@ import styles from './customize.module.scss';
 
 // Style
 
+
 const model = {
     collar: {
         id: 12,
