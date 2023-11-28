@@ -1,17 +1,15 @@
-import { filterData } from 'config/filter';
 import Image from 'next/image';
-import FilterItem from './FilterItem';
 import styles from './filter.module.scss';
 interface FilterInterface {
     setShowFilterModel:Function;
     showFilterModel:boolean;
 }
-export default function Filter({setShowFilterModel, showFilterModel}: FilterInterface) {
+export default function AccentFebricModel({setShowFilterModel, showFilterModel}: FilterInterface) {
     return (
         <div className={styles.filter + ' ' + (showFilterModel ? styles.show : styles.hide)}>
             <div className={styles.header}>
                 <span className={styles.title}>
-                    FILTER
+                    Select Febric
                 </span>
                 <span className={styles.close}>
                     <Image src='/icon/close.svg' width={16} height={16} alt='' onClick={() => setShowFilterModel(false)}/>
@@ -25,17 +23,8 @@ export default function Filter({setShowFilterModel, showFilterModel}: FilterInte
                     Febrics
                 </span>
             </div>
-            <div className={styles.toggle__container}>
-                {filterData.map((filter, i) => <FilterItem
-                    key={`filter-item-${i}`}
-                    name={filter.name} 
-                    code={filter.code}
-                    childrens={filter.childrens}
-                    type={filter.type}
-                />
-                )}
-                {}
-            </div>
+            {/* Rather we will show different kind of febrics here */}
+            
         </div>
     )
 }

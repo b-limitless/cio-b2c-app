@@ -2,6 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { defaultFebric } from 'config/default';
 
 const modelProperties = {
   collar: {
@@ -11,7 +12,7 @@ const modelProperties = {
   },
   febric: {
     id: 12, 
-    model: '/img/febric1.jpg', 
+    model: defaultFebric, 
     price: 0
 
   }

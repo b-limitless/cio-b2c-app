@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from '../Styles/styles.module.scss';
 import ProductStyles from '../Styles/ProductStyles';
-// In acces object we will not have the model prople for childrens props
+// In acces object we will not have the febric prople for childrens props
 // Because when user select for example type = default collor | put febric in whole collar
 // Or user wants only to put the different febric in collor back side based on that 
-// We have to update the model
+// We have to update the febric
 
 // Same example goes to the cuff as well, default cuff, febric over all cuff, febric inside cuff 
-
+// You need to manage state which is febric and which type is users is selected
 const accentsStyles = [{
   label: 'Contrasted Collor',
   code: 'collars',
@@ -17,28 +17,26 @@ const accentsStyles = [{
           label: 'By Default',
           code: 'button_down',
           mediaUrl: '/icon/collars/button-down.svg',
-          model: `/models/collars/collar-3.glb`
       },
       {
           id: 2,
           label: 'All',
           code: 'club',
           mediaUrl: '/icon/collars/club.svg', 
-          model: `/models/collars/collar-2.glb`
+        
       },
       {
           id:3,
           label: 'Inner Febric($2)',
           code: 'cutway',
           mediaUrl: '/icon/collars/cutway.svg',
-          model: `/models/collars/collar-1.glb`
       },
       // {
       //     id:4,
       //     label: 'straight',
       //     code: 'straight',
       //     mediaUrl: '/icon/collars/straight.svg', 
-      //     model: '/models/collars/collar-1.glb'
+      //     febric: '/models/collars/collar-1.glb'
       // }
   ]
 },

@@ -10,6 +10,7 @@ import { RootState } from 'store';
 import { SelectionProcess, SelectionTypes } from '../../types/enums';
 import Shirt3DModel from './3DModel/Shirt';
 import Filter from './Febric/Filter';
+import AccentFebricModel from './Febric/AccentFebricModel';
 import FebricDetails from './FebricDetails';
 import Accents from './Select/Accents';
 import Febrics from './Select/Febrics';
@@ -79,6 +80,7 @@ export default function Customize() {
     const [showFilterModel, setShowFilterModel] = useState(false);
     const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(false);
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
+    const [showAccentFebricModel, setAccentFebricModel] = useState<boolean>(false); 
     const [counter, setCounter] = useState(0);
 
     const {collar, febric} = useSelector((state:RootState) => state.model);
@@ -125,79 +127,80 @@ export default function Customize() {
      {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel}/>
      }
        
-       <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel}/>
-        <div className={styles.container}>
-            {/* @ts-ignore */}
-            <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
-            <main className={styles.main__content}>
+    <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel}/>
+    <AccentFebricModel setShowFilterModel={setShowFebricDetailsModel} showFilterModel={true}/>
+    <div className={styles.container}>
+    {/* @ts-ignore */}
+    <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
+    <main className={styles.main__content}>
 
-                <div className={styles.filter}>
-                <div className={styles.title}>Select {designJourney}</div>
-
-            
-                    {designJourney === 'febrics' && 
-                     <Febrics 
-                      setShowFilterModel={setShowFilterModel} 
-                      setShowFebricDetailsModel={setShowFebricDetailsModel}
-                      onClickHandler={updateFebricHandler}
+    <div className={styles.filter}>
+    <div className={styles.title}>Select {designJourney}</div>
 
 
-                    />}
+        {designJourney === 'febrics' && 
+            <Febrics 
+            setShowFilterModel={setShowFilterModel} 
+            setShowFebricDetailsModel={setShowFebricDetailsModel}
+            onClickHandler={updateFebricHandler}
 
-                    {designJourney === 'styles' && 
-                    <Styles
-                    
-                    />}
 
-                    {designJourney === 'accents' && <Accents/>}
-                    
-                </div>
-                <div className={styles.model}>
-                   
-                    {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
-                    
-                    <Shirt3DModel
-                    collar={collar.model}
-                    febricURI={febricURI}
-                    />
-                </div>
-                <div className={styles.infomration}>
-                    <div className={styles.row}>
-                        <div className={styles.name}>
-                            custom shirt
-                        </div>
-                        <div className={styles.price}>
-                            $89
-                        </div>
-                        <div className={styles.feature}>
-                            ESSENTIAL
-                        </div>
-                        <div className={styles.type}>
-                            Cotton
-                        </div>
-                        <div className={styles.ref}>
-                            ref: Mayfield
-                        </div>
-                        <div className={styles.detail__action}>
-                            FebricDetails
-                        </div>
-                    </div>
-                    <div className={styles.row}>
-                        <Button variant='primary' type='square' onClick={() => nextStepHandler()}>
-                            <span>Next</span>
-                        </Button>
-                        <div className={styles.receives__when}>
-                            RECEIVE IN 3 WEEKS
-                        </div>
-                        <div className={styles.icons}>
-                            <Image src='/icon/heart.svg' width={24} height={20} alt='heart' />
-                            <Image src='/icon/share.svg' width={24} height={20} alt='share' />
-                        </div>
-                    </div>
-                </div>
-            </main>
+        />}
+
+        {designJourney === 'styles' && 
+        <Styles
+        
+        />}
+
+        {designJourney === 'accents' && <Accents/>}
+        
+    </div>
+    <div className={styles.model}>
+        
+        {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
+        
+        <Shirt3DModel
+        collar={collar.model}
+        febricURI={febricURI}
+        />
+    </div>
+    <div className={styles.infomration}>
+        <div className={styles.row}>
+            <div className={styles.name}>
+                custom shirt
+            </div>
+            <div className={styles.price}>
+                $89
+            </div>
+            <div className={styles.feature}>
+                ESSENTIAL
+            </div>
+            <div className={styles.type}>
+                Cotton
+            </div>
+            <div className={styles.ref}>
+                ref: Mayfield
+            </div>
+            <div className={styles.detail__action}>
+                FebricDetails
+            </div>
         </div>
-        </>
+        <div className={styles.row}>
+            <Button variant='primary' type='square' onClick={() => nextStepHandler()}>
+                <span>Next</span>
+            </Button>
+            <div className={styles.receives__when}>
+                RECEIVE IN 3 WEEKS
+            </div>
+            <div className={styles.icons}>
+                <Image src='/icon/heart.svg' width={24} height={20} alt='heart' />
+                <Image src='/icon/share.svg' width={24} height={20} alt='share' />
+            </div>
+        </div>
+    </div>
+    </main>
+    </div>
+    </>
         
     )
 }
