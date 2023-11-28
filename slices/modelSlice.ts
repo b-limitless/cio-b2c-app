@@ -7,10 +7,12 @@ const modelProperties = {
   collar: {
     id: 12,
     model: 'URL for the model to load from CDN',
+    price: 0
   },
   febric: {
     id: 12, 
-    model: '/img/febric1.jpg'
+    model: '/img/febric1.jpg', 
+    price: 0
 
   }
   // scuff: {
@@ -36,9 +38,10 @@ export  interface UpdateModelAction {
   payload: RowType;
 }
 
-type RowType = {
+export type RowType = {
   id: number;
   model: string;
+  price: number;
   
 }
 
@@ -50,10 +53,12 @@ const initialState: ModelActionInterface = {
   collar: {
     id: 12,
     model: `/models/collars/collar-3.glb?timestamp=${Date.now()}`,
+    price: 0
   }, 
   febric: {
     id: 12,
     model: `/img/febric-6.jpg?timestamp=${Date.now()}`,
+    price: 0
   }
 };
 

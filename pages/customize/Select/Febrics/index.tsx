@@ -13,13 +13,16 @@ interface FebricInterface {
 const countArray = new Array(20).fill(0);
 
 const febrics = [{
-  febricURI: '/img/febric1.jpg'
+  febricURI: '/img/febric1.jpg',
+  price: 0
 },
 {
-  febricURI: '/img/febric-5.jpg'
+  febricURI: '/img/febric-5.jpg', 
+  price: 0
 },
 {
-  febricURI: '/img/febric-6.jpg'
+  febricURI: '/img/febric-6.jpg', 
+  price: 0
 }]
 
 export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel, onClickHandler }: FebricInterface) {
@@ -47,7 +50,7 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
             febricImageURI={febric.febricURI}
             key={'febri-item-custom' + i}
             setShowFebricDetailsModel={setShowFebricDetailsModel}
-            onClick={(event: any) => onClickHandler(event, { key: 'febric', payload: { id: i, model: febric.febricURI } })}
+            onClick={(event: any) => onClickHandler(event, { key: 'febric', payload: { id: i, model: febric.febricURI, price: febric.price } })}
           />)}
 
           {/* <Febric
