@@ -74,9 +74,13 @@ export default function Styles() {
         <div className={styles.styles__container}>
             {productStyles.map((product, i) => 
             <ProductStyles key={`product-style-${i}`} 
+            type='style'
             label={product.label} 
             childrens={product.childrens} 
-            code={product.code} />)}
+            code={product.code} 
+            setShowAccentFebricModel={() => null}
+            showAccentFebricModel={false}
+            />)}
         </div>
     )
 }

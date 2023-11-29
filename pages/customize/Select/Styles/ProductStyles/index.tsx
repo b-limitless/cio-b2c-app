@@ -13,11 +13,16 @@ interface ItemInterface {
     mediaUrl: string;
     onClickHanlder:MouseEventHandler<HTMLLabelElement>;
 }
+type TOnClickEvent = 'accent' | 'style' | 'febric';
+
 interface ProductStylesInterface extends IAccents {
     label: string;
     childrens: any[];
     code: string;
+    type: TOnClickEvent
 }
+
+
 function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
     return (<Fragment>
         <input className={styles.checkbox} type='radio' name={name} id={id} hidden />
@@ -31,7 +36,7 @@ function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
     )
 }
 
-export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel }: ProductStylesInterface) {
+export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type }: ProductStylesInterface) {
     const dispatch = useDispatch();
 
     const dispatchSelectedModelConfig = ({id, model} : {id: any, model:any}) => {
@@ -48,7 +53,9 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                     id={`styles-children-${code}-${i}`}
                     title={children.label}
                     mediaUrl={children.mediaUrl}
-                    onClickHanlder={() => setShowAccentFebricModel(true)}
+                    // On Click hand
+                    onClickHanlder={() => type === 
+                                  'style' ? dispatchSelectedModelConfig({id:children.id, model: `${children.model}?timestamp=${Date.now()}`}) : setShowAccentFebricModel(true)}
                     
                 />)}
                 {}

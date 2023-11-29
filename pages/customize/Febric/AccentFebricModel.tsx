@@ -55,13 +55,13 @@ export default function AccentFebricModel({ onClickHandler, setShowFilterModel, 
                 />)}
 
 
-                {countArray.map((_, i) => <Febric
+                {/* {countArray.map((_, i) => <Febric
                     febricImageURI='/img/febric-thumnail.png'
                     key={'febri-item' + i}
                     setShowFebricDetailsModel={() => null}
                     onClick={(event: any) => { }}
 
-                />)}
+                />)} */}
 
 
 
