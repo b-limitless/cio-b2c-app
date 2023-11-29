@@ -80,7 +80,7 @@ export default function Customize() {
     const [showFilterModel, setShowFilterModel] = useState(false);
     const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(false);
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
-    const [showAccentFebricModel, setAccentFebricModel] = useState<boolean>(false); 
+    const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false); 
     const [counter, setCounter] = useState(0);
 
     const {collar, febric} = useSelector((state:RootState) => state.model);
@@ -128,7 +128,11 @@ export default function Customize() {
      }
        
     <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel}/>
-    <AccentFebricModel setShowFilterModel={setShowFebricDetailsModel} showFilterModel={true}/>
+    <AccentFebricModel 
+    setShowFilterModel={setShowAccentFebricModel} 
+    showFilterModel={showAccentFebricModel}
+    onClickHandler={() => {}}
+    />
     <div className={styles.container}>
     {/* @ts-ignore */}
     <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
@@ -144,7 +148,6 @@ export default function Customize() {
             setShowFebricDetailsModel={setShowFebricDetailsModel}
             onClickHandler={updateFebricHandler}
 
-
         />}
 
         {designJourney === 'styles' && 
@@ -152,7 +155,10 @@ export default function Customize() {
         
         />}
 
-        {designJourney === 'accents' && <Accents/>}
+        {designJourney === 'accents' && <Accents
+        setShowAccentFebricModel={setShowAccentFebricModel} 
+        showAccentFebricModel={showAccentFebricModel}
+        />}
         
     </div>
     <div className={styles.model}>

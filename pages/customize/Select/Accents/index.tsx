@@ -72,14 +72,23 @@ const accentsStyles = [{
 }
 ]
 
-export default function Accents() {
+export interface IAccents {
+    setShowAccentFebricModel:Function; 
+    showAccentFebricModel:boolean;
+}
+
+export default function Accents({setShowAccentFebricModel, showAccentFebricModel}: IAccents) {
   return (
     <div className={styles.styles__container}>
             {accentsStyles.map((accent, i) => 
             <ProductStyles key={`product-style-${i}`} 
             label={accent.label} 
             childrens={accent.childrens} 
-            code={accent.code} />)}
+            code={accent.code} 
+            setShowAccentFebricModel={setShowAccentFebricModel}
+            showAccentFebricModel={showAccentFebricModel}
+            />)}
+
         </div>
   )
 }

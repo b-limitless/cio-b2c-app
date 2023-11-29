@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { MouseEventHandler } from 'react';
 import { updateModel } from 'slices/modelSlice';
+import { IAccents } from '../../Accents';
 interface ItemInterface {
     name: string;
     id: string;
@@ -12,7 +13,7 @@ interface ItemInterface {
     mediaUrl: string;
     onClickHanlder:MouseEventHandler<HTMLLabelElement>;
 }
-interface ProductStylesInterface {
+interface ProductStylesInterface extends IAccents {
     label: string;
     childrens: any[];
     code: string;
@@ -29,11 +30,12 @@ function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
     </Fragment>
     )
 }
-export default function ProductStyles({ label, childrens, code }: ProductStylesInterface) {
+
+export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel }: ProductStylesInterface) {
     const dispatch = useDispatch();
 
     const dispatchSelectedModelConfig = ({id, model} : {id: any, model:any}) => {
-        dispatch(updateModel({payload: {id, model}, key: 'collar'}));
+        dispatch(updateModel({payload: {id, model, price: 0}, key: 'collar'}));
     }
 
     return (
@@ -46,7 +48,7 @@ export default function ProductStyles({ label, childrens, code }: ProductStylesI
                     id={`styles-children-${code}-${i}`}
                     title={children.label}
                     mediaUrl={children.mediaUrl}
-                    onClickHanlder={() => dispatchSelectedModelConfig({id:children.id, model: `${children.model}?timestamp=${Date.now()}`})}
+                    onClickHanlder={() => setShowAccentFebricModel(true)}
                     
                 />)}
                 {}
