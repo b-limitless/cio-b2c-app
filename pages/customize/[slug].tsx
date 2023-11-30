@@ -16,6 +16,7 @@ import Accents from './Select/Accents';
 import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
+import { UpdateAccentAction, updateAccent } from 'slices/accentSlice';
 
 
 
@@ -84,9 +85,12 @@ export default function Customize() {
     const [counter, setCounter] = useState(0);
 
     const {collar, febric} = useSelector((state:RootState) => state.model);
+    const {collar: collarAccent} = useSelector((state:RootState) => state.accent);
     const {model: febricURI} = febric;
 
     const dispatch = useDispatch();
+
+    // console.log('collarAccent', collarAccent)
 
 
 // Hello
@@ -121,6 +125,14 @@ export default function Customize() {
        dispatch(updateModel({key, payload}));
     }
 
+    const updateCollarFebriceHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
+        event.stopPropagation();
+        const {key, payload} = params;
+
+        console.log("dispatching", {key:'collar', payload})
+        dispatch(updateAccent({key:'collar', payload}));
+    }
+
     return (
         <>
         
@@ -131,7 +143,7 @@ export default function Customize() {
     <AccentFebricModel 
     setShowFilterModel={setShowAccentFebricModel} 
     showFilterModel={showAccentFebricModel}
-    onClickHandler={() => {}}
+    onClickHandler={updateCollarFebriceHandler}
     />
     <div className={styles.container}>
     {/* @ts-ignore */}
@@ -168,6 +180,7 @@ export default function Customize() {
         <Shirt3DModel
         collar={collar.model}
         febricURI={febricURI}
+        collarAccent={collarAccent}
         />
     </div>
     <div className={styles.infomration}>

@@ -32,7 +32,7 @@ const modelProperties = {
 
 type ModelType = typeof modelProperties;
 type modelKeys = keyof ModelType;
-type ModelKeys = keyof ModelType;
+export type ModelKeys = keyof ModelType;
 
 export  interface UpdateModelAction {
   key: modelKeys;
@@ -53,7 +53,7 @@ type ModelActionInterface = Record<ModelKeys, RowType>
 const initialState: ModelActionInterface = {
   collar: {
     id: 12,
-    model: `/models/collars/collar-3.glb?timestamp=${Date.now()}`,
+    model: `/models/collars/collar-1-1.glb?timestamp=${Date.now()}`,
     price: 0
   }, 
   febric: {

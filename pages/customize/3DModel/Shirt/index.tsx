@@ -3,11 +3,12 @@
 
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useLoader } from '@react-three/fiber';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import dynamic from 'next/dynamic';
-import { ReactNode, Ref, useEffect, useMemo, useRef } from 'react';
-import { Group, Object3DEventMap, TextureLoader, MeshPhongMaterial } from 'three';
+import { ReactNode, useEffect, useMemo, useRef } from 'react';
+import { TCollar } from 'slices/accentSlice';
 import * as THREE from 'three';
+import { Group, MeshPhongMaterial, Object3DEventMap, TextureLoader } from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 interface BaseModel {
   collar:string;
@@ -19,18 +20,20 @@ interface CollarInterface extends  BaseModel{
 
 interface ShirtModelInterface extends BaseModel {
   febricURI:string;
+  collarAccent: TCollar
 }
 
 interface AddTextureModel {
   textureURL: string;
   children: ReactNode
+  meshName: string;
+  fullBody: boolean;
 }
 
-const Shirt3DModel = ({collar, febricURI}: ShirtModelInterface) => {
+const Shirt3DModel = ({collar, febricURI, collarAccent}: ShirtModelInterface) => {
   return (
     
     <Canvas>
-        
         <ambientLight />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <directionalLight position={[-5, -5, -5]} intensity={1} />
@@ -54,8 +57,11 @@ const Shirt3DModel = ({collar, febricURI}: ShirtModelInterface) => {
           autoRotate={false}
           autoRotateSpeed={0.2}
         />
+        <AddTextureToModel textureURL={collarAccent.febric} meshName='Body_Front_Node' fullBody={true}>
         <CollarModel collar={collar}/>
-        <AddTextureToModel textureURL={febricURI}>
+        </AddTextureToModel>
+        
+        <AddTextureToModel textureURL={febricURI} meshName='Body_Front_Node' fullBody={false}>
           <Model />
         </AddTextureToModel>
         
@@ -107,7 +113,7 @@ const CollarModel = ({collar}: CollarInterface) => {
 };
 
 
-const AddTextureToModel = ({textureURL, children}: AddTextureModel) => {
+const AddTextureToModel = ({textureURL, meshName, children, fullBody}: AddTextureModel) => {
   const modelRef = useRef<Group<Object3DEventMap>>(null);
 
   // Load texture using userLoader 
@@ -119,7 +125,6 @@ const AddTextureToModel = ({textureURL, children}: AddTextureModel) => {
 
   // Define material with the loaded texture
   const material =  useMemo(() => {
-    console.log('texture', texture);
     return new MeshPhongMaterial({map: texture});
   }, [texture]);
   
@@ -127,7 +132,7 @@ const AddTextureToModel = ({textureURL, children}: AddTextureModel) => {
 
   // Set the material to the specific mesh in the model
 
-  const setMaterial = (parent:THREE.Object3D, type:string, mtl:THREE.Material, fullBody:boolean) => {
+  const setMaterial = (parent:THREE.Object3D, meshName:string, mtl:THREE.Material, fullBody:boolean) => {
 
     fullBody && parent.traverse((o) => {
       if(o instanceof THREE.Mesh) {
@@ -136,16 +141,16 @@ const AddTextureToModel = ({textureURL, children}: AddTextureModel) => {
     })
 
     !fullBody && parent.traverse((o) => {
-      if(o instanceof THREE.Mesh && o.name === type) {
+      if(o instanceof THREE.Mesh && o.name === meshName) {
         o.material = mtl;
       }
     })
   }
   
   useEffect(() => {
-    if(modelRef.current) setMaterial(modelRef.current, 'Body_Front_Node', material, true);
+    if(modelRef.current) setMaterial(modelRef.current, meshName, material, fullBody);
     
-  }, [texture, material])
+  }, [texture, material, meshName, fullBody]);
   
     return (
       <group ref={modelRef}>

@@ -1,4 +1,5 @@
 export const a = 1; 
+// Model without collor
 // Body_Back_Node
 // Body_Back_Yoke_Node
 // Body_Front_Right_Node
@@ -7,3 +8,5 @@ export const a = 1;
 // Cuffs_Node_Right
 // Sleeves_Node_Right
 // Sleeves_Node_Left
+
+// Collor - 1

@@ -1,10 +1,12 @@
 'use client';
 import { configureStore } from "@reduxjs/toolkit";
 import model from "slices/modelSlice";
+import accent from "slices/accentSlice";
 
 export const Store = configureStore({
     reducer: {
-        model
+        model, 
+        accent
     }
 });
 
