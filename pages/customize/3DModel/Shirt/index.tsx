@@ -26,7 +26,7 @@ interface ShirtModelInterface extends BaseModel {
 interface AddTextureModel {
   textureURL: string;
   children: ReactNode
-  meshName: string;
+  meshName: string[];
   fullBody: boolean;
 }
 
@@ -57,11 +57,11 @@ const Shirt3DModel = ({collar, febricURI, collarAccent}: ShirtModelInterface) =>
           autoRotate={false}
           autoRotateSpeed={0.2}
         />
-        <AddTextureToModel textureURL={collarAccent.febric} meshName='Body_Front_Node' fullBody={true}>
+        <AddTextureToModel textureURL={collarAccent.febric} meshName={['Body_Front_Node']} fullBody={true}>
         <CollarModel collar={collar}/>
         </AddTextureToModel>
         
-        <AddTextureToModel textureURL={febricURI} meshName='Body_Front_Node' fullBody={false}>
+        <AddTextureToModel textureURL={febricURI} meshName={['Body_Front_Node']} fullBody={false}>
           <Model />
         </AddTextureToModel>
         
@@ -132,7 +132,7 @@ const AddTextureToModel = ({textureURL, meshName, children, fullBody}: AddTextur
 
   // Set the material to the specific mesh in the model
 
-  const setMaterial = (parent:THREE.Object3D, meshName:string, mtl:THREE.Material, fullBody:boolean) => {
+  const setMaterial = (parent:THREE.Object3D, meshName:string[], mtl:THREE.Material, fullBody:boolean) => {
 
     fullBody && parent.traverse((o) => {
       if(o instanceof THREE.Mesh) {
@@ -141,7 +141,7 @@ const AddTextureToModel = ({textureURL, meshName, children, fullBody}: AddTextur
     })
 
     !fullBody && parent.traverse((o) => {
-      if(o instanceof THREE.Mesh && o.name === meshName) {
+      if(o instanceof THREE.Mesh && meshName.includes(o.name)) {
         o.material = mtl;
       }
     })

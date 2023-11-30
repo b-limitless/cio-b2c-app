@@ -129,7 +129,6 @@ export default function Customize() {
         event.stopPropagation();
         const {key, payload} = params;
 
-        console.log("dispatching", {key:'collar', payload})
         dispatch(updateAccent({key:'collar', payload}));
     }
 

@@ -45,6 +45,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     }
 
     const dispatchAccentType = ({key, payload}: UpdateAccentActionType) => {
+        if(payload === 'default') return;
         setShowAccentFebricModel(true);
         dispatch(updateAccentType({key, payload}));
     }

@@ -22,16 +22,16 @@ const accentsStyles = [{
         {
             id: 2,
             label: 'All',
-            code: 'club',
-            mediaUrl: '/icon/collars/club.svg',
+            code: 'all',
+            mediaUrl: '/icon/collars/button-down.svg',
             type: 'all'
 
         },
         {
             id: 3,
             label: 'Inner Febric($2)',
-            code: 'cutway',
-            mediaUrl: '/icon/collars/cutway.svg',
+            code: 'innerFebric',
+            mediaUrl: '/icon/collars/button-down.svg',
             type: 'innerFebric'
         },
         // {
