@@ -17,12 +17,14 @@ const accentsStyles = [{
             label: 'By Default',
             code: 'button_down',
             mediaUrl: '/icon/collars/button-down.svg',
+            type: 'default'
         },
         {
             id: 2,
             label: 'All',
             code: 'club',
             mediaUrl: '/icon/collars/club.svg',
+            type: 'all'
 
         },
         {
@@ -30,6 +32,7 @@ const accentsStyles = [{
             label: 'Inner Febric($2)',
             code: 'cutway',
             mediaUrl: '/icon/collars/cutway.svg',
+            type: 'innerFebric'
         },
         // {
         //     id:4,

@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { MouseEventHandler } from 'react';
 import { updateModel } from 'slices/modelSlice';
 import { IAccents } from '../../Accents';
+import { UpdateAccentActionType, updateAccentType } from 'slices/accentSlice';
 interface ItemInterface {
     name: string;
     id: string;
@@ -43,6 +44,11 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
         dispatch(updateModel({payload: {id, model, price: 0}, key: 'collar'}));
     }
 
+    const dispatchAccentType = ({key, payload}: UpdateAccentActionType) => {
+        setShowAccentFebricModel(true);
+        dispatch(updateAccentType({key, payload}));
+    }
+
     return (
         <div className={styles.row}>
             <div className={styles.title}>{label}</div>
@@ -55,7 +61,12 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                     mediaUrl={children.mediaUrl}
                     // On Click hand
                     onClickHanlder={() => type === 
-                                  'style' ? dispatchSelectedModelConfig({id:children.id, model: `${children.model}?timestamp=${Date.now()}`}) : setShowAccentFebricModel(true)}
+                                  'style' ? 
+                                      dispatchSelectedModelConfig
+                                          ({id:children.id, model: `${children.model}?timestamp=${Date.now()}`}) : 
+                                      
+                                          dispatchAccentType({key:'collar', payload: children.type})
+                                    }
                     
                 />)}
                 {}

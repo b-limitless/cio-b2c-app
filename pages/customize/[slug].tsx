@@ -16,7 +16,7 @@ import Accents from './Select/Accents';
 import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
-import { UpdateAccentAction, updateAccent } from 'slices/accentSlice';
+import { TCollarAccent, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
 
 
 
@@ -83,7 +83,7 @@ export default function Customize() {
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
     const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false); 
     const [counter, setCounter] = useState(0);
-
+    
     const {collar, febric} = useSelector((state:RootState) => state.model);
     const {collar: collarAccent} = useSelector((state:RootState) => state.accent);
     const {model: febricURI} = febric;

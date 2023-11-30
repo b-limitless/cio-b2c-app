@@ -4,7 +4,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { defaultFebric } from 'config/default';
 
-type TCollarAccent = 'default' | 'all' | 'innerFebric'; // can extends for cuff as well
+export type TCollarAccent = 'default' | 'all' | 'innerFebric'; // can extends for cuff as well
 
 export type TBase = {
   id: number | string;
@@ -37,6 +37,11 @@ export interface UpdateAccentAction {
   payload: TCollar;
 }
 
+export interface UpdateAccentActionType {
+  key: modelKeys;
+  payload: TCollar['type']; // Corrected type here
+}
+
 // export type RowType = {
 //   id: number;
 //   model: string;
@@ -64,8 +69,17 @@ const accentSlice = createSlice({
         [action.payload.key]: action.payload.payload,
       };
     },
+    updateAccentType: (state: IAccentGlobal, action: PayloadAction<UpdateAccentActionType>) => {
+      return {
+        ...state, 
+        [action.payload.key]: {
+          ...state[action.payload.key], 
+          type: action.payload.payload
+        }
+      }
+    }
   },
 });
 
-export const { updateAccent } = accentSlice.actions;
+export const { updateAccent, updateAccentType } = accentSlice.actions;
 export default accentSlice.reducer;
