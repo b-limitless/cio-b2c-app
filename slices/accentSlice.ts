@@ -18,7 +18,7 @@ export type TCollar = {
 interface IAccentGlobal {
   collar: TCollar;
 }
-const accentProperties: IAccentGlobal = {
+export const accentProperties: IAccentGlobal = {
   collar: {
     id: 12,
     // Iterate through the mesh name and apply the selected febric to that mesh
@@ -37,11 +37,15 @@ export interface UpdateAccentAction {
   payload: TCollar;
 }
 
+
+
 export interface UpdateAccentActionType {
   key: modelKeys;
-  payload: TCollar['type']; // Corrected type here
+  payload: {
+    type: TCollar['type'];
+    meshName: TBase['meshName'];
+  }
 }
-
 // export type RowType = {
 //   id: number;
 //   model: string;
@@ -74,7 +78,8 @@ const accentSlice = createSlice({
         ...state, 
         [action.payload.key]: {
           ...state[action.payload.key], 
-          type: action.payload.payload
+          type: action.payload.payload.type,
+          meshName: action.payload.payload.meshName
         }
       }
     }

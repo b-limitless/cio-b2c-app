@@ -92,7 +92,7 @@ export default function Customize() {
 
     // console.log('collarAccent', collarAccent)
 
-
+console.log("collarAccent", collarAccent);
 // Hello
     const nextStepHandler = () => {
 
@@ -128,6 +128,11 @@ export default function Customize() {
     const updateCollarFebriceHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
         event.stopPropagation();
         const {key, payload} = params;
+        const {meshName} = collarAccent;
+        payload.meshName = meshName;
+        // console.log("payload", payload)
+        // console.log("merge", merge);
+        
 
         dispatch(updateAccent({key:'collar', payload}));
     }

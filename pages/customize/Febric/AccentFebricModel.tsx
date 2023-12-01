@@ -52,19 +52,8 @@ export default function AccentFebricModel({ onClickHandler, setShowFilterModel, 
                     febricImageURI={febric.febricURI}
                     key={'febri-item-custom' + i}
                     setShowFebricDetailsModel={() => null}
-                    onClick={(event: any) => onClickHandler(event, { key : 'collar', payload: { id: i, meshName: [], febric: febric.febricURI, type: 'default' } })}
+                    onClick={(event: any) => onClickHandler(event, { key : 'collar', payload: { id: i, febric: febric.febricURI } })}
                 />)}
-
-
-                {/* {countArray.map((_, i) => <Febric
-                    febricImageURI='/img/febric-thumnail.png'
-                    key={'febri-item' + i}
-                    setShowFebricDetailsModel={() => null}
-                    onClick={(event: any) => { }}
-
-                />)} */}
-
-
 
             </div>
 

@@ -57,11 +57,11 @@ const Shirt3DModel = ({collar, febricURI, collarAccent}: ShirtModelInterface) =>
           autoRotate={false}
           autoRotateSpeed={0.2}
         />
-        <AddTextureToModel textureURL={collarAccent.febric} meshName={['Body_Front_Node']} fullBody={true}>
+        <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
         <CollarModel collar={collar}/>
         </AddTextureToModel>
         
-        <AddTextureToModel textureURL={febricURI} meshName={['Body_Front_Node']} fullBody={false}>
+        <AddTextureToModel textureURL={febricURI} meshName={['Body_Front_Node']} fullBody={true}>
           <Model />
         </AddTextureToModel>
         
@@ -94,7 +94,6 @@ const CollarModel = ({collar}: CollarInterface) => {
     // console.log('collarModelURL', collarModelURL);
     // Before adding get the object by name 
     
-    console.log('collar', collar)
 
     const { scene } = useLoader(GLTFLoader, collar);
 
@@ -129,6 +128,7 @@ const AddTextureToModel = ({textureURL, meshName, children, fullBody}: AddTextur
   }, [texture]);
   
   
+  console.log('Adding material', textureURL, meshName, children, fullBody)
 
   // Set the material to the specific mesh in the model
 

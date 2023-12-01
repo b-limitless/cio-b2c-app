@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux';
 import { MouseEventHandler } from 'react';
 import { updateModel } from 'slices/modelSlice';
 import { IAccents } from '../../Accents';
-import { UpdateAccentActionType, updateAccentType } from 'slices/accentSlice';
+import { UpdateAccentActionType, updateAccent, updateAccentType } from 'slices/accentSlice';
+import { accentProperties } from 'slices/accentSlice';
 interface ItemInterface {
     name: string;
     id: string;
@@ -45,7 +46,18 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     }
 
     const dispatchAccentType = ({key, payload}: UpdateAccentActionType) => {
-        if(payload === 'default') return;
+        if(payload.type === 'default') {
+            // need to dispatch default value 
+            // Which was initially 
+            
+            const {collar} = accentProperties;
+            // console.log("dispatching default collar", collar)
+            // dispatch(updateAccent({key, payload: collar}));
+            dispatch(updateAccent({key, payload: collar}));
+            console.log("do nothing if default is provided")
+            return; 
+        };
+        console.log("payload", payload)
         setShowAccentFebricModel(true);
         dispatch(updateAccentType({key, payload}));
     }
@@ -66,7 +78,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                                       dispatchSelectedModelConfig
                                           ({id:children.id, model: `${children.model}?timestamp=${Date.now()}`}) : 
                                       
-                                          dispatchAccentType({key:'collar', payload: children.type})
+                                          dispatchAccentType({key:'collar', payload: children})
                                     }
                     
                 />)}
