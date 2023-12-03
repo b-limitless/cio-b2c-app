@@ -49,8 +49,8 @@ const Shirt3DModel = ({collar, febricURI, collarAccent}: ShirtModelInterface) =>
         />
         
         <OrbitControls
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 3}
+          maxPolarAngle={Math.PI}
+          minPolarAngle={0}
           enableDamping={true}
           enablePan={false}
           dampingFactor={0.1}
