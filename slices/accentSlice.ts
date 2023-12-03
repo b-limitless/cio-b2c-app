@@ -59,7 +59,7 @@ const initialState: ModelActionInterface = {
     id: 12,
     febric: defaultFebric,
     type: 'default',
-    meshName: ['test'],
+    meshName: [],
   },
 };
 

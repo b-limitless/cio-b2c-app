@@ -1,2 +1,2 @@
 
-export const defaultFebric = `/img/febric1.jpg`;
+export const defaultFebric = `/img/febric-6.jpg?timestamp=${Date.now()}`;

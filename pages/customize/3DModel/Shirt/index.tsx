@@ -128,7 +128,6 @@ const AddTextureToModel = ({textureURL, meshName, children, fullBody}: AddTextur
   }, [texture]);
   
   
-  console.log('Adding material', textureURL, meshName, children, fullBody)
 
   // Set the material to the specific mesh in the model
 

@@ -26,7 +26,7 @@ const productStyles = [{
             label: 'cutway',
             code: 'cutway',
             mediaUrl: '/icon/collars/cutway.svg',
-            model: `/models/collars/collar-1.glb`
+            model: `/models/collars/collar-1-1.glb`
         },
         // {
         //     id:4,

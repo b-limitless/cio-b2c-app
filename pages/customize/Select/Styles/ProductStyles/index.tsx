@@ -54,10 +54,10 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
             // console.log("dispatching default collar", collar)
             // dispatch(updateAccent({key, payload: collar}));
             dispatch(updateAccent({key, payload: collar}));
-            console.log("do nothing if default is provided")
+            
             return; 
         };
-        console.log("payload", payload)
+
         setShowAccentFebricModel(true);
         dispatch(updateAccentType({key, payload}));
     }

@@ -92,7 +92,7 @@ export default function Customize() {
 
     // console.log('collarAccent', collarAccent)
 
-console.log("collarAccent", collarAccent);
+
 // Hello
     const nextStepHandler = () => {
 
@@ -136,6 +136,7 @@ console.log("collarAccent", collarAccent);
 
         dispatch(updateAccent({key:'collar', payload}));
     }
+
 
     return (
         <>

@@ -7,7 +7,7 @@ import { defaultFebric } from 'config/default';
 const modelProperties = {
   collar: {
     id: 12,
-    model: 'URL for the model to load from CDN',
+    model: defaultFebric,
     price: 0
   },
   febric: {
