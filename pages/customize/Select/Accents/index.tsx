@@ -17,7 +17,7 @@ const accentsStyles = [{
             label: 'By Default',
             code: 'button_down',
             mediaUrl: '/icon/collars/button-down.svg',
-            type: 'default', 
+            type: 'default',
             meshName: []
         },
         {
@@ -25,7 +25,7 @@ const accentsStyles = [{
             label: 'All',
             code: 'all',
             mediaUrl: '/icon/collars/button-down.svg',
-            type: 'all', 
+            type: 'all',
             meshName: ['Collar_Top', 'Collor_Button_Holder', 'Collor_Inner', 'Node_5']
 
         },
@@ -34,7 +34,7 @@ const accentsStyles = [{
             label: 'Inner Febric($2)',
             code: 'innerFebric',
             mediaUrl: '/icon/collars/button-down.svg',
-            type: 'innerFebric', 
+            type: 'innerFebric',
             meshName: ['Collor_Inner']
         },
         // {

@@ -16,7 +16,8 @@ import Accents from './Select/Accents';
 import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
-import { TCollarAccent, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
+import { TCollar, TCollarAccent, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
+import { defaultFebric } from 'config/default';
 
 
 
@@ -30,11 +31,11 @@ const model = {
     collar: {
         id: 12,
         model: 'URL for the model to load from CDN'
-    }, 
+    },
     scuff: {
         id: 13,
         model: 'URL for the model to load'
-    }, 
+    },
     sleeves: {
         id: 13,
         model: 'URL for the model to load'
@@ -53,19 +54,19 @@ type ConstrastedStitch = 'By default' | 'All' | 'Only cuffs'
 
 const accent = {
     collar: {
-        selected: 'By Default', 
+        selected: 'By Default',
         febric: {
             id: null,
             url: 'http://'
         }
-    }, 
+    },
     cuff: {
         selected: 'By Default',
         febric: {
-            id: null, 
+            id: null,
             url: 'http://'
         }
-    }, 
+    },
 }
 
 const orderInitialState = {
@@ -81,22 +82,19 @@ export default function Customize() {
     const [showFilterModel, setShowFilterModel] = useState(false);
     const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(false);
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
-    const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false); 
+    const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false);
     const [counter, setCounter] = useState(0);
-    
-    const {collar, febric} = useSelector((state:RootState) => state.model);
-    const {collar: collarAccent} = useSelector((state:RootState) => state.accent);
-    const {model: febricURI} = febric;
+
+    const { collar, febric } = useSelector((state: RootState) => state.model);
+    const { collar: collarAccent } = useSelector((state: RootState) => state.accent);
+    const { model: febricURI } = febric;
 
     const dispatch = useDispatch();
 
-    // console.log('collarAccent', collarAccent)
-
-
-// Hello
+    // Hello
     const nextStepHandler = () => {
 
-        if(designJourney === SelectionProcess.accents) {
+        if (designJourney === SelectionProcess.accents) {
             router.push('/order');
             return;
         }
@@ -108,12 +106,12 @@ export default function Customize() {
     }
 
     useEffect(() => {
-        if(showFilterModel) {
+        if (showFilterModel) {
             document.body.style.overflow = 'hidden';
             // document.body.style.display='none';
         }
 
-        if(!showFilterModel) {
+        if (!showFilterModel) {
             document.body.style.overflow = 'auto';
         }
 
@@ -121,138 +119,125 @@ export default function Customize() {
 
     const updateFebricHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateModelAction) => {
         event.stopPropagation();
-        const {key, payload} = params;
-       dispatch(updateModel({key, payload}));
+        const { key, payload } = params;
+        // You need to check the collor febric as well 
+        // If the febric for the collar is default then do not need to update that state as well
+        // If not then that means user has already updated and keep the user selection on the model
+
+
+        dispatch(updateModel({ key, payload }));
+
+        if (collarAccent.updatedFrom === 'febrics') {
+
+            // Update the collor with different febric
+            const payloadC: TCollar = {
+                id: 12,
+                meshName: [], //'because it can be combining all or inner',
+                febric: payload.model,
+                type: 'default',
+                updatedFrom: 'febrics'
+            }
+            dispatch(updateAccent({ key: 'collar', payload: payloadC }));
+        }
     }
 
     const updateCollarFebriceHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
         event.stopPropagation();
-        const {key, payload} = params;
-        const {meshName} = collarAccent;
+        const { key, payload } = params;
+        const { meshName } = collarAccent;
         payload.meshName = meshName;
-        // console.log("payload", payload)
-        // console.log("merge", merge);
-        
-
-        dispatch(updateAccent({key:'collar', payload}));
+        payload.updatedFrom = 'accents';
+        dispatch(updateAccent({ key: 'collar', payload }));
     }
 
 
     return (
         <>
-        
-     {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel}/>
-     }
-       
-    <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel}/>
-    <AccentFebricModel 
-    setShowFilterModel={setShowAccentFebricModel} 
-    showFilterModel={showAccentFebricModel}
-    onClickHandler={updateCollarFebriceHandler}
-    />
-    <div className={styles.container}>
-    {/* @ts-ignore */}
-    <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
-    <main className={styles.main__content}>
 
-    <div className={styles.filter}>
-    <div className={styles.title}>Select {designJourney}</div>
+            {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel} />
+            }
+
+            <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel} />
+            <AccentFebricModel
+                setShowFilterModel={setShowAccentFebricModel}
+                showFilterModel={showAccentFebricModel}
+                onClickHandler={updateCollarFebriceHandler}
+            />
+            <div className={styles.container}>
+                {/* @ts-ignore */}
+                <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
+                <main className={styles.main__content}>
+
+                    <div className={styles.filter}>
+                        <div className={styles.title}>Select {designJourney}</div>
 
 
-        {designJourney === 'febrics' && 
-            <Febrics 
-            setShowFilterModel={setShowFilterModel} 
-            setShowFebricDetailsModel={setShowFebricDetailsModel}
-            onClickHandler={updateFebricHandler}
+                        {designJourney === 'febrics' &&
+                            <Febrics
+                                setShowFilterModel={setShowFilterModel}
+                                setShowFebricDetailsModel={setShowFebricDetailsModel}
+                                onClickHandler={updateFebricHandler}
 
-        />}
+                            />}
 
-        {designJourney === 'styles' && 
-        <Styles
-        
-        />}
+                        {designJourney === 'styles' &&
+                            <Styles
 
-        {designJourney === 'accents' && <Accents
-        setShowAccentFebricModel={setShowAccentFebricModel} 
-        showAccentFebricModel={showAccentFebricModel}
-        />}
-        
-    </div>
-    <div className={styles.model}>
-        
-        {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
-        
-        <Shirt3DModel
-        collar={collar.model}
-        febricURI={febricURI}
-        collarAccent={collarAccent}
-        />
-    </div>
-    <div className={styles.infomration}>
-        <div className={styles.row}>
-            <div className={styles.name}>
-                custom shirt
+                            />}
+
+                        {designJourney === 'accents' && <Accents
+                            setShowAccentFebricModel={setShowAccentFebricModel}
+                            showAccentFebricModel={showAccentFebricModel}
+                        />}
+
+                    </div>
+                    <div className={styles.model}>
+
+                        {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
+
+                        <Shirt3DModel
+                            collar={collar.model}
+                            febricURI={febricURI}
+                            collarAccent={collarAccent}
+                        />
+                    </div>
+                    <div className={styles.infomration}>
+                        <div className={styles.row}>
+                            <div className={styles.name}>
+                                custom shirt
+                            </div>
+                            <div className={styles.price}>
+                                $89
+                            </div>
+                            <div className={styles.feature}>
+                                ESSENTIAL
+                            </div>
+                            <div className={styles.type}>
+                                Cotton
+                            </div>
+                            <div className={styles.ref}>
+                                ref: Mayfield
+                            </div>
+                            <div className={styles.detail__action}>
+                                FebricDetails
+                            </div>
+                        </div>
+                        <div className={styles.row}>
+                            <Button variant='primary' type='square' onClick={() => nextStepHandler()}>
+                                <span>Next</span>
+                            </Button>
+                            <div className={styles.receives__when}>
+                                RECEIVE IN 3 WEEKS
+                            </div>
+                            <div className={styles.icons}>
+                                <Image src='/icon/heart.svg' width={24} height={20} alt='heart' />
+                                <Image src='/icon/share.svg' width={24} height={20} alt='share' />
+                            </div>
+                        </div>
+                    </div>
+                </main>
             </div>
-            <div className={styles.price}>
-                $89
-            </div>
-            <div className={styles.feature}>
-                ESSENTIAL
-            </div>
-            <div className={styles.type}>
-                Cotton
-            </div>
-            <div className={styles.ref}>
-                ref: Mayfield
-            </div>
-            <div className={styles.detail__action}>
-                FebricDetails
-            </div>
-        </div>
-        <div className={styles.row}>
-            <Button variant='primary' type='square' onClick={() => nextStepHandler()}>
-                <span>Next</span>
-            </Button>
-            <div className={styles.receives__when}>
-                RECEIVE IN 3 WEEKS
-            </div>
-            <div className={styles.icons}>
-                <Image src='/icon/heart.svg' width={24} height={20} alt='heart' />
-                <Image src='/icon/share.svg' width={24} height={20} alt='share' />
-            </div>
-        </div>
-    </div>
-    </main>
-    </div>
-    </>
-        
+        </>
+
     )
 }
-
-
-// export async function getStaticPaths() {
-//     // Generate dynamic paths based on your data
-//     // Example: Fetch slugs from an API or database
-//     const paths = ['/customize/slug']; // Replace with your actual data fetching logic
-  
-//     return {
-//       paths,
-//       fallback: false, // Set to true if you want to handle unknown slugs at runtime
-//     };
-//   }
-
-
-//   type props = {
-//     params: any;
-//   };
-//   export async function getStaticProps({ params }: props) {
-//     // Fetch data based on the current slug
-//     const data = {}; // Replace with your actual data fetching logic
-  
-//     return {
-//       props: {
-//         data,
-//       },
-//     };
-//   }
-  

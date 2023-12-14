@@ -1,2 +1,4 @@
 
-export const defaultFebric = `/img/febric-6.jpg?timestamp=${Date.now()}`;
+export const defaultFebric = `/img/febric-6.jpg`;
+
+//?timestamp=${Date.now()}

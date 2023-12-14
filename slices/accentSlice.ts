@@ -5,11 +5,13 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { defaultFebric } from 'config/default';
 
 export type TCollarAccent = 'default' | 'all' | 'innerFebric'; // can extends for cuff as well
+export type TModelNavigation = 'febrics' | 'styles' | 'accents';
 
 export type TBase = {
   id: number | string;
   meshName: string[];
   febric: string;
+  updatedFrom: TModelNavigation;
 };
 export type TCollar = {
   type: TCollarAccent;
@@ -17,6 +19,7 @@ export type TCollar = {
 
 interface IAccentGlobal {
   collar: TCollar;
+  
 }
 export const accentProperties: IAccentGlobal = {
   collar: {
@@ -25,6 +28,7 @@ export const accentProperties: IAccentGlobal = {
     meshName: [], //'because it can be combining all or inner',
     febric: defaultFebric,
     type: 'default',
+    updatedFrom:'febrics'
   },
 };
 
@@ -60,6 +64,8 @@ const initialState: ModelActionInterface = {
     febric: defaultFebric,
     type: 'default',
     meshName: [],
+    updatedFrom: 'febrics'
+   
   },
 };
 
