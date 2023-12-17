@@ -48,7 +48,7 @@ const accentsStyles = [{
 },
 {
     label: 'Contrasted cuff',
-    code: 'cuff',
+    code: 'cuffs',
     childrens: [
         {
             id: 5,
@@ -81,9 +81,10 @@ const accentsStyles = [{
 export interface IAccents {
     setShowAccentFebricModel: Function;
     showAccentFebricModel: boolean;
+    setActiveAccent?:Function;
 }
 
-export default function Accents({ setShowAccentFebricModel, showAccentFebricModel }: IAccents) {
+export default function Accents({ setShowAccentFebricModel, showAccentFebricModel, setActiveAccent }: IAccents) {
     return (
         <div className={styles.styles__container}>
             {accentsStyles.map((accent, i) =>
@@ -94,6 +95,7 @@ export default function Accents({ setShowAccentFebricModel, showAccentFebricMode
                     setShowAccentFebricModel={setShowAccentFebricModel}
                     showAccentFebricModel={showAccentFebricModel}
                     type='accent'
+                    setActiveAccent={setActiveAccent}
                 />)}
 
         </div>

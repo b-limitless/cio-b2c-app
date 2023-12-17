@@ -130,8 +130,6 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddText
   // Load texture using userLoader 
   const texture = useLoader(TextureLoader, textureURL);
 
-  console.log('collarAccent.meshName', meshName, 'type', textureURL)
-
   texture.repeat.set(2, 2);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;

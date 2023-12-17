@@ -16,7 +16,7 @@ import Accents from './Select/Accents';
 import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
-import { TCollar, TCollarAccent, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
+import { IAccentGlobal, TCollar, TCollarAccent, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
 import { defaultFebric } from 'config/default';
 
 
@@ -83,7 +83,7 @@ export default function Customize() {
     const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(false);
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
     const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false);
-    const [counter, setCounter] = useState(0);
+    const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
 
     const { collar, febric } = useSelector((state: RootState) => state.model);
     const{cuff} = useSelector((state: RootState) => state.model);
@@ -146,11 +146,15 @@ export default function Customize() {
     const updateCollarFebriceHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
         event.stopPropagation();
         const { key, payload } = params;
+
+        console.log('key', key)
         const { meshName } = collarAccent;
         payload.meshName = meshName;
         payload.updatedFrom = 'accents';
         dispatch(updateAccent({ key: 'collar', payload }));
     }
+
+    console.log('activeaccent', activeAccent);
 
     return (
         <>
@@ -188,6 +192,7 @@ export default function Customize() {
                         {designJourney === 'accents' && <Accents
                             setShowAccentFebricModel={setShowAccentFebricModel}
                             showAccentFebricModel={showAccentFebricModel}
+                            setActiveAccent={setActiveAccent}
                         />}
 
                     </div>

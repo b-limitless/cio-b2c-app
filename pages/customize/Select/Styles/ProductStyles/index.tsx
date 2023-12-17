@@ -23,6 +23,7 @@ interface ProductStylesInterface extends IAccents {
     childrens: any[];
     code: string;
     type: TOnClickEvent
+    setActiveAccent?:Function;
 }
 
 
@@ -39,7 +40,7 @@ function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
     )
 }
 
-export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type }: ProductStylesInterface) {
+export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent }: ProductStylesInterface) {
     const dispatch = useDispatch();
 
     const getKeyBasedOnEvent = (): keyof IAccentGlobal => {
@@ -51,6 +52,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     }
 
     const dispatchAccentType = ({ key, payload }: UpdateAccentActionType) => {
+        console.log('code', code)
         if (payload.type === 'default') {
             // need to dispatch default value 
             // Which was initially 
@@ -58,6 +60,10 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
             const { collar } = accentProperties;
             // console.log("dispatching default collar", collar)
             // dispatch(updateAccent({key, payload: collar}));
+            if(setActiveAccent) {
+                setActiveAccent(getKeyBasedOnEvent());
+            }
+            
             dispatch(updateAccent({ key, payload: collar }));
 
             return;
