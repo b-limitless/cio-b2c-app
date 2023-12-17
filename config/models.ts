@@ -1,3 +1,3 @@
 export const modelsURL = {
-    shirt: '/models/shirt/shirt-without-collar-2.glb',
+    shirt: '/models/shirt/shirt-without-collar-and-cuff.glb',
 }
