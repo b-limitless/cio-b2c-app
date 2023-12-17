@@ -3,6 +3,7 @@
 
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useLoader } from '@react-three/fiber';
+import { modelsURL } from 'config/models';
 import dynamic from 'next/dynamic';
 import { ReactNode, useEffect, useMemo, useRef } from 'react';
 import { TCollar } from 'slices/accentSlice';
@@ -75,7 +76,7 @@ const Shirt3DModel = ({collar, febricURI, collarAccent}: ShirtModelInterface) =>
 };
 
 const Model = () => {
-  const { scene } = useLoader(GLTFLoader, '/models/shirt/shirt-without-collar-2.glb');
+  const { scene } = useLoader(GLTFLoader, modelsURL.shirt);
 
   scene.scale.set(6, 6, 6);
   // Optionally adjust position or scale here
