@@ -19,10 +19,20 @@ export type TCollar = {
 
 interface IAccentGlobal {
   collar: TCollar;
+  cuff: TCollar
   
 }
 export const accentProperties: IAccentGlobal = {
   collar: {
+    id: 12,
+    // Iterate through the mesh name and apply the selected febric to that mesh
+    meshName: [], //'because it can be combining all or inner',
+    febric: defaultFebric,
+    type: 'default',
+    updatedFrom:'febrics'
+  },
+
+  cuff: {
     id: 12,
     // Iterate through the mesh name and apply the selected febric to that mesh
     meshName: [], //'because it can be combining all or inner',
@@ -65,8 +75,14 @@ const initialState: ModelActionInterface = {
     type: 'default',
     meshName: [],
     updatedFrom: 'febrics'
-   
   },
+  cuff: {
+    id: 12,
+    febric: defaultFebric,
+    type: 'default',
+    meshName: [],
+    updatedFrom: 'febrics'
+  }
 };
 
 const accentSlice = createSlice({

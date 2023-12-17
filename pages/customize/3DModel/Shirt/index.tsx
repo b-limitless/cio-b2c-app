@@ -21,7 +21,8 @@ interface CollarInterface extends BaseModel {
 
 interface ShirtModelInterface extends BaseModel {
   febricURI: string;
-  collarAccent: TCollar
+  collarAccent: TCollar;
+  cuffAccent: TCollar;
 }
 
 interface AddTextureModel {
@@ -36,7 +37,7 @@ interface IAddModelToScene {
   modelURI: string;
 }
 
-const Shirt3DModel = ({ collar, febricURI, collarAccent }: ShirtModelInterface) => {
+const Shirt3DModel = ({ collar, febricURI, collarAccent, cuffAccent }: ShirtModelInterface) => {
   return (
 
     <Canvas>
@@ -64,11 +65,13 @@ const Shirt3DModel = ({ collar, febricURI, collarAccent }: ShirtModelInterface) 
         autoRotateSpeed={0.2}
       />
       <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
-      <AddModelToScene name='collar' modelURI={collar}/>
+        <AddModelToScene name='collar' modelURI={collar}/>
       </AddTextureToModel>
 
+      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
+
       <AddModelToScene name='cuff' modelURI='/models/cuffs/cuff-1-normal.glb' />
-      {/* Adding color to the scene */}
+     </AddTextureToModel>
      
 
       <AddTextureToModel textureURL={febricURI} meshName={['Body_Front_Node']} fullBody={true}>
@@ -76,9 +79,6 @@ const Shirt3DModel = ({ collar, febricURI, collarAccent }: ShirtModelInterface) 
       </AddTextureToModel>
 
     </Canvas>
-
-
-
 
 
   );
@@ -117,53 +117,6 @@ const AddModelToScene = ({ name, modelURI }: IAddModelToScene) => {
   scene.position.y = -7;
   scene.position.x = 0;
   scene.name = name;
-
-  return <primitive object={scene} />;
-};
-
-// Keep crashing
-const CollarModel = ({ collar }: CollarInterface) => {
-
-  // const collarModelURL =  collar ?? '/models/collars/collar-2.glb';
-  // console.log('collarModelURL', collarModelURL);
-  // Before adding get the object by name 
-
-
-  const { scene } = useLoader(GLTFLoader, collar);
-
-  const existingCollar = scene.getObjectByName("collar");
-  if (existingCollar) {
-    scene.remove(existingCollar);
-  }
-
-  scene.scale.set(6, 6, 6);
-  // Optionally adjust position or scale here
-  scene.position.y = -7;
-  scene.position.x = 0;
-  scene.name = 'collar';
-
-  return <primitive object={scene} />;
-};
-
-const CuffModel = () => {
-
-  // const collarModelURL =  collar ?? '/models/cuff/collar-2.glb';
-  // console.log('collarModelURL', collarModelURL);
-  // Before adding get the object by name 
-
-
-  const { scene } = useLoader(GLTFLoader, '/models/cuffs/cuff-1-normal.glb');
-
-  const existingCollar = scene.getObjectByName("cuffs");
-  if (existingCollar) {
-    scene.remove(existingCollar);
-  }
-
-  scene.scale.set(6, 6, 6);
-  // Optionally adjust position or scale here
-  scene.position.y = -7;
-  scene.position.x = 0;
-  scene.name = 'cuffs';
 
   return <primitive object={scene} />;
 };
@@ -218,11 +171,5 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddText
 
 
 }
-
-
-
-CollarModel.displayName = "Collar Model";
-
-// export default Shirt3DModel;
 
 export default dynamic(() => Promise.resolve(Shirt3DModel), { ssr: false });

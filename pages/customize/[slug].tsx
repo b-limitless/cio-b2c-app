@@ -87,6 +87,7 @@ export default function Customize() {
 
     const { collar, febric } = useSelector((state: RootState) => state.model);
     const { collar: collarAccent } = useSelector((state: RootState) => state.accent);
+    const {cuff: cuffAccent} = useSelector((state: RootState) => state.accent);
     const { model: febricURI } = febric;
 
     const dispatch = useDispatch();
@@ -150,6 +151,7 @@ export default function Customize() {
         dispatch(updateAccent({ key: 'collar', payload }));
     }
 
+    console.log('collarAccent', collarAccent)
 
     return (
         <>
@@ -199,6 +201,7 @@ export default function Customize() {
                             collar={collar.model}
                             febricURI={febricURI}
                             collarAccent={collarAccent}
+                            cuffAccent={cuffAccent}
                         />
                     </div>
                     <div className={styles.infomration}>
