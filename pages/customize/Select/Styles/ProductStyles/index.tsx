@@ -6,14 +6,15 @@ import { useDispatch } from 'react-redux';
 import { MouseEventHandler } from 'react';
 import { updateModel } from 'slices/modelSlice';
 import { IAccents } from '../../Accents';
-import { UpdateAccentActionType, updateAccent, updateAccentType } from 'slices/accentSlice';
+import { IAccentGlobal, UpdateAccentActionType, updateAccent, updateAccentType } from 'slices/accentSlice';
 import { accentProperties } from 'slices/accentSlice';
+
 interface ItemInterface {
     name: string;
     id: string;
     title: string;
     mediaUrl: string;
-    onClickHanlder:MouseEventHandler<HTMLLabelElement>;
+    onClickHanlder: MouseEventHandler<HTMLLabelElement>;
 }
 type TOnClickEvent = 'accent' | 'style' | 'febric';
 
@@ -41,26 +42,31 @@ function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
 export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type }: ProductStylesInterface) {
     const dispatch = useDispatch();
 
-    const dispatchSelectedModelConfig = ({id, model} : {id: any, model:any}) => {
-        dispatch(updateModel({payload: {id, model, price: 0}, key: 'collar'}));
+    const getKeyBasedOnEvent = (): keyof IAccentGlobal => {
+        return code.substring(0, code.length - 1) as keyof IAccentGlobal;
     }
 
-    const dispatchAccentType = ({key, payload}: UpdateAccentActionType) => {
-        if(payload.type === 'default') {
+    const dispatchSelectedModelConfig = ({ id, model }: { id: any, model: any }) => {
+        dispatch(updateModel({ payload: { id, model, price: 0 }, key: getKeyBasedOnEvent() }));
+    }
+
+    const dispatchAccentType = ({ key, payload }: UpdateAccentActionType) => {
+        if (payload.type === 'default') {
             // need to dispatch default value 
             // Which was initially 
-            
-            const {collar} = accentProperties;
+
+            const { collar } = accentProperties;
             // console.log("dispatching default collar", collar)
             // dispatch(updateAccent({key, payload: collar}));
-            dispatch(updateAccent({key, payload: collar}));
-            
-            return; 
+            dispatch(updateAccent({ key, payload: collar }));
+
+            return;
         };
 
         setShowAccentFebricModel(true);
-        dispatch(updateAccentType({key, payload}));
+        dispatch(updateAccentType({ key, payload }));
     }
+
 
     return (
         <div className={styles.row}>
@@ -73,16 +79,16 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                     title={children.label}
                     mediaUrl={children.mediaUrl}
                     // On Click hand
-                    onClickHanlder={() => type === 
-                                  'style' ? 
-                                      dispatchSelectedModelConfig
-                                          ({id:children.id, model: `${children.model}?timestamp=${Date.now()}`}) : 
-                                      
-                                          dispatchAccentType({key:'collar', payload: children})
-                                    }
-                    
+                    onClickHanlder={() => type ===
+                        'style' ?
+                        dispatchSelectedModelConfig
+                            ({ id: children.id, model: `${children.model}?timestamp=${Date.now()}` }) :
+
+                        dispatchAccentType({ key: getKeyBasedOnEvent(), payload: children })
+                    }
+
                 />)}
-                {}
+                { }
             </div>
         </div>
     )

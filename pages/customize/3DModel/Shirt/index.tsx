@@ -7,6 +7,7 @@ import { modelsURL } from 'config/models';
 import dynamic from 'next/dynamic';
 import { ReactNode, useEffect, useMemo, useRef } from 'react';
 import { TCollar } from 'slices/accentSlice';
+import { RowType } from 'slices/modelSlice';
 import * as THREE from 'three';
 import { Group, MeshPhongMaterial, Object3DEventMap, TextureLoader } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -23,6 +24,7 @@ interface ShirtModelInterface extends BaseModel {
   febricURI: string;
   collarAccent: TCollar;
   cuffAccent: TCollar;
+  cuff: RowType
 }
 
 interface AddTextureModel {
@@ -37,7 +39,7 @@ interface IAddModelToScene {
   modelURI: string;
 }
 
-const Shirt3DModel = ({ collar, febricURI, collarAccent, cuffAccent }: ShirtModelInterface) => {
+const Shirt3DModel = ({ collar,cuff, febricURI, collarAccent, cuffAccent }: ShirtModelInterface) => {
   return (
 
     <Canvas>
@@ -70,7 +72,7 @@ const Shirt3DModel = ({ collar, febricURI, collarAccent, cuffAccent }: ShirtMode
 
       <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
 
-      <AddModelToScene name='cuff' modelURI='/models/cuffs/cuff-1-normal.glb' />
+      <AddModelToScene name='cuff' modelURI={cuff.model} />
      </AddTextureToModel>
      
 

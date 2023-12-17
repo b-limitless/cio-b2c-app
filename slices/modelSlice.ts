@@ -2,7 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { defaultFebric } from 'config/default';
+import { defaultCuffModel, defaultFebric } from 'config/default';
 
 const modelProperties = {
   collar: {
@@ -15,11 +15,11 @@ const modelProperties = {
     model: defaultFebric, 
     price: 0
 
-  }
-  // scuff: {
-  //   id: 13,
-  //   model: 'URL for the model to load',
-  // },
+  },
+  cuff: {
+    id: 13,
+    model: defaultCuffModel,
+  },
   // sleeves: {
   //   id: 13,
   //   model: 'URL for the model to load',
@@ -60,7 +60,12 @@ const initialState: ModelActionInterface = {
     id: 12,
     model: `/img/febric-6.jpg?timestamp=${Date.now()}`,
     price: 0
-  }
+  }, 
+  cuff: {
+    id: 12,
+    model: `${defaultCuffModel}?timestamp=${Date.now()}`,
+    price: 0
+  }, 
 };
 
 const modelSlice = createSlice({

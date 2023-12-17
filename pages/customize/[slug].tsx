@@ -86,8 +86,9 @@ export default function Customize() {
     const [counter, setCounter] = useState(0);
 
     const { collar, febric } = useSelector((state: RootState) => state.model);
+    const{cuff} = useSelector((state: RootState) => state.model);
     const { collar: collarAccent } = useSelector((state: RootState) => state.accent);
-    const {cuff: cuffAccent} = useSelector((state: RootState) => state.accent);
+    const { cuff: cuffAccent } = useSelector((state: RootState) => state.accent);
     const { model: febricURI } = febric;
 
     const dispatch = useDispatch();
@@ -151,11 +152,8 @@ export default function Customize() {
         dispatch(updateAccent({ key: 'collar', payload }));
     }
 
-    console.log('collarAccent', collarAccent)
-
     return (
         <>
-
             {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel} />
             }
 
@@ -166,7 +164,7 @@ export default function Customize() {
                 onClickHandler={updateCollarFebriceHandler}
             />
             <div className={styles.container}>
-                {/* @ts-ignore */}
+                
                 <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
                 <main className={styles.main__content}>
 
@@ -199,6 +197,7 @@ export default function Customize() {
 
                         <Shirt3DModel
                             collar={collar.model}
+                            cuff={cuff}
                             febricURI={febricURI}
                             collarAccent={collarAccent}
                             cuffAccent={cuffAccent}

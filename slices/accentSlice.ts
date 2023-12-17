@@ -17,7 +17,7 @@ export type TCollar = {
   type: TCollarAccent;
 } & TBase;
 
-interface IAccentGlobal {
+export interface IAccentGlobal {
   collar: TCollar;
   cuff: TCollar
   
