@@ -60,11 +60,6 @@ export interface UpdateAccentActionType {
     meshName: TBase['meshName'];
   }
 }
-// export type RowType = {
-//   id: number;
-//   model: string;
-//   price: number;
-// };
 
 type ModelActionInterface = Record<ModelKeys, TCollar>;
 

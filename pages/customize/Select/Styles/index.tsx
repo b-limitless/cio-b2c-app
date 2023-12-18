@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 // Defining the data for the styles
 const productStyles = [{
     label: 'collars',
-    code: 'collars',
+    code: 'collar',
     childrens: [
         {
             id: 1,
@@ -39,7 +39,7 @@ const productStyles = [{
 },
 {
     label: 'cuffs',
-    code: 'cuffs',
+    code: 'cuff',
     childrens: [
         {
             id:5,

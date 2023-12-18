@@ -10,7 +10,7 @@ import ProductStyles from '../Styles/ProductStyles';
 // You need to manage state which is febric and which type is users is selected
 const accentsStyles = [{
     label: 'Contrasted Collor',
-    code: 'collars',
+    code: 'collar',
     childrens: [
         {
             id: 1,
@@ -48,32 +48,29 @@ const accentsStyles = [{
 },
 {
     label: 'Contrasted cuff',
-    code: 'cuffs',
+    code: 'cuff',
     childrens: [
         {
             id: 5,
             label: 'french',
             code: 'button_down',
-            mediaUrl: '/icon/cuff/french.svg'
+            mediaUrl: '/icon/cuff/french.svg', 
+            meshName: []
         },
         {
             id: 6,
             label: 'one button',
             code: 'one_button',
-            mediaUrl: '/icon/cuff/one-button.svg'
+            mediaUrl: '/icon/cuff/one-button.svg',
+            meshName: []
         },
         {
             id: 7,
             label: 'three button',
             code: 'button_down',
-            mediaUrl: '/icon/cuff/three-button.svg'
+            mediaUrl: '/icon/cuff/three-button.svg', 
+            meshName: []
         },
-        // {
-        //     id:8,
-        //     label: 'two button',
-        //     code: 'two_button',
-        //     mediaUrl: '/icon/cuff/two-button.svg'
-        // }
     ]
 }
 ]

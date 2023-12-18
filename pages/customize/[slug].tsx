@@ -147,14 +147,12 @@ export default function Customize() {
         event.stopPropagation();
         const { key, payload } = params;
 
-        console.log('key', key)
-        const { meshName } = collarAccent;
+        
+        const { meshName } = activeAccent === 'collar' ?  collarAccent : cuffAccent;
         payload.meshName = meshName;
         payload.updatedFrom = 'accents';
-        dispatch(updateAccent({ key: 'collar', payload }));
+        dispatch(updateAccent({ key: activeAccent, payload }));
     }
-
-    console.log('activeaccent', activeAccent);
 
     return (
         <>

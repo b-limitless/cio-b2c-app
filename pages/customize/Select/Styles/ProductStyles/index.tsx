@@ -43,28 +43,26 @@ function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
 export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent }: ProductStylesInterface) {
     const dispatch = useDispatch();
 
-    const getKeyBasedOnEvent = (): keyof IAccentGlobal => {
-        return code.substring(0, code.length - 1) as keyof IAccentGlobal;
-    }
+    // const getKeyBasedOnEvent = (): keyof IAccentGlobal => {
+    //     return code.substring(0, code.length - 1) as keyof IAccentGlobal;
+    // }
 
     const dispatchSelectedModelConfig = ({ id, model }: { id: any, model: any }) => {
-        dispatch(updateModel({ payload: { id, model, price: 0 }, key: getKeyBasedOnEvent() }));
+        dispatch(updateModel({ payload: { id, model, price: 0 }, key: code as keyof IAccentGlobal }));
     }
 
     const dispatchAccentType = ({ key, payload }: UpdateAccentActionType) => {
-        console.log('code', code)
+        
+        if(setActiveAccent) {
+            setActiveAccent(code);
+        }
         if (payload.type === 'default') {
             // need to dispatch default value 
             // Which was initially 
 
-            const { collar } = accentProperties;
-            // console.log("dispatching default collar", collar)
-            // dispatch(updateAccent({key, payload: collar}));
-            if(setActiveAccent) {
-                setActiveAccent(getKeyBasedOnEvent());
-            }
+            const { collar, cuff } = accentProperties; 
             
-            dispatch(updateAccent({ key, payload: collar }));
+            dispatch(updateAccent({ key, payload: code==='cuff' ? cuff : collar }));
 
             return;
         };
@@ -90,7 +88,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                         dispatchSelectedModelConfig
                             ({ id: children.id, model: `${children.model}?timestamp=${Date.now()}` }) :
 
-                        dispatchAccentType({ key: getKeyBasedOnEvent(), payload: children })
+                        dispatchAccentType({ key: code as keyof IAccentGlobal, payload: children })
                     }
 
                 />)}
