@@ -184,6 +184,7 @@ export default function Customize() {
                         {designJourney === 'styles' &&
                             <Styles
                             collarAccent={collarAccent}
+                            cuffAccent={cuffAccent}
 
                             />}
 

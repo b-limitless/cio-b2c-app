@@ -21,33 +21,25 @@ function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
     )
 }
 
-export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent, collarAccent }: ProductStylesInterface) {
+export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent, collarAccent, cuffAccent }: ProductStylesInterface) {
     const dispatch = useDispatch();
 
     const dispatchSelectedModelConfig = ({ id, model }: { id: any, model: any }) => {
-        dispatch(updateModel({ payload: { id, model, price: 0 }, key: code as keyof IAccentGlobal }));
-
-        if(collarAccent) {
-        //     console.log('collarAccent', collarAccent);
-        //      const payload = {
-        //     id: 1,
-        //     febric: '/img/febric-1.jpg',
-        //     meshName: [
-        //         'Collar_Top',
-        //         'Collor_Button_Holder',
-        //         'Collor_Inner',
-        //         'Node_5'
-        //     ],
-        //     updatedFrom: 'styles',
-        //     type: 'default'
-        // } ;
-        const payload = {...collarAccent, type: 'default', febric: `${collarAccent.febric}??timestamp=${Date.now()}`} as TCollar;
-            // collarAccent.type = type;
-           
-            dispatch(updateAccent({ key: 'collar', payload  }))
-        }
-       
+         dispatch(updateModel({ payload: { id, model, price: 0 }, key: code as keyof IAccentGlobal }));
         
+         console.log('code', code);
+
+        if (cuffAccent && code !== 'collar') {
+            const payload = { ...cuffAccent, febric: `${cuffAccent?.febric}?timestamp=${Date.now()}` } as TCollar;
+            //code as keyof IAccentGlobal
+            dispatch(updateAccent({ key: code as keyof IAccentGlobal , payload }))
+        }
+
+        if (collarAccent && code !== 'cuff') {
+            const payload = { ...collarAccent, febric: `${collarAccent?.febric}?timestamp=${Date.now()}` } as TCollar;
+            //code as keyof IAccentGlobal
+            dispatch(updateAccent({ key: code as keyof IAccentGlobal , payload }))
+        }
     }
 
     const dispatchAccentType = ({ key, payload }: UpdateAccentActionType) => {

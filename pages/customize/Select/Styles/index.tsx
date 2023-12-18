@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import { productStyles } from 'config/models';
 import { IStyles } from './ProductStyles/product-style.interface';
 
-export default function Styles({collarAccent}: IStyles) {
+export default function Styles({collarAccent, cuffAccent}: IStyles) {
     return (
         <div className={styles.styles__container}>
             {productStyles.map((product, i) => 
@@ -17,6 +17,7 @@ export default function Styles({collarAccent}: IStyles) {
             setShowAccentFebricModel={() => null}
             showAccentFebricModel={false}
             collarAccent={collarAccent}
+            cuffAccent={cuffAccent}
             />)}
         </div>
     )

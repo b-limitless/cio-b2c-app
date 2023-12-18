@@ -13,6 +13,7 @@ export type TOnClickEvent = 'accent' | 'style' | 'febric';
 
 export interface IStyles {
     collarAccent: TCollar
+    cuffAccent: TCollar
 }
 
 export interface ProductStylesInterface extends IAccents  {
@@ -22,6 +23,7 @@ export interface ProductStylesInterface extends IAccents  {
     type: TOnClickEvent
     setActiveAccent?: Function;
     collarAccent?: TCollar
+    cuffAccent?:TCollar
 }
 
 
