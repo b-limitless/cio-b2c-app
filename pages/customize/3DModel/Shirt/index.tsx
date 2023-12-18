@@ -1,6 +1,4 @@
 'use client';
-
-
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { modelsURL } from 'config/models';

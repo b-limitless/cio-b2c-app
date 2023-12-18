@@ -1,5 +1,6 @@
 import { MouseEventHandler } from "react";
 import { IAccents } from "../../Accents";
+import { TCollar } from "slices/accentSlice";
 
 export interface ItemInterface {
     name: string;
@@ -10,10 +11,17 @@ export interface ItemInterface {
 }
 export type TOnClickEvent = 'accent' | 'style' | 'febric';
 
-export interface ProductStylesInterface extends IAccents {
+export interface IStyles {
+    collarAccent: TCollar
+}
+
+export interface ProductStylesInterface extends IAccents  {
     label: string;
     childrens: any[];
     code: string;
     type: TOnClickEvent
     setActiveAccent?: Function;
+    collarAccent?: TCollar
 }
+
+

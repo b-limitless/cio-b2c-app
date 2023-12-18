@@ -2,10 +2,10 @@
 import Image from 'next/image';
 import { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
-import { IAccentGlobal, TCollar, UpdateAccentActionType, accentProperties, updateAccent, updateAccentType } from 'slices/accentSlice';
+import { IAccentGlobal, TCollar, TCollarAccent, UpdateAccentActionType, accentProperties, updateAccent, updateAccentType } from 'slices/accentSlice';
 import { updateModel } from 'slices/modelSlice';
 import styles from '../styles.module.scss';
-import { ItemInterface } from './product-style.interface';
+import { ItemInterface, ProductStylesInterface } from './product-style.interface';
 
 
 function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
@@ -21,31 +21,33 @@ function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
     )
 }
 
-export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent }: ProductStylesInterface) {
+export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent, collarAccent }: ProductStylesInterface) {
     const dispatch = useDispatch();
 
-    // const getKeyBasedOnEvent = (): keyof IAccentGlobal => {
-    //     return code.substring(0, code.length - 1) as keyof IAccentGlobal;
-    // }
-
     const dispatchSelectedModelConfig = ({ id, model }: { id: any, model: any }) => {
-        // Dispatching the model update
         dispatch(updateModel({ payload: { id, model, price: 0 }, key: code as keyof IAccentGlobal }));
-        // Need to dispatch the already selected accent so that we can apply
 
-        const payload = {
-            id: 1,
-            febric: '/img/febric-5.jpg',
-            meshName: [
-                'Collar_Top',
-                'Collor_Button_Holder',
-                'Collor_Inner',
-                'Node_5'
-            ],
-            updatedFrom: 'accents',
-            type: 'default'
-        } as TCollar;
-        dispatch(updateAccentType({ key: 'collar', payload }))
+        if(collarAccent) {
+        //     console.log('collarAccent', collarAccent);
+        //      const payload = {
+        //     id: 1,
+        //     febric: '/img/febric-1.jpg',
+        //     meshName: [
+        //         'Collar_Top',
+        //         'Collor_Button_Holder',
+        //         'Collor_Inner',
+        //         'Node_5'
+        //     ],
+        //     updatedFrom: 'styles',
+        //     type: 'default'
+        // } ;
+        const payload = {...collarAccent, type: 'default', febric: `${collarAccent.febric}??timestamp=${Date.now()}`} as TCollar;
+            // collarAccent.type = type;
+           
+            dispatch(updateAccent({ key: 'collar', payload  }))
+        }
+       
+        
     }
 
     const dispatchAccentType = ({ key, payload }: UpdateAccentActionType) => {

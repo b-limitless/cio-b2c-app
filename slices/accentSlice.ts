@@ -19,8 +19,7 @@ export type TCollar = {
 
 export interface IAccentGlobal {
   collar: TCollar;
-  cuff: TCollar
-  
+  cuff: TCollar;
 }
 export const accentProperties: IAccentGlobal = {
   collar: {
@@ -29,7 +28,7 @@ export const accentProperties: IAccentGlobal = {
     meshName: [], //'because it can be combining all or inner',
     febric: defaultFebric,
     type: 'default',
-    updatedFrom:'febrics'
+    updatedFrom: 'febrics',
   },
 
   cuff: {
@@ -38,7 +37,7 @@ export const accentProperties: IAccentGlobal = {
     meshName: [], //'because it can be combining all or inner',
     febric: defaultFebric,
     type: 'default',
-    updatedFrom:'febrics'
+    updatedFrom: 'febrics',
   },
 };
 
@@ -51,14 +50,12 @@ export interface UpdateAccentAction {
   payload: TCollar;
 }
 
-
-
 export interface UpdateAccentActionType {
   key: modelKeys;
   payload: {
     type: TCollar['type'];
     meshName: TBase['meshName'];
-  }
+  };
 }
 
 type ModelActionInterface = Record<ModelKeys, TCollar>;
@@ -69,15 +66,15 @@ const initialState: ModelActionInterface = {
     febric: defaultFebric,
     type: 'default',
     meshName: [],
-    updatedFrom: 'febrics'
+    updatedFrom: 'febrics',
   },
   cuff: {
     id: 12,
     febric: defaultFebric,
     type: 'default',
     meshName: [],
-    updatedFrom: 'febrics'
-  }
+    updatedFrom: 'febrics',
+  },
 };
 
 const accentSlice = createSlice({
@@ -92,14 +89,14 @@ const accentSlice = createSlice({
     },
     updateAccentType: (state: IAccentGlobal, action: PayloadAction<UpdateAccentActionType>) => {
       return {
-        ...state, 
+        ...state,
         [action.payload.key]: {
-          ...state[action.payload.key], 
+          ...state[action.payload.key],
           type: action.payload.payload.type,
-          meshName: action.payload.payload.meshName
-        }
-      }
-    }
+          meshName: action.payload.payload.meshName,
+        },
+      };
+    },
   },
 });
 

@@ -146,15 +146,12 @@ export default function Customize() {
     const updateCollarFebriceHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
         event.stopPropagation();
         const { key, payload } = params;
-
-        
         const { meshName } = activeAccent === 'collar' ?  collarAccent : cuffAccent;
         payload.meshName = meshName;
         payload.updatedFrom = 'accents';
         dispatch(updateAccent({ key: activeAccent, payload }));
     }
 
-    console.log('collarAccent', collarAccent)
 
     return (
         <>
@@ -186,6 +183,7 @@ export default function Customize() {
 
                         {designJourney === 'styles' &&
                             <Styles
+                            collarAccent={collarAccent}
 
                             />}
 

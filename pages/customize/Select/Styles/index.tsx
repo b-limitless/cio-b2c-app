@@ -1,10 +1,11 @@
 'use client';
+import { TCollar } from 'slices/accentSlice';
 import ProductStyles from './ProductStyles';
 import styles from './styles.module.scss';
 import { productStyles } from 'config/models';
+import { IStyles } from './ProductStyles/product-style.interface';
 
-
-export default function Styles() {
+export default function Styles({collarAccent}: IStyles) {
     return (
         <div className={styles.styles__container}>
             {productStyles.map((product, i) => 
@@ -15,6 +16,7 @@ export default function Styles() {
             code={product.code} 
             setShowAccentFebricModel={() => null}
             showAccentFebricModel={false}
+            collarAccent={collarAccent}
             />)}
         </div>
     )
