@@ -39,7 +39,7 @@ interface IAddModelToScene {
   modelURI: string;
 }
 
-const Shirt3DModel = ({ collar,cuff, febricURI, collarAccent, cuffAccent }: ShirtModelInterface) => {
+const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent }: ShirtModelInterface) => {
   return (
 
     <Canvas>
@@ -67,16 +67,16 @@ const Shirt3DModel = ({ collar,cuff, febricURI, collarAccent, cuffAccent }: Shir
         autoRotateSpeed={0.2}
       />
       <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
-        <AddModelToScene name='collar' modelURI={collar}/>
+        <AddModelToScene name='collar' modelURI={collar} />
       </AddTextureToModel>
 
       <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
 
-      <AddModelToScene name='cuff' modelURI={cuff.model} />
-     </AddTextureToModel>
-     
+        <AddModelToScene name='cuff' modelURI={cuff.model} />
+      </AddTextureToModel>
 
-      <AddTextureToModel textureURL={febricURI} meshName={['Body_Front_Node']} fullBody={true}>
+
+      <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true}>
         <Model />
       </AddTextureToModel>
 
@@ -125,6 +125,9 @@ const AddModelToScene = ({ name, modelURI }: IAddModelToScene) => {
 
 
 const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddTextureModel) => {
+
+  // console.log(`textureURL, meshName, children, fullBody`, textureURL, meshName, children, fullBody);
+
   const modelRef = useRef<Group<Object3DEventMap>>(null);
 
   // Load texture using userLoader 

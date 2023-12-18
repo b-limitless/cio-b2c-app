@@ -154,6 +154,8 @@ export default function Customize() {
         dispatch(updateAccent({ key: activeAccent, payload }));
     }
 
+    console.log('collarAccent', collarAccent)
+
     return (
         <>
             {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel} />
