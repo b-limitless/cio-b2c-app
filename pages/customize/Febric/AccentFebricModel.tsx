@@ -3,26 +3,12 @@ import styles from './filter.module.scss';
 import Febric from './Febric';
 import febricStyle from '../common.module.scss';
 import { ModelKeys } from 'slices/modelSlice';
+import { accentFebrics } from 'config/models';
 interface FilterInterface {
     setShowFilterModel: Function;
     showFilterModel: boolean;
     onClickHandler: any;
 }
-
-const countArray = new Array(20).fill(0);
-
-const febrics = [{
-    febricURI: '/img/febric1.jpg',
-    price: 0
-},
-{
-    febricURI: '/img/febric-5.jpg',
-    price: 0
-},
-{
-    febricURI: '/img/febric-6.jpg',
-    price: 0
-}]
 
 
 export default function AccentFebricModel({ onClickHandler, setShowFilterModel, showFilterModel }: FilterInterface) {
@@ -48,11 +34,11 @@ export default function AccentFebricModel({ onClickHandler, setShowFilterModel, 
 
             <div className={febricStyle.febrics}>
 
-                {febrics.map((febric, i) => <Febric
+                {accentFebrics.map((febric, i) => <Febric
                     febricImageURI={febric.febricURI}
                     key={'febri-item-custom' + i}
                     setShowFebricDetailsModel={() => null}
-                    onClick={(event: any) => onClickHandler(event, { key : 'collar', payload: { id: i, febric: febric.febricURI } })}
+                    onClick={(event: any) => onClickHandler(event, { key : 'collar', payload: { id: i, febric: febric.febricURI, price: febric.price } })}
                 />)}
 
             </div>

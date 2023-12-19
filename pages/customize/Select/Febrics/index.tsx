@@ -14,15 +14,15 @@ const countArray = new Array(20).fill(0);
 
 const febrics = [{
   febricURI: '/img/febric1.jpg',
-  price: 0
+  price: 20
 },
 {
   febricURI: '/img/febric-5.jpg', 
-  price: 0
+  price: 30
 },
 {
   febricURI: '/img/febric-6.jpg', 
-  price: 0
+  price: 40
 }]
 
 export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel, onClickHandler }: FebricInterface) {
@@ -53,15 +53,6 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
             onClick={(event: any) => onClickHandler(event, { key: 'febric', payload: { id: i, model: febric.febricURI, price: febric.price } })}
           />)}
 
-          {/* <Febric
-            febricImageURI='/img/febric-5.jpg'
-            key={'febri-item' + 'feb-5'}
-            setShowFebricDetailsModel={setShowFebricDetailsModel} />
-
-          <Febric
-            febricImageURI='/img/febric-6.jpg'
-            key={'febri-item' + 'feb-6'}
-            setShowFebricDetailsModel={setShowFebricDetailsModel} /> */}
 
           {countArray.map((_, i) => <Febric
             febricImageURI='/img/febric-thumnail.png'

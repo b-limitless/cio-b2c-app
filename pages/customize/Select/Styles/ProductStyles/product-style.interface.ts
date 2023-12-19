@@ -1,6 +1,6 @@
-import { MouseEventHandler } from "react";
-import { IAccents } from "../../Accents";
-import { TCollar } from "slices/accentSlice";
+import { MouseEventHandler } from 'react';
+import { IAccents } from '../../Accents';
+import { TCollar } from 'slices/accentSlice';
 
 export interface ItemInterface {
     name: string;

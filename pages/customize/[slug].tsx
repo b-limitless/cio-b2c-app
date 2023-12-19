@@ -18,6 +18,12 @@
  *  - In Style we might need to add half sleeves, full sleev etc
  *  - Chest pocket perhaps 
  *  - There could be more configuration
+ * 
+ *  No matter what the process will be more or less same 
+ * 
+ * Step Next:
+ *  - Need to design how to take screen short of customized shirt and show them in card
+ *  - we might have edit option how we can update the current selected configuration 
  *  
  *  
  * **/
@@ -26,48 +32,20 @@ import Header from 'components/Header/Header';
 import { productNavigation } from 'config/product';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { IAccentGlobal, TCollar, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
 import { UpdateModelAction, updateModel } from 'slices/modelSlice';
 import { RootState } from 'store';
 import { SelectionProcess, SelectionTypes } from '../../types/enums';
 import Shirt3DModel from './3DModel/Shirt';
-import Filter from './Febric/Filter';
 import AccentFebricModel from './Febric/AccentFebricModel';
+import Filter from './Febric/Filter';
 import FebricDetails from './FebricDetails';
 import Accents from './Select/Accents';
 import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
-import { IAccentGlobal, TCollar, TCollarAccent, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
-import { defaultFebric } from 'config/default';
-
-type ContrastedCollars = 'By default' | 'All' | 'Inner febric';
-type ContrastedCuffs = 'By default' | 'All' | 'Inner febric';
-type ConstrastedStitch = 'By default' | 'All' | 'Only cuffs'
-
-const accent = {
-    collar: {
-        selected: 'By Default',
-        febric: {
-            id: null,
-            url: 'http://'
-        }
-    },
-    cuff: {
-        selected: 'By Default',
-        febric: {
-            id: null,
-            url: 'http://'
-        }
-    },
-}
-
-const orderInitialState = {
-    shippingAddress: {},
-    billingAddress: {},
-    orderTotal: 0,
-}
 
 
 
@@ -131,7 +109,9 @@ export default function Customize() {
                 meshName: [], //'because it can be combining all or inner',
                 febric: payload.model,
                 type: 'default',
-                updatedFrom: 'febrics'
+                updatedFrom: 'febrics',
+                price: 0
+                
             }
             dispatch(updateAccent({ key: 'collar', payload: payloadC }));
         }
@@ -146,6 +126,9 @@ export default function Customize() {
         dispatch(updateAccent({ key: activeAccent, payload }));
     }
 
+    const computePrice = useMemo(() => {
+            return febric.price + collarAccent.price + cuffAccent.price;
+    }, [febric.price, collarAccent.price, cuffAccent.price]);
 
     return (
         <>
@@ -207,7 +190,7 @@ export default function Customize() {
                                 custom shirt
                             </div>
                             <div className={styles.price}>
-                                $89
+                                ${computePrice}
                             </div>
                             <div className={styles.feature}>
                                 ESSENTIAL

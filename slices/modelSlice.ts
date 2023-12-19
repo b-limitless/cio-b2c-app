@@ -59,7 +59,7 @@ const initialState: ModelActionInterface = {
   febric: {
     id: 12,
     model: `/img/febric-6.jpg?timestamp=${Date.now()}`,
-    price: 0
+    price: 10
   }, 
   cuff: {
     id: 12,

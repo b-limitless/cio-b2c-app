@@ -3,6 +3,7 @@
 // For example in accent we have collor defualt, all, inner
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { defaultFebric } from 'config/default';
+import { defaultPrices } from 'config/models';
 
 export type TCollarAccent = 'default' | 'all' | 'innerFebric'; // can extends for cuff as well
 export type TModelNavigation = 'febrics' | 'styles' | 'accents';
@@ -12,6 +13,7 @@ export type TBase = {
   meshName: string[];
   febric: string;
   updatedFrom: TModelNavigation;
+  price: number;
 };
 export type TCollar = {
   type: TCollarAccent;
@@ -29,6 +31,7 @@ export const accentProperties: IAccentGlobal = {
     febric: defaultFebric,
     type: 'default',
     updatedFrom: 'febrics',
+    price: defaultPrices.collar
   },
 
   cuff: {
@@ -38,6 +41,7 @@ export const accentProperties: IAccentGlobal = {
     febric: defaultFebric,
     type: 'default',
     updatedFrom: 'febrics',
+    price: defaultPrices.cuff
   },
 };
 
@@ -67,6 +71,7 @@ const initialState: ModelActionInterface = {
     type: 'default',
     meshName: [],
     updatedFrom: 'febrics',
+    price: defaultPrices.collar
   },
   cuff: {
     id: 12,
@@ -74,6 +79,7 @@ const initialState: ModelActionInterface = {
     type: 'default',
     meshName: [],
     updatedFrom: 'febrics',
+    price: defaultPrices.cuff
   },
 };
 
