@@ -1,3 +1,26 @@
+/**
+ * Now we have functionality where
+ * - We can update the febric of shirt model completely
+ * - Select different type of collar based on provided configuration
+ * - Select different type of accent for that collar such as differnet febric
+ *   or select to add different febric inside the collor 
+ * - We can select different cuff for the shirt since we do not have model therefore 
+ *   i am using same model as soon as we replace that model it would start to work 
+ *   but keep in mind that model structure need to be the same perphas we might change all model
+ * - Select different febric for that cuff, all changes presit vise versa
+ * 
+ *  Now we need to have model which is good in quality
+ *  In addition to that we If we need different configuration to be added such as
+ *  - Button whole different thread
+ *  - Button whole cuff only in hand
+ *  - You might want to add different button color 
+ * 
+ *  - In Style we might need to add half sleeves, full sleev etc
+ *  - Chest pocket perhaps 
+ *  - There could be more configuration
+ *  
+ *  
+ * **/
 import { Button } from 'components/Button';
 import Header from 'components/Header/Header';
 import { productNavigation } from 'config/product';
@@ -18,35 +41,6 @@ import Styles from './Select/Styles';
 import styles from './customize.module.scss';
 import { IAccentGlobal, TCollar, TCollarAccent, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
 import { defaultFebric } from 'config/default';
-
-
-
-//  State that need for the model customization
-// If this is shirt
-
-// Style
-
-
-const model = {
-    collar: {
-        id: 12,
-        model: 'URL for the model to load from CDN'
-    },
-    scuff: {
-        id: 13,
-        model: 'URL for the model to load'
-    },
-    sleeves: {
-        id: 13,
-        model: 'URL for the model to load'
-    },
-    checkpocket: {
-        id: 13,
-        model: 'URL for the model to load'
-    }
-}
-
-
 
 type ContrastedCollars = 'By default' | 'All' | 'Inner febric';
 type ContrastedCuffs = 'By default' | 'All' | 'Inner febric';

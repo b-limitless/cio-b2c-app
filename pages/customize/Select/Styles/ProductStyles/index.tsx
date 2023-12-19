@@ -26,8 +26,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
 
     const dispatchSelectedModelConfig = ({ id, model }: { id: any, model: any }) => {
          dispatch(updateModel({ payload: { id, model, price: 0 }, key: code as keyof IAccentGlobal }));
-        
-         console.log('code', code);
+    
 
         if (cuffAccent && code !== 'collar') {
             const payload = { ...cuffAccent, febric: `${cuffAccent?.febric}?timestamp=${Date.now()}` } as TCollar;
