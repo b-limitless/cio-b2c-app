@@ -46,11 +46,11 @@ export type RowType = {
   
 }
 
-type ModelActionInterface = Record<ModelKeys, RowType>
+type IModelAction = Record<ModelKeys, RowType>
 
 
 
-const initialState: ModelActionInterface = {
+const initialState: IModelAction = {
   collar: {
     id: 12,
     model: `/models/collars/collar-1-1.glb?timestamp=${Date.now()}`,
@@ -72,7 +72,7 @@ const modelSlice = createSlice({
   name: 'model',
   initialState,
   reducers: {
-    updateModel: (state: ModelActionInterface, action: PayloadAction<UpdateModelAction>) => {
+    updateModel: (state: IModelAction, action: PayloadAction<UpdateModelAction>) => {
       return {
         ...state,
         [action.payload.key]: action.payload.payload,

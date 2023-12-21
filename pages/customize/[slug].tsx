@@ -46,6 +46,7 @@ import Accents from './Select/Accents';
 import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
+import { useThree } from '@react-three/fiber';
 
 
 
@@ -61,15 +62,40 @@ export default function Customize() {
     const{cuff} = useSelector((state: RootState) => state.model);
     const { collar: collarAccent } = useSelector((state: RootState) => state.accent);
     const { cuff: cuffAccent } = useSelector((state: RootState) => state.accent);
+    const [screenShot, setScreenShot] = useState<string | null>(null)
     const { model: febricURI } = febric;
+   
 
     const dispatch = useDispatch();
 
-    // Hello
+    // When user in final stage of selection 
+    // it will send we will take screen short of the model 
+    // will upload to the server
+    // receive the response 
+    // dispatch to the store because it will contain uploaded CDN link
+    // then finally will send to cart URI
+
+    const takeScreenShot = async() => {
+        // const canvas = gl.domElement;
+        // const bolb = await new Promise((resolve) => {
+        //     canvas.toBlob((b) => resolve(b), 'image/png')
+        // });
+
+        // return bolb;
+    }
+
+    const uploadScreenShotToCloud = async() => {
+        const getBolb = await takeScreenShot();
+
+        console.log('getBolb', getBolb);
+    }
+    
     const nextStepHandler = () => {
 
+        // uploadScreenShotToCloud();
+        // return;
         if (designJourney === SelectionProcess.accents) {
-            router.push('/order');
+            // router.push('/cart');
             return;
         }
         // First get the index of selected step 
@@ -130,6 +156,8 @@ export default function Customize() {
             return febric.price + collarAccent.price + cuffAccent.price;
     }, [febric.price, collarAccent.price, cuffAccent.price]);
 
+    
+
     return (
         <>
             {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel} />
@@ -182,6 +210,7 @@ export default function Customize() {
                             febricURI={febricURI}
                             collarAccent={collarAccent}
                             cuffAccent={cuffAccent}
+                            setScreenShot={setScreenShot}
                         />
                     </div>
                     <div className={styles.infomration}>
@@ -217,6 +246,9 @@ export default function Customize() {
                                 <Image src='/icon/share.svg' width={24} height={20} alt='share' />
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        {screenShot && <img id='screenshot'src={screenShot}/>}
                     </div>
                 </main>
             </div>

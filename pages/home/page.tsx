@@ -4,8 +4,15 @@ import Header from 'components/Header/Header';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './home.module.scss';
+import { useDispatch } from 'react-redux';
+import { updaetModelType } from 'slices/modelTypeSlice'; 
 
 export default function Home() {
+    const dispatch = useDispatch();
+
+    const actionButtonHandler = () => {
+        dispatch(updaetModelType('shirt'));
+    }
     return (
         <>
      
@@ -30,7 +37,7 @@ export default function Home() {
 
                         <Link href="/customize/shirt">
 
-                        <Button variant='primary' type='round'>
+                        <Button variant='primary' type='round' onClick={actionButtonHandler}>
                             <span>Design shirt</span>
                             <span>
                                 <Image width={7} height={12} src="/icon/arrow-right-bold.svg" alt="" />

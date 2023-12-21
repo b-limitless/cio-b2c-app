@@ -1,6 +1,6 @@
 'use client';
-import { OrbitControls } from '@react-three/drei';
-import { Canvas, useLoader } from '@react-three/fiber';
+import { Html, OrbitControls } from '@react-three/drei';
+import { Canvas, useLoader, useThree } from '@react-three/fiber';
 import { modelsURL } from 'config/models';
 import dynamic from 'next/dynamic';
 import { ReactNode, useEffect, useMemo, useRef } from 'react';
@@ -9,6 +9,7 @@ import { RowType } from 'slices/modelSlice';
 import * as THREE from 'three';
 import { Group, MeshPhongMaterial, Object3DEventMap, TextureLoader } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+
 
 interface BaseModel {
   collar: string;
@@ -22,7 +23,8 @@ interface ShirtModelInterface extends BaseModel {
   febricURI: string;
   collarAccent: TCollar;
   cuffAccent: TCollar;
-  cuff: RowType
+  cuff: RowType;
+  [x:string]:any;
 }
 
 interface AddTextureModel {
@@ -37,10 +39,37 @@ interface IAddModelToScene {
   modelURI: string;
 }
 
-const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent }: ShirtModelInterface) => {
+
+const CaptureModelScreenShot = () => {
+  const {gl, scene, camera} = useThree();
+
+  const captureScreenshot = () => {
+    // Get the canvas element from the ref
+    gl.render(scene, camera); 
+    const screenShot = gl.domElement.toDataURL();
+
+    console.log('screenShot', screenShot);
+  };
+
+  return <Html>
+        <div style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 10, backgroundColor:'red' }}>
+          <button onClick={captureScreenshot}>Capture Screenshot</button>
+        </div>
+      </Html>
+}
+
+const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, setScreenShot }: ShirtModelInterface) => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);  
+  
+
   return (
 
-    <Canvas>
+    <Canvas ref={(ref) => (canvasRef.current = ref)}  onCreated={({ gl }) => {
+      // Set the clearColor to the background color of your scene
+      gl.setClearColor(new THREE.Color(0xffffff));
+    }}>
+      <CaptureModelScreenShot/>
+      
       <ambientLight />
       <directionalLight position={[5, 5, 5]} intensity={1} />
       <directionalLight position={[-5, -5, -5]} intensity={1} />
@@ -77,6 +106,8 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent }: Shi
       <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true}>
         <Model />
       </AddTextureToModel>
+
+      
 
     </Canvas>
 

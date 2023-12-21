@@ -62,9 +62,9 @@ export interface UpdateAccentActionType {
   };
 }
 
-type ModelActionInterface = Record<ModelKeys, TCollar>;
+export type IModelAction = Record<ModelKeys, TCollar>;
 
-const initialState: ModelActionInterface = {
+const initialState: IModelAction = {
   collar: {
     id: 12,
     febric: defaultFebric,
