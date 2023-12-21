@@ -48,6 +48,7 @@ import Styles from './Select/Styles';
 import styles from './customize.module.scss';
 import { useThree } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
+import { dataURLtoBlob } from 'functions/dataURLtoBlob';
 
 
 
@@ -66,38 +67,9 @@ export default function Customize() {
     const [screenShot, setScreenShot] = useState<string | null>(null);
     const [takeScreenShot, setTakeScreenShot] = useState(false);
     const { model: febricURI } = febric;
-
-
     const dispatch = useDispatch();
 
-    // When user in final stage of selection 
-    // it will send we will take screen short of the model 
-    // will upload to the server
-    // receive the response 
-    // dispatch to the store because it will contain uploaded CDN link
-    // then finally will send to cart URI
-
-
-    // const CaptureModelScreenShot = () => {
-    //     const { gl, scene, camera } = useThree();
-
-    //     const captureScreenshot = () => {
-    //         // Get the canvas element from the ref
-    //         gl.render(scene, camera);
-    //         const screenShot = gl.domElement.toDataURL();
-
-    //         console.log('screenShot', screenShot);
-    //     };
-
-    //     return <Html>
-    //         <Button variant='primary' type='square' onClick={() => nextStepHandler()}>
-    //             <span>Next</span>
-    //         </Button>
-    //     </Html>
-
-    //     return null;
-    // }
-
+  
 
     const nextStepHandler = () => {
 
@@ -116,17 +88,32 @@ export default function Customize() {
         setDesignJourney(getNextValue);
     }
 
-    useEffect(() => {
-        if (showFilterModel) {
-            document.body.style.overflow = 'hidden';
-            // document.body.style.display='none';
-        }
+    const CaptureModelScreenShot = () => {
+        const { gl, scene, camera } = useThree();
+        // Get the canvas element from the ref
+        gl.render(scene, camera);
+        const screenShot = gl.domElement.toDataURL();
+      
+        const blob = dataURLtoBlob(screenShot);
+      
+        if(!blob) return;
+      
+        const file = new File([blob], 'shot.png', { type: 'image/png' })
+      
+        // Attach this to the form
+        // Send the server to upload the file
+        // Set the response with containe the remove filename CND 
+        // To the redux store cart slice 
+        // cart slice will contain configuration with [{model:{}, accent:{}, ....response}]
+        // Then after redirect the user to cart page 
+        // Show the cart details such as price 
+        console.log('file', file);
+      
+      
+        return null;
+      }
 
-        if (!showFilterModel) {
-            document.body.style.overflow = 'auto';
-        }
-
-    }, [showFilterModel]);
+   
 
     const updateFebricHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateModelAction) => {
         event.stopPropagation();
@@ -168,6 +155,17 @@ export default function Customize() {
     }, [febric.price, collarAccent.price, cuffAccent.price]);
 
 
+    useEffect(() => {
+        if (showFilterModel) {
+            document.body.style.overflow = 'hidden';
+            // document.body.style.display='none';
+        }
+
+        if (!showFilterModel) {
+            document.body.style.overflow = 'auto';
+        }
+
+    }, [showFilterModel]);
 
     return (
         <>
@@ -221,8 +219,8 @@ export default function Customize() {
                             febricURI={febricURI}
                             collarAccent={collarAccent}
                             cuffAccent={cuffAccent}
-                            setScreenShot={setScreenShot}
                             takeScreenShot={takeScreenShot}
+                            captureModelScreenShot={<CaptureModelScreenShot/>}
                         />
                     </div>
                     <div className={styles.infomration}>

@@ -25,7 +25,8 @@ interface ShirtModelInterface extends BaseModel {
   collarAccent: TCollar;
   cuffAccent: TCollar;
   cuff: RowType;
-  [x: string]: any;
+  takeScreenShot: boolean;
+  captureModelScreenShot: React.ReactNode;
 }
 
 interface AddTextureModel {
@@ -33,6 +34,7 @@ interface AddTextureModel {
   children: ReactNode
   meshName: string[];
   fullBody: boolean;
+  
 }
 
 interface IAddModelToScene {
@@ -41,32 +43,12 @@ interface IAddModelToScene {
 }
 
 
-const CaptureModelScreenShot = () => {
-  const { gl, scene, camera } = useThree();
-  // Get the canvas element from the ref
-  gl.render(scene, camera);
-  const screenShot = gl.domElement.toDataURL();
-
-  const blob = dataURLtoBlob(screenShot);
-
-  if(!blob) return;
-
-  const file = new File([blob], 'shot.png', { type: 'image/png' })
-
-
-
-  console.log('file', file);
-
-
-  return null;
-}
-
-const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, takeScreenShot }: ShirtModelInterface) => {
+const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, takeScreenShot, captureModelScreenShot }: ShirtModelInterface) => {
 
   return (
 
     <Canvas>
-      {takeScreenShot && <CaptureModelScreenShot/>}
+      {takeScreenShot && captureModelScreenShot}
 
       <ambientLight />
       <directionalLight position={[5, 5, 5]} intensity={1} />
