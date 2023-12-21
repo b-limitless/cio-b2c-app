@@ -7,6 +7,12 @@ export type ICartItem = {
   model: UpdateModelAction;
   accent: IModelAction;
   modelType: TMode;
+  subTotal: Number;
+  qty: Number;
+  screenShot: String;
+  discount?:Number;
+  availability: String;
+  id: Number;
 };
 
 export type ICart = ICartItem[];

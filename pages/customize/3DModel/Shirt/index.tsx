@@ -2,6 +2,7 @@
 import { Html, OrbitControls } from '@react-three/drei';
 import { Canvas, useLoader, useThree } from '@react-three/fiber';
 import { modelsURL } from 'config/models';
+import { dataURLtoBlob } from 'functions/dataURLtoBlob';
 import dynamic from 'next/dynamic';
 import { ReactNode, useEffect, useMemo, useRef } from 'react';
 import { TCollar } from 'slices/accentSlice';
@@ -24,7 +25,7 @@ interface ShirtModelInterface extends BaseModel {
   collarAccent: TCollar;
   cuffAccent: TCollar;
   cuff: RowType;
-  [x:string]:any;
+  [x: string]: any;
 }
 
 interface AddTextureModel {
@@ -41,35 +42,32 @@ interface IAddModelToScene {
 
 
 const CaptureModelScreenShot = () => {
-  const {gl, scene, camera} = useThree();
+  const { gl, scene, camera } = useThree();
+  // Get the canvas element from the ref
+  gl.render(scene, camera);
+  const screenShot = gl.domElement.toDataURL();
 
-  const captureScreenshot = () => {
-    // Get the canvas element from the ref
-    gl.render(scene, camera); 
-    const screenShot = gl.domElement.toDataURL();
+  const blob = dataURLtoBlob(screenShot);
 
-    console.log('screenShot', screenShot);
-  };
+  if(!blob) return;
 
-  return <Html>
-        <div style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 10, backgroundColor:'red' }}>
-          <button onClick={captureScreenshot}>Capture Screenshot</button>
-        </div>
-      </Html>
+  const file = new File([blob], 'shot.png', { type: 'image/png' })
+
+
+
+  console.log('file', file);
+
+
+  return null;
 }
 
-const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, setScreenShot }: ShirtModelInterface) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);  
-  
+const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, takeScreenShot }: ShirtModelInterface) => {
 
   return (
 
-    <Canvas ref={(ref) => (canvasRef.current = ref)}  onCreated={({ gl }) => {
-      // Set the clearColor to the background color of your scene
-      gl.setClearColor(new THREE.Color(0xffffff));
-    }}>
-      <CaptureModelScreenShot/>
-      
+    <Canvas>
+      {takeScreenShot && <CaptureModelScreenShot/>}
+
       <ambientLight />
       <directionalLight position={[5, 5, 5]} intensity={1} />
       <directionalLight position={[-5, -5, -5]} intensity={1} />
@@ -107,7 +105,7 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, setSc
         <Model />
       </AddTextureToModel>
 
-      
+
 
     </Canvas>
 

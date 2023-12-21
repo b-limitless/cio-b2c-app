@@ -47,6 +47,7 @@ import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
 import { useThree } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
 
 
 
@@ -59,12 +60,13 @@ export default function Customize() {
     const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
 
     const { collar, febric } = useSelector((state: RootState) => state.model);
-    const{cuff} = useSelector((state: RootState) => state.model);
+    const { cuff } = useSelector((state: RootState) => state.model);
     const { collar: collarAccent } = useSelector((state: RootState) => state.accent);
     const { cuff: cuffAccent } = useSelector((state: RootState) => state.accent);
-    const [screenShot, setScreenShot] = useState<string | null>(null)
+    const [screenShot, setScreenShot] = useState<string | null>(null);
+    const [takeScreenShot, setTakeScreenShot] = useState(false);
     const { model: febricURI } = febric;
-   
+
 
     const dispatch = useDispatch();
 
@@ -75,25 +77,34 @@ export default function Customize() {
     // dispatch to the store because it will contain uploaded CDN link
     // then finally will send to cart URI
 
-    const takeScreenShot = async() => {
-        // const canvas = gl.domElement;
-        // const bolb = await new Promise((resolve) => {
-        //     canvas.toBlob((b) => resolve(b), 'image/png')
-        // });
 
-        // return bolb;
-    }
+    // const CaptureModelScreenShot = () => {
+    //     const { gl, scene, camera } = useThree();
 
-    const uploadScreenShotToCloud = async() => {
-        const getBolb = await takeScreenShot();
+    //     const captureScreenshot = () => {
+    //         // Get the canvas element from the ref
+    //         gl.render(scene, camera);
+    //         const screenShot = gl.domElement.toDataURL();
 
-        console.log('getBolb', getBolb);
-    }
-    
+    //         console.log('screenShot', screenShot);
+    //     };
+
+    //     return <Html>
+    //         <Button variant='primary' type='square' onClick={() => nextStepHandler()}>
+    //             <span>Next</span>
+    //         </Button>
+    //     </Html>
+
+    //     return null;
+    // }
+
+
     const nextStepHandler = () => {
 
         // uploadScreenShotToCloud();
         // return;
+        setTakeScreenShot(true);
+        return;
         if (designJourney === SelectionProcess.accents) {
             // router.push('/cart');
             return;
@@ -137,7 +148,7 @@ export default function Customize() {
                 type: 'default',
                 updatedFrom: 'febrics',
                 price: 0
-                
+
             }
             dispatch(updateAccent({ key: 'collar', payload: payloadC }));
         }
@@ -146,17 +157,17 @@ export default function Customize() {
     const updateCollarFebriceHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
         event.stopPropagation();
         const { key, payload } = params;
-        const { meshName } = activeAccent === 'collar' ?  collarAccent : cuffAccent;
+        const { meshName } = activeAccent === 'collar' ? collarAccent : cuffAccent;
         payload.meshName = meshName;
         payload.updatedFrom = 'accents';
         dispatch(updateAccent({ key: activeAccent, payload }));
     }
 
     const computePrice = useMemo(() => {
-            return febric.price + collarAccent.price + cuffAccent.price;
+        return febric.price + collarAccent.price + cuffAccent.price;
     }, [febric.price, collarAccent.price, cuffAccent.price]);
 
-    
+
 
     return (
         <>
@@ -170,7 +181,7 @@ export default function Customize() {
                 onClickHandler={updateCollarFebriceHandler}
             />
             <div className={styles.container}>
-                
+
                 <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
                 <main className={styles.main__content}>
 
@@ -188,8 +199,8 @@ export default function Customize() {
 
                         {designJourney === 'styles' &&
                             <Styles
-                            collarAccent={collarAccent}
-                            cuffAccent={cuffAccent}
+                                collarAccent={collarAccent}
+                                cuffAccent={cuffAccent}
 
                             />}
 
@@ -211,6 +222,7 @@ export default function Customize() {
                             collarAccent={collarAccent}
                             cuffAccent={cuffAccent}
                             setScreenShot={setScreenShot}
+                            takeScreenShot={takeScreenShot}
                         />
                     </div>
                     <div className={styles.infomration}>
@@ -247,9 +259,7 @@ export default function Customize() {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        {screenShot && <img id='screenshot'src={screenShot}/>}
-                    </div>
+
                 </main>
             </div>
         </>
