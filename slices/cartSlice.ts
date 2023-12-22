@@ -9,7 +9,6 @@ export type ICartItem = {
   modelType: TMode;
   subTotal: Number;
   qty: Number;
-  screenShot: String;
   discount?:Number;
   availability: String;
   id: Number;

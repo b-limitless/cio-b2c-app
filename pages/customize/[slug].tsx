@@ -46,11 +46,72 @@ import Accents from './Select/Accents';
 import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
-import { useThree } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import { dataURLtoBlob } from 'functions/dataURLtoBlob';
+import { APIS } from 'config/apis';
+import axios from 'axios';
+import { ICaptureModelScreenShot } from './index.interface';
+import { addToCart } from 'slices/cartSlice';
 
 
+
+const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData }: ICaptureModelScreenShot) => {
+    const { gl, scene, camera } = useThree();
+    useEffect(() => {
+        const runTakeScreenShot = async () => {
+            gl.render(scene, camera);
+            const screenShot = gl.domElement.toDataURL();
+
+            const blob = dataURLtoBlob(screenShot);
+
+        
+
+            if (!blob) return;
+
+            const file = new File([blob], 'shot.png', { type: 'image/png' })
+
+            const formData = new FormData();
+
+            formData.append('image', file);
+            // Send the server to upload the file
+            try {
+                const response = await axios.post('http://pasal.dev/api/products/v1/upload', formData);
+
+                const {data: {originalImageUrl, thumbnailImageUrl}} =  response || {};
+                
+                if(originalImageUrl) {
+                    const screenCDNURIs = {originalImageUrl, thumbnailImageUrl};
+                    const data = {...screenCDNURIs, ...cartData};
+                    dispatch(addToCart(data as any));
+                }
+
+                if(!originalImageUrl) {
+                    // Something went wrong unable to upload the file 
+                }
+
+                
+
+            } catch (err: any) {
+                console.error(err);
+            }
+            // Set the response with containe the remove filename CND 
+            // To the redux store cart slice 
+            // cart slice will contain configuration with [{model:{}, accent:{}, ....response}]
+            // Then after redirect the user to cart page 
+            // Show the cart details such as price 
+            // console.log('file', file);
+            setTakeScreenShot(false);
+            console.log('file', file)
+        }
+        if (takeScreenShot) runTakeScreenShot();
+    }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch])
+
+
+
+
+    return null;
+}
 
 export default function Customize() {
     const router = useRouter();
@@ -60,25 +121,28 @@ export default function Customize() {
     const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false);
     const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
 
-    const { collar, febric } = useSelector((state: RootState) => state.model);
-    const { cuff } = useSelector((state: RootState) => state.model);
-    const { collar: collarAccent } = useSelector((state: RootState) => state.accent);
-    const { cuff: cuffAccent } = useSelector((state: RootState) => state.accent);
+    const {model} = useSelector((state: RootState) => state);
+    const {collar, febric, cuff } = model;
+    const {accent} = useSelector((state: RootState) => state);
+    const {modelType: {modelType}} = useSelector((state: RootState) => state);
+    
+    const { collar: collarAccent } = accent;
+    const { cuff: cuffAccent } = accent;
     const [screenShot, setScreenShot] = useState<string | null>(null);
     const [takeScreenShot, setTakeScreenShot] = useState(false);
     const { model: febricURI } = febric;
     const dispatch = useDispatch();
 
-  
+
 
     const nextStepHandler = () => {
 
         // uploadScreenShotToCloud();
         // return;
-        setTakeScreenShot(true);
-        return;
+        
         if (designJourney === SelectionProcess.accents) {
-            // router.push('/cart');
+            setTakeScreenShot(true);
+            router.push('/cart');
             return;
         }
         // First get the index of selected step 
@@ -88,32 +152,9 @@ export default function Customize() {
         setDesignJourney(getNextValue);
     }
 
-    const CaptureModelScreenShot = () => {
-        const { gl, scene, camera } = useThree();
-        // Get the canvas element from the ref
-        gl.render(scene, camera);
-        const screenShot = gl.domElement.toDataURL();
-      
-        const blob = dataURLtoBlob(screenShot);
-      
-        if(!blob) return;
-      
-        const file = new File([blob], 'shot.png', { type: 'image/png' })
-      
-        // Attach this to the form
-        // Send the server to upload the file
-        // Set the response with containe the remove filename CND 
-        // To the redux store cart slice 
-        // cart slice will contain configuration with [{model:{}, accent:{}, ....response}]
-        // Then after redirect the user to cart page 
-        // Show the cart details such as price 
-        console.log('file', file);
-      
-      
-        return null;
-      }
 
-   
+
+
 
     const updateFebricHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateModelAction) => {
         event.stopPropagation();
@@ -212,16 +253,33 @@ export default function Customize() {
                     <div className={styles.model}>
 
                         {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
+                        <Canvas>
+                            <Shirt3DModel
+                                collar={collar.model}
+                                cuff={cuff}
+                                febricURI={febricURI}
+                                collarAccent={collarAccent}
+                                cuffAccent={cuffAccent}
+                                takeScreenShot={takeScreenShot}
+                            />
 
-                        <Shirt3DModel
-                            collar={collar.model}
-                            cuff={cuff}
-                            febricURI={febricURI}
-                            collarAccent={collarAccent}
-                            cuffAccent={cuffAccent}
-                            takeScreenShot={takeScreenShot}
-                            captureModelScreenShot={<CaptureModelScreenShot/>}
-                        />
+
+                            <CaptureModelScreenShot dispatch={dispatch} takeScreenShot={takeScreenShot} setTakeScreenShot={setTakeScreenShot} cartData={
+                                {
+                                model,
+                                accent,
+                                modelType,
+                                subTotal: 0, 
+                                qty: 1,
+                                discount: 0,
+                                availability: '', 
+                                id: 1, 
+
+                                }
+                            }/>
+
+                        </Canvas>
+
                     </div>
                     <div className={styles.infomration}>
                         <div className={styles.row}>

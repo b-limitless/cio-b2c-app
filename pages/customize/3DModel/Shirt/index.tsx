@@ -4,7 +4,7 @@ import { Canvas, useLoader, useThree } from '@react-three/fiber';
 import { modelsURL } from 'config/models';
 import { dataURLtoBlob } from 'functions/dataURLtoBlob';
 import dynamic from 'next/dynamic';
-import { ReactNode, useEffect, useMemo, useRef } from 'react';
+import { ElementType, ReactNode, useEffect, useMemo, useRef } from 'react';
 import { TCollar } from 'slices/accentSlice';
 import { RowType } from 'slices/modelSlice';
 import * as THREE from 'three';
@@ -26,7 +26,7 @@ interface ShirtModelInterface extends BaseModel {
   cuffAccent: TCollar;
   cuff: RowType;
   takeScreenShot: boolean;
-  captureModelScreenShot: React.ReactNode;
+  // CaptureModelScreenShot: ElementType;
 }
 
 interface AddTextureModel {
@@ -43,12 +43,12 @@ interface IAddModelToScene {
 }
 
 
-const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, takeScreenShot, captureModelScreenShot }: ShirtModelInterface) => {
+const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, takeScreenShot }: ShirtModelInterface) => {
 
   return (
 
-    <Canvas>
-      {takeScreenShot && captureModelScreenShot}
+    <>
+      {/* {takeScreenShot && <CaptureModelScreenShot/>} */}
 
       <ambientLight />
       <directionalLight position={[5, 5, 5]} intensity={1} />
@@ -89,7 +89,7 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, takeS
 
 
 
-    </Canvas>
+    </>
 
 
   );
