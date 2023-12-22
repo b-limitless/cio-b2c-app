@@ -56,16 +56,15 @@ import { addToCart } from 'slices/cartSlice';
 
 
 
-const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData }: ICaptureModelScreenShot) => {
+const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData, setSnapShotUploadState }: ICaptureModelScreenShot) => {
     const { gl, scene, camera } = useThree();
     useEffect(() => {
         const runTakeScreenShot = async () => {
+            setSnapShotUploadState('uploading');
             gl.render(scene, camera);
             const screenShot = gl.domElement.toDataURL();
 
             const blob = dataURLtoBlob(screenShot);
-
-        
 
             if (!blob) return;
 
@@ -74,44 +73,39 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
             const formData = new FormData();
 
             formData.append('image', file);
-            // Send the server to upload the file
+
             try {
-                const response = await axios.post('http://pasal.dev/api/products/v1/upload', formData);
+                const response = await axios.post(APIS.product.upload, formData);
 
-                const {data: {originalImageUrl, thumbnailImageUrl}} =  response || {};
-                
-                if(originalImageUrl) {
-                    const screenCDNURIs = {originalImageUrl, thumbnailImageUrl};
-                    const data = {...screenCDNURIs, ...cartData};
+                const { data: { originalImageUrl, thumbnailImageUrl } } = response || {};
+
+                if (originalImageUrl) {
+                    const screenCDNURIs = { originalImageUrl, thumbnailImageUrl };
+                    const data = { ...screenCDNURIs, ...cartData };
                     dispatch(addToCart(data as any));
+                    setSnapShotUploadState('uploaded');
+
                 }
 
-                if(!originalImageUrl) {
-                    // Something went wrong unable to upload the file 
+                if (!originalImageUrl) {
                 }
-
-                
-
             } catch (err: any) {
                 console.error(err);
+                setSnapShotUploadState(err);
             }
-            // Set the response with containe the remove filename CND 
-            // To the redux store cart slice 
-            // cart slice will contain configuration with [{model:{}, accent:{}, ....response}]
-            // Then after redirect the user to cart page 
-            // Show the cart details such as price 
-            // console.log('file', file);
             setTakeScreenShot(false);
-            console.log('file', file)
+            
         }
         if (takeScreenShot) runTakeScreenShot();
-    }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch])
+    }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch, setSnapShotUploadState])
 
 
 
 
     return null;
 }
+
+export type TSnapShotUploadingStates = 'uploaded' | 'uploading' | 'error' | 'ideal';
 
 export default function Customize() {
     const router = useRouter();
@@ -121,28 +115,25 @@ export default function Customize() {
     const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false);
     const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
 
-    const {model} = useSelector((state: RootState) => state);
-    const {collar, febric, cuff } = model;
-    const {accent} = useSelector((state: RootState) => state);
-    const {modelType: {modelType}} = useSelector((state: RootState) => state);
-    
+    const { model } = useSelector((state: RootState) => state);
+    const { collar, febric, cuff } = model;
+    const { accent } = useSelector((state: RootState) => state);
+    const { modelType: { modelType } } = useSelector((state: RootState) => state);
+
     const { collar: collarAccent } = accent;
     const { cuff: cuffAccent } = accent;
     const [screenShot, setScreenShot] = useState<string | null>(null);
-    const [takeScreenShot, setTakeScreenShot] = useState(false);
+    const [takeScreenShot, setTakeScreenShot] = useState<boolean>(false);
+   
+    const [snapShotUploadState, setSnapShotUploadState] = useState<TSnapShotUploadingStates>('ideal');
     const { model: febricURI } = febric;
     const dispatch = useDispatch();
 
 
-
+    
     const nextStepHandler = () => {
-
-        // uploadScreenShotToCloud();
-        // return;
-        
         if (designJourney === SelectionProcess.accents) {
             setTakeScreenShot(true);
-            router.push('/cart');
             return;
         }
         // First get the index of selected step 
@@ -208,6 +199,14 @@ export default function Customize() {
 
     }, [showFilterModel]);
 
+    // If media is uploaded and then we have response and dispatchd to store 
+    // run the functio n
+    useEffect(() => {
+        if(snapShotUploadState === 'uploaded') {
+            router.push('/cart');
+        }
+    }, [snapShotUploadState, router]);
+
     return (
         <>
             {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel} />
@@ -264,19 +263,24 @@ export default function Customize() {
                             />
 
 
-                            <CaptureModelScreenShot dispatch={dispatch} takeScreenShot={takeScreenShot} setTakeScreenShot={setTakeScreenShot} cartData={
-                                {
-                                model,
-                                accent,
-                                modelType,
-                                subTotal: 0, 
-                                qty: 1,
-                                discount: 0,
-                                availability: '', 
-                                id: 1, 
+                            <CaptureModelScreenShot
+                                dispatch={dispatch}
+                                takeScreenShot={takeScreenShot}
+                                setTakeScreenShot={setTakeScreenShot}
+                                setSnapShotUploadState={setSnapShotUploadState}
+                                cartData={
+                                    {
+                                        model,
+                                        accent,
+                                        modelType,
+                                        subTotal: 0,
+                                        qty: 1,
+                                        discount: 0,
+                                        availability: '',
+                                        id: 1,
 
-                                }
-                            }/>
+                                    }
+                                } />
 
                         </Canvas>
 
@@ -303,8 +307,8 @@ export default function Customize() {
                             </div>
                         </div>
                         <div className={styles.row}>
-                            <Button variant='primary' type='square' onClick={() => nextStepHandler()}>
-                                <span>Next</span>
+                            <Button variant='primary' type='square' onClick={() => snapShotUploadState === 'uploading' ? null : nextStepHandler()}>
+                                <span>{snapShotUploadState === 'uploading' ? 'Please wait...' : 'Next'}</span>
                             </Button>
                             <div className={styles.receives__when}>
                                 RECEIVE IN 3 WEEKS

@@ -1,8 +1,6 @@
 import { AnyAction } from "@reduxjs/toolkit";
 import { Dispatch } from "react";
-import { IModelAction } from "slices/accentSlice";
 import { ICartItem } from "slices/cartSlice";
-import { UpdateModelAction } from "slices/modelSlice";
 
 export interface IScreenShortCartItem {
     cartData: Partial<Omit<ICartItem, 'model'>> & {
@@ -15,5 +13,7 @@ export interface IScreenShortCartItem {
 export interface ICaptureModelScreenShot extends IScreenShortCartItem {
     takeScreenShot:boolean;
     setTakeScreenShot:Function;
-    dispatch: Dispatch<AnyAction>
+    dispatch: Dispatch<AnyAction>;
+    takingScreenShot: boolean;
+    setTakingScreenShot:Function;
 }
