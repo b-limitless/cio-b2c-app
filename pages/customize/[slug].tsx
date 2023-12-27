@@ -64,19 +64,18 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
             gl.render(scene, camera);
             const screenShot = gl.domElement.toDataURL();
 
-            const blob = dataURLtoBlob(screenShot);
+            const boblFile = dataURLtoBlob(screenShot);
 
-            if (!blob) return;
+            if (!boblFile) return;
 
-            const file = new File([blob], 'shot.png', { type: 'image/png' })
+            const snapShotFile = new File([boblFile], 'shot.png', { type: 'image/png' })
 
             const formData = new FormData();
 
-            formData.append('image', file);
+            formData.append('image', snapShotFile);
 
             try {
                 const response = await axios.post(APIS.product.upload, formData);
-
                 const { data: { originalImageUrl, thumbnailImageUrl } } = response || {};
 
                 if (originalImageUrl) {
@@ -86,7 +85,6 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                     setSnapShotUploadState('uploaded');
 
                 }
-
                 if (!originalImageUrl) {
                 }
             } catch (err: any) {
@@ -98,9 +96,6 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
         }
         if (takeScreenShot) runTakeScreenShot();
     }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch, setSnapShotUploadState])
-
-
-
 
     return null;
 }
@@ -115,10 +110,10 @@ export default function Customize() {
     const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false);
     const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
 
-    const { model } = useSelector((state: RootState) => state);
+    const model = useSelector((state: RootState) => state.model);
     const { collar, febric, cuff } = model;
-    const { accent } = useSelector((state: RootState) => state);
-    const { modelType: { modelType } } = useSelector((state: RootState) => state);
+    const accent = useSelector((state: RootState) => state.accent);
+    const { modelType }  = useSelector((state: RootState) => state.modelType);
 
     const { collar: collarAccent } = accent;
     const { cuff: cuffAccent } = accent;
@@ -218,6 +213,7 @@ export default function Customize() {
                 showFilterModel={showAccentFebricModel}
                 onClickHandler={updateCollarFebriceHandler}
             />
+            {/* Handling error */}
             <div className={styles.container}>
 
                 <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
