@@ -38,7 +38,14 @@ export default function AccentFebricModel({ onClickHandler, setShowFilterModel, 
                     febricImageURI={febric.febricURI}
                     key={'febri-item-custom' + i}
                     setShowFebricDetailsModel={() => null}
-                    onClick={(event: any) => onClickHandler(event, { key : 'collar', payload: { id: i, febric: febric.febricURI, price: febric.price } })}
+                    onClick={(event: any) => onClickHandler(event,
+                        {
+                            key: 'collar',
+                            payload: {
+                                id: i, febric: febric.febricURI,
+                                price: febric.price
+                            }
+                        })}
                 />)}
 
             </div>

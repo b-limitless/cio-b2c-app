@@ -175,8 +175,9 @@ export default function Customize() {
     const updateCollarFebriceHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
         event.stopPropagation();
         const { payload } = params;
-        const { meshName } = activeAccent === 'collar' ? collarAccent : cuffAccent;
+        const { meshName, type } = activeAccent === 'collar' ? collarAccent : cuffAccent;
         payload.meshName = meshName;
+        payload.type = type;
         payload.updatedFrom = 'accents';
         dispatch(updateAccent({ key: activeAccent, payload }));
     }

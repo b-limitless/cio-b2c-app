@@ -34,7 +34,9 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     
 
         if (cuffAccent && code !== 'collar') {
-            const payload = { ...cuffAccent, febric: `${cuffAccent?.febric}?timestamp=${Date.now()}` } as TCollar;
+            const payload = { 
+                   ...cuffAccent, 
+                   febric: `${cuffAccent?.febric}?timestamp=${Date.now()}` } as TCollar;
             dispatch(updateAccent({ key: code as keyof IAccentGlobal , payload }))
         }
 
