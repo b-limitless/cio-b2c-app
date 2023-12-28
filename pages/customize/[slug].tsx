@@ -1,3 +1,5 @@
+// For testing purpose only
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 /**
  * Now we have functionality where
  * - We can update the febric of shirt model completely
@@ -53,14 +55,15 @@ import { APIS } from 'config/apis';
 import axios from 'axios';
 import { ICaptureModelScreenShot } from './index.interface';
 import { addToCart } from 'slices/cartSlice';
+import { TSnapShotUploadingStates } from './index.interface';
 
 
-
-const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData, setSnapShotUploadState }: ICaptureModelScreenShot) => {
+const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData }: ICaptureModelScreenShot) => {
+    
     const { gl, scene, camera } = useThree();
     useEffect(() => {
         const runTakeScreenShot = async () => {
-            setSnapShotUploadState('uploading');
+          
             gl.render(scene, camera);
             const screenShot = gl.domElement.toDataURL();
 
@@ -75,6 +78,7 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
             formData.append('image', snapShotFile);
 
             try {
+                setTakeScreenShot('uploading');
                 const response = await axios.post(APIS.product.upload, formData);
                 const { data: { originalImageUrl, thumbnailImageUrl } } = response || {};
 
@@ -82,25 +86,28 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                     const screenCDNURIs = { originalImageUrl, thumbnailImageUrl };
                     const data = { ...screenCDNURIs, ...cartData };
                     dispatch(addToCart(data as any));
-                    setSnapShotUploadState('uploaded');
+                    setTakeScreenShot('uploaded');
 
                 }
                 if (!originalImageUrl) {
                 }
+                console.log('File is uploaded')
+               
+               
+                
             } catch (err: any) {
                 console.error(err);
-                setSnapShotUploadState(err);
             }
-            setTakeScreenShot(false);
+            
             
         }
-        if (takeScreenShot) runTakeScreenShot();
-    }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch, setSnapShotUploadState])
+        if (takeScreenShot === 'upload') runTakeScreenShot();
+    }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch])
 
     return null;
 }
 
-export type TSnapShotUploadingStates = 'uploaded' | 'uploading' | 'error' | 'ideal';
+
 
 export default function Customize() {
     const router = useRouter();
@@ -109,7 +116,7 @@ export default function Customize() {
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
     const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false);
     const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
-
+    
     const model = useSelector((state: RootState) => state.model);
     const { collar, febric, cuff } = model;
     const accent = useSelector((state: RootState) => state.accent);
@@ -117,10 +124,9 @@ export default function Customize() {
 
     const { collar: collarAccent } = accent;
     const { cuff: cuffAccent } = accent;
-    const [screenShot, setScreenShot] = useState<string | null>(null);
-    const [takeScreenShot, setTakeScreenShot] = useState<boolean>(false);
+    const [takeScreenShot, setTakeScreenShot] = useState<TSnapShotUploadingStates>('ideal');
    
-    const [snapShotUploadState, setSnapShotUploadState] = useState<TSnapShotUploadingStates>('ideal');
+    
     const { model: febricURI } = febric;
     const dispatch = useDispatch();
 
@@ -128,7 +134,7 @@ export default function Customize() {
     
     const nextStepHandler = () => {
         if (designJourney === SelectionProcess.accents) {
-            setTakeScreenShot(true);
+            setTakeScreenShot('upload');
             return;
         }
         // First get the index of selected step 
@@ -137,9 +143,6 @@ export default function Customize() {
         const getNextValue = Object.values(SelectionProcess)[findIndex + 1];
         setDesignJourney(getNextValue);
     }
-
-
-
 
 
     const updateFebricHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateModelAction) => {
@@ -170,7 +173,7 @@ export default function Customize() {
 
     const updateCollarFebriceHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
         event.stopPropagation();
-        const { key, payload } = params;
+        const { payload } = params;
         const { meshName } = activeAccent === 'collar' ? collarAccent : cuffAccent;
         payload.meshName = meshName;
         payload.updatedFrom = 'accents';
@@ -196,11 +199,15 @@ export default function Customize() {
 
     // If media is uploaded and then we have response and dispatchd to store 
     // run the functio n
+
+    
     useEffect(() => {
-        if(snapShotUploadState === 'uploaded') {
+        if(takeScreenShot === 'uploaded') {
             router.push('/cart');
         }
-    }, [snapShotUploadState, router]);
+    }, [takeScreenShot, router]);
+
+    
 
     return (
         <>
@@ -255,7 +262,7 @@ export default function Customize() {
                                 febricURI={febricURI}
                                 collarAccent={collarAccent}
                                 cuffAccent={cuffAccent}
-                                takeScreenShot={takeScreenShot}
+                              
                             />
 
 
@@ -263,7 +270,7 @@ export default function Customize() {
                                 dispatch={dispatch}
                                 takeScreenShot={takeScreenShot}
                                 setTakeScreenShot={setTakeScreenShot}
-                                setSnapShotUploadState={setSnapShotUploadState}
+                                // setSnapShotUploadState={setSnapShotUploadState}
                                 cartData={
                                     {
                                         model,
@@ -303,8 +310,8 @@ export default function Customize() {
                             </div>
                         </div>
                         <div className={styles.row}>
-                            <Button variant='primary' type='square' onClick={() => snapShotUploadState === 'uploading' ? null : nextStepHandler()}>
-                                <span>{snapShotUploadState === 'uploading' ? 'Please wait...' : 'Next'}</span>
+                            <Button variant='primary' type='square' onClick={ () => takeScreenShot === 'uploading' ? null : nextStepHandler()}>
+                                <span>{takeScreenShot === 'uploading' ? 'Please wait...' : 'Next'}</span>
                             </Button>
                             <div className={styles.receives__when}>
                                 RECEIVE IN 3 WEEKS

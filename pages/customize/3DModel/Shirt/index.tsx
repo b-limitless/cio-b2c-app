@@ -25,8 +25,6 @@ interface ShirtModelInterface extends BaseModel {
   collarAccent: TCollar;
   cuffAccent: TCollar;
   cuff: RowType;
-  takeScreenShot: boolean;
-  // CaptureModelScreenShot: ElementType;
 }
 
 interface AddTextureModel {
@@ -43,12 +41,11 @@ interface IAddModelToScene {
 }
 
 
-const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, takeScreenShot }: ShirtModelInterface) => {
+const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: ShirtModelInterface) => {
 
   return (
 
     <>
-      {/* {takeScreenShot && <CaptureModelScreenShot/>} */}
 
       <ambientLight />
       <directionalLight position={[5, 5, 5]} intensity={1} />

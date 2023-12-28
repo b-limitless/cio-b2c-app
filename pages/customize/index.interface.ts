@@ -1,7 +1,9 @@
 import { AnyAction } from "@reduxjs/toolkit";
 import { Dispatch } from "react";
 import { ICartItem } from "slices/cartSlice";
-import { TSnapShotUploadingStates } from "./[slug]";
+
+
+export type TSnapShotUploadingStates = 'upload' | 'uploaded' | 'uploading' | 'error' | 'ideal';
 
 export interface IScreenShortCartItem {
     cartData: Partial<Omit<ICartItem, 'model'>> & {
@@ -12,9 +14,9 @@ export interface IScreenShortCartItem {
 }
 
 export interface ICaptureModelScreenShot extends IScreenShortCartItem {
-    takeScreenShot:boolean;
+    takeScreenShot:TSnapShotUploadingStates;
     setTakeScreenShot:Function;
     dispatch: Dispatch<AnyAction>;
-    setSnapShotUploadState: Function;
+    // setSnapShotUploadState: Function;
     
 }
