@@ -104,7 +104,7 @@ export const accentsStyles = [
       {
         id: 5,
         label: 'By Default',
-        code: 'button_down',
+        code: 'default',
         mediaUrl: '/icon/cuff/french.svg',
         type: 'default',
         meshName: [],
@@ -112,7 +112,7 @@ export const accentsStyles = [
       {
         id: 6,
         label: 'All',
-        code: 'one_button',
+        code: 'all',
         mediaUrl: '/icon/cuff/one-button.svg',
         type: 'all',
         meshName: [],
@@ -120,8 +120,9 @@ export const accentsStyles = [
       {
         id: 7,
         label: 'Inner Febric',
-        code: 'button_down',
+        code: 'innerFebric',
         mediaUrl: '/icon/cuff/three-button.svg',
+        type: 'innerFebric',
         meshName: [],
       },
     ],

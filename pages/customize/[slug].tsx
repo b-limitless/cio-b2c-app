@@ -199,9 +199,6 @@ export default function Customize() {
 
     }, [showFilterModel]);
 
-    // If media is uploaded and then we have response and dispatchd to store 
-    // run the functio n
-
     
     useEffect(() => {
         if(takeScreenShot === 'uploaded') {
