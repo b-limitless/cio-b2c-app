@@ -1,0 +1,32 @@
+export const sampleFebric = [
+  {
+    originalImageUrl: '/img/febric1.jpg',
+    price: 20,
+    userId: 'string',
+    title: 'string',
+    deliveryTime: 'string',
+    material: 'string',
+    tone: 'string',
+    febricTypes: 'string',
+  },
+  {
+    originalImageUrl: '/img/febric-5.jpg',
+    price: 30,
+    userId: 'string',
+    title: 'string',
+    deliveryTime: 'string',
+    material: 'string',
+    tone: 'string',
+    febricTypes: 'string',
+  },
+  {
+    originalImageUrl: '/img/febric-6.jpg',
+    price: 40,
+    userId: 'string',
+    title: 'string',
+    deliveryTime: 'string',
+    material: 'string',
+    tone: 'string',
+    febricTypes: 'string',
+  },
+];

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { IAccentGlobal, TCollar, TCollarAccent, UpdateAccentActionType, accentProperties, updateAccent, updateAccentType } from 'slices/accentSlice';
-import { updateModel } from 'slices/modelSlice';
+import { RowType, updateModel } from 'slices/modelSlice';
 import styles from '../styles.module.scss';
 import { ItemInterface, ProductStylesInterface } from './product-style.interface';
 
@@ -24,8 +24,13 @@ function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
 export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent, collarAccent, cuffAccent }: ProductStylesInterface) {
     const dispatch = useDispatch();
 
-    const dispatchSelectedModelConfig = ({ id, model }: { id: any, model: any }) => {
-         dispatch(updateModel({ payload: { id, model, price: 0 }, key: code as keyof IAccentGlobal }));
+    const dispatchSelectedModelConfig = ({model, ...rest }: RowType) => {
+         dispatch(updateModel({ payload: 
+               { 
+                model,
+                ...rest 
+                 }, 
+               key: code as keyof IAccentGlobal }));
     
 
         if (cuffAccent && code !== 'collar') {
@@ -47,9 +52,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
             setActiveAccent(code);
         }
         if (payload.type === 'default') {
-            // need to dispatch default value 
-            // Which was initially 
-
+        
             const { collar, cuff } = accentProperties;
 
             dispatch(updateAccent({ key, payload: code === 'cuff' ? cuff : collar }));
@@ -60,10 +63,6 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
         setShowAccentFebricModel(true);
         dispatch(updateAccentType({ key, payload }));
     }
-
-    // If type is style then simply need to get the febric which is
-    // Store inside the redux store and then dispatch 
-
 
     return (
         <div className={styles.row}>
@@ -79,7 +78,11 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                     onClickHanlder={() => type ===
                         'style' ?
                         dispatchSelectedModelConfig
-                            ({ id: children.id, model: `${children.model}?timestamp=${Date.now()}` }) :
+                            ({ 
+                                ...children,
+                                model: `${children.model}?timestamp=${Date.now()}` 
+                                
+                            }) :
 
                         dispatchAccentType({ key: code as keyof IAccentGlobal, payload: children })
                     }

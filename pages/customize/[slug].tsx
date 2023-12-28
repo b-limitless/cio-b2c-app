@@ -56,6 +56,7 @@ import axios from 'axios';
 import { ICaptureModelScreenShot } from './index.interface';
 import { addToCart } from 'slices/cartSlice';
 import { TSnapShotUploadingStates } from './index.interface';
+import { defaultCollarModel, defaultFebric } from 'config/default';
 
 
 const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData }: ICaptureModelScreenShot) => {
@@ -213,7 +214,7 @@ export default function Customize() {
         <>
             {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel} />
             }
-
+x
             <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel} />
             <AccentFebricModel
                 setShowFilterModel={setShowAccentFebricModel}
@@ -257,9 +258,9 @@ export default function Customize() {
                         {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
                         <Canvas>
                             <Shirt3DModel
-                                collar={collar.model}
+                                collar={collar?.model ?? defaultCollarModel}
                                 cuff={cuff}
-                                febricURI={febricURI}
+                                febricURI={febricURI ?? defaultFebric}
                                 collarAccent={collarAccent}
                                 cuffAccent={cuffAccent}
                               

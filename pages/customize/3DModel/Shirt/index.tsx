@@ -1,10 +1,10 @@
 'use client';
-import { Html, OrbitControls } from '@react-three/drei';
-import { Canvas, useLoader, useThree } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import { useLoader } from '@react-three/fiber';
+import { defaultCuffModel } from 'config/default';
 import { modelsURL } from 'config/models';
-import { dataURLtoBlob } from 'functions/dataURLtoBlob';
 import dynamic from 'next/dynamic';
-import { ElementType, ReactNode, useEffect, useMemo, useRef } from 'react';
+import { ReactNode, useEffect, useMemo, useRef } from 'react';
 import { TCollar } from 'slices/accentSlice';
 import { RowType } from 'slices/modelSlice';
 import * as THREE from 'three';
@@ -76,7 +76,7 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: S
 
       <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
 
-        <AddModelToScene name='cuff' modelURI={cuff.model} />
+        <AddModelToScene name='cuff' modelURI={cuff.model ?? defaultCuffModel} />
       </AddTextureToModel>
 
 

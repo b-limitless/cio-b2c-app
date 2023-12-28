@@ -4,6 +4,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { UpdateModelAction } from 'slices/modelSlice';
 import styles from './febric.module.scss';
+import { sampleFebric } from './sample-febrics';
 
 interface FebricInterface {
   setShowFilterModel: Function;
@@ -12,21 +13,9 @@ interface FebricInterface {
 }
 const countArray = new Array(20).fill(0);
 
-const febrics = [{
-  febricURI: '/img/febric1.jpg',
-  price: 20
-},
-{
-  febricURI: '/img/febric-5.jpg', 
-  price: 30
-},
-{
-  febricURI: '/img/febric-6.jpg', 
-  price: 40
-}]
 
 export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel, onClickHandler }: FebricInterface) {
-  const dispatch = useDispatch();
+
   return (
     <>
       <div className={styles.action}>
@@ -46,11 +35,24 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
 
       <div className={styles.febrics}>
         <>
-          {febrics.map((febric, i) => <Febric
-            febricImageURI={febric.febricURI}
+          {sampleFebric.map((febric, i) => <Febric
+            febricImageURI={febric.originalImageUrl}
             key={'febri-item-custom' + i}
             setShowFebricDetailsModel={setShowFebricDetailsModel}
-            onClick={(event: any) => onClickHandler(event, { key: 'febric', payload: { id: i, model: febric.febricURI, price: febric.price } })}
+            onClick={(event: any) => onClickHandler(event, {
+              key: 'febric', payload: {
+                id: i,
+                model: febric.originalImageUrl,
+                price: febric.price,
+                title: febric.title,
+                originalImageUrl: febric.originalImageUrl,
+                userId: febric.userId,
+                deliveryTime: febric.deliveryTime,
+                material: febric.material,
+                tone: febric.tone,
+                febricTypes: febric.febricTypes,
+              }
+            })}
           />)}
 
 
