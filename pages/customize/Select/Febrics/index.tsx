@@ -3,7 +3,7 @@ import Febric from 'pages/customize/Febric/Febric';
 import React from 'react';
 import { UpdateModelAction } from 'slices/modelSlice';
 import styles from './febric.module.scss';
-import { sampleFebric } from './sample-febrics';
+import { sampleFebric } from 'sample/sample-febrics';
 
 interface FebricInterface {
   setShowFilterModel: Function;

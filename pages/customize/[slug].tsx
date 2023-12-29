@@ -27,7 +27,9 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
  *  - Need to design how to take screen short of customized shirt and show them in card
  *  - we might have edit option how we can update the current selected configuration 
  *  
- *  
+    // You need to check the collor febric as well 
+    // If the febric for the collar is default then do not need to update that state as well
+    // If not then that means user has already updated and keep the user selection on the model
  * **/
 import { Canvas, useThree } from '@react-three/fiber';
 import axios from 'axios';
@@ -46,15 +48,15 @@ import { addToCart } from 'slices/cartSlice';
 import { UpdateModelAction, updateModel } from 'slices/modelSlice';
 import { RootState } from 'store';
 import { SelectionProcess, SelectionTypes } from '../../types/enums';
-import Shirt3DModel from './3DModel/Shirt';
-import AccentFebricModel from './Febric/AccentFebricModel';
+import Shirt3DModel from 'pages/customize/3DModel/Shirt';
+import AccentFebricModel from 'pages/customize/Febric/AccentFebricModel';
 import Filter from './Febric/Filter';
 import FebricDetails from './FebricDetails';
 import Accents from './Select/Accents';
 import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
-import { ICaptureModelScreenShot, TSnapShotUploadingStates } from './index.interface';
+import { ICaptureModelScreenShot, TSnapShotUploadingStates } from 'interface/ICart.interface';
 
 
 const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData }: ICaptureModelScreenShot) => {
@@ -142,11 +144,6 @@ export default function Customize() {
     const updateFebricHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateModelAction) => {
         event.stopPropagation();
         const { key, payload } = params;
-        // You need to check the collor febric as well 
-        // If the febric for the collar is default then do not need to update that state as well
-        // If not then that means user has already updated and keep the user selection on the model
-
-
         dispatch(updateModel({ key, payload }));
 
         if (collarAccent.updatedFrom === 'febrics') {
@@ -267,7 +264,7 @@ export default function Customize() {
                                         model,
                                         accent,
                                         modelType,
-                                        subTotal: 0,
+                                        subTotal: computePrice,
                                         qty: 1,
                                         discount: 0,
                                         availability: '',
