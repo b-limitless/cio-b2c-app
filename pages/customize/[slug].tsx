@@ -123,7 +123,7 @@ export default function Customize() {
     const [takeScreenShot, setTakeScreenShot] = useState<TSnapShotUploadingStates>('ideal');
 
 
-    const { model: febricURI } = febric;
+    const { originalImageUrl } = febric;
     const dispatch = useDispatch();
 
 
@@ -248,7 +248,7 @@ export default function Customize() {
                             <Shirt3DModel
                                 collar={collar?.model ?? defaultCollarModel}
                                 cuff={cuff}
-                                febricURI={febricURI ?? defaultFebric}
+                                febricURI={originalImageUrl ?? defaultFebric}
                                 collarAccent={collarAccent}
                                 cuffAccent={cuffAccent}
 
@@ -280,16 +280,16 @@ export default function Customize() {
                     <div className={styles.infomration}>
                         <div className={styles.row}>
                             <div className={styles.name}>
-                                custom shirt
+                                {}
                             </div>
                             <div className={styles.price}>
                                 ${computePrice}
                             </div>
                             <div className={styles.feature}>
-                                ESSENTIAL
+                                {febric.title}
                             </div>
                             <div className={styles.type}>
-                                Cotton
+                                {febric.material}
                             </div>
                             <div className={styles.ref}>
                                 ref: Mayfield

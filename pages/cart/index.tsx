@@ -1,9 +1,12 @@
-'use client'
-import React from 'react';
+// 'use client'
+import React, { useEffect } from 'react';
 import Header from 'components/Header/Header';
 import styles from './cart.module.scss';
 import Image from 'next/image';
 import { Button } from 'components/Button';
+import { cartSameDate } from 'sample/cart';
+import { useDispatch } from 'react-redux';
+import { ICart, ICartItem, addToCart } from 'slices/cartSlice';
 
 interface CartInterface {
   id: number;
@@ -70,17 +73,27 @@ const countNum = new Array(10).fill(0);
 
 // cart-shirt, add, copy, eye, delete, hunburg
 export default function Cart() {
-  // console.log(window.innerHeight)
-  // console.log(window.document.body.scrollHeight)
+  // const dispatch = useDispatch();
+  // // for the testing lets dispatch the cart
+  // useEffect(() => {
+  //   const dispatchSampleCartData = () => {
+  //     dispatch(addToCart(cartSameDate[0] as any));
+  //   }
+  //   dispatchSampleCartData();
+  // } ,[]);
+
+  console.log('Mounting the component')
+
+
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className={styles.cart__container}>
         <div className={styles.title}>Shopping Bag</div>
 
         <div className={styles.cart__details}>
           <div className={styles.items}>
-            {countNum.map((_, i) => <CartItem key={i} id={i}/>)}
+            {/* {countNum.map((_, i) => <CartItem key={i} id={i}/>)} */}
             
           </div>
           <div className={styles.summary}>

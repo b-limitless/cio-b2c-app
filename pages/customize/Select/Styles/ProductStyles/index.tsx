@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { IAccentGlobal, TCollar, TCollarAccent, UpdateAccentActionType, accentProperties, updateAccent, updateAccentType } from 'slices/accentSlice';
 import { RowType, updateModel } from 'slices/modelSlice';
 import styles from '../styles.module.scss';
-import { ItemInterface, ProductStylesInterface } from './product-style.interface';
+import { ItemInterface, ProductStylesInterface } from 'interface/IProductStyle.interface';
 
 
 function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
