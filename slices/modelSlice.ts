@@ -1,5 +1,3 @@
-// 'use client';
-
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { defaultCuffModel, defaultFebric } from 'config/default';
@@ -70,12 +68,12 @@ const initialState: IModelAction = {
     id: 12,
     model: `/models/collars/collar-1-1.glb?timestamp=${Date.now()}`,
     price: 0,
-    title: '', 
+    title: 'Default collar model', 
     
   }, 
   febric: {
     id: 12,
-    model: `/img/febric-6.jpg?timestamp=${Date.now()}`,
+    model: defaultFebric,
     price: 10, 
     title: '', 
     
@@ -87,7 +85,7 @@ const initialState: IModelAction = {
     id: 12,
     model: `${defaultCuffModel}?timestamp=${Date.now()}`,
     price: 0,
-    title: '', 
+    title: 'default cuff model', 
   }, 
 };
 

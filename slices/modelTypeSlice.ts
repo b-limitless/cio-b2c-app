@@ -7,7 +7,7 @@ export interface IModeType {
 }
 
 const initialState: IModeType = {
-  modelType: 'pant',
+  modelType: 'shirt',
 };
 
 const modelTypeSlice = createSlice({

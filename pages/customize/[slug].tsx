@@ -58,11 +58,11 @@ import { ICaptureModelScreenShot, TSnapShotUploadingStates } from './index.inter
 
 
 const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData }: ICaptureModelScreenShot) => {
-    
+
     const { gl, scene, camera } = useThree();
     useEffect(() => {
         const runTakeScreenShot = async () => {
-          
+
             gl.render(scene, camera);
             const screenShot = gl.domElement.toDataURL();
 
@@ -90,23 +90,18 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                 }
                 if (!originalImageUrl) {
                 }
-                console.log('File is uploaded')
-               
-               
-                
+
             } catch (err: any) {
                 console.error(err);
             }
-            
-            
+
+
         }
         if (takeScreenShot === 'upload') runTakeScreenShot();
     }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch])
 
     return null;
 }
-
-
 
 export default function Customize() {
     const router = useRouter();
@@ -115,22 +110,22 @@ export default function Customize() {
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
     const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false);
     const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
-    
+
     const model = useSelector((state: RootState) => state.model);
     const { collar, febric, cuff } = model;
     const accent = useSelector((state: RootState) => state.accent);
-    const { modelType }  = useSelector((state: RootState) => state.modelType);
+    const { modelType } = useSelector((state: RootState) => state.modelType);
 
     const { collar: collarAccent } = accent;
     const { cuff: cuffAccent } = accent;
     const [takeScreenShot, setTakeScreenShot] = useState<TSnapShotUploadingStates>('ideal');
-   
-    
+
+
     const { model: febricURI } = febric;
     const dispatch = useDispatch();
 
 
-    
+
     const nextStepHandler = () => {
         if (designJourney === SelectionProcess.accents) {
             setTakeScreenShot('upload');
@@ -164,13 +159,13 @@ export default function Customize() {
             dispatch(updateAccent({ key: 'collar', payload: payloadC }));
         }
 
-        if(cuffAccent.updatedFrom === 'febrics') {
-            const newState = {...cuffAccent, febric: payload.originalImageUrl ?? defaultFebric}
+        if (cuffAccent.updatedFrom === 'febrics') {
+            const newState = { ...cuffAccent, febric: payload.originalImageUrl ?? defaultFebric }
             dispatch(updateAccent({ key: 'cuff', payload: newState }));
         }
     }
 
-    const updateCollarFebriceHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
+    const updateAccentHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
         event.stopPropagation();
         const { payload } = params;
         const { meshName, type } = activeAccent === 'collar' ? collarAccent : cuffAccent;
@@ -197,25 +192,25 @@ export default function Customize() {
 
     }, [showFilterModel]);
 
-    
+
     useEffect(() => {
-        if(takeScreenShot === 'uploaded') {
+        if (takeScreenShot === 'uploaded') {
             router.push('/cart');
         }
     }, [takeScreenShot, router]);
 
-    
+
 
     return (
         <>
             {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel} />
             }
-x
+            x
             <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel} />
             <AccentFebricModel
                 setShowFilterModel={setShowAccentFebricModel}
                 showFilterModel={showAccentFebricModel}
-                onClickHandler={updateCollarFebriceHandler}
+                onClickHandler={updateAccentHandler}
             />
             {/* Handling error */}
             <div className={styles.container}>
@@ -259,9 +254,8 @@ x
                                 febricURI={febricURI ?? defaultFebric}
                                 collarAccent={collarAccent}
                                 cuffAccent={cuffAccent}
-                              
-                            />
 
+                            />
 
                             <CaptureModelScreenShot
                                 dispatch={dispatch}
@@ -308,7 +302,7 @@ x
                             </div>
                         </div>
                         <div className={styles.row}>
-                            <Button variant='primary' type='square' onClick={ () => takeScreenShot === 'uploading' ? null : nextStepHandler()}>
+                            <Button variant='primary' type='square' onClick={() => takeScreenShot === 'uploading' ? null : nextStepHandler()}>
                                 <span>{takeScreenShot === 'uploading' ? 'Please wait...' : 'Next'}</span>
                             </Button>
                             <div className={styles.receives__when}>

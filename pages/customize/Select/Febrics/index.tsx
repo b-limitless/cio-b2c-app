@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Febric from 'pages/customize/Febric/Febric';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { UpdateModelAction } from 'slices/modelSlice';
 import styles from './febric.module.scss';
 import { sampleFebric } from './sample-febrics';
@@ -46,8 +45,6 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
                 price: febric.price,
                 title: febric.title,
                 originalImageUrl: febric.originalImageUrl,
-                userId: febric.userId,
-                deliveryTime: febric.deliveryTime,
                 material: febric.material,
                 tone: febric.tone,
                 febricTypes: febric.febricTypes,
