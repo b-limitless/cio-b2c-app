@@ -10,6 +10,7 @@ export interface IScreenShortCartItem {
         model: any;
         originalImageUrl?:string,
         thumbnailImageUrl?:string;
+        deliveryTime?: string;
     };
 }
 

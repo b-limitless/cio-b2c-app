@@ -46,13 +46,11 @@ export  interface UpdateModelAction {
 }
 
 export type TRestFebric = {
-  userId: string;
   title: string;
   price: number;
-  deliveryTime: string;
-  material: string;
-  tone: string;
-  febricTypes: string;
+  material?: string;
+  tone?: string;
+  febricTypes?: string;
 }
 
 export type RowType = {
@@ -73,19 +71,14 @@ const initialState: IModelAction = {
     model: `/models/collars/collar-1-1.glb?timestamp=${Date.now()}`,
     price: 0,
     title: '', 
-    userId: 'string',
-    deliveryTime: 'string',
-    material: 'string',
-    tone: 'string',
-    febricTypes: 'string',
+    
   }, 
   febric: {
     id: 12,
     model: `/img/febric-6.jpg?timestamp=${Date.now()}`,
     price: 10, 
     title: '', 
-    userId: 'string',
-    deliveryTime: 'string',
+    
     material: 'string',
     tone: 'string',
     febricTypes: 'string',
@@ -95,11 +88,6 @@ const initialState: IModelAction = {
     model: `${defaultCuffModel}?timestamp=${Date.now()}`,
     price: 0,
     title: '', 
-    userId: 'string',
-    deliveryTime: 'string',
-    material: 'string',
-    tone: 'string',
-    febricTypes: 'string',
   }, 
 };
 

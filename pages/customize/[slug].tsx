@@ -29,14 +29,20 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
  *  
  *  
  * **/
+import { Canvas, useThree } from '@react-three/fiber';
+import axios from 'axios';
 import { Button } from 'components/Button';
 import Header from 'components/Header/Header';
+import { APIS } from 'config/apis';
+import { defaultCollarModel, defaultFebric } from 'config/default';
 import { productNavigation } from 'config/product';
+import { dataURLtoBlob } from 'functions/dataURLtoBlob';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IAccentGlobal, TCollar, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
+import { addToCart } from 'slices/cartSlice';
 import { UpdateModelAction, updateModel } from 'slices/modelSlice';
 import { RootState } from 'store';
 import { SelectionProcess, SelectionTypes } from '../../types/enums';
@@ -48,15 +54,7 @@ import Accents from './Select/Accents';
 import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
-import { Canvas, useThree } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
-import { dataURLtoBlob } from 'functions/dataURLtoBlob';
-import { APIS } from 'config/apis';
-import axios from 'axios';
-import { ICaptureModelScreenShot } from './index.interface';
-import { addToCart } from 'slices/cartSlice';
-import { TSnapShotUploadingStates } from './index.interface';
-import { defaultCollarModel, defaultFebric } from 'config/default';
+import { ICaptureModelScreenShot, TSnapShotUploadingStates } from './index.interface';
 
 
 const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData }: ICaptureModelScreenShot) => {
@@ -160,15 +158,15 @@ export default function Customize() {
 
             // Update the collor with different febric
             const payloadC: TCollar = {
-                id: 12,
-                meshName: [], //'because it can be combining all or inner',
-                febric: payload.model,
-                type: 'default',
-                updatedFrom: 'febrics',
-                price: 0
-
+                ...collarAccent,
+                febric: payload.originalImageUrl ?? defaultFebric,
             }
             dispatch(updateAccent({ key: 'collar', payload: payloadC }));
+        }
+
+        if(cuffAccent.updatedFrom === 'febrics') {
+            const newState = {...cuffAccent, febric: payload.originalImageUrl ?? defaultFebric}
+            dispatch(updateAccent({ key: 'cuff', payload: newState }));
         }
     }
 
@@ -280,6 +278,7 @@ x
                                         discount: 0,
                                         availability: '',
                                         id: 1,
+                                        deliveryTime: '3 weeks'
 
                                     }
                                 } />

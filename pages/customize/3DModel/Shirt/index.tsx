@@ -139,6 +139,12 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddText
   // Load texture using userLoader 
   const texture = useLoader(TextureLoader, textureURL);
 
+  // Check the proper resolution of model 
+  // On the other hand the febric need to be high resolution 
+  // Febric size need to be greater then model so there is no repeating 
+  // needed to add to have real experiences
+  // Considere the lighting way on the model which will provide more
+  // Realistic experiences for the model
   texture.repeat.set(2, 2);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
