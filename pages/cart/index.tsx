@@ -5,21 +5,24 @@ import styles from './cart.module.scss';
 import Image from 'next/image';
 import { Button } from 'components/Button';
 import { cartSameDate } from 'sample/cart';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ICart, ICartItem, addToCart } from 'slices/cartSlice';
+import { RootState } from 'store';
+import { moneyFormat } from 'functions/moneyFormat';
 
 interface CartInterface {
   id: number;
+  cart: ICartItem
 }
-const CartItem = ({id}: CartInterface) => {
+const CartItem = ({id, cart}: CartInterface) => {
   return <div className={styles.row}>
     <div className={styles.media}>
-      <Image src={'/img/cart-shirt.png'} width={140} height={176.83} alt='' />
+      <Image src={cart.originalImageUrl ?? ''} width={140} height={176.83} alt='' />
     </div>
     <div className={styles.description}>
       <div className={styles.group}>
         <div className={styles.name}>
-          TAILORED SHIRT(X 2)
+          TAILORED SHIRT
         </div>
         <div className={styles.type}>
           COTTON, BLUE
@@ -27,7 +30,7 @@ const CartItem = ({id}: CartInterface) => {
       </div>
       <div className={styles.group}>
         <div className={styles.price}>
-          $152
+          <>{moneyFormat().format( Number(cart.subTotal))}</>
         </div>
         <div className={styles.delivery}>
           Delivery in 6 Weeks
@@ -73,27 +76,28 @@ const countNum = new Array(10).fill(0);
 
 // cart-shirt, add, copy, eye, delete, hunburg
 export default function Cart() {
-  // const dispatch = useDispatch();
-  // // for the testing lets dispatch the cart
-  // useEffect(() => {
-  //   const dispatchSampleCartData = () => {
-  //     dispatch(addToCart(cartSameDate[0] as any));
-  //   }
-  //   dispatchSampleCartData();
-  // } ,[]);
+  const carts = useSelector((state:RootState) => state.cart);
+  const dispatch = useDispatch();
+  // for the testing lets dispatch the cart
+  useEffect(() => {
+    const dispatchSampleCartData = () => {
+      dispatch(addToCart(cartSameDate[0] as any));
+    }
+    dispatchSampleCartData();
+  } ,[dispatch]);
 
   console.log('Mounting the component')
 
 
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <div className={styles.cart__container}>
         <div className={styles.title}>Shopping Bag</div>
 
-        <div className={styles.cart__details}>
+        {carts.length > 0 && <div className={styles.cart__details}>
           <div className={styles.items}>
-            {/* {countNum.map((_, i) => <CartItem key={i} id={i}/>)} */}
+            {carts.map((cart, i) => <CartItem key={i} id={i} cart={cart}/>)}
             
           </div>
           <div className={styles.summary}>
@@ -141,7 +145,11 @@ export default function Cart() {
 
             </div>
           </div>
-        </div>
+        </div>}
+
+        {carts.length === 0 && <div className={styles.empty__cart}>
+            Shopping bag is empty
+        </div>}
       </div>
     </>
 
