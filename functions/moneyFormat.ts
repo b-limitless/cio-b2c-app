@@ -4,3 +4,4 @@ export const moneyFormat = () => {
     currency: 'USD',
   });
 };
+

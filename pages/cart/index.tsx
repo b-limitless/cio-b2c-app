@@ -25,15 +25,17 @@ const CartItem = ({id, cart}: CartInterface) => {
           TAILORED SHIRT
         </div>
         <div className={styles.type}>
-          COTTON, BLUE
+          {cart.model.febric.material} | {' '}
+          {cart.model.febric.febricTypes}
         </div>
+
       </div>
       <div className={styles.group}>
         <div className={styles.price}>
           <>{moneyFormat().format( Number(cart.subTotal))}</>
         </div>
         <div className={styles.delivery}>
-          Delivery in 6 Weeks
+          Delivery in {cart.deliveryTime}
         </div>
       </div>
       <div className={styles.group}>
