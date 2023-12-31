@@ -6,15 +6,16 @@ import Image from 'next/image';
 import { Button } from 'components/Button';
 import { cartSameDate } from 'sample/cart';
 import { useDispatch, useSelector } from 'react-redux';
-import { ICart, ICartItem, addToCart } from 'slices/cartSlice';
+import { ICart, ICartItem, IUpdateQuantity, addToCart, updateQuantity } from 'slices/cartSlice';
 import { RootState } from 'store';
 import { moneyFormat } from 'functions/moneyFormat';
 
 interface CartInterface {
   id: number;
-  cart: ICartItem
+  cart: ICartItem;
+  addOrRemoveHanlder: (params: IUpdateQuantity) => void;
 }
-const CartItem = ({id, cart}: CartInterface) => {
+const CartItem = ({id, cart, addOrRemoveHanlder}: CartInterface) => {
   return <div className={styles.row}>
     <div className={styles.media}>
       <Image src={cart.originalImageUrl ?? ''} width={140} height={176.83} alt='' />
@@ -22,7 +23,7 @@ const CartItem = ({id, cart}: CartInterface) => {
     <div className={styles.description}>
       <div className={styles.group}>
         <div className={styles.name}>
-          TAILORED SHIRT
+          TAILORED SHIRT -  {cart.qty}
         </div>
         <div className={styles.type}>
           {cart.model.febric.material} | {' '}
@@ -52,7 +53,7 @@ const CartItem = ({id, cart}: CartInterface) => {
         <ul>
           <li>
             <span className={styles.icon}><Image src='/icon/add.svg' width={20} height={20} alt='menu' /></span>
-            <span className={styles.text}>Add/Remove</span>
+            <span className={styles.text}> <span onClick={() => addOrRemoveHanlder({qty: 1, id, addOrRemove: 'add'})}>Add</span>/ <span>Remove</span></span>
           </li>
           <li>
             <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
@@ -84,11 +85,17 @@ export default function Cart() {
   useEffect(() => {
     const dispatchSampleCartData = () => {
       dispatch(addToCart(cartSameDate[0] as any));
+      dispatch(addToCart(cartSameDate[1] as any));
     }
     dispatchSampleCartData();
   } ,[dispatch]);
 
   console.log('Mounting the component')
+
+  const addOrRemoveHanlder = (params: IUpdateQuantity) => {
+    
+    dispatch(updateQuantity(params));
+  }
 
 
   return (
@@ -99,7 +106,7 @@ export default function Cart() {
 
         {carts.length > 0 && <div className={styles.cart__details}>
           <div className={styles.items}>
-            {carts.map((cart, i) => <CartItem key={i} id={i} cart={cart}/>)}
+            {carts.map((cart, i) => <CartItem key={i} id={cart.id} cart={cart} addOrRemoveHanlder={addOrRemoveHanlder}/>)}
             
           </div>
           <div className={styles.summary}>

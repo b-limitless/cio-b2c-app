@@ -39,26 +39,25 @@ const cartSlice = createSlice({
     },
     updateQuantity(state: ICart, action: PayloadAction<IUpdateQuantity>) {
       const { qty, addOrRemove, id } = action.payload;
+
+      const newState: ICart = JSON.parse(JSON.stringify(state));
+
       // Get the cart from index
+      const updatedItem = newState.filter((product) => product.id === id)[0];
 
-      const updateCart = state.map((product) => {
-        if (product.id === id) {
-          if (addOrRemove === 'add') {
-            product.qty += qty;
-          }
+      if (addOrRemove === 'add') {
+        updatedItem.qty += qty;
+      }
 
-          if (addOrRemove === 'remove') {
-            product.qty -= qty;
-          }
-        }
+      if (addOrRemove === 'remove') {
+        updatedItem.qty -= qty;
+      }
 
-        return product;
-      });
-
-      return updateCart;
+      
+      return [updatedItem, ...state.filter(product => product.id !== id)];
     },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

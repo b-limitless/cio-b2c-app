@@ -110,7 +110,7 @@ export const cartSameDate = [
     qty: 1,
     discount: 0,
     availability: '',
-    id: 1,
+    id: 2,
     deliveryTime: '3 weeks',
   },
 ];
