@@ -23,7 +23,7 @@ const CartItem = ({id, cart, addOrRemoveHanlder}: CartInterface) => {
     <div className={styles.description}>
       <div className={styles.group}>
         <div className={styles.name}>
-          TAILORED SHIRT -  {cart.qty}
+          {cart.model.febric.title} TAILORED SHIRT -  {cart.qty} {id}
         </div>
         <div className={styles.type}>
           {cart.model.febric.material} | {' '}
@@ -53,7 +53,8 @@ const CartItem = ({id, cart, addOrRemoveHanlder}: CartInterface) => {
         <ul>
           <li>
             <span className={styles.icon}><Image src='/icon/add.svg' width={20} height={20} alt='menu' /></span>
-            <span className={styles.text}> <span onClick={() => addOrRemoveHanlder({qty: 1, id, addOrRemove: 'add'})}>Add</span>/ <span>Remove</span></span>
+            <span className={styles.text}> <span onClick={() => addOrRemoveHanlder({qty: 1, index: id, addOrRemove: 'add'})}>Add</span>/ 
+            <span onClick={() => addOrRemoveHanlder({qty: 1, index: id, addOrRemove: 'remove'})}>Remove</span></span>
           </li>
           <li>
             <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
@@ -93,7 +94,6 @@ export default function Cart() {
   console.log('Mounting the component')
 
   const addOrRemoveHanlder = (params: IUpdateQuantity) => {
-    
     dispatch(updateQuantity(params));
   }
 
@@ -106,7 +106,7 @@ export default function Cart() {
 
         {carts.length > 0 && <div className={styles.cart__details}>
           <div className={styles.items}>
-            {carts.map((cart, i) => <CartItem key={i} id={cart.id} cart={cart} addOrRemoveHanlder={addOrRemoveHanlder}/>)}
+            {carts.map((cart, i) => <CartItem key={i} id={i} cart={cart} addOrRemoveHanlder={addOrRemoveHanlder}/>)}
             
           </div>
           <div className={styles.summary}>

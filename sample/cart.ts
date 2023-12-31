@@ -16,7 +16,7 @@ export const cartSameDate = [
         id: 2,
         model: '/img/febric-6.jpg',
         price: 40,
-        title: 'XYZ',
+        title: 'Hello Word',
         originalImageUrl: '/img/febric-6.jpg',
         material: 'Vesco',
         tone: 'dark',

@@ -19,10 +19,12 @@ export type ICartItem = {
 
 export type TQuantityAction = 'add' | 'remove';
 
-export interface IUpdateQuantity {
+export interface IUpdateBase {
+  index: number;
+}
+export interface IUpdateQuantity extends IUpdateBase {
   qty: number;
   addOrRemove: TQuantityAction;
-  id: number;
 }
 
 export type ICart = ICartItem[];
@@ -38,12 +40,11 @@ const cartSlice = createSlice({
       return [...state, payload];
     },
     updateQuantity(state: ICart, action: PayloadAction<IUpdateQuantity>) {
-      const { qty, addOrRemove, id } = action.payload;
+      const { qty, addOrRemove,  index } = action.payload;
 
       const newState: ICart = JSON.parse(JSON.stringify(state));
 
-      // Get the cart from index
-      const updatedItem = newState.filter((product) => product.id === id)[0];
+      const updatedItem = newState[index];
 
       if (addOrRemove === 'add') {
         updatedItem.qty += qty;
@@ -53,9 +54,16 @@ const cartSlice = createSlice({
         updatedItem.qty -= qty;
       }
 
-      
-      return [updatedItem, ...state.filter(product => product.id !== id)];
+      newState[index] = updatedItem;
+
+      return newState;
     },
+    duplicateItem(state: ICart, action: PayloadAction<IUpdateBase>) {
+       const {index} = action.payload;
+       const deepCopyItem = JSON.parse(JSON.stringify(state[index]));
+       return [...state, deepCopyItem]; 
+
+    }
   },
 });
 
