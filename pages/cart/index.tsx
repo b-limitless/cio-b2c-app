@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Button } from 'components/Button';
 import { cartSameDate } from 'sample/cart';
 import { useDispatch, useSelector } from 'react-redux';
-import { ICart, ICartItem, IUpdateQuantity, addToCart, updateQuantity } from 'slices/cartSlice';
+import { ICart, ICartItem, IUpdateBase, IUpdateQuantity, addToCart, duplicateItem, updateQuantity } from 'slices/cartSlice';
 import { RootState } from 'store';
 import { moneyFormat } from 'functions/moneyFormat';
 
@@ -14,8 +14,9 @@ interface CartInterface {
   id: number;
   cart: ICartItem;
   addOrRemoveHanlder: (params: IUpdateQuantity) => void;
+  duplicateCartItem: (params: IUpdateBase) => void;
 }
-const CartItem = ({id, cart, addOrRemoveHanlder}: CartInterface) => {
+const CartItem = ({id, cart, addOrRemoveHanlder, duplicateCartItem}: CartInterface) => {
   return <div className={styles.row}>
     <div className={styles.media}>
       <Image src={cart.originalImageUrl ?? ''} width={140} height={176.83} alt='' />
@@ -58,7 +59,7 @@ const CartItem = ({id, cart, addOrRemoveHanlder}: CartInterface) => {
           </li>
           <li>
             <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
-            <span className={styles.text}>Duplicate</span>
+            <span className={styles.text} onClick={() => duplicateCartItem({index: id})}>Duplicate</span>
           </li>
           <li>
             <span className={styles.icon}><Image src='/icon/eye.svg' width={20} height={20} alt='menu' /></span>
@@ -97,6 +98,10 @@ export default function Cart() {
     dispatch(updateQuantity(params));
   }
 
+  const duplicateCartItem = (params: IUpdateBase) => {
+    dispatch(duplicateItem(params));
+  }
+
 
   return (
     <>
@@ -106,7 +111,15 @@ export default function Cart() {
 
         {carts.length > 0 && <div className={styles.cart__details}>
           <div className={styles.items}>
-            {carts.map((cart, i) => <CartItem key={i} id={i} cart={cart} addOrRemoveHanlder={addOrRemoveHanlder}/>)}
+            {carts.map((cart, i) => <CartItem 
+              key={'cart-item' + i} 
+              id={i} 
+              cart={cart} 
+              addOrRemoveHanlder={addOrRemoveHanlder}
+              duplicateCartItem={duplicateCartItem}
+              />
+              
+              )}
             
           </div>
           <div className={styles.summary}>

@@ -54,8 +54,13 @@ const cartSlice = createSlice({
         updatedItem.qty -= qty;
       }
 
-      newState[index] = updatedItem;
+      if(updatedItem.qty === 0) {
+        newState.splice(index, 1);
+      }
 
+      if(updatedItem.qty > 0) {
+        newState[index] = updatedItem;
+      }
       return newState;
     },
     duplicateItem(state: ICart, action: PayloadAction<IUpdateBase>) {
@@ -67,5 +72,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, updateQuantity } = cartSlice.actions;
+export const { addToCart, updateQuantity, duplicateItem } = cartSlice.actions;
 export default cartSlice.reducer;
