@@ -1,5 +1,5 @@
 // 'use client'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from 'components/Header/Header';
 import styles from './cart.module.scss';
 import Image from 'next/image';
@@ -11,14 +11,16 @@ import { RootState } from 'store';
 import { moneyFormat } from 'functions/moneyFormat';
 import Model from './model';
 
+
 interface CartInterface {
   id: number;
   cart: ICartItem;
   addOrRemoveHanlder: (params: IUpdateQuantity) => void;
   duplicateCartItem: (params: IUpdateBase) => void;
   deleteItem: (params: IUpdateBase) => void;
+  setShowCartDetailsModel: Function;
 }
-const CartItem = ({ id, cart, addOrRemoveHanlder, duplicateCartItem, deleteItem }: CartInterface) => {
+const CartItem = ({ id, cart, addOrRemoveHanlder, duplicateCartItem, deleteItem, setShowCartDetailsModel }: CartInterface) => {
   return <div className={styles.row}>
     <div className={styles.media}>
       <Image src={cart.originalImageUrl ?? ''} width={140} height={176.83} alt='' />
@@ -63,7 +65,7 @@ const CartItem = ({ id, cart, addOrRemoveHanlder, duplicateCartItem, deleteItem 
             <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
             <span className={styles.text} onClick={() => duplicateCartItem({ index: id })}>Duplicate</span>
           </li>
-          <li>
+          <li onClick={() => setShowCartDetailsModel(true)}>
             <span className={styles.icon}><Image src='/icon/eye.svg' width={20} height={20} alt='menu' /></span>
             <span className={styles.text}>View</span>
           </li>
@@ -83,6 +85,7 @@ const countNum = new Array(10).fill(0);
 
 // cart-shirt, add, copy, eye, delete, hunburg
 export default function Cart() {
+  const [showCartDetailsModel, setShowCartDetailsModel] = useState<boolean>(false);
   const carts = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
   // for the testing lets dispatch the cart
@@ -108,7 +111,10 @@ export default function Cart() {
 
   return (
     <>
-    <Model/>
+    <Model
+    show={showCartDetailsModel}
+    setShow={setShowCartDetailsModel}
+    />
       <Header />
       <div className={styles.cart__container}>
         <div className={styles.title}>Shopping Bag</div>
@@ -122,6 +128,7 @@ export default function Cart() {
               addOrRemoveHanlder={addOrRemoveHanlder}
               duplicateCartItem={duplicateCartItem}
               deleteItem={deleteItem}
+              setShowCartDetailsModel={setShowCartDetailsModel}
             />
 
             )}

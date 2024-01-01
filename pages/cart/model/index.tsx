@@ -16,9 +16,15 @@ const Item = () => {
 }
 
 const dummyCount = new Array(10).fill(0);
-export default function Model() {
+
+interface IModel {
+    show: boolean; 
+    setShow:Function;
+}
+export default function Model({show, setShow}: IModel) {
+    console.log('show', show)
     return (
-        <div className={styles.model__container}>
+        <div className={styles.model__container + ' ' + (show ? styles.show : styles.hide)}>
             <div className={styles.model}>
                 <div className={styles.contents}>
                     <div className={styles.col}>
@@ -32,7 +38,7 @@ export default function Model() {
                                 Light Blue Cotton Shirt
                             </div>
                             <div className={styles.closing}>
-                                <Image src='/icon/close-blue.svg' width={20} height={20} alt='close' />
+                                <Image src='/icon/close-blue.svg' width={20} height={20} alt='close' onClick={() => setShow(false)}/>
                             </div>
                         </div>
                         <div className={styles.row}>
