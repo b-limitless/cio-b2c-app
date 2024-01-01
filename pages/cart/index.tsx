@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Button } from 'components/Button';
 import { cartSameDate } from 'sample/cart';
 import { useDispatch, useSelector } from 'react-redux';
-import { ICart, ICartItem, IUpdateBase, IUpdateQuantity, addToCart, duplicateItem, updateQuantity } from 'slices/cartSlice';
+import { ICart, ICartItem, IUpdateBase, IUpdateQuantity, addToCart, duplicateItem, updateQuantity, deleteItemAction } from 'slices/cartSlice';
 import { RootState } from 'store';
 import { moneyFormat } from 'functions/moneyFormat';
 
@@ -15,8 +15,9 @@ interface CartInterface {
   cart: ICartItem;
   addOrRemoveHanlder: (params: IUpdateQuantity) => void;
   duplicateCartItem: (params: IUpdateBase) => void;
+  deleteItem: (params: IUpdateBase) => void;
 }
-const CartItem = ({id, cart, addOrRemoveHanlder, duplicateCartItem}: CartInterface) => {
+const CartItem = ({ id, cart, addOrRemoveHanlder, duplicateCartItem, deleteItem }: CartInterface) => {
   return <div className={styles.row}>
     <div className={styles.media}>
       <Image src={cart.originalImageUrl ?? ''} width={140} height={176.83} alt='' />
@@ -34,7 +35,7 @@ const CartItem = ({id, cart, addOrRemoveHanlder, duplicateCartItem}: CartInterfa
       </div>
       <div className={styles.group}>
         <div className={styles.price}>
-          <>{moneyFormat().format( Number(cart.subTotal))}</>
+          <>{moneyFormat().format(Number(cart.subTotal))}</>
         </div>
         <div className={styles.delivery}>
           Delivery in {cart.deliveryTime}
@@ -48,24 +49,24 @@ const CartItem = ({id, cart, addOrRemoveHanlder, duplicateCartItem}: CartInterfa
       <label className={styles.humburger} htmlFor={`cart-item-key-${id}`}>
         <Image src='/icon/humburg.svg' width={20} height={20} alt='menu' />
       </label>
-      <input type="checkbox" name="" id= {`cart-item-key-${id}`} hidden className={styles.menu__checkbox} />
+      <input type="checkbox" name="" id={`cart-item-key-${id}`} hidden className={styles.menu__checkbox} />
 
       <div className={styles.menu}>
         <ul>
           <li>
             <span className={styles.icon}><Image src='/icon/add.svg' width={20} height={20} alt='menu' /></span>
-            <span className={styles.text}> <span onClick={() => addOrRemoveHanlder({qty: 1, index: id, addOrRemove: 'add'})}>Add</span>/ 
-            <span onClick={() => addOrRemoveHanlder({qty: 1, index: id, addOrRemove: 'remove'})}>Remove</span></span>
+            <span className={styles.text}> <span onClick={() => addOrRemoveHanlder({ qty: 1, index: id, addOrRemove: 'add' })}>Add</span>/
+              <span onClick={() => addOrRemoveHanlder({ qty: 1, index: id, addOrRemove: 'remove' })}>Remove</span></span>
           </li>
           <li>
             <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
-            <span className={styles.text} onClick={() => duplicateCartItem({index: id})}>Duplicate</span>
+            <span className={styles.text} onClick={() => duplicateCartItem({ index: id })}>Duplicate</span>
           </li>
           <li>
             <span className={styles.icon}><Image src='/icon/eye.svg' width={20} height={20} alt='menu' /></span>
             <span className={styles.text}>View</span>
           </li>
-          <li>
+          <li onClick={() => deleteItem({ index: cart.id })}>
             <span className={styles.icon}><Image src='/icon/delete.svg' width={20} height={20} alt='menu' /></span>
             <span className={styles.text}>Delete</span>
           </li>
@@ -81,7 +82,7 @@ const countNum = new Array(10).fill(0);
 
 // cart-shirt, add, copy, eye, delete, hunburg
 export default function Cart() {
-  const carts = useSelector((state:RootState) => state.cart);
+  const carts = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
   // for the testing lets dispatch the cart
   useEffect(() => {
@@ -90,7 +91,7 @@ export default function Cart() {
       dispatch(addToCart(cartSameDate[1] as any));
     }
     dispatchSampleCartData();
-  } ,[dispatch]);
+  }, [dispatch]);
 
   console.log('Mounting the component')
 
@@ -102,6 +103,9 @@ export default function Cart() {
     dispatch(duplicateItem(params));
   }
 
+  const deleteItem = (params: IUpdateBase) => {
+    dispatch(deleteItemAction(params))
+  }
 
   return (
     <>
@@ -111,16 +115,17 @@ export default function Cart() {
 
         {carts.length > 0 && <div className={styles.cart__details}>
           <div className={styles.items}>
-            {carts.map((cart, i) => <CartItem 
-              key={'cart-item' + i} 
-              id={i} 
-              cart={cart} 
+            {carts.map((cart, i) => <CartItem
+              key={'cart-item' + i}
+              id={i}
+              cart={cart}
               addOrRemoveHanlder={addOrRemoveHanlder}
               duplicateCartItem={duplicateCartItem}
-              />
-              
-              )}
-            
+              deleteItem={deleteItem}
+            />
+
+            )}
+
           </div>
           <div className={styles.summary}>
             <div className={styles.summary__details}>
@@ -170,7 +175,7 @@ export default function Cart() {
         </div>}
 
         {carts.length === 0 && <div className={styles.empty__cart}>
-            Shopping bag is empty
+          Shopping bag is empty
         </div>}
       </div>
     </>

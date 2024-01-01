@@ -68,9 +68,17 @@ const cartSlice = createSlice({
        const deepCopyItem = JSON.parse(JSON.stringify(state[index]));
        return [...state, deepCopyItem]; 
 
+    },
+    deleteItemAction(state: ICart, action:PayloadAction<IUpdateBase>) {
+      // Product id can be p
+      const {index: productId} = action.payload;
+      console.log('index: productId', productId)
+
+      return [...state.filter((cart) => cart.id !== productId)];
+
     }
   },
 });
 
-export const { addToCart, updateQuantity, duplicateItem } = cartSlice.actions;
+export const { addToCart, updateQuantity, duplicateItem, deleteItemAction } = cartSlice.actions;
 export default cartSlice.reducer;
