@@ -18,13 +18,14 @@ const Item = () => {
 const dummyCount = new Array(10).fill(0);
 
 interface IModel {
-    show: boolean; 
+    show: number; 
     setShow:Function;
+    setSelectedCartIndex:Function;
 }
 export default function Model({show, setShow}: IModel) {
     console.log('show', show)
     return (
-        <div className={styles.model__container + ' ' + (show ? styles.show : styles.hide)}>
+        <div className={styles.model__container + ' ' + (show > 0 ? styles.show : styles.hide)}>
             <div className={styles.model}>
                 <div className={styles.contents}>
                     <div className={styles.col}>
@@ -38,7 +39,7 @@ export default function Model({show, setShow}: IModel) {
                                 Light Blue Cotton Shirt
                             </div>
                             <div className={styles.closing}>
-                                <Image src='/icon/close-blue.svg' width={20} height={20} alt='close' onClick={() => setShow(false)}/>
+                                <Image src='/icon/close-blue.svg' width={20} height={20} alt='close' onClick={() => setShow(-1)}/>
                             </div>
                         </div>
                         <div className={styles.row}>

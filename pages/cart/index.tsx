@@ -1,5 +1,5 @@
 // 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import Header from 'components/Header/Header';
 import styles from './cart.module.scss';
 import Image from 'next/image';
@@ -65,7 +65,8 @@ const CartItem = ({ id, cart, addOrRemoveHanlder, duplicateCartItem, deleteItem,
             <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
             <span className={styles.text} onClick={() => duplicateCartItem({ index: id })}>Duplicate</span>
           </li>
-          <li onClick={() => setShowCartDetailsModel(true)}>
+        {/* We are setting index of cart as value to access */}
+          <li onClick={() => setShowCartDetailsModel(id + 1)}>
             <span className={styles.icon}><Image src='/icon/eye.svg' width={20} height={20} alt='menu' /></span>
             <span className={styles.text}>View</span>
           </li>
@@ -85,7 +86,8 @@ const countNum = new Array(10).fill(0);
 
 // cart-shirt, add, copy, eye, delete, hunburg
 export default function Cart() {
-  const [showCartDetailsModel, setShowCartDetailsModel] = useState<boolean>(false);
+  const [showCartDetailsModel, setShowCartDetailsModel] = useState<number>(-1);
+  const [selectedCartIndex, setSelectedCartIndex] = useState<null | number>(null);
   const carts = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
   // for the testing lets dispatch the cart
@@ -109,11 +111,23 @@ export default function Cart() {
     dispatch(deleteItemAction(params))
   }
 
+  const getCartDetails = () => {
+    // We are setting to index + 1 
+    // To access we have to subtract from thevalue 
+    if(showCartDetailsModel > 0) {
+      const index = showCartDetailsModel - 1;
+      console.log(carts[index]);
+    } 
+  }
+
+  console.log(showCartDetailsModel - 1)
+
   return (
     <>
     <Model
     show={showCartDetailsModel}
     setShow={setShowCartDetailsModel}
+    setSelectedCartIndex={setSelectedCartIndex}
     />
       <Header />
       <div className={styles.cart__container}>
