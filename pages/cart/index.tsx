@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ICart, ICartItem, IUpdateBase, IUpdateQuantity, addToCart, duplicateItem, updateQuantity, deleteItemAction } from 'slices/cartSlice';
 import { RootState } from 'store';
 import { moneyFormat } from 'functions/moneyFormat';
+import Model from './model';
 
 interface CartInterface {
   id: number;
@@ -93,8 +94,6 @@ export default function Cart() {
     dispatchSampleCartData();
   }, [dispatch]);
 
-  console.log('Mounting the component')
-
   const addOrRemoveHanlder = (params: IUpdateQuantity) => {
     dispatch(updateQuantity(params));
   }
@@ -109,6 +108,7 @@ export default function Cart() {
 
   return (
     <>
+    <Model/>
       <Header />
       <div className={styles.cart__container}>
         <div className={styles.title}>Shopping Bag</div>
