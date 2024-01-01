@@ -13,8 +13,8 @@ export default function Model() {
                             <Image className={styles.main__img} src='/img/shirt-1.png' width={330} height={439} alt='' />
                         </div>
                     </div>
-                    <div className={styles.col}>
-                        <div className={styles.row}>
+                    <div className={styles.col + ' '+ styles.details}>
+                        <div className={styles.row +' '+ styles.head}>
                             <div className={styles.heading}>
                                 Light Blue Cotton Shirt
                             </div>
