@@ -25,8 +25,8 @@
           display: flex;
           justify-content: space-between;
           .heading {
-            color: var(--Dark-Blue-1, #1b365c);
-            font-family: Poppins;
+            color: $blue;
+            font-family: $default-font;
             font-size: 20px;
             font-style: normal;
             font-weight: 600;
@@ -44,8 +44,8 @@
 
           .details {
             margin-top: pxToRem(24);
-            color: var(--Dark-Blue-1, #1b365c);
-            font-family: Poppins;
+            color: $blue;
+            font-family: $default-font;
             font-size: 16px;
             font-style: normal;
             font-weight: 400;
@@ -65,6 +65,12 @@
             row-gap: pxToRem(14);
             max-width: pxToRem(435);
             width: 100%;
+            height: pxToRem(216);
+            
+            overflow: auto;
+            padding-right: 5px;
+
+            @include scroolbar();
 
             .item {
               display: flex;
@@ -72,8 +78,8 @@
 
               .title,
               .value {
-                color: var(--Dark-Blue-1, #1b365c);
-                font-family: Poppins;
+                color: $blue;
+                font-family: $default-font;
                 font-size: 14px;
                 font-style: normal;
                 line-height: normal;
@@ -88,8 +94,6 @@
             }
           }
         }
-      }
-      .col {
       }
     }
   }

@@ -3,6 +3,19 @@ import Image from 'next/image';
 import CloseSVGBlue from '/icon/close-blue.svg';
 import styles from './model.module.scss';
 
+const Item = () => {
+    return <div className={styles.item}>
+        <span className={styles.title}>
+            Graphi Design
+        </span>
+
+        <span className={styles.value}>
+            publishing and graphic design
+        </span>
+    </div>;
+}
+
+const dummyCount = new Array(10).fill(0);
 export default function Model() {
     return (
         <div className={styles.model__container}>
@@ -13,8 +26,8 @@ export default function Model() {
                             <Image className={styles.main__img} src='/img/shirt-1.png' width={330} height={439} alt='' />
                         </div>
                     </div>
-                    <div className={styles.col + ' '+ styles.details}>
-                        <div className={styles.row +' '+ styles.head}>
+                    <div className={styles.col + ' ' + styles.details}>
+                        <div className={styles.row + ' ' + styles.head}>
                             <div className={styles.heading}>
                                 Light Blue Cotton Shirt
                             </div>
@@ -30,33 +43,7 @@ export default function Model() {
 
                         <div className={styles.row}>
                             <div className={styles.list__details}>
-                                <div className={styles.item}>
-                                    <span className={styles.title}>
-                                        Graphi Design
-                                    </span>
-
-                                    <span className={styles.value}>
-                                        publishing and graphic design
-                                    </span>
-                                </div>
-                                <div className={styles.item}>
-                                    <span className={styles.title}>
-                                        Graphi Design
-                                    </span>
-
-                                    <span className={styles.value}>
-                                        publishing and graphic design
-                                    </span>
-                                </div>
-                                <div className={styles.item}>
-                                    <span className={styles.title}>
-                                        Graphi Design
-                                    </span>
-
-                                    <span className={styles.value}>
-                                        publishing and graphic design
-                                    </span>
-                                </div>
+                                {dummyCount.map((_, i) => <Item key={i}/>)}
                             </div>
                         </div>
                     </div>
