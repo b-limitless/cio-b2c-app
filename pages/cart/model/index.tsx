@@ -3,6 +3,7 @@ import Image from 'next/image';
 import CloseSVGBlue from '/icon/close-blue.svg';
 import styles from './model.module.scss';
 import { ICartItem } from 'slices/cartSlice';
+import { ModelKeys } from 'slices/modelSlice';
 
 
 
@@ -35,6 +36,24 @@ const Item = ({ title, value }: IRow) => {
 
 
 export default function Model({ show, setShow, cart }: IModel) {
+
+    const getAccents = () => {
+        const {accent} = cart || {};
+        if(!accent) return [];
+
+        const result:any = [];
+        
+        // @ts-ignore
+        Object.keys(accent).forEach((key: ModelKeys) => {
+            // @ts-ignore
+            for(const [Ikey, value] of Object.entries(accent[key])) {
+                // @ts-ignore
+                result.push(<Item title={Ikey} value={value} />);
+            }
+          })
+
+        return result;
+    }
 
     return (
         <div className={styles.model__container + ' ' + (show > 0 ? styles.show : styles.hide)}>
@@ -76,19 +95,7 @@ export default function Model({ show, setShow, cart }: IModel) {
                                     </div>
                                 </div>
 
-                                <div className={styles.group}>
-                                    <div className={styles.title}>
-                                        Style
-                                    </div>
-
-                                    <div className={styles.childrens}>
-                                        <Item title={'Cuff'} value={cart?.model?.collar?.label || ''} />
-
-                                        <Item title={'Collar'} value={cart?.model?.cuff?.label || ''} />
-                                        {dummyCount.map((_, i) => <Item key={i} title={'title'} value={'something about value'} />)}
-                                    </div>
-                                </div>
-
+                               
 
                                 <div className={styles.group}>
                                     <div className={styles.title}>
@@ -96,10 +103,8 @@ export default function Model({ show, setShow, cart }: IModel) {
                                     </div>
 
                                     <div className={styles.childrens}>
-                                        <Item title={'Cuff'} value={cart?.model?.collar?.label || ''} />
-
-                                        <Item title={'Collar'} value={cart?.model?.cuff?.label || ''} />
-                                        {dummyCount.map((_, i) => <Item key={i} title={'title'} value={'something about value'} />)}
+                                        {getAccents()}
+                                        
                                     </div>
                                 </div>
 

@@ -35,11 +35,11 @@ const modelProperties = {
 } as const;
 
 type ModelType = typeof modelProperties;
-type modelKeys = keyof ModelType;
+
 export type ModelKeys = keyof ModelType;
 
 export  interface UpdateModelAction {
-  key: modelKeys;
+  key: ModelKeys;
   payload: RowType;
 }
 

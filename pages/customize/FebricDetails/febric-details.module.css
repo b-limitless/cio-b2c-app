@@ -1,0 +1,205 @@
+.fedInModel {
+  animation: fadeModelIn 0.2s ease-in;
+}
+
+.fadeOutModel {
+  animation: fadeModelOut 0.2s ease-out;
+}
+
+.model__container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  z-index: 1;
+  -webkit-backdrop-filter: blur(1px);
+          backdrop-filter: blur(1px);
+}
+.model__container .febric__container {
+  max-width: 1112px;
+  height: 773px;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 1rem 1rem 1rem 2.75rem;
+  border-radius: 6px;
+}
+.model__container .febric__container .action {
+  display: flex;
+  justify-content: flex-end;
+}
+.model__container .febric__container .action .close {
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 8px 11px;
+  cursor: pointer;
+}
+.model__container .febric__container .details {
+  margin-top: 5.3125rem;
+  padding: 1.1875rem;
+  background-color: #ffffff;
+  max-width: 619px;
+  position: relative;
+}
+.model__container .febric__container .details .toggle__checkbox {
+  display: none;
+}
+.model__container .febric__container .details .toggle__checkbox:checked ~ .hidden__details {
+  display: block;
+}
+.model__container .febric__container .details .toggle__checkbox:checked + label img {
+  transform: rotate(180deg);
+}
+.model__container .febric__container .details .toggle__label {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+.model__container .febric__container .details .toggle__label img {
+  transition: all 0.1s ease-out;
+}
+.model__container .febric__container .details .d__row {
+  display: flex;
+}
+.model__container .febric__container .details .d__row .name__cols {
+  margin-right: auto;
+}
+.model__container .febric__container .details .d__row .col {
+  display: flex;
+  -moz-column-gap: 14px;
+       column-gap: 14px;
+  flex-direction: column;
+  row-gap: 12px;
+}
+.model__container .febric__container .details .d__row .col .toggle__icon {
+  transform: rotate(180deg);
+}
+.model__container .febric__container .details .d__row .col .intro__details {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 14px;
+       column-gap: 14px;
+}
+.model__container .febric__container .details .d__row .col .intro__details .features {
+  display: flex;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+}
+.model__container .febric__container .details .d__row .col .intro__details .features .item {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #848484;
+  padding: 2px 6px 2px 7px;
+  border: 0.5px solid #848484;
+}
+.model__container .febric__container .details .d__row .col .name__type * {
+  font-family: "Poppins", sansarif;
+}
+.model__container .febric__container .details .d__row .col .name__type .name {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  /* identical to box height */
+  color: #000000;
+}
+.model__container .febric__container .details .d__row .col .name__type .type {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  color: #848484;
+}
+.model__container .febric__container .details .d__row .col .specification {
+  font-family: "Poppins", sansarif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  /* Gray-Medium-2 */
+  color: #848484;
+}
+.model__container .febric__container .details .hidden__details {
+  display: none;
+  margin-top: 27px;
+}
+.model__container .febric__container .details .hidden__details .attribures {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+.model__container .febric__container .details .hidden__details .attribures .item {
+  display: flex;
+  flex-direction: column;
+  row-gap: 11px;
+}
+.model__container .febric__container .details .hidden__details .attribures .item * {
+  font-family: "Poppins", sansarif;
+}
+.model__container .febric__container .details .hidden__details .attribures .item .title__icon {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 11px;
+       column-gap: 11px;
+}
+.model__container .febric__container .details .hidden__details .attribures .item .title__icon .title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: #000000;
+}
+.model__container .febric__container .details .hidden__details .attribures .item .description {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #000000;
+}
+.model__container .febric__container .details .hidden__details .features__reviews {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+.model__container .febric__container .details .hidden__details .features__reviews * {
+  font-family: "Poppins", sansarif;
+}
+.model__container .febric__container .details .hidden__details .features__reviews .row {
+  display: flex;
+}
+.model__container .febric__container .details .hidden__details .features__reviews .row .col:first-child {
+  margin-right: auto;
+}
+.model__container .febric__container .details .hide__info {
+  margin-top: 27px;
+  font-family: "Poppins", sansarif;
+  cursor: pointer;
+}
+
+@keyframes fadeModelIn {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+@keyframes fadeModelOut {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}/*# sourceMappingURL=febric-details.module.css.map */

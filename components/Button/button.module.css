@@ -1,0 +1,28 @@
+.btn {
+  border: none;
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  padding: 19px 56px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+  font-family: "Poppins", sansarif;
+  align-items: center;
+  cursor: pointer;
+}
+
+.primary {
+  background: #1A1A1C;
+  box-shadow: 0px 7px 20px 0px rgba(121, 188, 207, 0.4);
+}
+
+.round {
+  border-radius: 100px;
+}/*# sourceMappingURL=button.module.css.map */

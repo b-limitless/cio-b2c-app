@@ -49,16 +49,15 @@ export const accentProperties: IAccentGlobal = {
 };
 
 type ModelType = typeof accentProperties;
-type modelKeys = keyof ModelType;
 type ModelKeys = keyof ModelType;
 
 export interface UpdateAccentAction {
-  key: modelKeys;
+  key: ModelKeys;
   payload: TCollar;
 }
 
 export interface UpdateAccentActionType {
-  key: modelKeys;
+  key: ModelKeys;
   payload: {
     type: TCollar['type'];
     meshName: TBase['meshName'];
