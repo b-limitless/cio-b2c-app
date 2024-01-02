@@ -57,6 +57,10 @@ export type RowType = {
   price: number;
   title: string;
   originalImageUrl?:string;
+  code?: string
+  label?:string;
+  season?:string;
+  
 } & TRestFebric;
 
 type IModelAction = Record<ModelKeys, RowType>
@@ -76,10 +80,10 @@ const initialState: IModelAction = {
     model: defaultFebric,
     price: 10, 
     title: '', 
-    
     material: 'string',
     tone: 'string',
     febricTypes: 'string',
+    season:'summer'
   }, 
   cuff: {
     id: 12,

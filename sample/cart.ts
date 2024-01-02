@@ -21,6 +21,7 @@ export const cartSameDate = [
         material: 'Vesco',
         tone: 'dark',
         febricTypes: 'vesco',
+        season: 'summer'
       },
       cuff: {
         model: '/models/cuffs/cuff-1-normal.glb?timestamp=1703857080793',
@@ -78,6 +79,7 @@ export const cartSameDate = [
         material: 'Vesco',
         tone: 'dark',
         febricTypes: 'vesco',
+        season: 'winter'
       },
       cuff: {
         model: '/models/cuffs/cuff-1-normal.glb?timestamp=1703857080793',

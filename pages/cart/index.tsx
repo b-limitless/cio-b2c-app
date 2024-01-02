@@ -128,6 +128,7 @@ export default function Cart() {
     show={showCartDetailsModel}
     setShow={setShowCartDetailsModel}
     setSelectedCartIndex={setSelectedCartIndex}
+    cart={carts[showCartDetailsModel - 1] ?? null}
     />
       <Header />
       <div className={styles.cart__container}>

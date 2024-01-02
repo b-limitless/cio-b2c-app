@@ -14,6 +14,9 @@ export type TBase = {
   febric: string;
   updatedFrom: TModelNavigation;
   price: number;
+  code?: string
+  label?:string;
+  season?:string;
 };
 export type TCollar = {
   type: TCollarAccent;

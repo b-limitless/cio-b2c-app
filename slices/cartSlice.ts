@@ -15,6 +15,7 @@ export type ICartItem = {
   id: number;
   originalImageUrl?: string;
   deliveryTime?: string | null;
+  season?:string;
 };
 
 export type TQuantityAction = 'add' | 'remove';
