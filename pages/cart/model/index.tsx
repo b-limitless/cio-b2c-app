@@ -37,23 +37,7 @@ const Item = ({ title, value }: IRow) => {
 
 export default function Model({ show, setShow, cart }: IModel) {
 
-    const getAccents = () => {
-        const {accent} = cart || {};
-        if(!accent) return [];
 
-        const result:any = [];
-        
-        // @ts-ignore
-        Object.keys(accent).forEach((key: ModelKeys) => {
-            // @ts-ignore
-            for(const [Ikey, value] of Object.entries(accent[key])) {
-                // @ts-ignore
-                result.push(<Item title={Ikey} value={value} />);
-            }
-          })
-
-        return result;
-    }
 
     return (
         <div className={styles.model__container + ' ' + (show > 0 ? styles.show : styles.hide)}>
@@ -91,11 +75,9 @@ export default function Model({ show, setShow, cart }: IModel) {
                                         <Item title={'Cuff'} value={cart?.model?.collar?.label || ''} />
 
                                         <Item title={'Collar'} value={cart?.model?.cuff?.label || ''} />
-                                        {dummyCount.map((_, i) => <Item key={i} title={'title'} value={'something about value'} />)}
+                                        {/* {dummyCount.map((_, i) => <Item key={i} title={'title'} value={'something about value'} />)} */}
                                     </div>
                                 </div>
-
-                               
 
                                 <div className={styles.group}>
                                     <div className={styles.title}>
@@ -103,12 +85,28 @@ export default function Model({ show, setShow, cart }: IModel) {
                                     </div>
 
                                     <div className={styles.childrens}>
-                                        {getAccents()}
-                                        
+                                        {/* {getAccents()}
+                                         */}
+                                        <Item title={'Cuff Type'} value={cart?.accent?.cuff?.type || ''} />
+                                        <div>
+
+                                        </div>
+                                        <Item title={'Collar Type'} value={cart?.accent?.collar?.type || ''} />
                                     </div>
+                                </div>
+                                <div className={styles.group}>
+                                    <div className={styles.title}>Febric</div>
+                                    <div className={styles.childrens}>
+                                        <Item title={'Material'} value={cart?.model?.febric?.material || ''} />
+                                        <Item title={'Tone'} value={cart?.model?.febric?.tone || ''} />
+                                        <Item title={'Febric Type'} value={cart?.model?.febric?.febricTypes || ''} />
+                                        <Image src={cart?.model?.febric?.originalImageUrl || ''} width={429} height={200} alt='' />
+                                    </div>
+
                                 </div>
 
                             </div>
+
                         </div>
 
                     </div>

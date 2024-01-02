@@ -1,5 +1,5 @@
 // 'use client'
-import React, { use, useEffect, useState } from 'react';
+import React, { use, useEffect, useMemo, useState } from 'react';
 import Header from 'components/Header/Header';
 import styles from './cart.module.scss';
 import Image from 'next/image';
@@ -120,7 +120,17 @@ export default function Cart() {
     } 
   }
 
-  console.log(showCartDetailsModel - 1)
+  const getQty = useMemo(() => {
+    if(carts.length < 1) return null;
+    return carts.map((cart) => cart.qty).reduce((a:number,b:number) =>  a + b)
+  }, [carts])
+
+  const totalAmount = useMemo(() => {
+    if(carts.length < 1) return null;
+    const amount = carts.map((cart) => cart.subTotal).reduce((a:number,b:number) =>  a + b);
+    return moneyFormat().format(amount);
+    
+  }, [carts])
 
   return (
     <>
@@ -154,7 +164,7 @@ export default function Cart() {
               <div className={styles.row}>
                 <div className={styles.title}>
                   <span className={styles.dark__text}>
-                    4 products at value of $309
+                    {getQty} products at value of {totalAmount}
                   </span>
                   <span className={styles.green__text}>
                     Free shipping
@@ -172,7 +182,7 @@ export default function Cart() {
               <div className={styles.row}>
                 <div className={styles.tr}>
                   <div className={styles.label}>Shopping bag total</div>
-                  <div className={styles.price}>$309</div>
+                  <div className={styles.price}>{totalAmount}</div>
                 </div>
                 <div className={styles.tr}>
                   <div className={styles.label}>Shipping</div>
@@ -181,7 +191,7 @@ export default function Cart() {
 
                 <div className={styles.tr}>
                   <div className={styles.total}>Total</div>
-                  <div className={styles.total__cost}>$309</div>
+                  <div className={styles.total__cost}>{totalAmount}</div>
                 </div>
 
                 <div className={styles.tr}>
