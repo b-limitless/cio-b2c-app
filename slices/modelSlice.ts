@@ -73,6 +73,8 @@ const initialState: IModelAction = {
     model: `/models/collars/collar-1-1.glb?timestamp=${Date.now()}`,
     price: 0,
     title: 'Default collar model', 
+    label: 'default',
+    code:  'default',
     
   }, 
   febric: {
@@ -80,16 +82,21 @@ const initialState: IModelAction = {
     model: defaultFebric,
     price: 10, 
     title: '', 
-    material: 'string',
-    tone: 'string',
-    febricTypes: 'string',
-    season:'summer'
+    material: 'Cotton',
+    tone: 'light',
+    febricTypes: 'Cotton',
+    season:'summer', 
+    label: 'default',
+    code:  'default',
+    originalImageUrl: defaultFebric
   }, 
   cuff: {
     id: 12,
     model: `${defaultCuffModel}?timestamp=${Date.now()}`,
     price: 0,
-    title: 'default cuff model', 
+    title: 'default cuff model',
+    label: 'default',
+    code:  'default', 
   }, 
 };
 

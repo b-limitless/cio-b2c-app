@@ -75,7 +75,7 @@ export default function Model({ show, setShow, cart }: IModel) {
                                         <Item title={'Cuff'} value={cart?.model?.collar?.label || ''} />
 
                                         <Item title={'Collar'} value={cart?.model?.cuff?.label || ''} />
-                                        {/* {dummyCount.map((_, i) => <Item key={i} title={'title'} value={'something about value'} />)} */}
+                                        {dummyCount.map((_, i) => <Item key={i} title={'more'} value={'detail will be'} />)}
                                     </div>
                                 </div>
 
@@ -99,7 +99,7 @@ export default function Model({ show, setShow, cart }: IModel) {
                                     <div className={styles.childrens}>
                                         <Item title={'Material'} value={cart?.model?.febric?.material || ''} />
                                         <Item title={'Tone'} value={cart?.model?.febric?.tone || ''} />
-                                        <Item title={'Febric Type'} value={cart?.model?.febric?.febricTypes || ''} />
+                                        <Item title={'Type'} value={cart?.model?.febric?.febricTypes || ''} />
                                         <Image src={cart?.model?.febric?.originalImageUrl || ''} width={429} height={200} alt='' />
                                     </div>
 
