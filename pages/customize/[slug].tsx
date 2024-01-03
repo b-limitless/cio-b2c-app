@@ -59,6 +59,8 @@ import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
 import { ICaptureModelScreenShot, TSnapShotUploadingStates } from 'interface/ICart.interface';
+import { updateFebric } from 'slices/febricSlice';
+import { TFebric } from 'slices/febricSlice';
 const https = require('https');
 
 
@@ -74,7 +76,7 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
         const runTakeScreenShot = async () => {
 
             gl.render(scene, camera);
-            const screenShot = gl.domElement.toDataURL();
+            const screenShot = gl.domElement.toDataURL(); 
 
             const boblFile = dataURLtoBlob(screenShot);
 
@@ -122,7 +124,8 @@ export default function Customize() {
     const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
 
     const model = useSelector((state: RootState) => state.model);
-    const { collar, febric, cuff } = model;
+    const { collar, cuff } = model;
+    const febric =  useSelector((state:RootState) => state.febric); 
     const accent = useSelector((state: RootState) => state.accent);
     const { modelType } = useSelector((state: RootState) => state.modelType);
 
@@ -149,10 +152,10 @@ export default function Customize() {
     }
 
 
-    const updateFebricHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateModelAction) => {
+    const updateFebricHandler = (event: React.MouseEvent<HTMLButtonElement>, params: TFebric) => {
         event.stopPropagation();
-        const { key, payload } = params;
-        dispatch(updateModel({ key, payload }));
+        const payload = params;
+        dispatch(updateFebric(payload));
 
         if (collarAccent.updatedFrom === 'febrics') {
 

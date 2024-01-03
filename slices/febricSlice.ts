@@ -30,7 +30,7 @@ const initialState: TFebric = {
 };
 
 const febricSlice = createSlice({
-  name: 'updateCartIndex',
+  name: 'febric',
   initialState,
   reducers: {
     updateFebric: (state: TFebric, action: PayloadAction<TFebric>) => {

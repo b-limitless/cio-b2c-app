@@ -5,6 +5,7 @@ import accent from "slices/accentSlice";
 import modelType from "slices/modelTypeSlice";
 import cart from 'slices/cartSlice';
 import cartIndexToupdate from "slices/updateCartIndex";
+import febric from "slices/febricSlice";
 
 export const Store = configureStore({
     reducer: {
@@ -12,7 +13,8 @@ export const Store = configureStore({
         accent, 
         modelType, 
         cart, 
-        cartIndexToupdate
+        cartIndexToupdate, 
+        febric
     }
 });
 

@@ -4,11 +4,12 @@ import React from 'react';
 import { UpdateModelAction } from 'slices/modelSlice';
 import styles from './febric.module.scss';
 import { sampleFebric } from 'sample/sample-febrics';
+import { TFebric } from 'slices/febricSlice';
 
 interface FebricInterface {
   setShowFilterModel: Function;
   setShowFebricDetailsModel: Function;
-  onClickHandler: (event: React.MouseEvent<HTMLButtonElement>, params: UpdateModelAction) => void;
+  onClickHandler: (event: React.MouseEvent<HTMLButtonElement>, febric: TFebric) => void;
 }
 const countArray = new Array(20).fill(0);
 
@@ -38,8 +39,8 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
             febricImageURI={febric.originalImageUrl}
             key={'febri-item-custom' + i}
             setShowFebricDetailsModel={setShowFebricDetailsModel}
-            onClick={(event: any) => onClickHandler(event, {
-              key: 'febric', payload: {
+            onClick={(event: any) => onClickHandler(event,
+              {
                 id: i,
                 model: febric.originalImageUrl,
                 price: febric.price,
@@ -48,8 +49,8 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
                 material: febric.material,
                 tone: febric.tone,
                 febricTypes: febric.febricTypes,
-              }
-            })}
+
+              })}
           />)}
 
 
