@@ -1,5 +1,7 @@
 // For testing purpose only
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+
 /**
  * Now we have functionality where
  * - We can update the febric of shirt model completely
@@ -57,6 +59,12 @@ import Febrics from './Select/Febrics';
 import Styles from './Select/Styles';
 import styles from './customize.module.scss';
 import { ICaptureModelScreenShot, TSnapShotUploadingStates } from 'interface/ICart.interface';
+const https = require('https');
+
+
+const agent = new https.Agent({  
+    rejectUnauthorized: process.env.NODE_ENV !== 'development'
+});
 
 
 const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData }: ICaptureModelScreenShot) => {
@@ -80,7 +88,7 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
 
             try {
                 setTakeScreenShot('uploading');
-                const response = await axios.post(APIS.product.upload, formData);
+                const response = await axios.post(APIS.product.upload, formData, {httpAgent: agent});
                 const { data: { originalImageUrl, thumbnailImageUrl } } = response || {};
 
                 if (originalImageUrl) {

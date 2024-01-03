@@ -91,13 +91,13 @@ export default function Cart() {
   const carts = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
   // for the testing lets dispatch the cart
-  useEffect(() => {
-    const dispatchSampleCartData = () => {
-      dispatch(addToCart(cartSameDate[0] as any));
-      dispatch(addToCart(cartSameDate[1] as any));
-    }
-    dispatchSampleCartData();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const dispatchSampleCartData = () => {
+  //     dispatch(addToCart(cartSameDate[0] as any));
+  //     dispatch(addToCart(cartSameDate[1] as any));
+  //   }
+  //   dispatchSampleCartData();
+  // }, [dispatch]);
 
   const addOrRemoveHanlder = (params: IUpdateQuantity) => {
     dispatch(updateQuantity(params));
