@@ -63,7 +63,7 @@ export type RowType = {
   
 } & TRestFebric;
 
-type IModelAction = Record<ModelKeys, RowType>
+export type IModelAction = Record<ModelKeys, RowType>
 
 
 
@@ -110,11 +110,11 @@ const modelSlice = createSlice({
         [action.payload.key]: action.payload.payload,
       };
     },
-    updateAll:(state: IModelAction, action: PayloadAction<UpdateModelAction>)  => {
+    updateAllProps:(state: IModelAction, action: PayloadAction<IModelAction>)  => {
       const {...rest} = action.payload;
+      // console.log('action.payload', action.payload)
       return {...state, ...rest};
     }
-    
   },
 });
 
@@ -135,6 +135,6 @@ const modelSlice = createSlice({
 //   },
 // };
 
-export const {updateModel} = modelSlice.actions;
+export const {updateModel, updateAllProps} = modelSlice.actions;
 export default modelSlice.reducer
 

@@ -11,6 +11,8 @@ import { RootState } from 'store';
 import { moneyFormat } from 'functions/moneyFormat';
 import Model from './model';
 import { updateCartIndexAction } from 'slices/updateCartIndex';
+import { updateAllProps, updateModel } from 'slices/modelSlice';
+import { IModelAction } from 'slices/modelSlice';
 
 
 interface CartInterface {
@@ -20,14 +22,14 @@ interface CartInterface {
   duplicateCartItem: (params: IUpdateBase) => void;
   deleteItem: (params: IUpdateBase) => void;
   setShowCartDetailsModel: Function;
-  cartIndexToUpdate: (index:number) => void;
+  cartIndexToUpdate: (index: number) => void;
 }
 
 
-const CartItem = ({ id, 
-          cart, addOrRemoveHanlder, duplicateCartItem, 
-         deleteItem, setShowCartDetailsModel, 
-         cartIndexToUpdate }: CartInterface) => {
+const CartItem = ({ id,
+  cart, addOrRemoveHanlder, duplicateCartItem,
+  deleteItem, setShowCartDetailsModel,
+  cartIndexToUpdate }: CartInterface) => {
   return <div className={styles.row}>
     <div className={styles.media}>
       <Image src={cart.originalImageUrl ?? ''} width={140} height={176.83} alt='' />
@@ -72,7 +74,7 @@ const CartItem = ({ id,
             <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
             <span className={styles.text} onClick={() => duplicateCartItem({ index: id })}>Duplicate</span>
           </li>
-        {/* We are setting index of cart as value to access */}
+          {/* We are setting index of cart as value to access */}
           <li onClick={() => setShowCartDetailsModel(id + 1)}>
             <span className={styles.icon}><Image src='/icon/eye.svg' width={20} height={20} alt='menu' /></span>
             <span className={styles.text}>View</span>
@@ -121,37 +123,40 @@ export default function Cart() {
   const getCartDetails = () => {
     // We are setting to index + 1 
     // To access we have to subtract from thevalue 
-    if(showCartDetailsModel > 0) {
+    if (showCartDetailsModel > 0) {
       const index = showCartDetailsModel - 1;
       console.log(carts[index]);
-    } 
+    }
   }
 
   const getQty = useMemo(() => {
-    if(carts.length < 1) return null;
-    return carts.map((cart) => cart.qty).reduce((a:number,b:number) =>  a + b)
+    if (carts.length < 1) return null;
+    return carts.map((cart) => cart.qty).reduce((a: number, b: number) => a + b)
   }, [carts])
 
   const totalAmount = useMemo(() => {
-    if(carts.length < 1) return null;
-    const amount = carts.map((cart) => cart.subTotal).reduce((a:number,b:number) =>  a + b);
+    if (carts.length < 1) return null;
+    const amount = carts.map((cart) => cart.subTotal).reduce((a: number, b: number) => a + b);
     return moneyFormat().format(amount);
-    
+
   }, [carts]);
 
-  const cartIndexToUpdate = (index:number) => {
-    console.log('index', index)
-    dispatch(updateCartIndexAction(index))
+  const cartIndexToUpdate = (index: number) => {
+    const {model}  = carts[index];
+    dispatch(updateCartIndexAction(index));
+    
+    dispatch(updateAllProps(model));
+    
   }
 
   return (
     <>
-    <Model
-    show={showCartDetailsModel}
-    setShow={setShowCartDetailsModel}
-    setSelectedCartIndex={setSelectedCartIndex}
-    cart={carts[showCartDetailsModel - 1] ?? null}
-    />
+      <Model
+        show={showCartDetailsModel}
+        setShow={setShowCartDetailsModel}
+        setSelectedCartIndex={setSelectedCartIndex}
+        cart={carts[showCartDetailsModel - 1] ?? null}
+      />
       <Header />
       <div className={styles.cart__container}>
         <div className={styles.title}>Shopping Bag</div>
