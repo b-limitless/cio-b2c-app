@@ -10,6 +10,7 @@ import { ICart, ICartItem, IUpdateBase, IUpdateQuantity, addToCart, duplicateIte
 import { RootState } from 'store';
 import { moneyFormat } from 'functions/moneyFormat';
 import Model from './model';
+import { updateCartIndexAction } from 'slices/updateCartIndex';
 
 
 interface CartInterface {
@@ -19,8 +20,14 @@ interface CartInterface {
   duplicateCartItem: (params: IUpdateBase) => void;
   deleteItem: (params: IUpdateBase) => void;
   setShowCartDetailsModel: Function;
+  cartIndexToUpdate: (index:number) => void;
 }
-const CartItem = ({ id, cart, addOrRemoveHanlder, duplicateCartItem, deleteItem, setShowCartDetailsModel }: CartInterface) => {
+
+
+const CartItem = ({ id, 
+          cart, addOrRemoveHanlder, duplicateCartItem, 
+         deleteItem, setShowCartDetailsModel, 
+         cartIndexToUpdate }: CartInterface) => {
   return <div className={styles.row}>
     <div className={styles.media}>
       <Image src={cart.originalImageUrl ?? ''} width={140} height={176.83} alt='' />
@@ -45,7 +52,7 @@ const CartItem = ({ id, cart, addOrRemoveHanlder, duplicateCartItem, deleteItem,
         </div>
       </div>
       <div className={styles.group}>
-        <div className={styles.modify}>Modify</div>
+        <div className={styles.modify} onClick={() => cartIndexToUpdate(id)}>Modify</div>
       </div>
     </div>
     <div className={styles.actions}>
@@ -91,13 +98,13 @@ export default function Cart() {
   const carts = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
   // for the testing lets dispatch the cart
-  // useEffect(() => {
-  //   const dispatchSampleCartData = () => {
-  //     dispatch(addToCart(cartSameDate[0] as any));
-  //     dispatch(addToCart(cartSameDate[1] as any));
-  //   }
-  //   dispatchSampleCartData();
-  // }, [dispatch]);
+  useEffect(() => {
+    const dispatchSampleCartData = () => {
+      dispatch(addToCart(cartSameDate[0] as any));
+      dispatch(addToCart(cartSameDate[1] as any));
+    }
+    dispatchSampleCartData();
+  }, [dispatch]);
 
   const addOrRemoveHanlder = (params: IUpdateQuantity) => {
     dispatch(updateQuantity(params));
@@ -130,7 +137,12 @@ export default function Cart() {
     const amount = carts.map((cart) => cart.subTotal).reduce((a:number,b:number) =>  a + b);
     return moneyFormat().format(amount);
     
-  }, [carts])
+  }, [carts]);
+
+  const cartIndexToUpdate = (index:number) => {
+    console.log('index', index)
+    dispatch(updateCartIndexAction(index))
+  }
 
   return (
     <>
@@ -154,6 +166,7 @@ export default function Cart() {
               duplicateCartItem={duplicateCartItem}
               deleteItem={deleteItem}
               setShowCartDetailsModel={setShowCartDetailsModel}
+              cartIndexToUpdate={cartIndexToUpdate}
             />
 
             )}

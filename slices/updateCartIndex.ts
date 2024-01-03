@@ -1,13 +1,20 @@
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: number | null = null;
+
+interface ICartUpdate {
+    index: number | null;
+}
+const initialState: ICartUpdate = {
+    index: null
+}
 
 const updateCartIndexSlice = createSlice({
   name: 'updateCartIndex',
   initialState,
   reducers: {
-    updateCartIndexAction: (state:number | null, action: PayloadAction<number | null>) => {
-      state = action.payload;
+    updateCartIndexAction: (state:ICartUpdate, action: PayloadAction<number | null>) => {
+       return {...state, index: action.payload}
     },
   },
 });
