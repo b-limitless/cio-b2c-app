@@ -110,6 +110,11 @@ const modelSlice = createSlice({
         [action.payload.key]: action.payload.payload,
       };
     },
+    updateAll:(state: IModelAction, action: PayloadAction<UpdateModelAction>)  => {
+      const {...rest} = action.payload;
+      return {...state, ...rest};
+    }
+    
   },
 });
 
