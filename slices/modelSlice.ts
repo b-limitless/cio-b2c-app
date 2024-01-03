@@ -10,13 +10,6 @@ const modelProperties = {
     title: '', 
     
   },
-  febric: {
-    id: 12, 
-    model: defaultFebric, 
-    price: 0,
-    title: '', 
-    
-  },
   cuff: {
     id: 13,
     model: defaultCuffModel,
@@ -76,19 +69,6 @@ const initialState: IModelAction = {
     label: 'default',
     code:  'default',
     
-  }, 
-  febric: {
-    id: 12,
-    model: defaultFebric,
-    price: 10, 
-    title: '', 
-    material: 'Cotton',
-    tone: 'light',
-    febricTypes: 'Cotton',
-    season:'summer', 
-    label: 'default',
-    code:  'default',
-    originalImageUrl: defaultFebric
   }, 
   cuff: {
     id: 12,
