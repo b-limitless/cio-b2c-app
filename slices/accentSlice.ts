@@ -105,8 +105,13 @@ const accentSlice = createSlice({
         },
       };
     },
+    updateAllAccent:(state: IAccentGlobal, action: PayloadAction<IModelAction>) => {
+      const {...rest} = action.payload;
+
+      return {...state, ...rest};
+    }
   },
 });
 
-export const { updateAccent, updateAccentType } = accentSlice.actions;
+export const { updateAccent, updateAccentType, updateAllAccent } = accentSlice.actions;
 export default accentSlice.reducer;

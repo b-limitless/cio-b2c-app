@@ -13,6 +13,7 @@ import Model from './model';
 import { updateCartIndexAction } from 'slices/updateCartIndex';
 import { updateAllProps, updateModel } from 'slices/modelSlice';
 import { IModelAction } from 'slices/modelSlice';
+import { updateAccent, updateAllAccent } from 'slices/accentSlice';
 
 
 interface CartInterface {
@@ -142,10 +143,11 @@ export default function Cart() {
   }, [carts]);
 
   const cartIndexToUpdate = (index: number) => {
-    const {model}  = carts[index];
+    const {model, accent}  = carts[index];
     dispatch(updateCartIndexAction(index));
     
     dispatch(updateAllProps(model));
+    // dispatch(updateAllAccent(accent));
     
   }
 
