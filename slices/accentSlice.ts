@@ -17,14 +17,13 @@ export type TBase = {
   code?: string
   label?:string;
   season?:string;
-};
-export type TCollar = {
   type: TCollarAccent;
-} & TBase;
+};
+
 
 export interface IAccentGlobal {
-  collar: TCollar;
-  cuff: TCollar;
+  collar: TBase;
+  cuff: TBase;
 }
 export const accentProperties: IAccentGlobal = {
   collar: {
@@ -53,20 +52,20 @@ type ModelKeys = keyof ModelType;
 
 export interface UpdateAccentAction {
   key: ModelKeys;
-  payload: TCollar;
+  payload: TBase;
 }
 
 export interface UpdateAccentActionType {
   key: ModelKeys;
   payload: {
-    type: TCollar['type'];
+    type: TBase['type'];
     meshName: TBase['meshName'];
   };
 }
 
-export type IModelAction = Record<ModelKeys, TCollar>;
+export type TAccent = Record<ModelKeys, TBase>; // expecting RowType
 
-const initialState: IModelAction = {
+const initialState: TAccent = {
   collar: {
     id: 12,
     febric: defaultFebric,
@@ -105,7 +104,7 @@ const accentSlice = createSlice({
         },
       };
     },
-    updateAllAccent:(state: IAccentGlobal, action: PayloadAction<IModelAction>) => {
+    updateAllAccent:(state: IAccentGlobal, action: PayloadAction<TAccent>) => {
       const {...rest} = action.payload;
 
       return {...state, ...rest};

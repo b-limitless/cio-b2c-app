@@ -147,7 +147,7 @@ export default function Cart() {
     dispatch(updateCartIndexAction(index));
     
     dispatch(updateAllProps(model));
-    // dispatch(updateAllAccent(accent));
+    dispatch(updateAllAccent(accent));
     
   }
 

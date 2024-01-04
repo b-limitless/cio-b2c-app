@@ -1,10 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { IModelAction, RowType } from './modelSlice';
 import { TMode } from './modelTypeSlice';
+import { TAccent } from './accentSlice';
 
 export type ICartItem = {
   model: IModelAction & { febric: RowType };
-  accent: IModelAction;
+  accent: TAccent;
   modelType: TMode;
   subTotal: number;
   qty: number;
