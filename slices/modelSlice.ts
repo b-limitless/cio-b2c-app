@@ -7,15 +7,13 @@ const modelProperties = {
     id: 12,
     model: defaultFebric,
     price: 0,
-    title: '', 
-    
+    title: '',
   },
   cuff: {
     id: 13,
     model: defaultCuffModel,
     price: 0,
     title: '',
-   
   },
   // sleeves: {
   //   id: 13,
@@ -31,17 +29,9 @@ type ModelType = typeof modelProperties;
 
 export type ModelKeys = keyof ModelType;
 
-export  interface UpdateModelAction {
+export interface UpdateModelAction {
   key: ModelKeys;
   payload: RowType;
-}
-
-export type TRestFebric = {
-  title: string;
-  price: number;
-  material?: string;
-  tone?: string;
-  febricTypes?: string;
 }
 
 export type RowType = {
@@ -49,35 +39,34 @@ export type RowType = {
   model: string;
   price: number;
   title: string;
-  originalImageUrl?:string;
-  code?: string
-  label?:string;
-  season?:string;
-  
-} & TRestFebric;
+  originalImageUrl?: string;
+  code?: string;
+  label?: string;
+  season?: string;
+  material?: string;
+  tone?: string;
+  febricTypes?: string;
+};
 
-export type IModelAction = Record<ModelKeys, RowType>
-
-
+export type IModelAction = Record<ModelKeys, RowType>;
 
 const initialState: IModelAction = {
   collar: {
     id: 12,
     model: `/models/collars/collar-1-1.glb?timestamp=${Date.now()}`,
     price: 0,
-    title: 'Default collar model', 
+    title: 'Default collar model',
     label: 'default',
-    code:  'default',
-    
-  }, 
+    code: 'default',
+  },
   cuff: {
     id: 12,
     model: `${defaultCuffModel}?timestamp=${Date.now()}`,
     price: 0,
     title: 'default cuff model',
     label: 'default',
-    code:  'default', 
-  }, 
+    code: 'default',
+  },
 };
 
 const modelSlice = createSlice({
@@ -90,11 +79,11 @@ const modelSlice = createSlice({
         [action.payload.key]: action.payload.payload,
       };
     },
-    updateAllProps:(state: IModelAction, action: PayloadAction<IModelAction>)  => {
-      const {...rest} = action.payload;
+    updateAllProps: (state: IModelAction, action: PayloadAction<IModelAction>) => {
+      const { ...rest } = action.payload;
       // console.log('action.payload', action.payload)
-      return {...state, ...rest};
-    }
+      return { ...state, ...rest };
+    },
   },
 });
 
@@ -115,6 +104,5 @@ const modelSlice = createSlice({
 //   },
 // };
 
-export const {updateModel, updateAllProps} = modelSlice.actions;
-export default modelSlice.reducer
-
+export const { updateModel, updateAllProps } = modelSlice.actions;
+export default modelSlice.reducer;

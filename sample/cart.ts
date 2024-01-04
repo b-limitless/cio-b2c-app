@@ -1,3 +1,5 @@
+import { defaultFebric } from 'config/default';
+
 export const cartSameDate = [
   {
     originalImageUrl:
@@ -21,7 +23,7 @@ export const cartSameDate = [
         material: 'Vesco',
         tone: 'dark',
         febricTypes: 'vesco',
-        season: 'summer'
+        season: 'summer',
       },
       cuff: {
         model: '/models/cuffs/cuff-1-normal.glb?timestamp=1703857080793',
@@ -56,6 +58,19 @@ export const cartSameDate = [
     availability: '',
     id: 1,
     deliveryTime: '3 weeks',
+    febric: {
+      id: 12,
+      model: defaultFebric,
+      price: 10,
+      title: '',
+      material: 'Cotton',
+      tone: 'light',
+      febricTypes: 'Cotton',
+      season: 'summer',
+      label: 'default',
+      code: 'default',
+      originalImageUrl: defaultFebric,
+    },
   },
   {
     originalImageUrl:
@@ -79,7 +94,7 @@ export const cartSameDate = [
         material: 'Vesco',
         tone: 'dark',
         febricTypes: 'vesco',
-        season: 'winter'
+        season: 'winter',
       },
       cuff: {
         model: '/models/cuffs/cuff-1-normal.glb?timestamp=1703857080793',
@@ -114,5 +129,18 @@ export const cartSameDate = [
     availability: '',
     id: 2,
     deliveryTime: '3 weeks',
+    febric: {
+      id: 12,
+      model: defaultFebric,
+      price: 10,
+      title: '',
+      material: 'Cotton',
+      tone: 'light',
+      febricTypes: 'Cotton',
+      season: 'summer',
+      label: 'default',
+      code: 'default',
+      originalImageUrl: defaultFebric,
+    },
   },
 ];

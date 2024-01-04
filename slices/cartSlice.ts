@@ -1,8 +1,6 @@
-import { RowType, UpdateModelAction } from './modelSlice';
-import { IModelAction } from './modelSlice';
-import { TMode } from './modelTypeSlice';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { getRequestMeta } from 'next/dist/server/request-meta';
+import { IModelAction, RowType } from './modelSlice';
+import { TMode } from './modelTypeSlice';
 
 export type ICartItem = {
   model: IModelAction & { febric: RowType };
