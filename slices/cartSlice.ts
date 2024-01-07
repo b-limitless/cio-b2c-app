@@ -4,10 +4,18 @@ import { TMode } from './modelTypeSlice';
 import { TAccent } from './accentSlice';
 import { TFebric } from './febricSlice';
 
-export type ICartItem = {
+export type TCartBase = {
   model: IModelAction;
   accent: TAccent;
   modelType: TMode;
+  febric: TFebric
+}
+
+export type TCheckIfItemIsSameToUpdateCart = TCartBase & {
+  index: number | null;
+}
+
+export type ICartItem = TCartBase & {
   subTotal: number;
   qty: number;
   discount?: number;
@@ -16,7 +24,7 @@ export type ICartItem = {
   originalImageUrl?: string;
   deliveryTime?: string | null;
   season?:string;
-  febric: TFebric
+  
 };
 
 export type TQuantityAction = 'add' | 'remove';
@@ -33,6 +41,7 @@ export interface IUpdateCartByIndex {
   index:number;
   item: ICartItem;
 }
+
 
 export type ICart = ICartItem[];
 
@@ -77,7 +86,6 @@ const cartSlice = createSlice({
 
     },
     deleteItemAction(state: ICart, action:PayloadAction<IUpdateBase>) {
-      // Product id can be p
       const {index: productId} = action.payload;
       console.log('index: productId', productId)
 

@@ -48,7 +48,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
-import { addToCart, updateCartDataByIndex } from 'slices/cartSlice';
+import { TCheckIfItemIsSameToUpdateCart, addToCart, updateCartDataByIndex } from 'slices/cartSlice';
 import { RowType, UpdateModelAction, updateModel } from 'slices/modelSlice';
 import { RootState } from 'store';
 import { SelectionProcess, SelectionTypes } from '../../types/enums';
@@ -64,6 +64,7 @@ import { ICaptureModelScreenShot, TSnapShotUploadingStates } from 'interface/ICa
 import { updateFebric } from 'slices/febricSlice';
 import { TFebric } from 'slices/febricSlice';
 import { updateCartIndexAction } from 'slices/updateCartIndex';
+import { removeTimestamp } from 'functions/removeTimeStamp';
 const https = require('https');
 
 
@@ -158,6 +159,13 @@ export default function Customize() {
     const dispatch = useDispatch();
 
 
+    const checkIfItemIsSameToUpdateCart = (params: TCheckIfItemIsSameToUpdateCart ) => {
+        const {index, ...rest} = params;
+        if(index === null) return false;
+        const {model, accent, febric, modelType} = cart[index];
+        const previousCartData = JSON.stringify({model, accent,  modelType, febric});
+        return removeTimestamp(previousCartData) === removeTimestamp(JSON.stringify(rest));
+    }
 
     const nextStepHandler = () => {
         /**
@@ -177,6 +185,13 @@ export default function Customize() {
          * 
          * **/
         if (designJourney === SelectionProcess.accents) {
+            console.log('index', index)
+            
+            if(checkIfItemIsSameToUpdateCart({index, model, accent, modelType, febric})) {
+                router.push('/cart');
+                return;
+            }
+
             setTakeScreenShot('upload');
             return;
         }
@@ -243,8 +258,6 @@ export default function Customize() {
         }
     }, [takeScreenShot, router]);
 
-   
-
 
 
     return (
@@ -258,7 +271,7 @@ export default function Customize() {
                 showFilterModel={showAccentFebricModel}
                 onClickHandler={updateAccentHandler}
             />
-            {/* Handling error */}
+           
             <div className={styles.container}>
 
                 <Header navigations={productNavigation} designJourney={designJourney} setDesignJourney={setDesignJourney} showNavigation />
