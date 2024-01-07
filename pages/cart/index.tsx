@@ -107,8 +107,9 @@ export default function Cart() {
   // for the testing lets dispatch the cart
   useEffect(() => {
     const dispatchSampleCartData = () => {
-      // dispatch(addToCart(cartSameDate[0] as any));
-      // dispatch(addToCart(cartSameDate[1] as any));
+      dispatch(addToCart(cartSameDate[0] as any));
+      dispatch(addToCart(cartSameDate[1] as any));
+      dispatch(addToCart(cartSameDate[2] as any));
     }
     dispatchSampleCartData();
   }, [dispatch]);

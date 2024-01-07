@@ -49,7 +49,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
 import { addToCart } from 'slices/cartSlice';
-import { UpdateModelAction, updateModel } from 'slices/modelSlice';
+import { RowType, UpdateModelAction, updateModel } from 'slices/modelSlice';
 import { RootState } from 'store';
 import { SelectionProcess, SelectionTypes } from '../../types/enums';
 import Shirt3DModel from 'pages/customize/3DModel/Shirt';
@@ -132,6 +132,7 @@ export default function Customize() {
     const febric =  useSelector((state:RootState) => state.febric); 
     const accent = useSelector((state: RootState) => state.accent);
     const { modelType } = useSelector((state: RootState) => state.modelType);
+    const {index} = useSelector((state: RootState) => state.cartIndexToupdate);
 
     const { collar: collarAccent } = accent;
     const { cuff: cuffAccent } = accent;
@@ -144,6 +145,15 @@ export default function Customize() {
 
 
     const nextStepHandler = () => {
+        /**
+         * In this state we need to check if user trying to add new item to the cart
+         * Or user simply came from the cart modify path where they are tryting to modify the cart
+         * If user trying to modify the cart then cartIndexToupdate:{index: number | null}
+         * Null if user is adding new item to the cart
+         * or there will be index
+         * If you find any index there which is not null then simply get the the index
+         * Use action to dispatch updateCartDataByIndex({index: number, item:CartItem})
+         * **/
         if (designJourney === SelectionProcess.accents) {
             setTakeScreenShot('upload');
             return;
