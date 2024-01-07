@@ -22,5 +22,6 @@ export interface ICaptureModelScreenShot extends IScreenShortCartItem {
   takeScreenShot: TSnapShotUploadingStates;
   setTakeScreenShot: Function;
   dispatch: Dispatch<AnyAction>;
+  index:number | null;
   // setSnapShotUploadState: Function;
 }

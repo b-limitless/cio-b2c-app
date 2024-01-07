@@ -48,7 +48,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
-import { addToCart } from 'slices/cartSlice';
+import { addToCart, updateCartDataByIndex } from 'slices/cartSlice';
 import { RowType, UpdateModelAction, updateModel } from 'slices/modelSlice';
 import { RootState } from 'store';
 import { SelectionProcess, SelectionTypes } from '../../types/enums';
@@ -73,7 +73,7 @@ const agent = new https.Agent({
  });
 
 
-const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData }: ICaptureModelScreenShot) => {
+const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData, index }: ICaptureModelScreenShot) => {
 
     const { gl, scene, camera } = useThree();
     useEffect(() => {
@@ -100,7 +100,18 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                 if (originalImageUrl) {
                     const screenCDNURIs = { originalImageUrl, thumbnailImageUrl };
                     const data = { ...screenCDNURIs, ...cartData };
-                    dispatch(addToCart(data as any));
+                    /**
+                     * This stage need to check if there is index is not null then simply update the cart with specific index
+                     * Other wise simply add new item to the cart
+                     * **/
+                    if(index) {
+                        dispatch(updateCartDataByIndex({index, item:data as any}));
+                    }
+
+                    if(!index) {
+                        dispatch(addToCart(data as any));
+                    }
+                    
                     setTakeScreenShot('uploaded');
 
                 }
@@ -114,7 +125,7 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
 
         }
         if (takeScreenShot === 'upload') runTakeScreenShot();
-    }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch])
+    }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch, index])
 
     return null;
 }
@@ -146,6 +157,11 @@ export default function Customize() {
 
     const nextStepHandler = () => {
         /**
+         * There will be two condition user came from modify part -> 
+         * 1. Adding same item to the cart
+         * 2. Adding modify version of item
+         * 
+         * Below is explaination for the modify version of item
          * In this state we need to check if user trying to add new item to the cart
          * Or user simply came from the cart modify path where they are tryting to modify the cart
          * If user trying to modify the cart then cartIndexToupdate:{index: number | null}
@@ -153,6 +169,8 @@ export default function Customize() {
          * or there will be index
          * If you find any index there which is not null then simply get the the index
          * Use action to dispatch updateCartDataByIndex({index: number, item:CartItem})
+         * If update finllay update the state cartIndexToupdate to null
+         * 
          * **/
         if (designJourney === SelectionProcess.accents) {
             setTakeScreenShot('upload');
@@ -286,7 +304,7 @@ export default function Customize() {
                                 takeScreenShot={takeScreenShot}
                                 setTakeScreenShot={setTakeScreenShot}
                                 // setSnapShotUploadState={setSnapShotUploadState}
-                                
+                                index={index}
                                 cartData={
                                     {
                                         model,
