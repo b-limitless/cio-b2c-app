@@ -18,7 +18,7 @@
     "@react-three/drei": "^9.88.16",
     "@react-three/fiber": "^8.15.11",
     "@reduxjs/toolkit": "^1.9.7",
-    "axios": "^1.6.2",
+    "axios": "^1.6.4",
     "https": "^1.0.0",
     "next": "13.4.12",
     "react": "18.2.0",

@@ -14,6 +14,9 @@ import { updateCartIndexAction } from 'slices/updateCartIndex';
 import { updateAllProps, updateModel } from 'slices/modelSlice';
 import { IModelAction } from 'slices/modelSlice';
 import { updateAccent, updateAllAccent } from 'slices/accentSlice';
+import { updateFebric } from 'slices/febricSlice';
+import { Router, useRouter } from 'next/router';
+import Link from 'next/link';
 
 
 interface CartInterface {
@@ -38,11 +41,11 @@ const CartItem = ({ id,
     <div className={styles.description}>
       <div className={styles.group}>
         <div className={styles.name}>
-          {cart.model.febric.title} TAILORED SHIRT -  {cart.qty} {id}
+          {cart.febric.title} TAILORED SHIRT -  {cart.qty} {id}
         </div>
         <div className={styles.type}>
-          {cart.model.febric.material} | {' '}
-          {cart.model.febric.febricTypes}
+          {cart.febric.material} | {' '}
+          {cart.febric.febricTypes}
         </div>
 
       </div>
@@ -100,11 +103,12 @@ export default function Cart() {
   const [selectedCartIndex, setSelectedCartIndex] = useState<null | number>(null);
   const carts = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
+  const router = useRouter();
   // for the testing lets dispatch the cart
   useEffect(() => {
     const dispatchSampleCartData = () => {
-      dispatch(addToCart(cartSameDate[0] as any));
-      dispatch(addToCart(cartSameDate[1] as any));
+      // dispatch(addToCart(cartSameDate[0] as any));
+      // dispatch(addToCart(cartSameDate[1] as any));
     }
     dispatchSampleCartData();
   }, [dispatch]);
@@ -143,12 +147,15 @@ export default function Cart() {
   }, [carts]);
 
   const cartIndexToUpdate = (index: number) => {
-    const {model, accent}  = carts[index];
+    const {model, accent, febric}  = carts[index];
     dispatch(updateCartIndexAction(index));
     
     dispatch(updateAllProps(model));
     dispatch(updateAllAccent(accent));
-    
+    dispatch(updateFebric(febric));
+
+    router.push('/customize/shirt');
+
   }
 
   return (
@@ -161,7 +168,9 @@ export default function Cart() {
       />
       <Header />
       <div className={styles.cart__container}>
-        <div className={styles.title}>Shopping Bag</div>
+        <div className={styles.title}>
+          <Link href='/customize/shirt'>Shopping Bag</Link>
+          </div>
 
         {carts.length > 0 && <div className={styles.cart__details}>
           <div className={styles.items}>

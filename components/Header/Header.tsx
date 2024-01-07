@@ -3,6 +3,7 @@ import styles from './header.module.scss';
 import Image from 'next/image';
 import Navigation, { navigationRow } from './Navigation';
 import { OrderProcessType, SelectionTypes, combinedTypes } from 'types/enums';
+import Link from 'next/link';
 
 
 
@@ -55,12 +56,15 @@ export default function Header({ showNavigation, navigations, designJourney, set
                     </ul>
                 </div>
                 <div className={styles.icon}>
+                    <Link href={'/cart'}>
                     <Image
                         src={'/icon/cart.svg'}
                         width={32}
                         height={30.55}
                         alt='cart'
                     ></Image>
+                    </Link>
+                    
                 </div>
             </div>
         </header>

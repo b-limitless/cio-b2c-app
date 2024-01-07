@@ -1,3 +1,5 @@
+
+'use client';
 // For testing purpose only
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
@@ -45,7 +47,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IAccentGlobal, TCollar, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
+import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
 import { addToCart } from 'slices/cartSlice';
 import { UpdateModelAction, updateModel } from 'slices/modelSlice';
 import { RootState } from 'store';
@@ -64,9 +66,11 @@ import { TFebric } from 'slices/febricSlice';
 const https = require('https');
 
 
-const agent = new https.Agent({  
-    rejectUnauthorized: process.env.NODE_ENV !== 'development'
-});
+const agent = new https.Agent({
+    rejectUnauthorized: false,
+    requestCert: false,
+    agent: false,
+ });
 
 
 const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData }: ICaptureModelScreenShot) => {
@@ -160,7 +164,7 @@ export default function Customize() {
         if (collarAccent.updatedFrom === 'febrics') {
 
             // Update the collor with different febric
-            const payloadC: TCollar = {
+            const payloadC: any = {
                 ...collarAccent,
                 febric: payload.originalImageUrl ?? defaultFebric,
             }
@@ -206,6 +210,8 @@ export default function Customize() {
             router.push('/cart');
         }
     }, [takeScreenShot, router]);
+
+   
 
 
 
@@ -270,6 +276,7 @@ export default function Customize() {
                                 takeScreenShot={takeScreenShot}
                                 setTakeScreenShot={setTakeScreenShot}
                                 // setSnapShotUploadState={setSnapShotUploadState}
+                                
                                 cartData={
                                     {
                                         model,
@@ -280,7 +287,8 @@ export default function Customize() {
                                         discount: 0,
                                         availability: '',
                                         id: 1,
-                                        deliveryTime: '3 weeks'
+                                        deliveryTime: '3 weeks', 
+                                        febric
 
                                     }
                                 } />

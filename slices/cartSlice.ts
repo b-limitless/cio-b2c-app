@@ -2,9 +2,10 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { IModelAction, RowType } from './modelSlice';
 import { TMode } from './modelTypeSlice';
 import { TAccent } from './accentSlice';
+import { TFebric } from './febricSlice';
 
 export type ICartItem = {
-  model: IModelAction & { febric: RowType };
+  model: IModelAction;
   accent: TAccent;
   modelType: TMode;
   subTotal: number;
@@ -15,6 +16,7 @@ export type ICartItem = {
   originalImageUrl?: string;
   deliveryTime?: string | null;
   season?:string;
+  febric: TFebric
 };
 
 export type TQuantityAction = 'add' | 'remove';
@@ -25,6 +27,11 @@ export interface IUpdateBase {
 export interface IUpdateQuantity extends IUpdateBase {
   qty: number;
   addOrRemove: TQuantityAction;
+}
+
+export interface IUpdateCartByIndex {
+  index:number;
+  item: ICartItem;
 }
 
 export type ICart = ICartItem[];
@@ -76,7 +83,13 @@ const cartSlice = createSlice({
 
       return [...state.filter((cart) => cart.id !== productId)];
 
-    }
+    }, 
+    updateCartDataByIndex(state: ICart, action:PayloadAction<IUpdateCartByIndex>) {
+      const {item, index} = action.payload;
+      const carts = JSON.parse(JSON.stringify(state));
+      carts[index] = item;
+      return {...carts};
+    } 
   },
 });
 
