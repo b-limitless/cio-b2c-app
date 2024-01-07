@@ -63,6 +63,7 @@ import styles from './customize.module.scss';
 import { ICaptureModelScreenShot, TSnapShotUploadingStates } from 'interface/ICart.interface';
 import { updateFebric } from 'slices/febricSlice';
 import { TFebric } from 'slices/febricSlice';
+import { updateCartIndexAction } from 'slices/updateCartIndex';
 const https = require('https');
 
 
@@ -106,6 +107,7 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                      * **/
                     if(index) {
                         dispatch(updateCartDataByIndex({index, item:data as any}));
+                        dispatch(updateCartIndexAction(null));
                     }
 
                     if(!index) {
@@ -144,6 +146,8 @@ export default function Customize() {
     const accent = useSelector((state: RootState) => state.accent);
     const { modelType } = useSelector((state: RootState) => state.modelType);
     const {index} = useSelector((state: RootState) => state.cartIndexToupdate);
+    const cart = useSelector((state: RootState) => state.cart);
+    
 
     const { collar: collarAccent } = accent;
     const { cuff: cuffAccent } = accent;
@@ -314,7 +318,7 @@ export default function Customize() {
                                         qty: 1,
                                         discount: 0,
                                         availability: '',
-                                        id: 1,
+                                        id: cart.length + 1,
                                         deliveryTime: '3 weeks', 
                                         febric
 

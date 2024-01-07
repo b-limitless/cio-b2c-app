@@ -88,7 +88,7 @@ const cartSlice = createSlice({
       const {item, index} = action.payload;
       const carts = JSON.parse(JSON.stringify(state));
       carts[index] = item;
-      return {...carts};
+      return [...carts];
     } 
   },
 });
