@@ -1,5 +1,5 @@
 'use client';
-import { TCollar } from 'slices/accentSlice';
+import { TBase } from 'slices/accentSlice';
 import ProductStyles from './ProductStyles';
 import styles from './styles.module.scss';
 import { productStyles } from 'config/models';

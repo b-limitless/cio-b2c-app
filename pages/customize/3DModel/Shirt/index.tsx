@@ -5,7 +5,7 @@ import { defaultCuffModel } from 'config/default';
 import { modelsURL } from 'config/models';
 import dynamic from 'next/dynamic';
 import { ReactNode, useEffect, useMemo, useRef } from 'react';
-import { TCollar } from 'slices/accentSlice';
+import { TBase } from 'slices/accentSlice';
 import { RowType } from 'slices/modelSlice';
 import * as THREE from 'three';
 import { Group, MeshPhongMaterial, Object3DEventMap, TextureLoader } from 'three';
@@ -22,8 +22,8 @@ interface CollarInterface extends BaseModel {
 
 interface ShirtModelInterface extends BaseModel {
   febricURI: string;
-  collarAccent: TCollar;
-  cuffAccent: TCollar;
+  collarAccent: TBase;
+  cuffAccent: TBase;
   cuff: RowType;
 }
 

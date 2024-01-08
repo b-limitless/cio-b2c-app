@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
-import { IAccentGlobal, TCollar, TCollarAccent, UpdateAccentActionType, accentProperties, updateAccent, updateAccentType } from 'slices/accentSlice';
+import { IAccentGlobal, TBase, TCollarAccent, UpdateAccentActionType, accentProperties, updateAccent, updateAccentType } from 'slices/accentSlice';
 import { RowType, updateModel } from 'slices/modelSlice';
 import styles from '../styles.module.scss';
 import { ItemInterface, ProductStylesInterface } from 'interface/IProductStyle.interface';
@@ -36,12 +36,12 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
         if (cuffAccent && code !== 'collar') {
             const payload = { 
                    ...cuffAccent, 
-                   febric: `${cuffAccent?.febric}?timestamp=${Date.now()}` } as TCollar;
+                   febric: `${cuffAccent?.febric}?timestamp=${Date.now()}` } as TBase;
             dispatch(updateAccent({ key: code as keyof IAccentGlobal , payload }))
         }
 
         if (collarAccent && code !== 'cuff') {
-            const payload = { ...collarAccent, febric: `${collarAccent?.febric}?timestamp=${Date.now()}` } as TCollar;
+            const payload = { ...collarAccent, febric: `${collarAccent?.febric}?timestamp=${Date.now()}` } as TBase;
             dispatch(updateAccent({ key: code as keyof IAccentGlobal , payload }))
         }
     }

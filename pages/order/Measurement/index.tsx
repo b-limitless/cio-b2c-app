@@ -31,7 +31,9 @@ export default function Measurment({ measurementJourney, setMeasurementJourney, 
                 </p>
                 <div className={styles.form__group}>
                     <div className={styles.form__row}>
-                        <Input label='Full Name' name='fullName' />
+                        <Input label='Full Name'
+                            name='fullName'
+                        />
                     </div>
                     <p className={styles.unite}>
                         Change Unite feet/lb or cm/kg
