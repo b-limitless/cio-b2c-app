@@ -7,12 +7,19 @@ import Image from 'next/image';
 import styles from './measurement.module.scss';
 import { OrderCommonInterface } from '../../../types/common.interface';
 import { nextStage } from 'functions/nextStage';
-const ages = [{name: "0-18", value: "0-18"}];
-const height = [{name: "5", value: "5"}];
-const inches = [{name: "1", value: "1"}];
+import ProductShirt from './product/shirt';
+const ages = [{ name: "0-18", value: "0-18" }];
+const height = [{ name: "5", value: "5" }];
 
-export default function Measurment({measurementJourney, setMeasurementJourney, nextStageHandler}:OrderCommonInterface) {
-    
+const countEleven = new Array(10).fill(0);
+
+const inches = countEleven.map((item, i) => {
+    return { name: i }
+})
+
+console.log(inches)
+export default function Measurment({ measurementJourney, setMeasurementJourney, nextStageHandler }: OrderCommonInterface) {
+
     return (
         <div className={styles.measurement__container}>
             <div className={styles.measurement__form}>
@@ -23,43 +30,55 @@ export default function Measurment({measurementJourney, setMeasurementJourney, n
                     We are going to create your body measurements profile. All we need is some basic information.
                 </p>
                 <div className={styles.form__group}>
-                <div className={styles.form__row}>
-                    <Input label='Full Name' />
-                </div>
-                <p className={styles.unite}>
-                    Change Unite feet/lb or cm/kg
-                </p>
-                <div className={styles.form__row}>
+                    <div className={styles.form__row}>
+                        <Input label='Full Name' name='fullName' />
+                    </div>
+                    <p className={styles.unite}>
+                        Change Unite feet/lb or cm/kg
+                    </p>
+                    <div className={styles.form__row}>
                         <Select
-                        options={height}
-                        value=''
-                        label='Height/Feet'
-                        onChange={() => { }}
-                    />
-                    <Select
-                        options={inches}
-                        value=''
-                        label='inch'
-                        onChange={() => { }}
-                    />
-                    <Select
+                            options={height}
+                            name='height'
+                            value=''
+                            label='Height/Feet'
+                            onChange={() => { }}
+                        />
+                        <Select
+                            options={inches}
+                            value=''
+                            label='inch'
+                            onChange={() => { }}
+                        />
+
+                        <Input
+                            type='number'
+                            value=''
+                            label='Weight in KG'
+
+                        />
+
+                        {/* <Select
                         options={[]}
                         value=''
-                        label='weight/lb'
+                        label='Weight in KG'
                         onChange={() => { }}
-                    />
-                    <Input
-                        options={ages}
-                       
-                        label='Age'
-                        type='number'
-                        onChange={() => { }}
-                    />
+                    
+                    /> */}
+                        <Input
+                            options={ages}
+                            name='age'
+                            label='Age'
+                            type='number'
+                            onChange={() => { }}
+                        />
+                    </div>
+                    <p className={styles.accurate}>
+                        The more accurate you give your height and weight, the better the system will help you take your measurements.
+                    </p>
+                    <ProductShirt />
                 </div>
-                <p className={styles.accurate}>
-                    The more accurate you give your height and weight, the better the system will help you take your measurements.
-                </p>
-                </div>
+
                 <div className={styles.actions}>
                     <Button variant='primary' type='square' onClick={() => nextStageHandler()}>
                         Next
