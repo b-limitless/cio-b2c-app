@@ -2,12 +2,15 @@
 import { Button } from 'components/Button'
 import Input from 'components/Input'
 import Select from 'components/Select'
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import styles from './measurement.module.scss';
 import { OrderCommonInterface } from '../../../types/common.interface';
 import { nextStage } from 'functions/nextStage';
 import ProductShirt from './product/shirt';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
+import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 const ages = [{ name: "0-18", value: "0-18" }];
 const height = [{ name: "5", value: "5" }];
 
@@ -17,8 +20,9 @@ const inches = countEleven.map((item, i) => {
     return { name: i }
 })
 
-console.log(inches)
+
 export default function Measurment({ measurementJourney, setMeasurementJourney, nextStageHandler }: OrderCommonInterface) {
+    const {modelType} = useSelector((state:RootState) => state);
 
     return (
         <div className={styles.measurement__container}>

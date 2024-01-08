@@ -1,4 +1,6 @@
-export interface IShirtMeasurement {
+import { IMeasurementBase } from "./IMeasurementBase";
+
+export interface IShirtMeasurement extends IMeasurementBase {
   sleevLength: number;
   shoulderWidth: number;
   chestAround: number;
@@ -9,3 +11,4 @@ export interface IShirtMeasurement {
   wrist: number;
   // Add more properties as needed
 }
+
