@@ -51,7 +51,7 @@ export default function Model({ show, setShow, cart }: IModel) {
                     <div className={styles.col + ' ' + styles.details}>
                         <div className={styles.row + ' ' + styles.head}>
                             <div className={styles.heading}>
-                                {cart?.model?.febric?.title} | {cart?.model?.febric?.material}  {cart?.model?.febric?.title} | {cart?.model?.febric?.season}
+                                {cart?.febric?.title} | {cart?.febric?.material}  {cart?.febric?.title} | {cart?.febric?.season}
                             </div>
                             <div className={styles.closing}>
                                 <Image src='/icon/close-blue.svg' width={20} height={20} alt='close' onClick={() => setShow(-1)} />
@@ -97,10 +97,10 @@ export default function Model({ show, setShow, cart }: IModel) {
                                 <div className={styles.group}>
                                     <div className={styles.title}>Febric</div>
                                     <div className={styles.childrens}>
-                                        <Item title={'Material'} value={cart?.model?.febric?.material || ''} />
-                                        <Item title={'Tone'} value={cart?.model?.febric?.tone || ''} />
-                                        <Item title={'Type'} value={cart?.model?.febric?.febricTypes || ''} />
-                                        <Image src={cart?.model?.febric?.originalImageUrl || ''} width={429} height={200} alt='' />
+                                        <Item title={'Material'} value={cart?.febric?.material || ''} />
+                                        <Item title={'Tone'} value={cart?.febric?.tone || ''} />
+                                        <Item title={'Type'} value={cart?.febric?.febricTypes || ''} />
+                                        <Image src={cart?.febric?.originalImageUrl || ''} width={429} height={200} alt='' />
                                     </div>
 
                                 </div>
