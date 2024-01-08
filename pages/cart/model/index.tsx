@@ -1,9 +1,6 @@
-import React from 'react';
 import Image from 'next/image';
-import CloseSVGBlue from '/icon/close-blue.svg';
-import styles from './model.module.scss';
 import { ICartItem } from 'slices/cartSlice';
-import { ModelKeys } from 'slices/modelSlice';
+import styles from './model.module.scss';
 
 
 
