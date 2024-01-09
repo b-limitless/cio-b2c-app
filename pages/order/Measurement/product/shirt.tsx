@@ -9,7 +9,8 @@ export const NumberInputField = ({ ...rest }) => {
 
 interface IProductShirt {
     onChange: Function;
-    measurement: IShirtMeasurement | IPantMeasurement
+    measurement: IShirtMeasurement | IPantMeasurement;
+    errors: IShirtMeasurement | IPantMeasurement;
 }
 
 export default function ProductShirt({measurement}:IProductShirt) {

@@ -20,9 +20,27 @@ const state: IShirtMeasurement | IPantMeasurement = {
   age: 0
 };
 
+const stateError: IShirtMeasurement | IPantMeasurement = {
+  fullName: null,
+  height: {
+    unite: 'inch',
+    value: 0,
+  },
+  sleevLength: 0,
+  shoulderWidth: 0,
+  chestAround: 0,
+  stomach: 0,
+  bicepAround: 0,
+  torsoLength: 0,
+  hips: 0,
+  wrist: 0,
+  weight: 0,
+  age: 0
+};
+
 interface IMeasurement {
   data: IShirtMeasurement | IPantMeasurement;
-  errors: any;
+  errors: IShirtMeasurement | IPantMeasurement;
 }
 export interface IPayloadMeasurment {
   key: keyof IShirtMeasurement | keyof IPantMeasurement;
@@ -31,7 +49,7 @@ export interface IPayloadMeasurment {
 
 const initialState:IMeasurement = {
   data: state,
-  errors: null
+  errors: stateError
 }
 
 

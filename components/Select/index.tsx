@@ -9,7 +9,7 @@ import { FormHelperText } from '@mui/material';
 
 export interface SelectInterface {
     options: any[];
-    value: string;
+    value: string | number;
     label: string;
     onChange: any;
     id?: string;

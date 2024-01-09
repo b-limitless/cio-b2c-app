@@ -13,7 +13,8 @@ const inches = countEleven.map((item, i) => {
 
 interface IBaseProductMeasurementForm {
     onChangeHandler: Function;
-    formData: IMeasurementBase
+    formData: IMeasurementBase;
+    errors: IMeasurementBase;
 }
 export default function BaseProductMeasurementForm({ onChangeHandler, formData }: IBaseProductMeasurementForm) {
 
@@ -33,7 +34,7 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData }
                 <Select
                     options={height}
                     name='height'
-                    value={formData?.height?.value?.toString() ?? 0}
+                    value={formData?.height?.value ?? 0}
                     label='Height/Feet'
                     onChange={onChangeHandler}
                     
