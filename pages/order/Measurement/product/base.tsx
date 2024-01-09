@@ -16,7 +16,7 @@ interface IBaseProductMeasurementForm {
     formData: IMeasurementBase;
     errors: IMeasurementBase;
 }
-export default function BaseProductMeasurementForm({ onChangeHandler, formData }: IBaseProductMeasurementForm) {
+export default function BaseProductMeasurementForm({ onChangeHandler, formData, errors }: IBaseProductMeasurementForm) {
 
     return (
         <>
@@ -25,6 +25,7 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData }
                     name='fullName'
                     onChange={(e:any) => onChangeHandler(e)}
                     value={formData?.fullName ?? ''}
+                    error={errors?.fullName}
                 />
             </div>
             <p className={styles.unite}>
@@ -37,6 +38,7 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData }
                     value={formData?.height?.value ?? 0}
                     label='Height/Feet'
                     onChange={onChangeHandler}
+                    error={errors?.height?.value}
                     
                 />
                 <Select
@@ -44,6 +46,7 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData }
                     value=''
                     label='inch'
                     onChange={onChangeHandler}
+                    error={errors?.height?.value}
                 />
 
                 <Input
@@ -51,6 +54,7 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData }
                     value=''
                     label='Weight in KG'
                     onChange={onChangeHandler}
+                    error={errors?.weight}
 
                 />
 
