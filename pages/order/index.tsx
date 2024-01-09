@@ -48,7 +48,6 @@ export default function Order() {
 
     const measurementOnChangeHandler = (e:any) => {
         const {name, value} = e.target;
-        console.log('key, value', name, value)
         dispatch(updateMeasurementAction({key:name, value}))
     }
 

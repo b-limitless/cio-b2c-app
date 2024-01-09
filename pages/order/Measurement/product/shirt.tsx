@@ -6,9 +6,9 @@ import { IPantMeasurement } from 'interface/IPantMeasurement';
 export const NumberInputField = ({ ...rest }) => {
     return <Input 
         {...rest} 
-        // type='number' 
+        type='number' 
         // error={true}
-        helperText={'formError.fullName'} />;
+         />;
 }
 
 interface IProductShirt {

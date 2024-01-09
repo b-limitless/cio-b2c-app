@@ -38,6 +38,8 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
 
         return {...rest};
     }, [data]);
+
+    
     
     return (
         <div className={styles.measurement__container}>

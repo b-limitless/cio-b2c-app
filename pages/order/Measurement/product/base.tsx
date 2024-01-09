@@ -35,10 +35,10 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData, 
                 <Select
                     options={height}
                     name='height'
-                    value={formData?.height?.value ?? 0}
+                    value={formData?.height?.feet ?? 0}
                     label='Height/Feet'
                     onChange={onChangeHandler}
-                    error={errors?.height?.value}
+                    error={errors?.height?.feet}
                     
                 />
                 <Select
@@ -46,7 +46,7 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData, 
                     value=''
                     label='inch'
                     onChange={onChangeHandler}
-                    error={errors?.height?.value}
+                    error={errors?.height?.inch}
                 />
 
                 <Input

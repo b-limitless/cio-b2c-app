@@ -5,8 +5,8 @@ import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 const state: IShirtMeasurement | IPantMeasurement = {
   fullName: '',
   height: {
-    unite: 'inch',
-    value: 0,
+    feet: 0,
+    inch: 0
   },
   sleevLength: 0,
   shoulderWidth: 0,
@@ -23,19 +23,19 @@ const state: IShirtMeasurement | IPantMeasurement = {
 const stateError: IShirtMeasurement | IPantMeasurement = {
   fullName: null,
   height: {
-    unite: 'inch',
-    value: 0,
+    feet: null, 
+    inch: null
   },
-  sleevLength: 0,
-  shoulderWidth: 0,
-  chestAround: 0,
-  stomach: 0,
-  bicepAround: 0,
-  torsoLength: 0,
-  hips: 0,
-  wrist: 0,
-  weight: 0,
-  age: 0
+  sleevLength: null,
+  shoulderWidth: null,
+  chestAround: null,
+  stomach: null,
+  bicepAround: null,
+  torsoLength: null,
+  hips: null,
+  wrist: null,
+  weight: null,
+  age: null
 };
 
 interface IMeasurement {
@@ -66,6 +66,20 @@ const measurementSlice = createSlice({
       return {
         ...state,
         data: {
+          ...state.data,
+          [key]:value
+        }
+      }
+    },
+    updateMeasurementErrorAction: (
+      state: IMeasurement,
+      action: PayloadAction<IPayloadMeasurment>
+    ) => {
+      const { key, value } = action.payload;
+      // return { ...state, [key]: value };
+      return {
+        ...state,
+        errors: {
           ...state.data,
           [key]:value
         }

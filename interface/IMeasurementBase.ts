@@ -1,7 +1,7 @@
 export type IMeasurementUnite = 'inch' | 'cm';
 
 export type IMeasurementHeight = {
-  unite: IMeasurementUnite;
+  //unite: IMeasurementUnite;
   feet: number | null;
   inch: number | null;
 };

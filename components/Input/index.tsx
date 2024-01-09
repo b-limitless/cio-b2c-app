@@ -23,8 +23,6 @@ export default function Input({...rest }: InputInterfae) {
       size="small"
       
     >
-
-      
     </TextField>
   )
 }
