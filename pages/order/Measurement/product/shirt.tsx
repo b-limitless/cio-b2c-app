@@ -1,11 +1,17 @@
 import Input from 'components/Input';
 import styles from '../measurement.module.scss';
+import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 
 export const NumberInputField = ({ ...rest }) => {
     return <Input {...rest} type='number' />;
 }
 
-export default function ProductShirt() {
+interface IProductShirt {
+    onChange: Function;
+    measurement: IShirtMeasurement
+}
+
+export default function ProductShirt({measurement}:IProductShirt) {
     return (
         <>
             <div className={styles.form__row}>

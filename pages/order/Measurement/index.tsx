@@ -25,6 +25,7 @@ const inches = countEleven.map((item, i) => {
 export default function Measurment({ measurementJourney, setMeasurementJourney, nextStageHandler, onChangeHandler }: IMeasurementForm) {
     const modelType = useSelector((state:RootState) => state.modelType);
 
+    const measurement = useSelector((state:RootState) => state.measurment);
     return (
         <div className={styles.measurement__container}>
            
@@ -37,9 +38,13 @@ export default function Measurment({ measurementJourney, setMeasurementJourney, 
                 </p>
                 <div className={styles.form__group}>
                     <BaseProductMeasurementForm
-                    onChangeHandler={() => {}}
+                      onChangeHandler={() => {}}
+                      
                     />
-                    <ProductShirt />
+                    <ProductShirt 
+                        measurement={measurement}
+                        onChange={() => {}}
+                    />
                 </div>
 
                 <div className={styles.actions}>

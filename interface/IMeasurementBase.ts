@@ -8,5 +8,7 @@ export type IMeasurementHeight = {
 export interface IMeasurementBase {
   fullName: string;
   height: IMeasurementHeight;
+  weight: number;
+  age:number;
 }
 

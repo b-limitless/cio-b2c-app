@@ -66,7 +66,7 @@ export default function BaseProductMeasurementForm({ onChangeHandler }: IBasePro
             <p className={styles.accurate}>
                 The more accurate you give your height and weight, the better the system will help you take your measurements.
             </p>
-           
+
         </>
     )
 }
