@@ -12,6 +12,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 import BaseProductMeasurementForm from './product/base';
+import { IMeasurementBase } from 'interface/IMeasurementBase';
+import { user } from 'model/user';
+import { updateMeasurementErrorAction } from 'slices/measurmentSlice';
 const ages = [{ name: "0-18", value: "0-18" }];
 const height = [{ name: "5", value: "5" }];
 
@@ -22,14 +25,13 @@ const inches = countEleven.map((item, i) => {
 })
 
 
-export default function Measurement({ measurementJourney, setMeasurementJourney, nextStageHandler, onChangeHandler }: IMeasurementForm) {
+export default function Measurement({ measurementJourney, setMeasurementJourney, nextStageHandler, onChangeHandler, onMouseLeaveEventHandler }: IMeasurementForm) {
     const modelType = useSelector((state:RootState) => state.modelType);
 
     const {data, errors} = useSelector((state:RootState) => state.measurment);
 
     const baseMeasurementForm = useMemo(() => {
         const {fullName, height, age, weight} = data;
-
         return {fullName, height, age, weight};
     }, [data]);
 
@@ -56,6 +58,7 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
                       onChangeHandler={onChangeHandler ? onChangeHandler : () => {}}
                       formData={baseMeasurementForm}
                       errors={errors}
+                      onMouseLeaveEventHandler={onMouseLeaveEventHandler}
                     />
                     <ProductShirt 
                         measurement={data}

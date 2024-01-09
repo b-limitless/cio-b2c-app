@@ -15,8 +15,9 @@ interface IBaseProductMeasurementForm {
     onChangeHandler: Function;
     formData: IMeasurementBase;
     errors: IMeasurementBase;
+    onMouseLeaveEventHandler:Function;
 }
-export default function BaseProductMeasurementForm({ onChangeHandler, formData, errors }: IBaseProductMeasurementForm) {
+export default function BaseProductMeasurementForm({ onChangeHandler, formData, errors, onMouseLeaveEventHandler }: IBaseProductMeasurementForm) {
 
     return (
         <>
@@ -26,6 +27,7 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData, 
                     onChange={(e:any) => onChangeHandler(e)}
                     value={formData?.fullName ?? ''}
                     error={errors?.fullName}
+                    onBlur={() => onMouseLeaveEventHandler('fullName', formData.fullName)}
                 />
             </div>
             <p className={styles.unite}>

@@ -35,7 +35,10 @@ import { nextStage } from 'functions/nextStage';
 import { SelectionTypes } from 'types/enums';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { updateMeasurementAction } from 'slices/measurmentSlice';
+import { updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
+import { user } from 'model/user';
+import { IMeasurementBase } from 'interface/IMeasurementBase';
+import { camelCaseToNormal } from 'functions/camelCaseToNormal';
 
 export default function Order() {
     const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
@@ -51,6 +54,15 @@ export default function Order() {
         dispatch(updateMeasurementAction({key:name, value}))
     }
 
+    const onMouseLeaveEventHandler = (name: keyof IMeasurementBase, value: string) => {
+        if(!user[name]?.test(value)) {
+            dispatch(updateMeasurementErrorAction({key: name, value:  `${camelCaseToNormal(name, true)} is required`}));
+        } else {
+            dispatch(updateMeasurementErrorAction({key: name, value:  null}));
+        }
+    }
+
+
 
     return (
         <>
@@ -64,6 +76,7 @@ export default function Order() {
                     setMeasurementJourney={setMeasurementJourney}
                     nextStageHandler={nextStageHandler} 
                     onChangeHandler={measurementOnChangeHandler}
+                    onMouseLeaveEventHandler={onMouseLeaveEventHandler}
                     
                     />}
             {measurementJourney === OrderProcess.shipping && <Shipping measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler}/>}

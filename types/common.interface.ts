@@ -12,5 +12,6 @@ export interface OrderCommonInterface extends Base {
 
 export interface IMeasurementForm extends OrderCommonInterface {
   onChangeHandler?:Function;
+  onMouseLeaveEventHandler: Function;
   
 }
