@@ -6,6 +6,7 @@ import modelType from "slices/modelTypeSlice";
 import cart from 'slices/cartSlice';
 import cartIndexToupdate from "slices/updateCartIndex";
 import febric from "slices/febricSlice";
+import measurment from "slices/measurmentSlice";
 
 export const Store = configureStore({
     reducer: {
@@ -14,7 +15,8 @@ export const Store = configureStore({
         modelType, 
         cart, 
         cartIndexToupdate, 
-        febric
+        febric, 
+        measurment
     }
 });
 

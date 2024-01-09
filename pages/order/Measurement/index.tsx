@@ -5,12 +5,13 @@ import Select from 'components/Select'
 import React, { useState } from 'react';
 import Image from 'next/image';
 import styles from './measurement.module.scss';
-import { OrderCommonInterface } from '../../../types/common.interface';
+import { IMeasurementForm, OrderCommonInterface } from '../../../types/common.interface';
 import { nextStage } from 'functions/nextStage';
 import ProductShirt from './product/shirt';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
+import BaseProductMeasurementForm from './product/base';
 const ages = [{ name: "0-18", value: "0-18" }];
 const height = [{ name: "5", value: "5" }];
 
@@ -21,11 +22,12 @@ const inches = countEleven.map((item, i) => {
 })
 
 
-export default function Measurment({ measurementJourney, setMeasurementJourney, nextStageHandler }: OrderCommonInterface) {
-    const {modelType} = useSelector((state:RootState) => state);
+export default function Measurment({ measurementJourney, setMeasurementJourney, nextStageHandler, onChangeHandler }: IMeasurementForm) {
+    const modelType = useSelector((state:RootState) => state.modelType);
 
     return (
         <div className={styles.measurement__container}>
+           
             <div className={styles.measurement__form}>
                 <div className={styles.title}>
                     and now, let{'\''}s measure!
@@ -34,54 +36,9 @@ export default function Measurment({ measurementJourney, setMeasurementJourney, 
                     We are going to create your body measurements profile. All we need is some basic information.
                 </p>
                 <div className={styles.form__group}>
-                    <div className={styles.form__row}>
-                        <Input label='Full Name'
-                            name='fullName'
-                        />
-                    </div>
-                    <p className={styles.unite}>
-                        Change Unite feet/lb or cm/kg
-                    </p>
-                    <div className={styles.form__row}>
-                        <Select
-                            options={height}
-                            name='height'
-                            value=''
-                            label='Height/Feet'
-                            onChange={() => { }}
-                        />
-                        <Select
-                            options={inches}
-                            value=''
-                            label='inch'
-                            onChange={() => { }}
-                        />
-
-                        <Input
-                            type='number'
-                            value=''
-                            label='Weight in KG'
-
-                        />
-
-                        {/* <Select
-                        options={[]}
-                        value=''
-                        label='Weight in KG'
-                        onChange={() => { }}
-                    
-                    /> */}
-                        <Input
-                            options={ages}
-                            name='age'
-                            label='Age'
-                            type='number'
-                            onChange={() => { }}
-                        />
-                    </div>
-                    <p className={styles.accurate}>
-                        The more accurate you give your height and weight, the better the system will help you take your measurements.
-                    </p>
+                    <BaseProductMeasurementForm
+                    onChangeHandler={() => {}}
+                    />
                     <ProductShirt />
                 </div>
 
@@ -91,6 +48,8 @@ export default function Measurment({ measurementJourney, setMeasurementJourney, 
                     </Button>
                 </div>
             </div>
+
+
             <div className={styles.video__guide}>
                 <Image src='/img/video.png' width={1190} height={670} alt='' />
             </div>

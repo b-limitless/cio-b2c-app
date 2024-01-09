@@ -9,3 +9,8 @@ export interface OrderCommonInterface extends Base {
   measurementJourney: OrderProcessType;
   
 }
+
+export interface IMeasurementForm extends OrderCommonInterface {
+  onChangeHandler?:Function;
+  
+}

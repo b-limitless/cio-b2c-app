@@ -33,23 +33,37 @@ import Payment from './Payment';
 import OrderCompleted from './Completed';
 import { nextStage } from 'functions/nextStage';
 import { SelectionTypes } from 'types/enums';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store';
+import { updateMeasurementAction } from 'slices/measurmentSlice';
+
 export default function Order() {
     const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
+    const measurement = useSelector((state:RootState) => state.measurment);
+    const dispatch = useDispatch();
 
     const nextStageHandler = () => {
         nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
     }
+
+    const measurementOnChangeHandler = (e:any) => {
+        const {key, value} = e;
+        dispatch(updateMeasurementAction({key, value}))
+    }
+
+
     return (
         <>
             <Header navigations={measurementNavigation}
                 designJourney={measurementJourney}
                 setDesignJourney={setMeasurementJourney}
                 showNavigation />
-            {measurementJourney === OrderProcess.measurement &&
+               {measurementJourney === OrderProcess.measurement &&
                 <Measurement
                     measurementJourney={measurementJourney}
                     setMeasurementJourney={setMeasurementJourney}
                     nextStageHandler={nextStageHandler} 
+                    onChangeHandler={measurementOnChangeHandler}
                     
                     />}
             {measurementJourney === OrderProcess.shipping && <Shipping measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler}/>}
