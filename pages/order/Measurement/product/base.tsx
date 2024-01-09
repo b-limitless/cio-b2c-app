@@ -2,25 +2,28 @@ import Input from 'components/Input'
 import React from 'react'
 import styles from '../measurement.module.scss';
 import Select from 'components/Select';
+import { IMeasurementBase } from 'interface/IMeasurementBase';
 
 const countEleven = new Array(10).fill(0);
 const ages = [{ name: "0-18", value: "0-18" }];
-const height = [{ name: "5", value: "5" }];
+const height = [{ name: 5, value: 5 }];
 const inches = countEleven.map((item, i) => {
     return { name: i }
 })
 
 interface IBaseProductMeasurementForm {
     onChangeHandler: Function;
+    formData: IMeasurementBase
 }
-export default function BaseProductMeasurementForm({ onChangeHandler }: IBaseProductMeasurementForm) {
+export default function BaseProductMeasurementForm({ onChangeHandler, formData }: IBaseProductMeasurementForm) {
 
     return (
         <>
             <div className={styles.form__row}>
                 <Input label='Full Name'
                     name='fullName'
-                    onChange={onChangeHandler}
+                    onChange={(e:any) => onChangeHandler(e)}
+                    value={formData?.fullName ?? ''}
                 />
             </div>
             <p className={styles.unite}>
@@ -30,37 +33,39 @@ export default function BaseProductMeasurementForm({ onChangeHandler }: IBasePro
                 <Select
                     options={height}
                     name='height'
-                    value=''
+                    value={formData?.height?.value?.toString() ?? 0}
                     label='Height/Feet'
                     onChange={onChangeHandler}
+                    
                 />
                 <Select
                     options={inches}
                     value=''
                     label='inch'
-                    onChange={() => { }}
+                    onChange={onChangeHandler}
                 />
 
                 <Input
                     type='number'
                     value=''
                     label='Weight in KG'
+                    onChange={onChangeHandler}
 
                 />
 
                 {/* <Select
-        options={[]}
-        value=''
-        label='Weight in KG'
-        onChange={() => { }}
-    
-    /> */}
+                options={[]}
+                value=''
+                label='Weight in KG'
+                onChange={() => { }}
+
+                /> */}
                 <Input
                     options={ages}
                     name='age'
                     label='Age'
                     type='number'
-                    onChange={() => { }}
+                    onChange={onChangeHandler}
                 />
             </div>
             <p className={styles.accurate}>

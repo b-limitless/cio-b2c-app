@@ -1,14 +1,16 @@
 import { IMeasurementBase } from "./IMeasurementBase";
 
 export interface IShirtMeasurement extends IMeasurementBase {
-  sleevLength: number;
-  shoulderWidth: number;
-  chestAround: number;
-  stomach: number;
-  bicepAround: number;
-  torsoLength: number;
-  hips: number;
-  wrist: number;
+  sleevLength: number | null;
+  shoulderWidth: number | null;
+  chestAround: number | null;
+  stomach: number | null;
+  bicepAround: number | null;
+  torsoLength: number | null;
+  hips: number | null;
+  wrist: number | null;
   // Add more properties as needed
 }
+
+
 

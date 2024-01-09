@@ -1,6 +1,7 @@
 import Input from 'components/Input';
 import styles from '../measurement.module.scss';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
+import { IPantMeasurement } from 'interface/IPantMeasurement';
 
 export const NumberInputField = ({ ...rest }) => {
     return <Input {...rest} type='number' />;
@@ -8,7 +9,7 @@ export const NumberInputField = ({ ...rest }) => {
 
 interface IProductShirt {
     onChange: Function;
-    measurement: IShirtMeasurement
+    measurement: IShirtMeasurement | IPantMeasurement
 }
 
 export default function ProductShirt({measurement}:IProductShirt) {

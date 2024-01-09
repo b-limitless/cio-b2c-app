@@ -2,7 +2,7 @@
 import { Button } from 'components/Button'
 import Input from 'components/Input'
 import Select from 'components/Select'
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import styles from './measurement.module.scss';
 import { IMeasurementForm, OrderCommonInterface } from '../../../types/common.interface';
@@ -22,10 +22,23 @@ const inches = countEleven.map((item, i) => {
 })
 
 
-export default function Measurment({ measurementJourney, setMeasurementJourney, nextStageHandler, onChangeHandler }: IMeasurementForm) {
+export default function Measurement({ measurementJourney, setMeasurementJourney, nextStageHandler, onChangeHandler }: IMeasurementForm) {
     const modelType = useSelector((state:RootState) => state.modelType);
 
-    const measurement = useSelector((state:RootState) => state.measurment);
+    const {data} = useSelector((state:RootState) => state.measurment);
+
+    const baseMeasurementForm = useMemo(() => {
+        const {fullName, height, age, weight} = data;
+
+        return {fullName, height, age, weight};
+    }, [data]);
+
+    const shirtMeasurementForm = useMemo(() => {
+        const {fullName, height, age, weight, ...rest} = data;
+
+        return {...rest};
+    }, [data]);
+    
     return (
         <div className={styles.measurement__container}>
            
@@ -38,12 +51,13 @@ export default function Measurment({ measurementJourney, setMeasurementJourney, 
                 </p>
                 <div className={styles.form__group}>
                     <BaseProductMeasurementForm
-                      onChangeHandler={() => {}}
-                      
+                      onChangeHandler={onChangeHandler ? onChangeHandler : () => {}}
+                      formData={baseMeasurementForm}
                     />
                     <ProductShirt 
-                        measurement={measurement}
+                        measurement={data}
                         onChange={() => {}}
+                        
                     />
                 </div>
 
