@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { IMeasurementHeight } from 'interface/IMeasurementBase';
 import { IPantMeasurement } from 'interface/IPantMeasurement';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 
@@ -52,6 +53,10 @@ const initialState:IMeasurement = {
   errors: stateError
 }
 
+interface IUpdateHeight {
+  key: keyof IMeasurementHeight;
+  value: number | null;
+}
 
 const measurementSlice = createSlice({
   name: 'measurement',
@@ -85,6 +90,24 @@ const measurementSlice = createSlice({
         }
       }
     },
+    updateHeightAction: (
+      state: IMeasurement,
+      action: PayloadAction<IUpdateHeight>
+    ): IMeasurement => {
+      const { key, value } = action.payload;
+      
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          //@ts-ignore
+          height: {
+            ...state.data.height,
+            [key]: value,
+          },
+        },
+      };
+    }
   },
 });
 
