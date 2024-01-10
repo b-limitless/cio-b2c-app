@@ -28,6 +28,7 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData, 
                     value={formData?.fullName ?? ''}
                     error={errors?.fullName}
                     onBlur={() => onMouseLeaveEventHandler('fullName', formData.fullName)}
+                    helperText={errors?.weight}
                 />
             </div>
             <p className={styles.unite}>
@@ -36,28 +37,36 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData, 
             <div className={styles.form__row}>
                 <Input
                     // options={height}
+                    type='number'
                     name='feet'
                     value={formData?.feet ?? 0}
                     label='Height/Feet'
                     onChange={onChangeHandler}
                     error={errors?.feet}
+                    helperText={errors?.weight}
+                    onBlur={() => onMouseLeaveEventHandler('feet', formData.feet)}
         
                 />
                 <Select
+                    name='inch'
                     options={inches}
-                    value=''
+                    value={formData.inch ?? 0}
                     label='inch'
                     onChange={onChangeHandler}
                     error={errors?.inch}
+                    helperText={errors?.weight}
+                    onBlur={() => onMouseLeaveEventHandler('inch', formData.inch)}
                 />
 
                 <Input
+                    name='weight'
                     type='number'
-                    value=''
+                    value={formData.weight}
                     label='Weight in KG'
                     onChange={onChangeHandler}
                     error={errors?.weight}
-
+                    helperText={errors?.weight}
+                    onBlur={() => onMouseLeaveEventHandler('weight', formData.weight)}
                 />
 
                 {/* <Select
@@ -68,11 +77,14 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData, 
 
                 /> */}
                 <Input
-                    options={ages}
+                    // options={ages}
+                    value={formData.age}
                     name='age'
                     label='Age'
                     type='number'
                     onChange={onChangeHandler}
+                    error={errors?.age}
+                    onBlur={() => onMouseLeaveEventHandler('age', formData.age)}
                 />
             </div>
             <p className={styles.accurate}>

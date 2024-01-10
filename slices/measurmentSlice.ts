@@ -77,7 +77,7 @@ const measurementSlice = createSlice({
       return {
         ...state,
         errors: {
-          ...state.data,
+          ...state.errors,
           [key]: value,
         },
       };
