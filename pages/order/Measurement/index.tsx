@@ -31,12 +31,12 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
     const {data, errors} = useSelector((state:RootState) => state.measurment);
 
     const baseMeasurementForm = useMemo(() => {
-        const {fullName, height, age, weight} = data;
-        return {fullName, height, age, weight};
+        const {fullName, feet, age, weight, inch} = data;
+        return {fullName, height, age, weight, feet, inch};
     }, [data]);
 
     const shirtMeasurementForm = useMemo(() => {
-        const {fullName, height, age, weight, ...rest} = data;
+        const {fullName, age, weight, ...rest} = data;
 
         return {...rest};
     }, [data]);
@@ -64,7 +64,6 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
                         measurement={data}
                         onChange={() => {}}
                         errors={errors}
-                        
                     />
                 </div>
 

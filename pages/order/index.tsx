@@ -35,7 +35,7 @@ import { nextStage } from 'functions/nextStage';
 import { SelectionTypes } from 'types/enums';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
+import {updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
 import { user } from 'model/user';
 import { IMeasurementBase } from 'interface/IMeasurementBase';
 import { camelCaseToNormal } from 'functions/camelCaseToNormal';
@@ -51,7 +51,9 @@ export default function Order() {
 
     const measurementOnChangeHandler = (e:any) => {
         const {name, value} = e.target;
+
         dispatch(updateMeasurementAction({key:name, value}))
+        
     }
 
     const onMouseLeaveEventHandler = (name: keyof IMeasurementBase, value: string) => {

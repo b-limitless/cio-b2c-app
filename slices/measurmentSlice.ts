@@ -5,10 +5,8 @@ import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 
 const state: IShirtMeasurement | IPantMeasurement = {
   fullName: '',
-  height: {
-    feet: 0,
-    inch: 0
-  },
+  feet: null,
+  inch: null,
   sleevLength: 0,
   shoulderWidth: 0,
   chestAround: 0,
@@ -18,15 +16,13 @@ const state: IShirtMeasurement | IPantMeasurement = {
   hips: 0,
   wrist: 0,
   weight: 0,
-  age: 0
+  age: 0,
 };
 
 const stateError: IShirtMeasurement | IPantMeasurement = {
   fullName: null,
-  height: {
-    feet: null, 
-    inch: null
-  },
+  feet: null,
+  inch: null,
   sleevLength: null,
   shoulderWidth: null,
   chestAround: null,
@@ -36,7 +32,7 @@ const stateError: IShirtMeasurement | IPantMeasurement = {
   hips: null,
   wrist: null,
   weight: null,
-  age: null
+  age: null,
 };
 
 interface IMeasurement {
@@ -48,10 +44,10 @@ export interface IPayloadMeasurment {
   value: any;
 }
 
-const initialState:IMeasurement = {
+const initialState: IMeasurement = {
   data: state,
-  errors: stateError
-}
+  errors: stateError,
+};
 
 interface IUpdateHeight {
   key: keyof IMeasurementHeight;
@@ -62,55 +58,34 @@ const measurementSlice = createSlice({
   name: 'measurement',
   initialState,
   reducers: {
-    updateMeasurementAction: (
-      state: IMeasurement,
-      action: PayloadAction<IPayloadMeasurment>
-    ) => {
+    updateMeasurementAction: (state: IMeasurement, action: PayloadAction<IPayloadMeasurment>) => {
       const { key, value } = action.payload;
       // return { ...state, [key]: value };
       return {
         ...state,
         data: {
           ...state.data,
-          [key]:value
-        }
-      }
+          [key]: value,
+        },
+      };
     },
     updateMeasurementErrorAction: (
       state: IMeasurement,
       action: PayloadAction<IPayloadMeasurment>
     ) => {
       const { key, value } = action.payload;
-      // return { ...state, [key]: value };
       return {
         ...state,
         errors: {
           ...state.data,
-          [key]:value
-        }
-      }
-    },
-    updateHeightAction: (
-      state: IMeasurement,
-      action: PayloadAction<IUpdateHeight>
-    ): IMeasurement => {
-      const { key, value } = action.payload;
-      
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          //@ts-ignore
-          height: {
-            ...state.data.height,
-            [key]: value,
-          },
+          [key]: value,
         },
       };
-    }
+    },
   },
 });
 
-export const { updateMeasurementAction, updateMeasurementErrorAction } = measurementSlice.actions;
+export const { updateMeasurementAction, updateMeasurementErrorAction } =
+  measurementSlice.actions;
 
 export default measurementSlice.reducer;

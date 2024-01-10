@@ -34,21 +34,21 @@ export default function BaseProductMeasurementForm({ onChangeHandler, formData, 
                 Change Unite feet/lb or cm/kg
             </p>
             <div className={styles.form__row}>
-                <Select
-                    options={height}
-                    name='height'
-                    value={formData?.height?.feet ?? 0}
+                <Input
+                    // options={height}
+                    name='feet'
+                    value={formData?.feet ?? 0}
                     label='Height/Feet'
                     onChange={onChangeHandler}
-                    error={errors?.height?.feet}
-                    
+                    error={errors?.feet}
+        
                 />
                 <Select
                     options={inches}
                     value=''
                     label='inch'
                     onChange={onChangeHandler}
-                    error={errors?.height?.inch}
+                    error={errors?.inch}
                 />
 
                 <Input
