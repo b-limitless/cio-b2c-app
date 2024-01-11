@@ -1,4 +1,4 @@
-export type IMeasurementUnite = 'inch' | 'cm';
+export type IMeasurementUnite = 'feet' | 'cm' | null;
 
 export type IMeasurementHeight = {
   //unite: IMeasurementUnite;
@@ -8,10 +8,11 @@ export type IMeasurementHeight = {
 
 export interface IMeasurementBase {
   fullName: string | null;
-  // height: IMeasurementHeight | null;
-  feet: number | null;
+  height: number | null;
   inch: number | null;
   weight: number | null;
   age:number | null;
+  unite: IMeasurementUnite;
+ 
 }
 

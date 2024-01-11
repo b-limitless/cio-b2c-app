@@ -5,23 +5,7 @@ import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 
 const state: IShirtMeasurement | IPantMeasurement = {
   fullName: '',
-  feet: null,
-  inch: null,
-  sleevLength: 0,
-  shoulderWidth: 0,
-  chestAround: 0,
-  stomach: 0,
-  bicepAround: 0,
-  torsoLength: 0,
-  hips: 0,
-  wrist: 0,
-  weight: 0,
-  age: 0,
-};
-
-const stateError: IShirtMeasurement | IPantMeasurement = {
-  fullName: null,
-  feet: null,
+  height: null,
   inch: null,
   sleevLength: null,
   shoulderWidth: null,
@@ -33,6 +17,24 @@ const stateError: IShirtMeasurement | IPantMeasurement = {
   wrist: null,
   weight: null,
   age: null,
+  unite: 'feet',
+};
+
+const stateError: IShirtMeasurement | IPantMeasurement = {
+  fullName: null,
+  height: null,
+  inch: null,
+  sleevLength: null,
+  shoulderWidth: null,
+  chestAround: null,
+  stomach: null,
+  bicepAround: null,
+  torsoLength: null,
+  hips: null,
+  wrist: null,
+  weight: null,
+  age: null,
+  unite: null,
 };
 
 interface IMeasurement {
@@ -82,10 +84,18 @@ const measurementSlice = createSlice({
         },
       };
     },
+    updateErrors: (state: IMeasurement, action: PayloadAction<IShirtMeasurement | IPantMeasurement>) => {
+      const {payload} = action;
+      return {
+        ...state,
+        errors: {
+          ...payload
+        }
+      }
+    },
   },
 });
 
-export const { updateMeasurementAction, updateMeasurementErrorAction } =
-  measurementSlice.actions;
+export const { updateMeasurementAction, updateMeasurementErrorAction } = measurementSlice.actions;
 
 export default measurementSlice.reducer;

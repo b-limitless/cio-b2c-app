@@ -31,8 +31,8 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
     const {data, errors} = useSelector((state:RootState) => state.measurment);
 
     const baseMeasurementForm = useMemo(() => {
-        const {fullName, feet, age, weight, inch} = data;
-        return {fullName, height, age, weight, feet, inch};
+        const {fullName, age, weight, inch, unite, height} = data;
+        return {fullName, height, age, weight, inch, unite};
     }, [data]);
 
     const shirtMeasurementForm = useMemo(() => {

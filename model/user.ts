@@ -1,4 +1,4 @@
-import { validDigit, validString } from 'regrex';
+import { validDigit, validString, validUnite } from 'regrex';
 
 export const user = {
   fullName: validString,
@@ -6,5 +6,7 @@ export const user = {
   weight: validDigit,
   age: validDigit,
   feet: validDigit,
-  inch: validDigit
+  inch: validDigit,
+  unite: validUnite,
+  cm: validDigit
 };

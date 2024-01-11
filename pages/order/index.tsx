@@ -46,12 +46,27 @@ export default function Order() {
     const dispatch = useDispatch();
 
     const nextStageHandler = () => {
+
+        // Need to validate the form if all of them are filled then only move to the next step
+        if(measurementJourney === 'measurement') {
+            // Make sure that the form is filled
+            const measurementError = {};
+
+            for(const [field, regrex] of Object.entries(user)) {
+                // @ts-ignore
+                if(!regrex.test(measurement.data[field])) {
+                    console.log(`Please fill ${field}`)
+                }
+            }
+
+        }
+        return;
+
         nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
     }
 
     const measurementOnChangeHandler = (e:any) => {
         const {name, value} = e.target;
-
         dispatch(updateMeasurementAction({key:name, value}))
         
     }
