@@ -26,7 +26,7 @@
 import Header from 'components/Header/Header';
 import { measurementNavigation } from 'config/product';
 import { OrderProcessType, OrderProcess, SelectionProcess, combinedTypes } from 'types/enums';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Measurement from './Measurement';
 import Shipping from './Shipping';
 import Payment from './Payment';
@@ -41,10 +41,13 @@ import { IMeasurementBase } from 'interface/IMeasurementBase';
 import { camelCaseToNormal } from 'functions/camelCaseToNormal';
 import { IPantMeasurement } from 'interface/IPantMeasurement';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
+import { isThereAnyError } from 'functions/isThereAnyError';
 
 export default function Order() {
     const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
     const measurement = useSelector((state:RootState) => state.measurment);
+    const {errors} = measurement;
+    const [shouldMoveToNextStep, setShouldMoveToNextStep] = useState<boolean>(false);
     const dispatch = useDispatch();
 
     const nextStageHandler = () => {
@@ -55,6 +58,7 @@ export default function Order() {
             const measurementError:any = {};
 
             for (const field of Object.keys(user) as Array<keyof (IShirtMeasurement | IPantMeasurement)>) {
+                if(measurement.data.unite === 'cm' && field === 'inch') continue;
                 // @ts-ignore
                 if(!user[field].test(measurement.data[field])) {
                     measurementError[field] = `${camelCaseToNormal(field)} is required`
@@ -64,10 +68,9 @@ export default function Order() {
                 
             }
             dispatch(updateErrors(measurementError));
+            setShouldMoveToNextStep(true);
 
         }
-        
-        //nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
     }
 
     const measurementOnChangeHandler = (e:any) => {
@@ -83,6 +86,14 @@ export default function Order() {
             dispatch(updateMeasurementErrorAction({key: name, value:  null}));
         }
     }
+
+    useEffect(() => {
+        if(!isThereAnyError(errors) && shouldMoveToNextStep) {
+            // Get the next step to move on
+            nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
+            setShouldMoveToNextStep(false);
+        }
+    }, [shouldMoveToNextStep, errors, measurementJourney])
 
 
 
