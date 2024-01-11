@@ -35,10 +35,12 @@ import { nextStage } from 'functions/nextStage';
 import { SelectionTypes } from 'types/enums';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
-import {updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
+import {updateErrors, updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
 import { user } from 'model/user';
 import { IMeasurementBase } from 'interface/IMeasurementBase';
 import { camelCaseToNormal } from 'functions/camelCaseToNormal';
+import { IPantMeasurement } from 'interface/IPantMeasurement';
+import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 
 export default function Order() {
     const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
@@ -50,19 +52,22 @@ export default function Order() {
         // Need to validate the form if all of them are filled then only move to the next step
         if(measurementJourney === 'measurement') {
             // Make sure that the form is filled
-            const measurementError = {};
+            const measurementError:any = {};
 
-            for(const [field, regrex] of Object.entries(user)) {
+            for (const field of Object.keys(user) as Array<keyof (IShirtMeasurement | IPantMeasurement)>) {
                 // @ts-ignore
-                if(!regrex.test(measurement.data[field])) {
-                    console.log(`Please fill ${field}`)
+                if(!user[field].test(measurement.data[field])) {
+                    measurementError[field] = `${camelCaseToNormal(field)} is required`
+                } else {
+                    measurementError[field] = null;
                 }
+                
             }
+            dispatch(updateErrors(measurementError));
 
         }
-        return;
-
-        nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
+        
+        //nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
     }
 
     const measurementOnChangeHandler = (e:any) => {

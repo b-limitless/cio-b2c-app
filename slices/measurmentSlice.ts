@@ -96,6 +96,6 @@ const measurementSlice = createSlice({
   },
 });
 
-export const { updateMeasurementAction, updateMeasurementErrorAction } = measurementSlice.actions;
+export const { updateMeasurementAction, updateMeasurementErrorAction, updateErrors } = measurementSlice.actions;
 
 export default measurementSlice.reducer;

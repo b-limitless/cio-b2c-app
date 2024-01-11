@@ -5,8 +5,6 @@ export const user = {
   height: validDigit,
   weight: validDigit,
   age: validDigit,
-  feet: validDigit,
   inch: validDigit,
   unite: validUnite,
-  cm: validDigit
 };
