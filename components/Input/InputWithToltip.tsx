@@ -6,35 +6,36 @@ import InfoIcon from '@mui/icons-material/Info';
 
 
 interface IInputWithTooltip {
-    label:string;
+    label: string;
     toltipText?: any;
-    toltip:boolean;
-    [x:string]:any;
+    toltip: boolean;
+    [x: string]: any;
 }
 
-const InputWithTooltip = ({label, toltipText, toltip, ...rest}: IInputWithTooltip) => {
-  return (
-    <TextField
-      {...rest}
-      label={label}
-      InputProps={{
-        endAdornment: (
-            <Tooltip
-            title={
-              <span>
-                This is a <a href='google.com'>custom</a> tooltip.
-              </span>
-            }
-            arrow
-          >
-            <IconButton size="small">
-              <InfoIcon />
-            </IconButton>
-          </Tooltip>
-        ),
-      }}
-    />
-  );
+const InputWithTooltip = ({ label, toltipText, toltip, ...rest }: IInputWithTooltip) => {
+    return (
+        <TextField
+            {...rest}
+            label={label}
+            InputProps={{
+                endAdornment: (
+                    <Tooltip
+                    sx={{fontFamily: 'Poppins'}}
+                        title={
+                            <span>
+                                {toltipText}
+                            </span>
+                        }
+                        arrow
+                    >
+                        <IconButton size="small">
+                            <InfoIcon />
+                        </IconButton>
+                    </Tooltip>
+                ),
+            }}
+        />
+    );
 };
 
 export default InputWithTooltip;
