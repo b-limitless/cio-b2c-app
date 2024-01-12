@@ -6,4 +6,5 @@ export interface IPantMeasurement extends IMeasurementBase{
     raise: number | null;
     hips:number | null;
     thigs:number | null;
+    
 }

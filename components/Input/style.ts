@@ -1,6 +1,9 @@
 import { colors } from "config/colors";
 
 export const style:any = {
+  "&.MuiTextField-root": {
+    minHeight:'78.90px'
+  },
   "&.MuiFormControl-root": {
     width: "100%"
   },

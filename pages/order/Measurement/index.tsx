@@ -1,29 +1,16 @@
 'use client';
-import { Button } from 'components/Button'
-import Input from 'components/Input'
-import Select from 'components/Select'
-import React, { useMemo, useState } from 'react';
+import { Button } from 'components/Button';
+import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 import Image from 'next/image';
-import styles from './measurement.module.scss';
-import { IMeasurementForm, OrderCommonInterface } from '../../../types/common.interface';
-import { nextStage } from 'functions/nextStage';
-import ProductShirt from './product/shirt';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { IShirtMeasurement } from 'interface/IShirtMeasurement';
+import { IMeasurementForm } from '../../../types/common.interface';
+import styles from './measurement.module.scss';
 import BaseProductMeasurementForm from './product/base';
-import { IMeasurementBase } from 'interface/IMeasurementBase';
-import { user } from 'model/user';
-import { updateMeasurementErrorAction } from 'slices/measurmentSlice';
-import { on } from 'events';
-const ages = [{ name: "0-18", value: "0-18" }];
-const height = [{ name: "5", value: "5" }];
+import ProductShirt from './product/shirt';
 
-const countEleven = new Array(10).fill(0);
 
-const inches = countEleven.map((item, i) => {
-    return { name: i }
-})
 
 
 export default function Measurement({ measurementJourney, setMeasurementJourney, nextStageHandler, onChangeHandler, onMouseLeaveEventHandler }: IMeasurementForm) {
@@ -43,10 +30,9 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
     }, [data]);
 
     const errorMeasurement = useMemo(() => {
-        const {fullName, age, weight, unite, height, inch, ...rest} = data;
-
+        const {fullName, age, weight, unite, height, inch, ...rest} = errors;
         return {...rest} as IShirtMeasurement;
-    }, [data]);
+    }, [errors]);
 
     
     
@@ -69,7 +55,6 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
                     />
                     <ProductShirt 
                         measurement={shirtMeasurementForm}
-                        onChange={() => {}}
                         errors={errorMeasurement}
                         onMouseLeaveEventHandler={onMouseLeaveEventHandler}
                         onChangeHandler={onChangeHandler ? onChangeHandler : () => {}}

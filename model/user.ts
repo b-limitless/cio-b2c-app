@@ -7,4 +7,5 @@ export const user = {
   age: validDigit,
   inch: validDigit,
   unite: validUnite,
+  neck: validDigit
 };
