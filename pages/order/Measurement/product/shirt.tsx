@@ -1,7 +1,7 @@
 import Input from 'components/Input';
-import styles from '../measurement.module.scss';
+import InputWithTooltip from 'components/Input/InputWithToltip';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
-import { IPantMeasurement } from 'interface/IPantMeasurement';
+import styles from '../measurement.module.scss';
 
 export const NumberInputField = ({ ...rest }) => {
     return <Input
@@ -19,7 +19,17 @@ interface IProductShirt {
     onChangeHandler: Function;
 }
 
+
+
+
 export default function ProductShirt({ errors, measurement, onMouseLeaveEventHandler, onChangeHandler }: IProductShirt) {
+
+    const longText = <span>Nullam eget est sed sem iaculis gravida eget vitae justo <a>Watch video</a></span>
+
+    const text = () => {
+        return <span> Nullam eget est sed sem iaculis gravida eget vitae justo <a href='google.com'>Watch video</a></span>
+    }
+
 
     return (
         <>
@@ -105,7 +115,15 @@ export default function ProductShirt({ errors, measurement, onMouseLeaveEventHan
                     onBlur={() => onMouseLeaveEventHandler('wrist', measurement.wrist)}
                     helperText={errors?.wrist}
                 />
+
             </div>
+            <div className={styles.form__row}>
+                {/* <InputIcon/>
+                <InputIcon/>
+                <InputIcon/> */}
+                <InputWithTooltip label='neck' toltip toltipText={longText}/>
+            </div>
+
 
 
         </>

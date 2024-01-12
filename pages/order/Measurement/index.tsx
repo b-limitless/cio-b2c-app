@@ -69,9 +69,9 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
             </div>
 
 
-            <div className={styles.video__guide}>
+            {/* <div className={styles.video__guide}>
                 <Image src='/img/video.png' width={1190} height={670} alt='' />
-            </div>
+            </div> */}
             <div className={styles.time__tape}>
                 <div className={styles.col}>
                     <Image src='/icon/time.svg' width={60} height={60} alt='time' />
