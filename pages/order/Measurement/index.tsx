@@ -15,6 +15,7 @@ import BaseProductMeasurementForm from './product/base';
 import { IMeasurementBase } from 'interface/IMeasurementBase';
 import { user } from 'model/user';
 import { updateMeasurementErrorAction } from 'slices/measurmentSlice';
+import { on } from 'events';
 const ages = [{ name: "0-18", value: "0-18" }];
 const height = [{ name: "5", value: "5" }];
 
@@ -26,7 +27,7 @@ const inches = countEleven.map((item, i) => {
 
 
 export default function Measurement({ measurementJourney, setMeasurementJourney, nextStageHandler, onChangeHandler, onMouseLeaveEventHandler }: IMeasurementForm) {
-    const modelType = useSelector((state:RootState) => state.modelType);
+    // const modelType = useSelector((state:RootState) => state.modelType);
 
     const {data, errors} = useSelector((state:RootState) => state.measurment);
 
@@ -36,9 +37,15 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
     }, [data]);
 
     const shirtMeasurementForm = useMemo(() => {
-        const {fullName, age, weight, ...rest} = data;
+        const {fullName, age, weight, unite, height, inch, ...rest} = data;
 
-        return {...rest};
+        return {...rest} as IShirtMeasurement;
+    }, [data]);
+
+    const errorMeasurement = useMemo(() => {
+        const {fullName, age, weight, unite, height, inch, ...rest} = data;
+
+        return {...rest} as IShirtMeasurement;
     }, [data]);
 
     
@@ -61,9 +68,11 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
                       onMouseLeaveEventHandler={onMouseLeaveEventHandler}
                     />
                     <ProductShirt 
-                        measurement={data}
+                        measurement={shirtMeasurementForm}
                         onChange={() => {}}
-                        errors={errors}
+                        errors={errorMeasurement}
+                        onMouseLeaveEventHandler={onMouseLeaveEventHandler}
+                        onChangeHandler={onChangeHandler ? onChangeHandler : () => {}}
                     />
                 </div>
 

@@ -9,6 +9,7 @@ export interface IShirtMeasurement extends IMeasurementBase {
   torsoLength: number | null;
   hips: number | null;
   wrist: number | null;
+  neck: number | null;
   // Add more properties as needed
 }
 

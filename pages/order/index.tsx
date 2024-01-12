@@ -35,7 +35,7 @@ import { nextStage } from 'functions/nextStage';
 import { SelectionTypes } from 'types/enums';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
-import {updateErrors, updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
+import { updateErrors, updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
 import { user } from 'model/user';
 import { IMeasurementBase } from 'interface/IMeasurementBase';
 import { camelCaseToNormal } from 'functions/camelCaseToNormal';
@@ -45,27 +45,27 @@ import { isThereAnyError } from 'functions/isThereAnyError';
 
 export default function Order() {
     const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
-    const measurement = useSelector((state:RootState) => state.measurment);
-    const {errors} = measurement;
+    const measurement = useSelector((state: RootState) => state.measurment);
+    const { errors } = measurement;
     const [shouldMoveToNextStep, setShouldMoveToNextStep] = useState<boolean>(false);
     const dispatch = useDispatch();
 
     const nextStageHandler = () => {
 
         // Need to validate the form if all of them are filled then only move to the next step
-        if(measurementJourney === 'measurement') {
+        if (measurementJourney === 'measurement') {
             // Make sure that the form is filled
-            const measurementError:any = {};
+            const measurementError: any = {};
 
             for (const field of Object.keys(user) as Array<keyof (IShirtMeasurement | IPantMeasurement)>) {
-                if(measurement.data.unite === 'cm' && field === 'inch') continue;
+                if (measurement.data.unite === 'cm' && field === 'inch') continue;
                 // @ts-ignore
-                if(!user[field].test(measurement.data[field])) {
+                if (!user[field].test(measurement.data[field])) {
                     measurementError[field] = `${camelCaseToNormal(field)} is required`
                 } else {
                     measurementError[field] = null;
                 }
-                
+
             }
             dispatch(updateErrors(measurementError));
             setShouldMoveToNextStep(true);
@@ -73,22 +73,22 @@ export default function Order() {
         }
     }
 
-    const measurementOnChangeHandler = (e:any) => {
-        const {name, value} = e.target;
-        dispatch(updateMeasurementAction({key:name, value}))
-        
+    const measurementOnChangeHandler = (e: any) => {
+        const { name, value } = e.target;
+        dispatch(updateMeasurementAction({ key: name, value }))
+
     }
 
     const onMouseLeaveEventHandler = (name: keyof IMeasurementBase, value: string) => {
-        if(!user[name]?.test(value)) {
-            dispatch(updateMeasurementErrorAction({key: name, value:  `${camelCaseToNormal(name, true)} is required`}));
+        if (!user[name]?.test(value)) {
+            dispatch(updateMeasurementErrorAction({ key: name, value: `${camelCaseToNormal(name, true)} is required` }));
         } else {
-            dispatch(updateMeasurementErrorAction({key: name, value:  null}));
+            dispatch(updateMeasurementErrorAction({ key: name, value: null }));
         }
     }
 
     useEffect(() => {
-        if(!isThereAnyError(errors) && shouldMoveToNextStep) {
+        if (!isThereAnyError(errors) && shouldMoveToNextStep) {
             // Get the next step to move on
             nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
             setShouldMoveToNextStep(false);
@@ -103,18 +103,18 @@ export default function Order() {
                 designJourney={measurementJourney}
                 setDesignJourney={setMeasurementJourney}
                 showNavigation />
-               {measurementJourney === OrderProcess.measurement &&
+            {measurementJourney === OrderProcess.measurement &&
                 <Measurement
                     measurementJourney={measurementJourney}
                     setMeasurementJourney={setMeasurementJourney}
-                    nextStageHandler={nextStageHandler} 
+                    nextStageHandler={nextStageHandler}
                     onChangeHandler={measurementOnChangeHandler}
                     onMouseLeaveEventHandler={onMouseLeaveEventHandler}
-                    
-                    />}
-            {measurementJourney === OrderProcess.shipping && <Shipping measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler}/>}
-            {measurementJourney === OrderProcess.payment_options && <Payment measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler}/>}
-            {measurementJourney === OrderProcess.order_completed && <OrderCompleted measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler}/>}
+
+                />}
+            {measurementJourney === OrderProcess.shipping && <Shipping measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
+            {measurementJourney === OrderProcess.payment_options && <Payment measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
+            {measurementJourney === OrderProcess.order_completed && <OrderCompleted measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
 
         </>
     )

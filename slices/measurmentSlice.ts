@@ -18,6 +18,7 @@ const state: IShirtMeasurement | IPantMeasurement = {
   weight: null,
   age: null,
   unite: 'feet',
+  neck: null
 };
 
 const stateError: IShirtMeasurement | IPantMeasurement = {
@@ -35,6 +36,7 @@ const stateError: IShirtMeasurement | IPantMeasurement = {
   weight: null,
   age: null,
   unite: null,
+  neck: null
 };
 
 interface IMeasurement {

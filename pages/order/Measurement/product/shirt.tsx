@@ -13,15 +13,26 @@ export const NumberInputField = ({ ...rest }) => {
 
 interface IProductShirt {
     onChange: Function;
-    measurement: IShirtMeasurement | IPantMeasurement;
-    errors: IShirtMeasurement | IPantMeasurement;
+    measurement: IShirtMeasurement;
+    errors: IShirtMeasurement;
+    onMouseLeaveEventHandler:Function;
+    onChangeHandler: Function;
 }
 
-export default function ProductShirt({ measurement }: IProductShirt) {
+export default function ProductShirt({errors, measurement, onMouseLeaveEventHandler, onChangeHandler }: IProductShirt) {
+    console.log('measurment', measurement)
     return (
         <>
             <div className={styles.form__row}>
-                <NumberInputField name='neck' label='Neck' />
+                <NumberInputField 
+                name='neck' 
+                label='Neck' 
+                onChange={(e: any) => onChangeHandler(e)}
+                value={measurement?.neck ?? ''}
+                error={errors?.neck}
+                onBlur={() => onMouseLeaveEventHandler('neck', measurement.neck)}
+                helperText={errors?.neck}
+                />
                 <NumberInputField name='sleevLenength' label='Sleev Length' />
                 <NumberInputField name='solderWidth' label='Solder Width' />
 
