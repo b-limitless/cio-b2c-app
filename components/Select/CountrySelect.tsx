@@ -3,10 +3,15 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function CountrySelect() {
+interface ICountrySelect {
+    value: any;
+    set: any;
+}
+
+export default function CountrySelect({value, set}: ICountrySelect) {
     return (
         <Autocomplete
-            id="country-select-demo"
+            id="Country-select-demo"
             sx={{ width: '100%', fontFamily: 'Poppins' }}
             options={countries}
             autoHighlight
@@ -28,10 +33,9 @@ export default function CountrySelect() {
                 let code = 'ae';
 
                 if (params?.inputProps?.value) {
-                    code = countries.filter((country) => country.label === params?.inputProps?.value)[0]['code'].toLowerCase();
+                    code = countries.filter((country) => country.label === params?.inputProps?.value)?.[0]?.['code'].toLowerCase();
                 }
-                console.log('code', code);
-
+                
                 return <TextField
                     {...params}
                     label={'selecte country'}
@@ -58,6 +62,9 @@ export default function CountrySelect() {
                     }}
                 />
             }}
+            value={value}
+            onChange={set}
+            
         />
     );
 }
