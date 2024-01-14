@@ -1,4 +1,6 @@
-export const shirtMeasurementGuide = {
+import React from "react";
+
+export const shirtMeasurementGuide:any = {
   sleeveLength: {
     label: 'Sleeve Length',
     placeholder: 'Enter sleeve length measurement',
@@ -59,3 +61,14 @@ export const shirtMeasurementGuide = {
     instructions: 'For a visual guide, watch our video on how to take shirt measurements.',
   },
 };
+
+const howToMeasureBodyParts:any = {
+  neck: 'https://youtube.com'
+}
+
+// for(let [key, value] of Object.entries(shirtMeasurementGuide)) {
+//   shirtMeasurementGuide[key].instruction = <span></span>;
+// }
+
+// Add video for each instruction
+

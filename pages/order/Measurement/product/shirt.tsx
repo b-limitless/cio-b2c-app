@@ -2,12 +2,25 @@ import Input from 'components/Input';
 import InputWithTooltip from 'components/Input/InputWithToltip';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 import styles from '../measurement.module.scss';
+import { IInputWithTooltip } from 'components/Input/input.interface';
+import { shirtMeasurementGuide } from 'guide/shirt-measurement';
 
+interface INumberInputFieldWithToltip extends IInputWithTooltip {
+
+}
 export const NumberInputField = ({ ...rest }) => {
     return <Input
         {...rest}
         type='number'
     // error={true}
+    />;
+}
+export const NumberInputFieldWithToltip = ({toltip, toltipText, ...rest }:INumberInputFieldWithToltip) => {
+    return <InputWithTooltip
+        toltip={toltip}
+        toltipText={toltipText}
+        {...rest}
+        type='number'
     />;
 }
 
@@ -23,15 +36,10 @@ interface IProductShirt {
 
 
 export default function ProductShirt({ errors, measurement, onMouseLeaveEventHandler, onChangeHandler }: IProductShirt) {
-
-    const LongText = <span>Nullam eget est sed sem iaculis gravida eget vitae justo <a href='google.com'>Watch video</a></span>
-
-   
-
     return (
         <>
             <div className={styles.form__row}>
-                <NumberInputField
+                <NumberInputFieldWithToltip
 
                     name='neck'
                     label='Neck'
@@ -40,8 +48,10 @@ export default function ProductShirt({ errors, measurement, onMouseLeaveEventHan
                     error={errors?.neck}
                     onBlur={() => onMouseLeaveEventHandler('neck', measurement.neck)}
                     helperText={errors?.neck}
+                    toltip
+                    toltipText={<span>{shirtMeasurementGuide.neck.instructions} <a href='#'>Watch video</a></span>}
                 />
-                <NumberInputField
+                <NumberInputFieldWithToltip
                     name='sleevLenength'
                     label='Sleev Length'
                     onChange={(e: any) => onChangeHandler(e)}
@@ -49,34 +59,44 @@ export default function ProductShirt({ errors, measurement, onMouseLeaveEventHan
                     error={errors?.sleevLength}
                     onBlur={() => onMouseLeaveEventHandler('sleevLength', measurement.sleevLength)}
                     helperText={errors?.sleevLength}
+                    toltip
+                    toltipText={<span>{shirtMeasurementGuide.sleeveLength.instructions} <a href='#'>Watch video</a></span>}
                 />
-                <NumberInputField name='shoulderWidth'
+                <NumberInputFieldWithToltip 
+                   name='shoulderWidth'
                     label='Solder Width'
                     onChange={(e: any) => onChangeHandler(e)}
                     value={measurement?.shoulderWidth ?? ''}
                     error={errors?.shoulderWidth}
                     onBlur={() => onMouseLeaveEventHandler('shoulderWidth', measurement.shoulderWidth)}
                     helperText={errors?.shoulderWidth}
+                    toltip
+                    toltipText={<span>{shirtMeasurementGuide.shoulderWidth.instructions} <a href='#'>Watch video</a></span>}
                 />
 
             </div>
             <div className={styles.form__row}>
-                <NumberInputField name='chestAround'
+                <NumberInputFieldWithToltip name='chestAround'
                     label='Chest Around'
                     onChange={(e: any) => onChangeHandler(e)}
                     value={measurement?.chestAround ?? ''}
                     error={errors?.chestAround}
                     onBlur={() => onMouseLeaveEventHandler('chestAround', measurement.chestAround)}
                     helperText={errors?.chestAround}
+                    toltip
+                    toltipText={<span>{shirtMeasurementGuide.chestAround.instructions} <a href='#'>Watch video</a></span>}
                 />
-                <NumberInputField
+                <NumberInputFieldWithToltip
                     name='stomach'
                     label='Stomatch'
                     value={measurement?.stomach ?? ''}
                     error={errors?.stomach}
                     onBlur={() => onMouseLeaveEventHandler('stomach', measurement.stomach)}
                     helperText={errors?.stomach}
+                    toltip
+                    toltipText={<span>{shirtMeasurementGuide.stomach.instructions} <a href='#'>Watch video</a></span>}
                 />
+                {/* Add rest of the component with NumberInputFieldWithToltip if required overally functionality will be get affected*/}
                 <NumberInputField
                     name='bicepAround'
                     label='Bicep Around'
@@ -118,7 +138,7 @@ export default function ProductShirt({ errors, measurement, onMouseLeaveEventHan
                 {/* <InputIcon/>
                 <InputIcon/>
                 <InputIcon/> */}
-                <InputWithTooltip label='neck' toltip toltipText={LongText}/>
+                {/* <InputWithTooltip label='neck' toltip toltipText={LongText}/> */}
             </div>
 
 
