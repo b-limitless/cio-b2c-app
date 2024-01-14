@@ -52,7 +52,7 @@ export default function ProductShirt({ errors, measurement, onMouseLeaveEventHan
                     toltipText={<span>{shirtMeasurementGuide.neck.instructions} <a href='#'>Watch video</a></span>}
                 />
                 <NumberInputFieldWithToltip
-                    name='sleevLenength'
+                    name='sleevLength'
                     label='Sleev Length'
                     onChange={(e: any) => onChangeHandler(e)}
                     value={measurement?.sleevLength ?? ''}
@@ -88,7 +88,8 @@ export default function ProductShirt({ errors, measurement, onMouseLeaveEventHan
                 />
                 <NumberInputFieldWithToltip
                     name='stomach'
-                    label='Stomatch'
+                    label='Stomach'
+                    onChange={(e: any) => onChangeHandler(e)}
                     value={measurement?.stomach ?? ''}
                     error={errors?.stomach}
                     onBlur={() => onMouseLeaveEventHandler('stomach', measurement.stomach)}
@@ -99,6 +100,7 @@ export default function ProductShirt({ errors, measurement, onMouseLeaveEventHan
                 {/* Add rest of the component with NumberInputFieldWithToltip if required overally functionality will be get affected*/}
                 <NumberInputField
                     name='bicepAround'
+                    onChange={(e: any) => onChangeHandler(e)}
                     label='Bicep Around'
                     value={measurement?.bicepAround ?? ''}
                     error={errors?.bicepAround}
@@ -109,6 +111,7 @@ export default function ProductShirt({ errors, measurement, onMouseLeaveEventHan
             </div>
             <div className={styles.form__row}>
                 <NumberInputField
+                   onChange={(e: any) => onChangeHandler(e)}
                     name='torsoLength'
                     label='Troso Length'
                     value={measurement?.torsoLength ?? ''}
@@ -117,6 +120,7 @@ export default function ProductShirt({ errors, measurement, onMouseLeaveEventHan
                     helperText={errors?.torsoLength}
                 />
                 <NumberInputField 
+                onChange={(e: any) => onChangeHandler(e)}
                 name='hips' 
                 label='Hips' 
                 value={measurement?.hips ?? ''}
@@ -125,6 +129,7 @@ export default function ProductShirt({ errors, measurement, onMouseLeaveEventHan
                 helperText={errors?.hips}
                 />
                 <NumberInputField 
+                   onChange={(e: any) => onChangeHandler(e)}
                     name='wrist' 
                     label='Wrist' 
                     value={measurement?.wrist ?? ''}

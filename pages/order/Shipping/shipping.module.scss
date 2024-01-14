@@ -7,9 +7,17 @@
   flex-direction: column;
   row-gap: 1rem;
 
-  .form__row {
+  .form__row, .form__row_col_1_2  {
     display: flex;
     column-gap: 1rem;
+  }
+
+  .form__row_col_1_2 > :first-child {
+    
+    flex:1
+  }
+  .form__row_col_1_2 > :last-child {
+    flex:3
   }
 
   .form__row:last-child {

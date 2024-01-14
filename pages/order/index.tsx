@@ -44,7 +44,7 @@ import { isThereAnyError } from 'functions/isThereAnyError';
 import { userAndShirtMeasurement } from 'model/user';
 
 export default function Order() {
-    const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
+    const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('shipping');
     const measurement = useSelector((state: RootState) => state.measurment);
     const { errors } = measurement;
     const [shouldMoveToNextStep, setShouldMoveToNextStep] = useState<boolean>(false);
