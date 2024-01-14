@@ -1,6 +1,6 @@
 /**
  * This component will basically take the information which is store in the redux store
- * along with different infomration such as carts items, user authenticated token
+ * along with different infomration such as carts items, userAndShirtMeasurement authenticated token
  * For now we do not have authenticated system for this app since we are under process of developing
  * This component is classified in different parts
  * 
@@ -10,7 +10,7 @@
  * 4. Order completed
  * 
  * 1. Measurement
- *    Will colleted the information about the user measurement check the interface
+ *    Will colleted the information about the userAndShirtMeasurement measurement check the interface
  * 2. Shipping
  *    Will contain information about the shipping details and billing information
  * 3. Payment
@@ -20,7 +20,7 @@
  * 
  * State Management
  * Using local state management in this component because we are not using this information in any other router except this
- * Perhaps this is the last component in this user purchasing journey therefore we already have other information from cart, customized route
+ * Perhaps this is the last component in this userAndShirtMeasurement purchasing journey therefore we already have other information from cart, customized route
  * Which is stored in redux store and we can access then in this component if needed
  * **/
 import Header from 'components/Header/Header';
@@ -36,12 +36,12 @@ import { SelectionTypes } from 'types/enums';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
 import { updateErrors, updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
-import { user } from 'model/user';
 import { IMeasurementBase } from 'interface/IMeasurementBase';
 import { camelCaseToNormal } from 'functions/camelCaseToNormal';
 import { IPantMeasurement } from 'interface/IPantMeasurement';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 import { isThereAnyError } from 'functions/isThereAnyError';
+import { userAndShirtMeasurement } from 'model/user';
 
 export default function Order() {
     const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
@@ -57,10 +57,10 @@ export default function Order() {
             // Make sure that the form is filled
             const measurementError: any = {};
 
-            for (const field of Object.keys(user) as Array<keyof (IShirtMeasurement | IPantMeasurement)>) {
+            for (const field of Object.keys(userAndShirtMeasurement) as Array<keyof (IShirtMeasurement | IPantMeasurement)>) {
                 if (measurement.data.unite === 'cm' && field === 'inch') continue;
                 // @ts-ignore
-                if (!user[field].test(measurement.data[field])) {
+                if (!userAndShirtMeasurement[field].test(measurement.data[field])) {
                     measurementError[field] = `${camelCaseToNormal(field)} is required`
                 } else {
                     measurementError[field] = null;
@@ -81,7 +81,7 @@ export default function Order() {
     }
 
     const onMouseLeaveEventHandler = (name: keyof IMeasurementBase, value: string) => {
-        if (!user[name]?.test(value)) {
+        if (!userAndShirtMeasurement[name]?.test(value)) {
             dispatch(updateMeasurementErrorAction({ key: name, value: `${camelCaseToNormal(name, true)} is required` }));
         } else {
             dispatch(updateMeasurementErrorAction({ key: name, value: null }));

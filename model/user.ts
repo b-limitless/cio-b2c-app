@@ -7,5 +7,22 @@ export const user = {
   age: validDigit,
   inch: validDigit,
   unite: validUnite,
-  neck: validDigit
+  neck: validDigit,
 };
+
+export const shirtMeasurement = {
+  sleevLength: validDigit,
+  shoulderWidth: validDigit,
+  chestAround: validDigit,
+  stomach: validDigit,
+  bicepAround: validDigit,
+  torsoLength: validDigit,
+  hips: validDigit,
+  wrist: validDigit,
+  neck: validDigit,
+};
+
+export const userAndShirtMeasurement = {
+  ...user,
+  ...shirtMeasurement
+}
