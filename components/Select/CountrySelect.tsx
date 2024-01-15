@@ -7,13 +7,14 @@ import Image from 'next/image';
 interface ICountrySelect {
     value: any;
     set: any;
+    [x:string]:any
 }
 
-export default function CountrySelect({value, set}: ICountrySelect) {
+export default function CountrySelect({value, set, ...rest}: ICountrySelect) {
     return (
         <Autocomplete
             id="Country-select-demo"
-            sx={{ width: '100%', fontFamily: 'Poppins' }}
+            sx={{ width: '100%', fontFamily: 'Poppins', ...rest.sx }}
             options={countries}
             autoHighlight
             getOptionLabel={(option) => option.label}

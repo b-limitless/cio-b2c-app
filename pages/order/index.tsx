@@ -46,7 +46,8 @@ import { userAndShirtMeasurement } from 'model/user';
 export default function Order() {
     const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('shipping');
     const measurement = useSelector((state: RootState) => state.measurment);
-    const { errors } = measurement;
+    // const shipping = useSelector((state: RootState) => state.);
+    const { errors:errorsMeasurement } = measurement;
     const [shouldMoveToNextStep, setShouldMoveToNextStep] = useState<boolean>(false);
     const dispatch = useDispatch();
 
@@ -89,12 +90,14 @@ export default function Order() {
     }
 
     useEffect(() => {
-        if (!isThereAnyError(errors) && shouldMoveToNextStep) {
+        if (!isThereAnyError(errorsMeasurement) && shouldMoveToNextStep) {
             // Get the next step to move on
             nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
             setShouldMoveToNextStep(false);
         }
-    }, [shouldMoveToNextStep, errors, measurementJourney])
+    }, [shouldMoveToNextStep, errorsMeasurement, measurementJourney]);
+
+
 
 
 
@@ -113,7 +116,12 @@ export default function Order() {
                     onMouseLeaveEventHandler={onMouseLeaveEventHandler}
 
                 />}
-            {measurementJourney === OrderProcess.shipping && <Shipping measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
+            {measurementJourney === OrderProcess.shipping && 
+             <Shipping 
+             measurementJourney={measurementJourney} 
+             setMeasurementJourney={setMeasurementJourney} 
+             nextStageHandler={nextStageHandler} 
+             />}
             {measurementJourney === OrderProcess.payment_options && <Payment measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
             {measurementJourney === OrderProcess.order_completed && <OrderCompleted measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
 

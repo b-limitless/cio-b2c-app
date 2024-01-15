@@ -14,7 +14,7 @@ export default function Shipping({ measurementJourney, setMeasurementJourney, ne
     code: 'AE',
     label: 'United Arab Emirates',
     phone: '971',
-  })
+  });
 
   const handleOptionChange = (event: any, value: any) => {
     setSelectedCountry(value);
@@ -24,6 +24,13 @@ export default function Shipping({ measurementJourney, setMeasurementJourney, ne
   return (
     <FormTemplate>
       <div className={styles.shipping}>
+      <div className={styles.form__row}>
+          <CountrySelect
+            value={selectedCountry}
+            set={handleOptionChange}
+            sx={{minHeight: '78.9px'}}
+          />
+        </div>
         <div className={styles.form__row}>
           <Input label='First Name' />
           <Input label='Last Name' />
@@ -44,19 +51,7 @@ export default function Shipping({ measurementJourney, setMeasurementJourney, ne
           <Input label='State' />
           <Input label='Post/Zip' />
         </div>
-        <div className={styles.form__row}>
-          <CountrySelect
-            value={selectedCountry}
-            set={handleOptionChange}
-          />
-          {/* <Select
-            options={countries}
-            value={''}
-            label={'Country'}
-            onChange={() => { }}
-            id='1'
-          /> */}
-        </div>
+        
         <div className={styles.form__row}>
           <Input label='Email address' type='email' />
 
