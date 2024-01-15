@@ -5,12 +5,13 @@ import TextField from '@mui/material/TextField';
 import Image from 'next/image';
 
 interface ICountrySelect {
+    label:string;
     value: any;
     set: any;
     [x:string]:any
 }
 
-export default function CountrySelect({value, set, ...rest}: ICountrySelect) {
+export default function CountrySelect({value, set, label, ...rest}: ICountrySelect) {
     return (
         <Autocomplete
             id="Country-select-demo"
@@ -41,7 +42,7 @@ export default function CountrySelect({value, set, ...rest}: ICountrySelect) {
                 
                 return <TextField
                     {...params}
-                    label={'selecte country'}
+                    label={label}
                     inputProps={{
                         ...params.inputProps,
                         autoComplete: 'new-password', // disable autocomplete and autofill

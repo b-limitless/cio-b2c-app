@@ -5,10 +5,15 @@ import Select from 'components/Select';
 import { Button } from 'components/Button';
 import { countries } from 'config/countries';
 import FormTemplate from '../template/form';
-import { OrderCommonInterface } from '../../../types/common.interface';
+import { IShippingFrom, OrderCommonInterface } from '../../../types/common.interface';
 import CountrySelect from 'components/Select/CountrySelect';
 
-export default function Shipping({ measurementJourney, setMeasurementJourney, nextStageHandler }: OrderCommonInterface) {
+export default function Shipping({ measurementJourney, 
+                                   setMeasurementJourney, 
+                                   nextStageHandler, 
+                                   shipping, 
+                                   onMouseLeaveEventHandler, 
+                                   onChangeHandler }: IShippingFrom) {
   // This state is needed for the select component 
   const [selectedCountry, setSelectedCountry] = useState<any>({
     code: 'AE',
@@ -29,10 +34,19 @@ export default function Shipping({ measurementJourney, setMeasurementJourney, ne
             value={selectedCountry}
             set={handleOptionChange}
             sx={{minHeight: '78.9px'}}
+            name='country'
+            label='Select country'
           />
         </div>
         <div className={styles.form__row}>
-          <Input label='First Name' />
+          <Input label='First Name' 
+          name='firstName'
+          value={shipping.data.firstName}
+          onChange={onChangeHandler}
+          error={shipping.errors?.firstName}
+          helperText={shipping.errors?.firstName}
+          onBlur={() => onMouseLeaveEventHandler('firstName', shipping.data.firstName)}
+          />
           <Input label='Last Name' />
         </div>
         <div className={styles.form__row}>

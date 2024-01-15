@@ -42,10 +42,13 @@ import { IPantMeasurement } from 'interface/IPantMeasurement';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 import { isThereAnyError } from 'functions/isThereAnyError';
 import { userAndShirtMeasurement } from 'model/user';
+import { IShipping, updateShippingAction, updateShippingErrorAction } from 'slices/shippingSlice';
+import { ShippingModel } from 'model/shipping';
 
 export default function Order() {
     const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('shipping');
     const measurement = useSelector((state: RootState) => state.measurment);
+    const shipping = useSelector((state: RootState) => state.shipping);
     // const shipping = useSelector((state: RootState) => state.);
     const { errors:errorsMeasurement } = measurement;
     const [shouldMoveToNextStep, setShouldMoveToNextStep] = useState<boolean>(false);
@@ -81,13 +84,27 @@ export default function Order() {
 
     }
 
-    const onMouseLeaveEventHandler = (name: keyof IMeasurementBase, value: string) => {
+    const onMouseLeaveEventHandlerMeasurement = (name: keyof IMeasurementBase, value: string) => {
         if (!userAndShirtMeasurement[name]?.test(value)) {
             dispatch(updateMeasurementErrorAction({ key: name, value: `${camelCaseToNormal(name, true)} is required` }));
         } else {
             dispatch(updateMeasurementErrorAction({ key: name, value: null }));
         }
     }
+
+    const onMouseLeaveEventHandlerShipping = (name: keyof IShipping, value: string) => {
+        if (!ShippingModel[name]?.test(value)) {
+            dispatch(updateShippingErrorAction({ key: name, value: `${camelCaseToNormal(name, true)} is required` }));
+        } else {
+            dispatch(updateShippingErrorAction({ key: name, value: null }));
+        }
+    }
+
+    const onChangeHandlerShipping = (e:any) => {
+        const { name, value } = e.target;
+        dispatch(updateShippingAction({ key: name, value }))
+    }
+    
 
     useEffect(() => {
         if (!isThereAnyError(errorsMeasurement) && shouldMoveToNextStep) {
@@ -96,9 +113,6 @@ export default function Order() {
             setShouldMoveToNextStep(false);
         }
     }, [shouldMoveToNextStep, errorsMeasurement, measurementJourney]);
-
-
-
 
 
     return (
@@ -113,7 +127,7 @@ export default function Order() {
                     setMeasurementJourney={setMeasurementJourney}
                     nextStageHandler={nextStageHandler}
                     onChangeHandler={measurementOnChangeHandler}
-                    onMouseLeaveEventHandler={onMouseLeaveEventHandler}
+                    onMouseLeaveEventHandler={onMouseLeaveEventHandlerMeasurement}
 
                 />}
             {measurementJourney === OrderProcess.shipping && 
@@ -121,6 +135,10 @@ export default function Order() {
              measurementJourney={measurementJourney} 
              setMeasurementJourney={setMeasurementJourney} 
              nextStageHandler={nextStageHandler} 
+             shipping={shipping}
+             onMouseLeaveEventHandler={onMouseLeaveEventHandlerShipping}
+             onChangeHandler={onChangeHandlerShipping}
+             
              />}
             {measurementJourney === OrderProcess.payment_options && <Payment measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
             {measurementJourney === OrderProcess.order_completed && <OrderCompleted measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}

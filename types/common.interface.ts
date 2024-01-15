@@ -1,3 +1,4 @@
+import { IShippingState } from "slices/shippingSlice";
 import { OrderProcessType } from "types/enums";
 
 export interface Base {
@@ -14,4 +15,8 @@ export interface IMeasurementForm extends OrderCommonInterface {
   onChangeHandler?:Function;
   onMouseLeaveEventHandler: Function;
   
+}
+
+export interface IShippingFrom extends OrderCommonInterface {
+  shipping: IShippingState
 }
