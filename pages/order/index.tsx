@@ -36,7 +36,7 @@ import { userAndShirtMeasurement } from 'model/user';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateErrors, updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
-import { IShipping, updateShippingAction, updateShippingErrorAction } from 'slices/shippingSlice';
+import { IShipping, updateShippingAction, updateShippingErrorAction, updateShippingWholeError } from 'slices/shippingSlice';
 import { RootState } from 'store';
 import { OrderProcess, combinedTypes } from 'types/enums';
 import OrderCompleted from './Completed';
@@ -59,6 +59,10 @@ export default function Order() {
     const [shouldMoveToNextStep, setShouldMoveToNextStep] = useState<boolean>(false);
     const dispatch = useDispatch();
 
+    function nextStageErrorHandler (){
+
+    }
+
     const nextStageHandler = () => {
 
         // Need to validate the form if all of them are filled then only move to the next step
@@ -77,8 +81,36 @@ export default function Order() {
 
             }
             dispatch(updateErrors(measurementError));
-            setShouldMoveToNextStep(true);
+            if(!isThereAnyError(measurementError)) {
+                nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
+                setShouldMoveToNextStep(true);
+           }
+            
 
+        }
+
+        // If the process is under shipping stage
+        if(measurementJourney === 'shipping') {
+            // Make sure that the form is filled
+            const measurementError: any = {};
+
+            for (const field of Object.keys(shippingModel) as Array<keyof (IShipping)>) {
+                
+                // @ts-ignore
+                if (!shippingModel[field].test(shipping.data[field])) {
+                    measurementError[field] = `${camelCaseToNormal(field)} is required`
+                } else {
+                    measurementError[field] = null;
+                }
+
+            }
+            dispatch(updateShippingWholeError(measurementError));
+
+            if(!isThereAnyError(measurementError)) {
+                 nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
+                 setShouldMoveToNextStep(true);
+            }
+            
         }
     }
 
@@ -117,13 +149,13 @@ export default function Order() {
     };
     
 
-    useEffect(() => {
-        if (!isThereAnyError(errorsMeasurement) && shouldMoveToNextStep) {
-            // Get the next step to move on
-            nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
-            setShouldMoveToNextStep(false);
-        }
-    }, [shouldMoveToNextStep, errorsMeasurement, measurementJourney]);
+    // useEffect(() => {
+    //     if (!isThereAnyError(errorsMeasurement) && shouldMoveToNextStep) {
+    //         // Get the next step to move on
+    //         nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
+    //         setShouldMoveToNextStep(false);
+    //     }
+    // }, [shouldMoveToNextStep, errorsMeasurement, measurementJourney]);
 
 
     return (

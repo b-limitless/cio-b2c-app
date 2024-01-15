@@ -19,4 +19,6 @@ export interface IMeasurementForm extends OrderCommonInterface {
 
 export interface IShippingFrom extends IMeasurementForm {
   shipping: IShippingState
+  handleOptionChange:Function;
+  selectedCountry:string;
 }
