@@ -30,7 +30,7 @@ const initialState: IShippingState = {
     lastName: '',
     addressLine1: '',
     addressLine2: null,
-    state: null,
+    state: '',
     postalCode: '',
     country: 'ae',
     phoneNumber: '',
