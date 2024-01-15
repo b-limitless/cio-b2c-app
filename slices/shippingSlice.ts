@@ -11,6 +11,7 @@ export interface IShipping {
   country: string | null;
   phoneNumber: string | null;
   countryCode: string | null;
+  email: string | null;
 }
 
 export interface IShippingState {
@@ -25,16 +26,17 @@ export interface IPayloadShipping {
 
 const initialState: IShippingState = {
   data: {
-    firstName: null,
-    lastName: null,
-    addressLine1: null,
+    firstName: '',
+    lastName: '',
+    addressLine1: '',
     addressLine2: null,
     state: null,
-    postalCode: null,
-    country: null,
-    phoneNumber: null,
-    countryCode: null,
-    city: null,
+    postalCode: '',
+    country: 'ae',
+    phoneNumber: '',
+    countryCode: '+971',
+    city: '',
+    email:''
   },
   errors: {
     firstName: null,
@@ -47,6 +49,7 @@ const initialState: IShippingState = {
     phoneNumber: null,
     countryCode: null,
     city: null,
+    email:null
   },
 };
 

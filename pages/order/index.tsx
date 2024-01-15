@@ -25,25 +25,24 @@
  * **/
 import Header from 'components/Header/Header';
 import { measurementNavigation } from 'config/product';
-import { OrderProcessType, OrderProcess, SelectionProcess, combinedTypes } from 'types/enums';
-import { useEffect, useState } from 'react';
-import Measurement from './Measurement';
-import Shipping from './Shipping';
-import Payment from './Payment';
-import OrderCompleted from './Completed';
-import { nextStage } from 'functions/nextStage';
-import { SelectionTypes } from 'types/enums';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'store';
-import { updateErrors, updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
-import { IMeasurementBase } from 'interface/IMeasurementBase';
 import { camelCaseToNormal } from 'functions/camelCaseToNormal';
+import { isThereAnyError } from 'functions/isThereAnyError';
+import { nextStage } from 'functions/nextStage';
+import { IMeasurementBase } from 'interface/IMeasurementBase';
 import { IPantMeasurement } from 'interface/IPantMeasurement';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
-import { isThereAnyError } from 'functions/isThereAnyError';
+import { shippingModel } from 'model/shipping';
 import { userAndShirtMeasurement } from 'model/user';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateErrors, updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
 import { IShipping, updateShippingAction, updateShippingErrorAction } from 'slices/shippingSlice';
-import { ShippingModel } from 'model/shipping';
+import { RootState } from 'store';
+import { OrderProcess, combinedTypes } from 'types/enums';
+import OrderCompleted from './Completed';
+import Measurement from './Measurement';
+import Payment from './Payment';
+import Shipping from './Shipping';
 
 export default function Order() {
     const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('shipping');
@@ -93,7 +92,9 @@ export default function Order() {
     }
 
     const onMouseLeaveEventHandlerShipping = (name: keyof IShipping, value: string) => {
-        if (!ShippingModel[name]?.test(value)) {
+        console.log('invalid ', name, value)
+        if (!shippingModel[name]?.test(value)) {
+            
             dispatch(updateShippingErrorAction({ key: name, value: `${camelCaseToNormal(name, true)} is required` }));
         } else {
             dispatch(updateShippingErrorAction({ key: name, value: null }));

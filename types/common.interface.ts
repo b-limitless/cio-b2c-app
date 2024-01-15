@@ -17,6 +17,6 @@ export interface IMeasurementForm extends OrderCommonInterface {
   
 }
 
-export interface IShippingFrom extends OrderCommonInterface {
+export interface IShippingFrom extends IMeasurementForm {
   shipping: IShippingState
 }

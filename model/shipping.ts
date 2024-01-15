@@ -1,6 +1,6 @@
-import { validString } from 'regrex';
+import { emailRegex, validString } from 'regrex';
 
-export const ShippingModel = {
+export const shippingModel = {
   firstName: validString,
   lastName: validString,
   addressLine1: validString,
@@ -11,4 +11,5 @@ export const ShippingModel = {
   country: validString,
   phoneNumber: validString,
   countryCode: validString,
+  email:emailRegex
 };
