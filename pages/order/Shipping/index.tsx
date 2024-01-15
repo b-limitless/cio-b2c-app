@@ -9,6 +9,7 @@ import { OrderCommonInterface } from '../../../types/common.interface';
 import CountrySelect from 'components/Select/CountrySelect';
 
 export default function Shipping({ measurementJourney, setMeasurementJourney, nextStageHandler }: OrderCommonInterface) {
+  // This state is needed for the select component 
   const [selectedCountry, setSelectedCountry] = useState<any>({
     code: 'AE',
     label: 'United Arab Emirates',
@@ -16,10 +17,8 @@ export default function Shipping({ measurementJourney, setMeasurementJourney, ne
   })
 
   const handleOptionChange = (event: any, value: any) => {
-    console.log('value', value)
     setSelectedCountry(value);
-    // You can also store the selected option in local storage or any other storage mechanism
-    // localStorage.setItem('selectedOption', JSON.stringify(value));
+    // dispatch only code to the redux store
   };
 
   return (
@@ -30,7 +29,10 @@ export default function Shipping({ measurementJourney, setMeasurementJourney, ne
           <Input label='Last Name' />
         </div>
         <div className={styles.form__row}>
-          <Input label='Street address, house/apartement/unit*' />
+          <Input label='Street address, house/apartement/unit*' name='addressLine1'/>
+        </div>
+        <div className={styles.form__row}>
+          <Input label='Address line 2' name='addressLine2'/>
         </div>
 
         <div className={styles.form__row_col_1_2}>
@@ -39,7 +41,7 @@ export default function Shipping({ measurementJourney, setMeasurementJourney, ne
         </div>
         <div className={styles.form__row}>
           <Input label='Town/City' />
-          <Input label='Town/City' />
+          <Input label='State' />
           <Input label='Post/Zip' />
         </div>
         <div className={styles.form__row}>

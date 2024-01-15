@@ -2,6 +2,7 @@ import { IconButton } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Image from 'next/image';
 
 interface ICountrySelect {
     value: any;
@@ -18,10 +19,11 @@ export default function CountrySelect({value, set}: ICountrySelect) {
             getOptionLabel={(option) => option.label}
             renderOption={(props, option) => (
                 <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                    <img
+                    <Image
                         loading="lazy"
                         width="20"
-                        srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                        height="10"
+                        // srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
                         src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
                         alt=""
                     />
@@ -30,7 +32,7 @@ export default function CountrySelect({value, set}: ICountrySelect) {
             )}
             renderInput={(params) => {
 
-                let code = 'ae';
+                let code = value.code;
 
                 if (params?.inputProps?.value) {
                     code = countries.filter((country) => country.label === params?.inputProps?.value)?.[0]?.['code'].toLowerCase();
@@ -48,10 +50,11 @@ export default function CountrySelect({value, set}: ICountrySelect) {
                         startAdornment: (
                             <IconButton size="small">
                                 {/* <InfoIcon /> */}
-                                <img
+                                <Image
                                     loading="lazy"
                                     width="20"
-                                    srcSet={`https://flagcdn.com/w40/${code}.png 2x`}
+                                    height="10"
+                                    // srcSet={`https://flagcdn.com/w40/${code}.png 2x`}
                                     src={`https://flagcdn.com/w20/${code}.png`}
                                     alt=""
                                 />
