@@ -95,6 +95,7 @@ const measurementSlice = createSlice({
         }
       }
     },
+    
   },
 });
 

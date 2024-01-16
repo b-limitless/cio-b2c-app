@@ -91,6 +91,12 @@ export default function Shipping({ measurementJourney,
             error={shipping.errors?.countryCode}
             helperText={shipping.errors?.countryCode}
             onBlur={() => onMouseLeaveEventHandler('countryCode', shipping.data.countryCode)}
+            InputProps={{
+              startAdornment: (
+                  <span>+</span>
+              ),
+          }}
+
           />
           <Input label='Phone number'
             name='phoneNumber'

@@ -34,7 +34,7 @@ const initialState: IShippingState = {
     postalCode: '',
     country: 'ae',
     phoneNumber: '',
-    countryCode: '+971',
+    countryCode: '971',
     city: '',
     email:''
   },
@@ -87,6 +87,17 @@ const shippingSlice = createSlice({
         },
       };
     },
+    updatePartiallyAction:(state: IShippingState, action: PayloadAction<Partial<IShipping>>) => {
+      const {payload} = action;
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          ...payload
+        }
+      }
+    }
   },
 });
 
