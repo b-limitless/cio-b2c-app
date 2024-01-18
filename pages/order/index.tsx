@@ -36,7 +36,7 @@ import { userAndShirtMeasurement } from 'model/user';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateErrors, updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
-import { IShipping, updateShippingAction, updateShippingErrorAction, updateShippingWholeError } from 'slices/shippingSlice';
+import { IShipping, updatePartiallyAction, updateShippingAction, updateShippingErrorAction, updateShippingWholeError } from 'slices/shippingSlice';
 import { RootState } from 'store';
 import { OrderProcess, combinedTypes } from 'types/enums';
 import OrderCompleted from './Completed';
@@ -59,9 +59,6 @@ export default function Order() {
     const [shouldMoveToNextStep, setShouldMoveToNextStep] = useState<boolean>(false);
     const dispatch = useDispatch();
 
-    function nextStageErrorHandler (){
-
-    }
 
     const nextStageHandler = () => {
 
@@ -144,8 +141,9 @@ export default function Order() {
 
    
     const handleOptionChange = (event: any, value: any) => {
-    setSelectedCountry(value);
+        setSelectedCountry(value);
     // dispatch only code to the redux store
+        dispatch(updatePartiallyAction({countryCode: value.phone, country: value.label}));
     };
     
 

@@ -36,7 +36,7 @@ const initialState: IShippingState = {
     phoneNumber: '',
     countryCode: '971',
     city: '',
-    email:''
+    email: '',
   },
   errors: {
     firstName: null,
@@ -49,7 +49,7 @@ const initialState: IShippingState = {
     phoneNumber: null,
     countryCode: null,
     city: null,
-    email:null
+    email: null,
   },
 };
 
@@ -87,19 +87,24 @@ const shippingSlice = createSlice({
         },
       };
     },
-    updatePartiallyAction:(state: IShippingState, action: PayloadAction<Partial<IShipping>>) => {
-      const {payload} = action;
+    updatePartiallyAction: (state: IShippingState, action: PayloadAction<Partial<IShipping>>) => {
+      const { payload } = action;
 
       return {
         ...state,
         data: {
           ...state.data,
-          ...payload
-        }
-      }
-    }
+          ...payload,
+        },
+      };
+    },
   },
 });
 
-export const {updateShippingAction, updateShippingErrorAction, updateShippingWholeError} = shippingSlice.actions;
+export const {
+  updateShippingAction,
+  updateShippingErrorAction,
+  updateShippingWholeError,
+  updatePartiallyAction,
+} = shippingSlice.actions;
 export default shippingSlice.reducer;
