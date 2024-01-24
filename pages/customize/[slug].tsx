@@ -185,8 +185,6 @@ export default function Customize() {
          * 
          * **/
         if (designJourney === SelectionProcess.accents) {
-            console.log('index', index)
-            
             if(checkIfItemIsSameToUpdateCart({index, model, accent, modelType, febric})) {
                 router.push('/cart');
                 return;

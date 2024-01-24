@@ -1,3 +1,4 @@
+// We need to load febric from the backend
 export const sampleFebric = [
   {
     originalImageUrl: '/img/febric1.jpg',

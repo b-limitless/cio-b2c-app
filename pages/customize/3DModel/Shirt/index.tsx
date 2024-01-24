@@ -44,9 +44,7 @@ interface IAddModelToScene {
 const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: ShirtModelInterface) => {
 
   return (
-
     <>
-
       <ambientLight />
       <directionalLight position={[5, 5, 5]} intensity={1} />
       <directionalLight position={[-5, -5, -5]} intensity={1} />
