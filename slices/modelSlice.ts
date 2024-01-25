@@ -5,23 +5,23 @@ import { defaultCuffModel, defaultFebric } from 'config/default';
 const modelProperties = {
   collar: {
     id: 12,
-    model: defaultFebric,
+    modelURL: defaultFebric,
     price: 0,
     title: '',
   },
   cuff: {
     id: 13,
-    model: defaultCuffModel,
+    modelURL: defaultCuffModel,
     price: 0,
     title: '',
   },
   // sleeves: {
   //   id: 13,
-  //   model: 'URL for the model to load',
+  //   modelURL: 'URL for the model to load',
   // },
   // checkpocket: {
   //   id: 13,
-  //   model: 'URL for the model to load',
+  //   modelURL: 'URL for the model to load',
   // },
 } as const;
 
@@ -36,7 +36,7 @@ export interface UpdateModelAction {
 
 export type RowType = {
   id: number;
-  model: string;
+  modelURL: string;
   price: number;
   title: string;
   originalImageUrl?: string;
@@ -53,7 +53,7 @@ export type IModelAction = Record<ModelKeys, RowType>;
 const initialState: IModelAction = {
   collar: {
     id: 12,
-    model: `/models/collars/collar-1-1.glb?timestamp=${Date.now()}`,
+    modelURL: `/models/collars/collar-1-1.glb?timestamp=${Date.now()}`,
     price: 0,
     title: 'Default collar model',
     label: 'default',
@@ -61,7 +61,7 @@ const initialState: IModelAction = {
   },
   cuff: {
     id: 12,
-    model: `${defaultCuffModel}?timestamp=${Date.now()}`,
+    modelURL: `${defaultCuffModel}?timestamp=${Date.now()}`,
     price: 0,
     title: 'default cuff model',
     label: 'default',

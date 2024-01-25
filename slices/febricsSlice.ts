@@ -34,12 +34,12 @@ export interface FebricAttrs {
 }
 
 interface IFebricGroup {
-  febircs: FebricAttrs[];
+  febrics: FebricAttrs[];
   affectedRows: number | null;
   limit: number | null;
 }
 
-interface IFebrics {
+export interface IFebrics {
   loading: boolean;
   data: IFebricGroup;
   error: string | null;
@@ -48,7 +48,7 @@ interface IFebrics {
 const initialState: IFebrics = {
   loading: true,
   data: {
-    febircs: [],
+    febrics: [],
     affectedRows: null,
     limit: null,
   },

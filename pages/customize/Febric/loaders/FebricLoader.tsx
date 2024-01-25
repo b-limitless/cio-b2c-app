@@ -1,6 +1,6 @@
 import React from 'react';
 import Skeleton from '@mui/material/Skeleton';
-import styles from './febric.module.scss'; // Adjust yourStyles with the actual module or inline styles
+import styles from '../febric.module.scss'; // Adjust yourStyles with the actual module or inline styles
 
 export default function FebricLoader() {
     return (

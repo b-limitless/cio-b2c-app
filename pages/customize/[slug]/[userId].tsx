@@ -146,6 +146,7 @@ export default function Customize() {
     const { collar, cuff } = model;
     const febric =  useSelector((state:RootState) => state.febric); 
     const accent = useSelector((state: RootState) => state.accent);
+    const febrics = useSelector((state: RootState) => state.febrics);
     const { modelType } = useSelector((state: RootState) => state.modelType);
     const {index} = useSelector((state: RootState) => state.cartIndexToupdate);
     const cart = useSelector((state: RootState) => state.cart);
@@ -262,7 +263,8 @@ export default function Customize() {
     // Fetching febrics
     useFetchFebrics({userId});
 
-    
+    // @ts-ignore
+    console.log('febrics?.data?.febircs', febrics?.data?.febrics);
 
     return (
         <>
@@ -290,7 +292,7 @@ export default function Customize() {
                                 setShowFilterModel={setShowFilterModel}
                                 setShowFebricDetailsModel={setShowFebricDetailsModel}
                                 onClickHandler={updateFebricHandler}
-
+                                febrics={febrics}
                             />}
 
                         {designJourney === 'styles' &&
@@ -310,9 +312,9 @@ export default function Customize() {
                     <div className={styles.model}>
 
                         {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
-                        {/* <Canvas>
+                        <Canvas>
                             <Shirt3DModel
-                                collar={collar?.model ?? defaultCollarModel}
+                                collar={collar?.modelURL ?? defaultCollarModel}
                                 cuff={cuff}
                                 febricURI={originalImageUrl ?? defaultFebric}
                                 collarAccent={collarAccent}
@@ -342,7 +344,7 @@ export default function Customize() {
                                     }
                                 } />
 
-                        </Canvas> */}
+                        </Canvas>
 
                     </div>
                     <div className={styles.infomration}>
