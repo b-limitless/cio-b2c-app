@@ -5,6 +5,7 @@ import { UpdateModelAction } from 'slices/modelSlice';
 import styles from './febric.module.scss';
 import { sampleFebric } from 'sample/sample-febrics';
 import { TFebric } from 'slices/febricSlice';
+import FebricLoader from 'pages/customize/Febric/FebricLoader';
 
 interface FebricInterface {
   setShowFilterModel: Function;
@@ -24,7 +25,6 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
           <span className={styles.febric}>
             FILTERS
           </span>
-
           <span className={styles.count}>
             (100 Febrics)
           </span>
@@ -54,11 +54,16 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
           />)}
 
 
-          {countArray.map((_, i) => <Febric
+          {/* {countArray.map((_, i) => <Febric
             febricImageURI='/img/febric-thumnail.png'
             key={'febri-item' + i}
             setShowFebricDetailsModel={setShowFebricDetailsModel}
             onClick={(event: any) => { }}
+
+          />)} */}
+
+{countArray.map((_, i) => <FebricLoader
+            key={`febric-loader-${i}`}
 
           />)}
 

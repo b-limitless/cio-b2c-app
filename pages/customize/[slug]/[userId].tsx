@@ -51,20 +51,21 @@ import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSl
 import { TCheckIfItemIsSameToUpdateCart, addToCart, updateCartDataByIndex } from 'slices/cartSlice';
 import { RowType, UpdateModelAction, updateModel } from 'slices/modelSlice';
 import { RootState } from 'store';
-import { SelectionProcess, SelectionTypes } from '../../types/enums';
+import { SelectionProcess, SelectionTypes } from '../../../types/enums';
 import Shirt3DModel from 'pages/customize/3DModel/Shirt';
 import AccentFebricModel from 'pages/customize/Febric/AccentFebricModel';
-import Filter from './Febric/Filter';
-import FebricDetails from './FebricDetails';
-import Accents from './Select/Accents';
-import Febrics from './Select/Febrics';
-import Styles from './Select/Styles';
-import styles from './customize.module.scss';
+import Filter from '../Febric/Filter';
+import FebricDetails from '../FebricDetails';
+import Accents from '../Select/Accents';
+import Febrics from '../Select/Febrics';
+import Styles from '../Select/Styles';
+import styles from '../customize.module.scss';
 import { ICaptureModelScreenShot, TSnapShotUploadingStates } from 'interface/ICart.interface';
 import { updateFebric } from 'slices/febricSlice';
 import { TFebric } from 'slices/febricSlice';
 import { updateCartIndexAction } from 'slices/updateCartIndex';
 import { removeTimestamp } from 'functions/removeTimeStamp';
+import useFetchFebrics from 'api/useFetchFebric';
 const https = require('https');
 
 
@@ -96,7 +97,7 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
 
             try {
                 setTakeScreenShot('uploading');
-                const response = await axios.post(APIS.product.upload, formData, {httpAgent: agent});
+                const response = await axios.post(APIS.upload, formData, {httpAgent: agent});
                 const { data: { originalImageUrl, thumbnailImageUrl } } = response || {};
 
                 if (originalImageUrl) {
@@ -149,6 +150,8 @@ export default function Customize() {
     const {index} = useSelector((state: RootState) => state.cartIndexToupdate);
     const cart = useSelector((state: RootState) => state.cart);
     
+    
+    const {slug, userId} = router.query;
 
     const { collar: collarAccent } = accent;
     const { cuff: cuffAccent } = accent;
@@ -256,7 +259,10 @@ export default function Customize() {
         }
     }, [takeScreenShot, router]);
 
+    // Fetching febrics
+    useFetchFebrics({userId});
 
+    
 
     return (
         <>
@@ -304,7 +310,7 @@ export default function Customize() {
                     <div className={styles.model}>
 
                         {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
-                        <Canvas>
+                        {/* <Canvas>
                             <Shirt3DModel
                                 collar={collar?.model ?? defaultCollarModel}
                                 cuff={cuff}
@@ -336,7 +342,7 @@ export default function Customize() {
                                     }
                                 } />
 
-                        </Canvas>
+                        </Canvas> */}
 
                     </div>
                     <div className={styles.infomration}>

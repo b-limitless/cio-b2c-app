@@ -8,6 +8,7 @@ import cartIndexToupdate from "slices/updateCartIndex";
 import febric from "slices/febricSlice";
 import measurment from "slices/measurmentSlice";
 import shipping from "slices/shippingSlice";
+import febrics from "slices/febricsSlice";
 
 export const Store = configureStore({
     reducer: {
@@ -18,7 +19,8 @@ export const Store = configureStore({
         cartIndexToupdate, 
         febric, 
         measurment, 
-        shipping
+        shipping, 
+        febrics
     }
 });
 
