@@ -24,10 +24,10 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
   return (
     <>
       <div className={styles.action}>
-        {febrics.loading && <FilterFebricLoader/>}
+        {febrics?.loading && <FilterFebricLoader/>}
 
         {/* 135px height 21 */}
-        {!febrics.loading && <>
+        {!febrics?.loading && <>
           <Image src='/icon/filter.svg' width={14} height={10} alt='filter' onClick={() => setShowFilterModel(true)}></Image>
           <div className={styles.text}>
             <span className={styles.febric}>
@@ -72,7 +72,7 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
 
           />)} */}
 
-          {febrics.loading && countArray.map((_, i) => <FebricLoader
+          {febrics?.loading && countArray.map((_, i) => <FebricLoader
             key={`febric-loader-${i}`}
 
           />)}

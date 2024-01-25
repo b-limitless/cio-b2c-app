@@ -24,10 +24,10 @@ function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
 export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent, collarAccent, cuffAccent }: ProductStylesInterface) {
     const dispatch = useDispatch();
 
-    const dispatchSelectedModelConfig = ({model, ...rest }: RowType) => {
+    const dispatchSelectedModelConfig = ({modelURL, ...rest }: RowType) => {
          dispatch(updateModel({ payload: 
                { 
-                model,
+                modelURL,
                 ...rest 
                  }, 
                key: code as keyof IAccentGlobal }));
@@ -47,8 +47,6 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     }
 
     const dispatchAccentType = ({ key, payload }: UpdateAccentActionType) => {
-
-        console.log('payload', payload)
 
         if (setActiveAccent) {
             setActiveAccent(code);
@@ -82,7 +80,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                         dispatchSelectedModelConfig
                             ({ 
                                 ...children,
-                                model: `${children.model}?timestamp=${Date.now()}` 
+                                modelURL: `${children.modelURL}?timestamp=${Date.now()}` 
                                 
                             }) :
 

@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import styles from './shipping.module.scss';
-import Input from 'components/Input';
-import Select from 'components/Select';
 import { Button } from 'components/Button';
-import { countries } from 'config/countries';
-import FormTemplate from '../template/form';
-import { IShippingFrom, OrderCommonInterface } from '../../../types/common.interface';
+import Input from 'components/Input';
 import CountrySelect from 'components/Select/CountrySelect';
+import { IShippingFrom } from '../../../types/common.interface';
+import FormTemplate from '../template/form';
+import styles from './shipping.module.scss';
 
 interface IInputText {
   name: string;
@@ -17,16 +14,16 @@ interface IInputText {
 
 
 export default function Shipping({ measurementJourney,
-  
+
   nextStageHandler,
   shipping,
   onMouseLeaveEventHandler,
-  onChangeHandler, 
-  handleOptionChange, 
+  onChangeHandler,
+  handleOptionChange,
   selectedCountry
 }: IShippingFrom) {
   // This state is needed for the select component 
- 
+
 
 
   return (
@@ -46,17 +43,17 @@ export default function Shipping({ measurementJourney,
             name='firstName'
             value={shipping?.data?.firstName ?? ''}
             onChange={onChangeHandler}
-            error={shipping.errors?.firstName}
-            helperText={shipping.errors?.firstName}
-            onBlur={() => onMouseLeaveEventHandler('firstName', shipping.data.firstName)}
+            error={shipping?.errors?.firstName}
+            helperText={shipping?.errors?.firstName}
+            onBlur={() => onMouseLeaveEventHandler('firstName', shipping?.data?.firstName)}
           />
           <Input label='Last Name'
             name='lastName'
             value={shipping?.data?.lastName ?? ''}
             onChange={onChangeHandler}
-            error={shipping.errors?.lastName}
-            helperText={shipping.errors?.lastName}
-            onBlur={() => onMouseLeaveEventHandler('lastName', shipping.data.lastName)}
+            error={shipping?.errors?.lastName}
+            helperText={shipping?.errors?.lastName}
+            onBlur={() => onMouseLeaveEventHandler('lastName', shipping?.data?.lastName)}
           />
         </div>
         <div className={styles.form__row}>
@@ -65,9 +62,9 @@ export default function Shipping({ measurementJourney,
             name='addressLine1'
             value={shipping?.data?.addressLine1 ?? ''}
             onChange={onChangeHandler}
-            error={shipping.errors?.addressLine1}
-            helperText={shipping.errors?.addressLine1}
-            onBlur={() => onMouseLeaveEventHandler('addressLine1', shipping.data.addressLine1)}
+            error={shipping?.errors?.addressLine1}
+            helperText={shipping?.errors?.addressLine1}
+            onBlur={() => onMouseLeaveEventHandler('addressLine1', shipping?.data?.addressLine1)}
           />
         </div>
         <div className={styles.form__row}>
@@ -76,9 +73,9 @@ export default function Shipping({ measurementJourney,
             name='addressLine2'
             value={shipping?.data?.addressLine2 ?? ''}
             onChange={onChangeHandler}
-            error={shipping.errors?.addressLine2}
-            helperText={shipping.errors?.addressLine2}
-            onBlur={() => onMouseLeaveEventHandler('addressLine2', shipping.data.addressLine2)}
+            error={shipping?.errors?.addressLine2}
+            helperText={shipping?.errors?.addressLine2}
+            onBlur={() => onMouseLeaveEventHandler('addressLine2', shipping?.data?.addressLine2)}
           />
         </div>
 
@@ -88,23 +85,23 @@ export default function Shipping({ measurementJourney,
             name='countryCode'
             value={shipping?.data?.countryCode ?? ''}
             onChange={onChangeHandler}
-            error={shipping.errors?.countryCode}
-            helperText={shipping.errors?.countryCode}
-            onBlur={() => onMouseLeaveEventHandler('countryCode', shipping.data.countryCode)}
+            error={shipping?.errors?.countryCode}
+            helperText={shipping?.errors?.countryCode}
+            onBlur={() => onMouseLeaveEventHandler('countryCode', shipping?.data?.countryCode)}
             InputProps={{
               startAdornment: (
-                  <span>+</span>
+                <span>+</span>
               ),
-          }}
+            }}
 
           />
           <Input label='Phone number'
             name='phoneNumber'
             value={shipping?.data?.phoneNumber ?? ''}
             onChange={onChangeHandler}
-            error={shipping.errors?.phoneNumber}
-            helperText={shipping.errors?.phoneNumber}
-            onBlur={() => onMouseLeaveEventHandler('phoneNumber', shipping.data.phoneNumber)}
+            error={shipping?.errors?.phoneNumber}
+            helperText={shipping?.errors?.phoneNumber}
+            onBlur={() => onMouseLeaveEventHandler('phoneNumber', shipping?.data?.phoneNumber)}
           />
         </div>
         <div className={styles.form__row}>
@@ -113,18 +110,18 @@ export default function Shipping({ measurementJourney,
             name='city'
             value={shipping?.data?.city ?? ''}
             onChange={onChangeHandler}
-            error={shipping.errors?.city}
-            helperText={shipping.errors?.city}
-            onBlur={() => onMouseLeaveEventHandler('city', shipping.data.city)}
+            error={shipping?.errors?.city}
+            helperText={shipping?.errors?.city}
+            onBlur={() => onMouseLeaveEventHandler('city', shipping?.data?.city)}
 
           />
           <Input label='State'
             name='state'
             value={shipping?.data?.state ?? ''}
             onChange={onChangeHandler}
-            error={shipping.errors?.state}
-            helperText={shipping.errors?.state}
-            onBlur={() => onMouseLeaveEventHandler('state', shipping.data.state)}
+            error={shipping?.errors?.state}
+            helperText={shipping?.errors?.state}
+            onBlur={() => onMouseLeaveEventHandler('state', shipping?.data?.state)}
 
 
           />
@@ -132,9 +129,9 @@ export default function Shipping({ measurementJourney,
             name='postalCode'
             value={shipping?.data?.postalCode ?? ''}
             onChange={onChangeHandler}
-            error={shipping.errors?.postalCode}
-            helperText={shipping.errors?.postalCode}
-            onBlur={() => onMouseLeaveEventHandler('postalCode', shipping.data.postalCode)}
+            error={shipping?.errors?.postalCode}
+            helperText={shipping?.errors?.postalCode}
+            onBlur={() => onMouseLeaveEventHandler('postalCode', shipping?.data?.postalCode)}
           />
         </div>
 
@@ -145,9 +142,9 @@ export default function Shipping({ measurementJourney,
             name='email'
             value={shipping?.data?.email ?? ''}
             onChange={onChangeHandler}
-            error={shipping.errors?.email}
-            helperText={shipping.errors?.email}
-            onBlur={() => onMouseLeaveEventHandler('email', shipping.data.email)}
+            error={shipping?.errors?.email}
+            helperText={shipping?.errors?.email}
+            onBlur={() => onMouseLeaveEventHandler('email', shipping?.data?.email)}
           />
 
         </div>

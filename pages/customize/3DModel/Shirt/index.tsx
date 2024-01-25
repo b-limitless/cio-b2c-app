@@ -74,7 +74,7 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: S
 
       <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
 
-        <AddModelToScene name='cuff' modelURI={cuff.model ?? defaultCuffModel} />
+        <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
       </AddTextureToModel>
 
 

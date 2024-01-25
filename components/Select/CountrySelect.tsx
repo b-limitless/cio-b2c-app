@@ -18,7 +18,7 @@ export default function CountrySelect({value, set, label, ...rest}: ICountrySele
             sx={{ width: '100%', fontFamily: 'Poppins', ...rest.sx }}
             options={countries}
             autoHighlight
-            getOptionLabel={(option) => option.label}
+            getOptionLabel={(option) => option?.label}
             renderOption={(props, option) => (
                 <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                     <Image
@@ -29,12 +29,12 @@ export default function CountrySelect({value, set, label, ...rest}: ICountrySele
                         src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
                         alt=""
                     />
-                    {option.label} ({option.code}) +{option.phone}
+                    {option?.label} ({option?.code}) +{option?.phone}
                 </Box>
             )}
             renderInput={(params) => {
 
-                let code = value.code;
+                let code = value?.code;
 
                 if (params?.inputProps?.value) {
                     code = countries.filter((country) => country.label === params?.inputProps?.value)?.[0]?.['code'].toLowerCase();
