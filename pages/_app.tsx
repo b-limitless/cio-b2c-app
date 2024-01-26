@@ -14,6 +14,11 @@ const poppins = Poppins({
   display: 'swap',
 })
 
+interface MyAppProps extends AppProps {
+  customProp: string;
+
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -23,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <main className={poppins.className}>
         <Provider store={Store}>
-          <Component {...pageProps} />
+          <Component {...pageProps} storeId={'abc'}/>
         </Provider>
 
       </main>
