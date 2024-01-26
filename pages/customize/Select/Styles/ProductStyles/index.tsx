@@ -25,6 +25,9 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     const dispatch = useDispatch();
 
     const dispatchSelectedModelConfig = ({modelURL, ...rest }: RowType) => {
+        // Here we need to check something about the collor check the issue folder about the issue
+
+        console.log('modelURL, ...rest ', modelURL, rest );
          dispatch(updateModel({ payload: 
                { 
                 modelURL,

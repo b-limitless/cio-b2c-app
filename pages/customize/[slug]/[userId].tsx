@@ -65,7 +65,7 @@ import { updateFebric } from 'slices/febricSlice';
 import { TFebric } from 'slices/febricSlice';
 import { updateCartIndexAction } from 'slices/updateCartIndex';
 import { removeTimestamp } from 'functions/removeTimeStamp';
-import useFetchFebrics from 'api/useFetchFebric';
+import useFetchFebrics from 'hooks/useFetchFebric';
 const https = require('https');
 
 
@@ -114,6 +114,13 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
 
                     if(!index) {
                         dispatch(addToCart(data as any));
+
+                        // Create cart in the server 
+                        try {
+                            await axios.post(APIS.cart, {...data, status:'open'})
+                        } catch(err) {
+                            console.error(`Could not add item to the server ${err}`)
+                        }
                     }
                     
                     setTakeScreenShot('uploaded');
@@ -256,6 +263,8 @@ export default function Customize() {
 
     useEffect(() => {
         if (takeScreenShot === 'uploaded') {
+            // In this stage we need to create cart to the server as well
+
             router.push('/cart');
         }
     }, [takeScreenShot, router]);
