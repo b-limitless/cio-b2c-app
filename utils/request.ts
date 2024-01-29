@@ -22,17 +22,13 @@ interface RequestParams {
 export const request = async ({ url, method, body, unauthrizedRedirect = true, ...rest }: RequestParams) => {
   axiosCommon();
   // Interceptor response
-  let service = axios.create({});
+  let service = axios.create({withCredentials: true});
   service.interceptors.response.use(handleSuccess, handleError);
 
   try {
-    const response = await axios[method](url, {
-      ...body, 
-      withCredentials: true,
-    } as AxiosRequestConfig);
+    const response = await service[method](url, body as object);
     return response.data;
   } catch (err: any) {
-    // Setting request
     if (unauthrizedRedirect && err.response?.status === 401) {
       window.location.href = `/auth/signin`;
     }

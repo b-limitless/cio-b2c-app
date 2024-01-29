@@ -8,17 +8,83 @@ import { useDispatch } from 'react-redux';
 import { updaetModelType } from 'slices/modelTypeSlice';
 import { storeID } from 'config/user';
 import { updateStoreIdAction } from 'slices/storeSlice';
+import { useEffect } from 'react';
+import {request} from '../../utils/request';
+import dynamic from 'next/dynamic';
+import axios from 'axios';
 
-export default function Home() {
+
+function Home() {
     const dispatch = useDispatch();
 
     const actionButtonHandler = () => {
         dispatch(updaetModelType('shirt'));
         dispatch(updateStoreIdAction(storeID));
     }
+
+    useEffect(() => {
+        const gettingCookie = async() => {
+
+            //
+            try {
+                await axios.post('http://localhost:8000/api/cart/currentCartSession', {}, {
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                  })
+                // // 
+                //const sessionId = cookieHeader && cookieHeader?.split(';')[0];
+
+                
+            } catch(err) {
+                console.error('could not fetvh', err)
+            }
+        }
+
+        const setttingcookie = async() => {
+            try {
+                await axios.post('http://localhost:8000/api/cart/setCartSession', {}, {
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                  })
+                
+            } catch(err) {
+                console.error('could not fetvh', err)
+            }
+        }
+
+        const fetchCart = async() => {
+            try {
+                // await axios.post('http://localhost:8000/api/cart', {}, {
+                //     headers: {
+                //       'Content-Type': 'application/json'
+                //     },
+                //     withCredentials: true
+                //   })
+
+                await axios.get('http://localhost:8000/api/cart', {withCredentials: true});
+                
+            } catch(err) {
+                console.error('could not fetvh', err)
+            }
+        }
+
+
+        //
+
+
+        fetchCart()
+        // setttingcookie();
+        // gettingCookie();
+        
+    }, [])
+
+    console.log('sdfsdf')
     return (
         <>
-
             <div className={styles.page__container}>
                 <Header showNavigation />
                 <div className={styles.mid__content}>
@@ -61,3 +127,6 @@ export default function Home() {
 
     )
 }
+
+
+export default dynamic(() => Promise.resolve(Home), { ssr: false });

@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   transpilePackages:['three'], 
-  output: 'export', 
+  // output: 'export', 
   images: {
     unoptimized: true
   }, 

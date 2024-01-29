@@ -17,6 +17,7 @@ import { updateAccent, updateAllAccent } from 'slices/accentSlice';
 import { updateFebric } from 'slices/febricSlice';
 import { Router, useRouter } from 'next/router';
 import Link from 'next/link';
+import useFetchCart from 'hooks/useFetchCart';
 
 
 interface CartInterface {
@@ -33,28 +34,28 @@ interface CartInterface {
 const CartItem = ({ id,
   cart, addOrRemoveHanlder, duplicateCartItem,
   deleteItem, setShowCartDetailsModel,
-  cartIndexToUpdate }: CartInterface) => {
+  cartIndexToUpdate}: CartInterface) => {
   return <div className={styles.row}>
     <div className={styles.media}>
-      <Image src={cart.originalImageUrl ?? ''} width={140} height={176.83} alt='' />
+      <Image src={cart?.originalImageUrl ?? ''} width={140} height={176.83} alt='' />
     </div>
     <div className={styles.description}>
       <div className={styles.group}>
         <div className={styles.name}>
-          {cart.febric.title} TAILORED SHIRT -  {cart.qty} {id}
+          {cart?.febric?.title} TAILORED SHIRT -  {cart?.qty} {id}
         </div>
         <div className={styles.type}>
-          {cart.febric.material} | {' '}
-          {cart.febric.febricTypes}
+          {cart?.febric?.material} | {' '}
+          {cart?.febric?.febricTypes}
         </div>
 
       </div>
       <div className={styles.group}>
         <div className={styles.price}>
-          <>{moneyFormat().format(Number(cart.subTotal))}</>
+          <>{moneyFormat().format(Number(cart?.subTotal))}</>
         </div>
         <div className={styles.delivery}>
-          Delivery in {cart.deliveryTime}
+          Delivery in {cart?.deliveryTime}
         </div>
       </div>
       <div className={styles.group}>
@@ -62,10 +63,10 @@ const CartItem = ({ id,
       </div>
     </div>
     <div className={styles.actions}>
-      <label className={styles.humburger} htmlFor={`cart-item-key-${id}`}>
+      <label className={styles.humburger} htmlFor={`cart?-item-key-${id}`}>
         <Image src='/icon/humburg.svg' width={20} height={20} alt='menu' />
       </label>
-      <input type="checkbox" name="" id={`cart-item-key-${id}`} hidden className={styles.menu__checkbox} />
+      <input type="checkbox" name="" id={`cart?-item-key-${id}`} hidden className={styles.menu__checkbox} />
 
       <div className={styles.menu}>
         <ul>
@@ -78,12 +79,12 @@ const CartItem = ({ id,
             <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
             <span className={styles.text} onClick={() => duplicateCartItem({ index: id })}>Duplicate</span>
           </li>
-          {/* We are setting index of cart as value to access */}
+          {/* We are setting index of cart? as value to access */}
           <li onClick={() => setShowCartDetailsModel(id + 1)}>
             <span className={styles.icon}><Image src='/icon/eye.svg' width={20} height={20} alt='menu' /></span>
             <span className={styles.text}>View</span>
           </li>
-          <li onClick={() => deleteItem({ index: cart.id })}>
+          <li onClick={() => deleteItem({ index: cart?.id })}>
             <span className={styles.icon}><Image src='/icon/delete.svg' width={20} height={20} alt='menu' /></span>
             <span className={styles.text}>Delete</span>
           </li>
@@ -158,6 +159,8 @@ export default function Cart() {
     router.push('/customize/shirt');
 
   }
+
+  useFetchCart();
 
   return (
     <>

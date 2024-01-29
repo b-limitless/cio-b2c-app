@@ -66,6 +66,7 @@ import { TFebric } from 'slices/febricSlice';
 import { updateCartIndexAction } from 'slices/updateCartIndex';
 import { removeTimestamp } from 'functions/removeTimeStamp';
 import useFetchFebrics from 'hooks/useFetchFebric';
+import { request } from 'utils/request';
 const https = require('https');
 
 
@@ -97,7 +98,7 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
 
             try {
                 setTakeScreenShot('uploading');
-                const response = await axios.post(APIS.upload, formData, {httpAgent: agent});
+                const response = await axios.post(APIS.upload, formData, {httpAgent: agent, withCredentials: true});
                 const { data: { originalImageUrl, thumbnailImageUrl } } = response || {};
 
                 if (originalImageUrl) {
@@ -117,7 +118,12 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
 
                         // Create cart in the server 
                         try {
-                            await axios.post(APIS.cart, {...data, status:'open'})
+                            //APIS.cart, {...data, status:'open'}
+                            await request({
+                                url: APIS.cart,
+                                method: 'post', 
+                                body: {...data, status:'open'}
+                            })
                         } catch(err) {
                             console.error(`Could not add item to the server ${err}`)
                         }
