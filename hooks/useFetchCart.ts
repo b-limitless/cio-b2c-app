@@ -1,33 +1,37 @@
-import axios from 'axios';
+import { RootState } from 'store';
 import { APIS } from 'config/apis';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { addToCart } from 'slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addAllItemsToTheCart, addToCart } from 'slices/cartSlice';
 import { request } from 'utils/request';
 
+const lastVisitKey = 'lastVisitTime'
 
 export default function useFetchCart() {
   const dipsatch = useDispatch();
+  const carts = useSelector((state:RootState) => state.cart);
+
   useEffect(() => {
-    const fetchUserCart = async() => {
-        try {
-            const carts = await request({
-                method:'get', 
-                url: 'http://localhost:8000/api/cart'
-            });
-            // const carts = await axios.get('http://localhost:8000/api/cart', {withCredentials: true});
+    const fetchUserCart = async () => {
+      try {
+        const fetchCartsItems = await request({
+          method: 'get',
+          url: APIS.cart,
+        });
 
-            // const body = carts.data;
-
-            // if(body.length > 0) {
-            //     dipsatch(addToCart({...body[0]}));
-            // }
-            
-        } catch(err:any) {
-            console.error(err); 
+        if (fetchCartsItems.length > 0) {
+          dipsatch(addAllItemsToTheCart(fetchCartsItems));
         }
+      } catch (err: any) {
+        console.error(err);
+      }
+    };
+    
+    if(carts.length === 0) {
+        fetchUserCart();
     }
-    fetchUserCart();
-  }, []);
+  }, [dipsatch, carts]);
+
+
   return null;
 }

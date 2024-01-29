@@ -160,8 +160,6 @@ export default function Cart() {
 
   }
 
-  useFetchCart();
-
   return (
     <>
       <Model

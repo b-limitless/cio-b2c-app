@@ -114,19 +114,20 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                     }
 
                     if(!index) {
-                        dispatch(addToCart(data as any));
-
-                        // Create cart in the server 
                         try {
                             //APIS.cart, {...data, status:'open'}
-                            await request({
+                            const newCart = await request({
                                 url: APIS.cart,
                                 method: 'post', 
                                 body: {...data, status:'open'}
-                            })
+                            });
+
+                            const {id} = newCart[0];
+                            dispatch(addToCart({...data, id} as any));
                         } catch(err) {
                             console.error(`Could not add item to the server ${err}`)
                         }
+                       
                     }
                     
                     setTakeScreenShot('uploaded');
@@ -277,9 +278,7 @@ export default function Customize() {
 
     // Fetching febrics
     useFetchFebrics({userId});
-
-    // @ts-ignore
-    console.log('febrics?.data?.febircs', febrics?.data?.febrics);
+    
 
     return (
         <>

@@ -97,9 +97,13 @@ const cartSlice = createSlice({
       const carts = JSON.parse(JSON.stringify(state));
       carts[index] = item;
       return [...carts];
-    } 
+    }, 
+    addAllItemsToTheCart: (state: ICart, action: PayloadAction<ICartItem[]>) => {
+      const payload = action.payload;
+      return  [...payload];
+    },
   },
 });
 
-export const { addToCart, updateQuantity, duplicateItem, deleteItemAction, updateCartDataByIndex } = cartSlice.actions;
+export const {addAllItemsToTheCart, addToCart, updateQuantity, duplicateItem, deleteItemAction, updateCartDataByIndex } = cartSlice.actions;
 export default cartSlice.reducer;

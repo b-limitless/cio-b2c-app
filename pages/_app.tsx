@@ -5,6 +5,8 @@ import '/styles/index.scss';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
 import { Store } from 'store';
+import useFetchCart from 'hooks/useFetchCart';
+import MainLayout from 'layout/MainLayout';
 
 
 const poppins = Poppins({
@@ -28,7 +30,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <main className={poppins.className}>
         <Provider store={Store}>
+          <MainLayout>
           <Component {...pageProps} storeId={'abc'}/>
+          </MainLayout>
+          
         </Provider>
 
       </main>
