@@ -122,8 +122,13 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                                 body: {...data, status:'open'}
                             });
 
-                            const {id} = newCart[0];
+                            //  console.log('running this line')
+                            //  dispatch(addToCart({...data} as any));
+                            const id = newCart;
+                            // console.log('newCart', newCart);
+                            console.log('Recived id from server', id);
                             dispatch(addToCart({...data, id} as any));
+                            console.log('dispatched to redux')
                         } catch(err) {
                             console.error(`Could not add item to the server ${err}`)
                         }
@@ -275,7 +280,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
         if (takeScreenShot === 'uploaded') {
             // In this stage we need to create cart to the server as well
 
-            router.push('/cart');
+            // router.push('/cart');
         }
     }, [takeScreenShot, router]);
 
