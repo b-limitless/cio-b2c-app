@@ -50,14 +50,10 @@ export default function Header({userId, showNavigation, navigations, designJourn
                                 Contact
                             </li>
                         </label>
-
-
-
-
                     </ul>
                 </div>
                 <div className={styles.icon}>
-                    <Link href={`/cart`}>
+                    <Link href={`/cart/${userId}`}>
                     <Image
                         src={'/icon/cart.svg'}
                         width={32}
