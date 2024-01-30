@@ -12,11 +12,12 @@ interface HeaderInterface {
     navigations?: navigationRow[]
     designJourney?: combinedTypes;
     setDesignJourney?: Function;
+    userId: string | string[]
 }
 
-export default function Header({ showNavigation, navigations, designJourney, setDesignJourney}: HeaderInterface) {
+export default function Header({userId, showNavigation, navigations, designJourney, setDesignJourney}: HeaderInterface) {
 
-   
+    
     return (
         <header className={styles.header}>
             <div className={styles.col}>
@@ -56,7 +57,7 @@ export default function Header({ showNavigation, navigations, designJourney, set
                     </ul>
                 </div>
                 <div className={styles.icon}>
-                    <Link href={'/cart'}>
+                    <Link href={`/cart`}>
                     <Image
                         src={'/icon/cart.svg'}
                         width={32}

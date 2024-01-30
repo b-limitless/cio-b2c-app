@@ -1,20 +1,30 @@
+/**
+ * This application can be integrated in 2 ways
+ * 1. We can pass the store id in parameter and with same domain name we can access differet B2B application
+ * by using simply theire id in each url but the domin would remain same
+ * 
+ * 2. If customer wants this app to be deployed to their machine then we can simply need to use hard coded 
+ * id which is somewhere inside ourcodebase and they can deploy this app inside their own domain 
+ * the build Next JS app can be deployed to their own domain and machine and we can get the id which is 
+ * store inside the code 
+ * 
+ * In this case 
+ * **/
 'use client';
 import { Button } from 'components/Button';
 import Header from 'components/Header/Header';
+import { storeID } from 'config/user';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from './home.module.scss';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { updaetModelType } from 'slices/modelTypeSlice';
-import { storeID } from 'config/user';
 import { updateStoreIdAction } from 'slices/storeSlice';
-import { useEffect } from 'react';
-import {request} from '../../utils/request';
-import dynamic from 'next/dynamic';
-import axios from 'axios';
+import styles from './home/home.module.scss';
 
 
-function Home() {
+function RouterHomeComponent() {
     const dispatch = useDispatch();
 
     const actionButtonHandler = () => {
@@ -22,71 +32,13 @@ function Home() {
         dispatch(updateStoreIdAction(storeID));
     }
 
-    useEffect(() => {
-        const gettingCookie = async() => {
+    const router = useRouter();
 
-            //
-            try {
-                await axios.post('http://localhost:8000/api/cart/currentCartSession', {}, {
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
-                  })
-                // // 
-                //const sessionId = cookieHeader && cookieHeader?.split(';')[0];
-
-                
-            } catch(err) {
-                console.error('could not fetvh', err)
-            }
-        }
-
-        const setttingcookie = async() => {
-            try {
-                await axios.post('http://localhost:8000/api/cart/setCartSession', {}, {
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
-                  })
-                
-            } catch(err) {
-                console.error('could not fetvh', err)
-            }
-        }
-
-        const fetchCart = async() => {
-            try {
-                // await axios.post('http://localhost:8000/api/cart', {}, {
-                //     headers: {
-                //       'Content-Type': 'application/json'
-                //     },
-                //     withCredentials: true
-                //   })
-
-                await axios.get('http://localhost:8000/api/cart', {withCredentials: true});
-                
-            } catch(err) {
-                console.error('could not fetvh', err)
-            }
-        }
-
-
-        //
-
-
-        fetchCart()
-        // setttingcookie();
-        // gettingCookie();
-        
-    }, [])
-
-    console.log('sdfsdf')
+    const {userId} = router.query;
     return (
         <>
             <div className={styles.page__container}>
-                <Header showNavigation />
+                <Header showNavigation userId={userId ?? ''}/>
                 <div className={styles.mid__content}>
                     <div className={styles.col}>
                         <div className={styles.contents}>
@@ -103,7 +55,7 @@ function Home() {
                                 Shirts that fit you perfectly. Choose a custom dress shirt designed by you. Make a statement with a made to measure shirt perfect for any occasions, whether it {'\\'} s business or casual we will tailor the perfect men s dress shirt for you. Buy the best custom dress shirt online.
                             </div>
 
-                            <Link href={`/customize/shirt/${storeID}`}>
+                            <Link href={`/customize/shirt/${userId}`}>
 
                                 <Button variant='primary' type='round' onClick={actionButtonHandler}>
                                     <span>Design shirt</span>
@@ -129,4 +81,4 @@ function Home() {
 }
 
 
-export default dynamic(() => Promise.resolve(Home), { ssr: false });
+export default dynamic(() => Promise.resolve(RouterHomeComponent), { ssr: false });
