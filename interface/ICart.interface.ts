@@ -1,7 +1,7 @@
 import { AnyAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'react';
 import { IAccentGlobal } from 'slices/accentSlice';
-import { ICartItem } from 'slices/cartSlice';
+import { ECartStatus, ICartItem } from 'slices/cartSlice';
 import { TFebric } from 'slices/febricSlice';
 import { IModelAction } from 'slices/modelSlice';
 
@@ -15,6 +15,7 @@ export interface IScreenShortCartItem {
     thumbnailImageUrl?: string;
     deliveryTime?: string;
     febric: TFebric
+    status?:ECartStatus
   };
 }
 
@@ -23,5 +24,6 @@ export interface ICaptureModelScreenShot extends IScreenShortCartItem {
   setTakeScreenShot: Function;
   dispatch: Dispatch<AnyAction>;
   index:number | null;
+  cart: ICartItem[]
   // setSnapShotUploadState: Function;
 }

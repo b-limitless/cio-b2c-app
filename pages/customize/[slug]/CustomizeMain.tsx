@@ -69,6 +69,70 @@ import useFetchFebrics from 'hooks/useFetchFebric';
 import { request } from 'utils/request';
 const https = require('https');
 
+export const sampleData = {
+    originalImageUrl:
+      'https://res.cloudinary.com/dun5p8e5d/image/upload/v1704620406/images/ABC/xulgkzie5hkkrvpttxel.png',
+    thumbnailImageUrl:
+      'https://res.cloudinary.com/dun5p8e5d/image/upload/v1704620416/thumbnails/ABC/jtxc8moiphu8vwqrzjms.png',
+    model: {
+      collar: {
+        id: 12,
+        model: '/models/collars/collar-1-1.glb?timestamp=1704620380222',
+        price: 0,
+        title: 'Default collar model',
+        label: 'default',
+        code: 'default',
+      },
+      cuff: {
+        id: 12,
+        model: '/models/cuffs/cuff-1-normal.glb?timestamp=1704620380222',
+        price: 0,
+        title: 'default cuff model',
+        label: 'default',
+        code: 'default',
+      },
+    },
+    accent: {
+      collar: {
+        id: 12,
+        febric: '/img/febric-5.jpg',
+        type: 'default',
+        meshName: [],
+        updatedFrom: 'febrics',
+        price: 10,
+      },
+      cuff: {
+        id: 12,
+        febric: '/img/febric-5.jpg',
+        type: 'default',
+        meshName: [],
+        updatedFrom: 'febrics',
+        price: 10,
+      },
+    },
+    modelType: 'shirt',
+    subTotal: 50,
+    qty: 1,
+    discount: 0,
+    availability: '',
+    id: 1,
+    deliveryTime: '3 weeks',
+    febric: {
+      id: 1,
+      model: '/img/febric-5.jpg',
+      price: 30,
+      title: 'XYZ',
+      material: 'Cotton 80 %',
+      tone: 'light',
+      febricTypes: 'string',
+      season: 'summer',
+      label: 'default',
+      code: 'default',
+      originalImageUrl: '/img/febric-5.jpg',
+    },
+    status: 'open',
+  };
+
 
 const agent = new https.Agent({
     rejectUnauthorized: false,
@@ -77,7 +141,7 @@ const agent = new https.Agent({
  });
 
 
-const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData, index }: ICaptureModelScreenShot) => {
+const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData, index, cart }: ICaptureModelScreenShot) => {
 
     const { gl, scene, camera } = useThree();
     useEffect(() => {
@@ -98,8 +162,13 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
 
             try {
                 setTakeScreenShot('uploading');
-                const response = await axios.post(APIS.upload, formData, {httpAgent: agent, withCredentials: true});
-                const { data: { originalImageUrl, thumbnailImageUrl } } = response || {};
+                APIS.upload, formData
+                const response = await request({
+                    url: APIS.upload, 
+                    body: formData, 
+                    method:'post'
+                });
+                const { originalImageUrl, thumbnailImageUrl }  = response || {};
 
                 if (originalImageUrl) {
                     const screenCDNURIs = { originalImageUrl, thumbnailImageUrl };
@@ -108,11 +177,11 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                      * This stage need to check if there is index is not null then simply update the cart with specific index
                      * Other wise simply add new item to the cart
                      * **/
-                    if(index) {
+                    if(index !== null) {
                         // Send the request to the server to update the cart
                         const {id, ...body} = data;
                         try {
-                            await request({url: `${APIS.cart}/${cartData.id}`, method: 'patch', body});
+                            await request({url: `${APIS.cart}/${cart[index].id}`, body: {...body, status: cart[index].status}, method:'patch'})
                         } catch(err) {
                             console.error(`Unable to update the cart ${err}`);
                         }
@@ -121,22 +190,20 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                         dispatch(updateCartIndexAction(null));
                     }
 
-                    if(!index) {
+                    if(index === null) {
                         try {
-                            //APIS.cart, {...data, status:'open'}
+                            
                             const newCart = await request({
                                 url: APIS.cart,
                                 method: 'post', 
                                 body: {...data, status:'open'}
                             });
 
-                            //  console.log('running this line')
-                            //  dispatch(addToCart({...data} as any));
+        
                             const id = newCart;
-                            // console.log('newCart', newCart);
-                            console.log('Recived id from server', id);
+                           
                             dispatch(addToCart({...data, id} as any));
-                            console.log('dispatched to redux')
+                            
                         } catch(err) {
                             console.error(`Could not add item to the server ${err}`)
                         }
@@ -156,7 +223,7 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
 
         }
         if (takeScreenShot === 'upload') runTakeScreenShot();
-    }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch, index])
+    }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch, index, cart])
 
     return null;
 }
@@ -375,10 +442,12 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                                         availability: '',
                                         id: cart.length + 1,
                                         deliveryTime: '3 weeks', 
-                                        febric
-
+                                        febric,
+                                        
                                     }
-                                } />
+                                }
+                                cart={cart}
+                                />
 
                         </Canvas>
 

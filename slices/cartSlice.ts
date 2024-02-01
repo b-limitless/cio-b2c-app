@@ -4,6 +4,13 @@ import { TMode } from './modelTypeSlice';
 import { TAccent } from './accentSlice';
 import { TFebric } from './febricSlice';
 
+export enum ECartStatus {
+  open = "open",
+  pendingPayment = "pendingPayment",
+  completed = "completed",
+}
+
+
 export type TCartBase = {
   model: IModelAction;
   accent: TAccent;
@@ -24,6 +31,7 @@ export type ICartItem = TCartBase & {
   originalImageUrl?: string;
   deliveryTime?: string | null;
   season?:string;
+  status?:ECartStatus;
   
 };
 
