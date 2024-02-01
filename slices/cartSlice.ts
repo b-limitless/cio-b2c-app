@@ -95,8 +95,7 @@ const cartSlice = createSlice({
     },
     deleteItemAction(state: ICart, action:PayloadAction<IUpdateBase>) {
       const {index: productId} = action.payload;
-      console.log('index: productId', productId)
-
+      
       return [...state.filter((cart) => cart.id !== productId)];
 
     }, 

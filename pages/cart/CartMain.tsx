@@ -16,6 +16,8 @@ import { RootState } from 'store';
 import styles from './cart.module.scss';
 import Model from './model';
 import CartItem from './CartItem';
+import { APIS } from 'config/apis';
+import { request } from 'utils/request';
 
 
 
@@ -47,7 +49,15 @@ export default function Cart({userId}: ICartMain) {
     dispatch(duplicateItem(params));
   }
 
-  const deleteItem = (params: IUpdateBase) => {
+  const deleteItem = async(params: IUpdateBase) => {
+
+    // Send the request to the server to delete the item
+    const{index} = params;
+    try {
+       await request({url: `${APIS.cart}/${index}`, method: 'delete'})
+    } catch(err) {
+      console.error(`could not delete the item ${err}`)
+    }
     dispatch(deleteItemAction(params))
   }
 
