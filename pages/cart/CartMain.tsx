@@ -80,7 +80,7 @@ export default function Cart({userId}: ICartMain) {
     dispatch(updateAllAccent(accent));
     dispatch(updateFebric(febric));
 
-    router.push('/customize/shirt');
+    router.push(`/customize/shirt/${userId}`);
 
   }
 

@@ -109,6 +109,14 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                      * Other wise simply add new item to the cart
                      * **/
                     if(index) {
+                        // Send the request to the server to update the cart
+                        const {id, ...body} = data;
+                        try {
+                            await request({url: `${APIS.cart}/${cartData.id}`, method: 'patch', body});
+                        } catch(err) {
+                            console.error(`Unable to update the cart ${err}`);
+                        }
+                        
                         dispatch(updateCartDataByIndex({index, item:data as any}));
                         dispatch(updateCartIndexAction(null));
                     }
@@ -280,7 +288,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
         if (takeScreenShot === 'uploaded') {
             // In this stage we need to create cart to the server as well
 
-            // router.push('/cart');
+            router.push('/cart');
         }
     }, [takeScreenShot, router]);
 
