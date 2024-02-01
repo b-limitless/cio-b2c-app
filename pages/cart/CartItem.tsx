@@ -55,19 +55,19 @@ const CartItem = ({ id,
                 <ul>
                     <li>
                         <span className={styles.icon}><Image src='/icon/add.svg' width={20} height={20} alt='menu' /></span>
-                        <span className={styles.text}> <span onClick={() => addOrRemoveHanlder({ qty: 1, index: id, addOrRemove: 'add' })}>Add</span>/
-                            <span onClick={() => addOrRemoveHanlder({ qty: 1, index: id, addOrRemove: 'remove' })}>Remove</span></span>
+                        <span className={styles.text}> <span onClick={() => addOrRemoveHanlder({ qty: 1, index: id, addOrRemove: 'add', id: cart.id })}>Add</span>/
+                            <span onClick={() => addOrRemoveHanlder({ qty: 1, index: id, addOrRemove: 'remove', id: cart.id })}>Remove</span></span>
                     </li>
                     <li>
                         <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
-                        <span className={styles.text} onClick={() => duplicateCartItem({ index: id })}>Duplicate</span>
+                        <span className={styles.text} onClick={() => duplicateCartItem({ index: id, id: cart.id })}>Duplicate</span>
                     </li>
                     {/* We are setting index of cart? as value to access */}
                     <li onClick={() => setShowCartDetailsModel(id + 1)}>
                         <span className={styles.icon}><Image src='/icon/eye.svg' width={20} height={20} alt='menu' /></span>
                         <span className={styles.text}>View</span>
                     </li>
-                    <li onClick={() => deleteItem({ index: cart?.id })}>
+                    <li onClick={() => deleteItem({ index: cart?.id, id: cart.id })}>
                         <span className={styles.icon}><Image src='/icon/delete.svg' width={20} height={20} alt='menu' /></span>
                         <span className={styles.text}>Delete</span>
                     </li>

@@ -181,7 +181,7 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                         // Send the request to the server to update the cart
                         const {id, ...body} = data;
                         try {
-                            await request({url: `${APIS.cart}/${cart[index].id}`, body: {...body, status: cart[index].status}, method:'patch'})
+                            await request({url: `${APIS.cart}/${cart[index].id}`, body: {...body, status: cart[index].status}, method:'put'})
                         } catch(err) {
                             console.error(`Unable to update the cart ${err}`);
                         }

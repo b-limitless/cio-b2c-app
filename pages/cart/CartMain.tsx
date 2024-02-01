@@ -42,6 +42,8 @@ export default function Cart({userId}: ICartMain) {
   }, [dispatch]);
 
   const addOrRemoveHanlder = (params: IUpdateQuantity) => {
+    console.log(params);
+    return;
     dispatch(updateQuantity(params));
   }
 

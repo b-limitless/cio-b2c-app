@@ -39,6 +39,7 @@ export type TQuantityAction = 'add' | 'remove';
 
 export interface IUpdateBase {
   index: number;
+  id:number;
 }
 export interface IUpdateQuantity extends IUpdateBase {
   qty: number;
@@ -64,12 +65,11 @@ const cartSlice = createSlice({
       return [...state, payload];
     },
     updateQuantity(state: ICart, action: PayloadAction<IUpdateQuantity>) {
-      const { qty, addOrRemove,  index } = action.payload;
+      const { qty, addOrRemove,  index,id } = action.payload;
 
       const newState: ICart = JSON.parse(JSON.stringify(state));
-
       const updatedItem = newState[index];
-
+    
       if (addOrRemove === 'add') {
         updatedItem.qty += qty;
       }
