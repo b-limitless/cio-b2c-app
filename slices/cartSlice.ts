@@ -44,6 +44,7 @@ export interface IUpdateBase {
 export interface IUpdateQuantity extends IUpdateBase {
   qty: number;
   addOrRemove: TQuantityAction;
+  previousQty: number
 }
 
 export interface IUpdateCartByIndex {

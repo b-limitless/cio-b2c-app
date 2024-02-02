@@ -146,19 +146,12 @@ export default function Order({userId}: IOrder) {
    
     const handleOptionChange = (event: any, value: any) => {
         setSelectedCountry(value);
-    // dispatch only code to the redux store
         dispatch(updatePartiallyAction({countryCode: value.phone, country: value.label}));
     };
     
+    useEffect(() => {
 
-    // useEffect(() => {
-    //     if (!isThereAnyError(errorsMeasurement) && shouldMoveToNextStep) {
-    //         // Get the next step to move on
-    //         nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
-    //         setShouldMoveToNextStep(false);
-    //     }
-    // }, [shouldMoveToNextStep, errorsMeasurement, measurementJourney]);
-
+    }, [])
 
     return (
         <>

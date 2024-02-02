@@ -41,13 +41,40 @@ export default function Cart({userId}: ICartMain) {
     dispatchSampleCartData();
   }, [dispatch]);
 
-  const addOrRemoveHanlder = (params: IUpdateQuantity) => {
-    console.log(params);
-    return;
+  const addOrRemoveHanlder = async(params: IUpdateQuantity) => {
+    const {addOrRemove, qty, index, id} = params
+  
+    const finalQty = addOrRemove === 'add' ? carts[index].qty + 1 : carts[index].qty - qty;
+
+    try {
+        await request({
+          url: `${APIS.cart}/${id}`,
+          method: 'patch', 
+          body: {qty: finalQty}
+        });
+    } catch(err) {
+      console.error(`Could not update quanity ${err}`);
+      throw new Error(`Could not update quanity ${err}`);
+    }
     dispatch(updateQuantity(params));
   }
 
-  const duplicateCartItem = (params: IUpdateBase) => {
+  const duplicateCartItem = async(params: IUpdateBase) => {
+    // Get cart by index and remove the id from it and sent creat cart API 
+    const {index} = params;
+
+    const copyCart = carts[index];
+    const {id, ...body} = copyCart;
+
+    try {
+      await request({
+        url: APIS.cart,
+        method: 'post', 
+        body
+      });
+    } catch(err) {
+      console.log(`Could be duplicate the cart ${err}`);
+    }
     dispatch(duplicateItem(params));
   }
 
@@ -162,10 +189,13 @@ export default function Cart({userId}: ICartMain) {
                 </div>
 
                 <div className={styles.tr}>
+                  <Link href={`/order/${userId}`}>
                   <Button variant='primary' type='square'>
                     <Image src={'/icon/rular.svg'} width={30} height={30} alt='' />
                     <span>MEASUREMENT AND CHECKOUT</span>
                   </Button>
+                  </Link>
+                  
                 </div>
               </div>
 

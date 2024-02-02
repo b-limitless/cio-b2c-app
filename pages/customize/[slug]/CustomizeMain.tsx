@@ -200,7 +200,7 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                             });
 
         
-                            const id = newCart;
+                            const {id} = newCart;
                            
                             dispatch(addToCart({...data, id} as any));
                             

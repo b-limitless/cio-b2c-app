@@ -55,8 +55,14 @@ const CartItem = ({ id,
                 <ul>
                     <li>
                         <span className={styles.icon}><Image src='/icon/add.svg' width={20} height={20} alt='menu' /></span>
-                        <span className={styles.text}> <span onClick={() => addOrRemoveHanlder({ qty: 1, index: id, addOrRemove: 'add', id: cart.id })}>Add</span>/
-                            <span onClick={() => addOrRemoveHanlder({ qty: 1, index: id, addOrRemove: 'remove', id: cart.id })}>Remove</span></span>
+                        <span className={styles.text}> <span onClick={() => addOrRemoveHanlder({
+                            qty: 1,
+                            index: id,
+                            addOrRemove: 'add',
+                            id: cart.id,
+                            previousQty: cart.qty
+                        })}>Add</span>/
+                            <span onClick={() => addOrRemoveHanlder({ qty: 1, index: id, addOrRemove: 'remove', id: cart.id, previousQty: cart.qty })}>Remove</span></span>
                     </li>
                     <li>
                         <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
