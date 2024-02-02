@@ -9,7 +9,10 @@ import febric from "slices/febricSlice";
 import measurment from "slices/measurmentSlice";
 import shipping from "slices/shippingSlice";
 import febrics from "slices/febricsSlice";
+import currentCustomer from "slices/customerSlice"; 
 import store from "slices/storeSlice";
+
+
 
 export const Store = configureStore({
     reducer: {
@@ -22,7 +25,8 @@ export const Store = configureStore({
         measurment, 
         shipping, 
         febrics, 
-        store
+        store, 
+        currentCustomer
         
     }
 });
