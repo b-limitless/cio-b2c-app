@@ -3,9 +3,12 @@ import { pink } from '@mui/material/colors';
 import Checkbox from '@mui/material/Checkbox';
 import { colors } from '../../config/colors';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import ErrorText from 'components/Help/ErrorText';
+
 
 export default function Checbox(props: any) {
     return (
+        <>
         <Checkbox
             {...props}
             sx={{
@@ -16,7 +19,10 @@ export default function Checbox(props: any) {
                 },
             }}
         />
+        
 
+        </>
+        
     );
 }
 

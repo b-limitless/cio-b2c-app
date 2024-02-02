@@ -13,6 +13,7 @@ export default function Input({ ...rest }: InputInterfae) {
       sx={style}
       {...rest}
       size="small"
+      autoComplete='off'
 
     >
     </TextField>

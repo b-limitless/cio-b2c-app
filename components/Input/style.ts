@@ -1,11 +1,12 @@
 import { colors } from "config/colors";
 
 export const style:any = {
-  "&.MuiTextField-root": {
-    minHeight:'78.90px'
-  },
+  // "&.MuiTextField-root": {
+  //   minHeight:'78.90px', 
+  // },
   "&.MuiFormControl-root": {
-    width: "100%"
+    width: "100%", 
+    minHeight:'78.90px', 
   },
   input: {
     borderRadius: "6px",
@@ -37,4 +38,7 @@ export const style:any = {
       borderColor: colors.primary,
     },
   },
+  "& .MuiFormHelperText-root": {
+    fontFamily: "Poppins, sans-serif !important",
+  }
 };

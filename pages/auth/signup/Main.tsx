@@ -1,14 +1,24 @@
 
 
+import { Button } from 'components/Button';
+import Checkbox from 'components/Checkbox';
 import Header from 'components/Header/Header';
 import Input from 'components/Input';
+import { APIS } from 'config/apis';
 import { camelCaseToNormal } from 'functions/camelCaseToNormal';
+import { onSubmitHandler } from 'functions/onSubmitHandler';
 import { FormInterface, FormState } from 'interface/IAuth.interface';
 import { userModel } from 'model/auth';
 import dynamic from 'next/dynamic';
 import FormTemplate from 'pages/order/template/form';
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import styles from 'style-module/shipping.module.scss'
+import { request } from 'utils/request';
+import { useRouter } from 'next/router';
+import InputAdornments from 'components/Input/InputAdorments';
+import InputAdromentSec from 'components/Input/InputAdromentSec';
+import { FormHelperText } from '@mui/material';
+import ErrorText from 'components/Help/ErrorText';
 
 interface IMain {
     userId: string | string[] | null;
@@ -27,6 +37,7 @@ const initialState: FormState = {
         email: '',
         password: '',
         confirmPassword: '',
+        agreement: false
 
     },
     formHasError: true,
@@ -93,7 +104,8 @@ function authReducer(state: FormState, action: any): FormState {
 }
 
 
- function Main({ userId }: IMain) {
+function Main({ userId }: IMain) {
+    const router = useRouter();
 
     const [{ submitting,
         form,
@@ -106,7 +118,6 @@ function authReducer(state: FormState, action: any): FormState {
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-
         dispatch({ type: 'UPDATE_FORM', payload: { name, value: e.target.type === 'checkbox' ? e.target.checked : value } });
     }
 
@@ -118,6 +129,41 @@ function authReducer(state: FormState, action: any): FormState {
         }
     }
 
+    const onSubmitHandlerLocal = () => {
+        console.log('form', form)
+        onSubmitHandler(form, userModel, dispatch, 'signup');
+    }
+
+    useEffect(() => {
+        const submitFormToServer = async () => {
+            try {
+                await request({
+                    url: APIS.auth.signup,
+                    method: 'post',
+                    body: { ...form }
+                });
+
+            } catch (err: any) {
+                const { response: { data: { errors } } } = err;
+                errors.forEach((error: any, i: number) => {
+                    dispatch({ type: 'FORM_ERROR', payload: { formHasError: true, name: error.field, value: error.message } })
+                    dispatch({ type: 'FORM_SUBMITTED', payload: false });
+                    dispatch({ type: 'SUBMITTING', payload: false });
+                });
+                console.log('err', errors);
+            }
+
+
+        }
+
+        if (formSubmitted && !formHasError) {
+            //   submitFormToServer();
+        }
+
+    }, [form, formError, formHasError, formSubmitted, router]);
+
+
+    console.log('submitting the form data', form, formError);
     return (
         <>
             <Header
@@ -134,22 +180,24 @@ function authReducer(state: FormState, action: any): FormState {
                             error={formError?.email}
                             helperText={formError?.email}
                             onBlur={() => onMouseLeaveEventHandler('email', form.email)}
+                            autoComplete={false}
                         />
-
 
                     </div>
                     <div className={styles.form__row}>
-                        <Input label='Password'
+                        <InputAdromentSec label='Password'
+                            type='password'
                             name='password'
                             value={form.password ?? ''}
                             onChange={onChangeHandler}
                             error={formError?.password}
                             helperText={formError?.password}
                             onBlur={() => onMouseLeaveEventHandler('password', form.password)}
+
                         />
                     </div>
                     <div className={styles.form__row}>
-                        <Input label='Confirm Password'
+                        <InputAdromentSec label='Confirm Password'
                             name='confirmPassword'
                             value={form.confirmPassword ?? ''}
                             onChange={onChangeHandler}
@@ -157,8 +205,37 @@ function authReducer(state: FormState, action: any): FormState {
                             helperText={formError?.confirmPassword}
                             onBlur={() => onMouseLeaveEventHandler('confirmPassword', form.confirmPassword)}
                         />
-                    </div> 
-                     <div className={styles.form__row}></div>
+                    </div>
+                    <div className={styles.form__row}>
+                        <div className={styles.flex__col}>
+                            <>
+                                <Checkbox id="check-me"
+                                    checked={form.agreement ? true : false}
+                                    name='agreement'
+                                    onChange={onChangeHandler}
+                                />
+                                <label htmlFor="check-me">I agree to terms & conditions</label>
+                            </>
+
+
+                            <ErrorText text={'Please read and check the agreement'} />
+                        </div>
+
+
+
+
+                    </div>
+                    <div className={styles.form__row}>
+                        <Button
+                            type='square'
+                            variant="primary"
+
+                            onClick={() => !submitting ? onSubmitHandlerLocal() : null}
+                        >
+                            {submitting ? "Please wait..." : "Signup"}
+                        </Button>
+                    </div>
+
                 </div>
             </FormTemplate>
         </>
