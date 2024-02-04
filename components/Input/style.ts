@@ -1,12 +1,17 @@
 import { colors } from "config/colors";
 
 export const style:any = {
-  // "&.MuiTextField-root": {
-  //   minHeight:'78.90px', 
-  // },
+  "&.MuiTextField-root": {
+    // minHeight:'78.90px', 
+    fontFamily: "Poppins, sans-serif !important",
+  },
   "&.MuiFormControl-root": {
     width: "100%", 
     minHeight:'78.90px', 
+    fontFamily: "Poppins, sans-serif !important",
+  },
+  "&.MuiInputLabel-root": {
+    fontFamily: "Poppins !important",
   },
   input: {
     borderRadius: "6px",
@@ -16,7 +21,7 @@ export const style:any = {
     letterSpacing: "0.5px",
     color: "rgba(0, 0, 0, 0.87)",
     padding: "16px 12px",
-    fontFamily: "Poppins, sans-serif !important",
+
     width: "100%"
   },
   
@@ -40,5 +45,6 @@ export const style:any = {
   },
   "& .MuiFormHelperText-root": {
     fontFamily: "Poppins, sans-serif !important",
-  }
+  },
+  
 };

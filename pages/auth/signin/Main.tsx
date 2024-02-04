@@ -1,14 +1,10 @@
 
 
 import { Button } from 'components/Button';
-import Checkbox from 'components/Checkbox';
 import Header from 'components/Header/Header';
-import ErrorText from 'components/Help/ErrorText';
 import Input from 'components/Input';
-import InputAdromentSec from 'components/Input/InputAdromentSec';
 import { APIS } from 'config/apis';
 import { camelCaseToNormal } from 'functions/camelCaseToNormal';
-import { onChangeHandler } from 'functions/onChangeHandler';
 import { onSubmitHandler } from 'functions/onSubmitHandler';
 import { SigninForm } from 'interface/IAuth.interface';
 import { signInModel } from 'model/auth';
@@ -125,6 +121,11 @@ function Main({ userId }: IMain) {
   const onSubmitHandlerLocal = () => {
     onSubmitHandler(form, signInModel, dispatch, 'signin')
   }
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    dispatch({ type: 'UPDATE_FORM', payload: { name, value: e.target.type === 'checkbox' ? e.target.checked : value } });
+}
 
 
 
