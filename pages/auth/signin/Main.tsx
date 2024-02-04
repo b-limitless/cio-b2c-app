@@ -135,7 +135,9 @@ function Main({ userId }: IMain) {
         });
 
          globalDispatch(setCurrentCustomer(signinUser));
-         router.push('/dashboard');
+         const {query} =router;
+         const redirectPath = `/${query.from}/${userId}` || `/${userId}`;
+         router.push(redirectPath);
 
       } catch (err: any) {
         const { response: { data: { errors } } } = err;

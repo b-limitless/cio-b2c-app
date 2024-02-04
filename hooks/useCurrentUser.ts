@@ -1,15 +1,18 @@
 import { StarRate } from '@mui/icons-material';
 import { APIS } from 'config/apis';
+import { Router, useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentCustomer } from 'slices/customerSlice';
 import { RootState } from 'store';
 import { request } from 'utils/request';
 
+
+
 export default function useCurrentUser() {
   const { token } = useSelector((state: RootState) => state.currentCustomer);
-
   const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchCurrentUSer = async () => {
       try {
@@ -19,6 +22,7 @@ export default function useCurrentUser() {
         });
         dispatch(setCurrentCustomer(currentCustomer));
       } catch (err) {
+
         console.error(`Could not fetch current user ${err}`);
       }
     };

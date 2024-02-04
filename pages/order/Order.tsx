@@ -43,21 +43,23 @@ import OrderCompleted from './Completed';
 import Measurement from './Measurement';
 import Payment from './Payment';
 import Shipping from './Shipping';
+import useIsCustomerAuthenticated from 'hooks/useIsCustomerAuthenticated';
 
 
 interface IOrder {
     userId: string | string[]
 }
-export default function Order({userId}: IOrder) {
+export default function Order({ userId }: IOrder) {
     const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('shipping');
     const measurement = useSelector((state: RootState) => state.measurment);
     const shipping = useSelector((state: RootState) => state.shipping);
+    const { token } = useSelector((state: RootState) => state.currentCustomer);
     const [selectedCountry, setSelectedCountry] = useState<any>({
         code: 'AE',
         label: 'United Arab Emirates',
         phone: '971',
-      });
-    
+    });
+
     // const shipping = useSelector((state: RootState) => state.);
     const { errors: errorsMeasurement } = measurement;
     const [shouldMoveToNextStep, setShouldMoveToNextStep] = useState<boolean>(false);
@@ -82,21 +84,21 @@ export default function Order({userId}: IOrder) {
 
             }
             dispatch(updateErrors(measurementError));
-            if(!isThereAnyError(measurementError)) {
+            if (!isThereAnyError(measurementError)) {
                 nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
                 setShouldMoveToNextStep(true);
-           }
-            
+            }
+
 
         }
 
         // If the process is under shipping stage
-        if(measurementJourney === 'shipping') {
+        if (measurementJourney === 'shipping') {
             // Make sure that the form is filled
             const measurementError: any = {};
 
             for (const field of Object.keys(shippingModel) as Array<keyof (IShipping)>) {
-                
+
                 // @ts-ignore
                 if (!shippingModel[field].test(shipping.data[field])) {
                     measurementError[field] = `${camelCaseToNormal(field)} is required`
@@ -107,11 +109,11 @@ export default function Order({userId}: IOrder) {
             }
             dispatch(updateShippingWholeError(measurementError));
 
-            if(!isThereAnyError(measurementError)) {
-                 nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
-                 setShouldMoveToNextStep(true);
+            if (!isThereAnyError(measurementError)) {
+                nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
+                setShouldMoveToNextStep(true);
             }
-            
+
         }
     }
 
@@ -143,24 +145,26 @@ export default function Order({userId}: IOrder) {
         dispatch(updateShippingAction({ key: name, value }))
     }
 
-   
+
     const handleOptionChange = (event: any, value: any) => {
         setSelectedCountry(value);
-        dispatch(updatePartiallyAction({countryCode: value.phone, country: value.label}));
+        dispatch(updatePartiallyAction({ countryCode: value.phone, country: value.label }));
     };
-    
-    useEffect(() => {
 
-    }, [])
+    // Check that if customer is authenticated
+    useIsCustomerAuthenticated({
+        pathname: '/auth/signin',
+        query: { from: '/order' },
+    });
 
     return (
-        <>
+        <>{token && <>
             <Header navigations={measurementNavigation}
                 designJourney={measurementJourney}
                 setDesignJourney={setMeasurementJourney}
-                showNavigation 
+                showNavigation
                 userId={userId}
-                />
+            />
             {measurementJourney === OrderProcess.measurement &&
                 <Measurement
                     measurementJourney={measurementJourney}
@@ -179,13 +183,13 @@ export default function Order({userId}: IOrder) {
                     onMouseLeaveEventHandler={onMouseLeaveEventHandlerShipping}
                     onChangeHandler={onChangeHandlerShipping}
                     handleOptionChange={handleOptionChange}
-                    selectedCountry={selectedCountry} 
-                    // setSelectedCountry={setSelectedCountry}
+                    selectedCountry={selectedCountry}
+                // setSelectedCountry={setSelectedCountry}
 
                 />}
             {measurementJourney === OrderProcess.payment_options && <Payment measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
             {measurementJourney === OrderProcess.order_completed && <OrderCompleted measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
 
-        </>
+        </>}</>
     )
 }
