@@ -3,22 +3,20 @@
 import { Button } from 'components/Button';
 import Checkbox from 'components/Checkbox';
 import Header from 'components/Header/Header';
+import ErrorText from 'components/Help/ErrorText';
 import Input from 'components/Input';
+import InputAdromentSec from 'components/Input/InputAdromentSec';
 import { APIS } from 'config/apis';
 import { camelCaseToNormal } from 'functions/camelCaseToNormal';
 import { onSubmitHandler } from 'functions/onSubmitHandler';
 import { FormInterface, FormState } from 'interface/IAuth.interface';
 import { userModel } from 'model/auth';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import FormTemplate from 'pages/order/template/form';
 import React, { useEffect, useReducer } from 'react';
-import styles from 'style-module/shipping.module.scss'
+import styles from 'style-module/shipping.module.scss';
 import { request } from 'utils/request';
-import { useRouter } from 'next/router';
-import InputAdornments from 'components/Input/InputAdorments';
-import InputAdromentSec from 'components/Input/InputAdromentSec';
-import { FormHelperText } from '@mui/material';
-import ErrorText from 'components/Help/ErrorText';
 
 interface IMain {
     userId: string | string[] | null;
@@ -116,6 +114,8 @@ function Main({ userId }: IMain) {
         formHasError },
         dispatch] = useReducer(authReducer, initialState);
 
+       
+
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         dispatch({ type: 'UPDATE_FORM', payload: { name, value: e.target.type === 'checkbox' ? e.target.checked : value } });
@@ -163,7 +163,7 @@ function Main({ userId }: IMain) {
     }, [form, formError, formHasError, formSubmitted, router]);
 
 
-    console.log('submitting the form data', form, formError);
+    
     return (
         <>
             <Header
@@ -218,7 +218,7 @@ function Main({ userId }: IMain) {
                             </>
 
 
-                            <ErrorText text={'Please read and check the agreement'} />
+                            {formError.agreement && <ErrorText text={'Please read and check the agreement'} />}
                         </div>
 
 

@@ -5,7 +5,6 @@ export interface SigninForm {
 }
 
 export interface FormInterface extends SigninForm {
-  
   confirmPassword: string;
   agreement?: boolean;
 }
