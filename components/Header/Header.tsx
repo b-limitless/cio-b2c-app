@@ -39,9 +39,12 @@ export default function Header({userId, showNavigation, navigations, designJourn
                     <ul>
                         <input type="radio" name="radio-side-menu" id="clothing" className={styles.radio__side__menu} />
                         <label htmlFor="clothing">
+                            <Link href={'/auth/signin'}>
                             <li>
-                                clothin
+                                Sign in
                             </li>
+                            </Link>
+                            
                         </label>
 
                         <input type="radio" name="radio-side-menu" id="contact" className={styles.radio__side__menu} />

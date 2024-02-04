@@ -8,6 +8,7 @@ import Input from 'components/Input';
 import InputAdromentSec from 'components/Input/InputAdromentSec';
 import { APIS } from 'config/apis';
 import { camelCaseToNormal } from 'functions/camelCaseToNormal';
+import { onChangeHandler } from 'functions/onChangeHandler';
 import { onSubmitHandler } from 'functions/onSubmitHandler';
 import { FormInterface, FormState } from 'interface/IAuth.interface';
 import { userModel } from 'model/auth';
@@ -114,12 +115,7 @@ function Main({ userId }: IMain) {
         formHasError },
         dispatch] = useReducer(authReducer, initialState);
 
-       
-
-    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        dispatch({ type: 'UPDATE_FORM', payload: { name, value: e.target.type === 'checkbox' ? e.target.checked : value } });
-    }
+    
 
     const onMouseLeaveEventHandler = (name: keyof FormInterface, value: string) => {
         if (!userModel[name]?.test(value)) {
@@ -130,7 +126,6 @@ function Main({ userId }: IMain) {
     }
 
     const onSubmitHandlerLocal = () => {
-        console.log('form', form)
         onSubmitHandler(form, userModel, dispatch, 'signup');
     }
 
@@ -138,10 +133,12 @@ function Main({ userId }: IMain) {
         const submitFormToServer = async () => {
             try {
                 await request({
-                    url: APIS.auth.signup,
+                    url: APIS.customer.signup,
                     method: 'post',
                     body: { ...form }
                 });
+
+                
 
             } catch (err: any) {
                 const { response: { data: { errors } } } = err;
@@ -152,12 +149,10 @@ function Main({ userId }: IMain) {
                 });
                 console.log('err', errors);
             }
-
-
         }
 
         if (formSubmitted && !formHasError) {
-            //   submitFormToServer();
+              submitFormToServer();
         }
 
     }, [form, formError, formHasError, formSubmitted, router]);
@@ -176,7 +171,7 @@ function Main({ userId }: IMain) {
                         <Input label='Email Address'
                             name='email'
                             value={form.email ?? ''}
-                            onChange={onChangeHandler}
+                            onChange={(e:any) => onChangeHandler(e, dispatch)}
                             error={formError?.email}
                             helperText={formError?.email}
                             onBlur={() => onMouseLeaveEventHandler('email', form.email)}
@@ -189,7 +184,7 @@ function Main({ userId }: IMain) {
                             type='password'
                             name='password'
                             value={form.password ?? ''}
-                            onChange={onChangeHandler}
+                            onChange={(e:any) => onChangeHandler(e, dispatch)}
                             error={formError?.password}
                             helperText={formError?.password}
                             onBlur={() => onMouseLeaveEventHandler('password', form.password)}
@@ -200,7 +195,7 @@ function Main({ userId }: IMain) {
                         <InputAdromentSec label='Confirm Password'
                             name='confirmPassword'
                             value={form.confirmPassword ?? ''}
-                            onChange={onChangeHandler}
+                            onChange={(e:any) => onChangeHandler(e, dispatch)}
                             error={formError?.confirmPassword}
                             helperText={formError?.confirmPassword}
                             onBlur={() => onMouseLeaveEventHandler('confirmPassword', form.confirmPassword)}
@@ -212,7 +207,7 @@ function Main({ userId }: IMain) {
                                 <Checkbox id="check-me"
                                     checked={form.agreement ? true : false}
                                     name='agreement'
-                                    onChange={onChangeHandler}
+                                    onChange={(e:any) => onChangeHandler(e, dispatch)}
                                 />
                                 <label htmlFor="check-me">I agree to terms & conditions</label>
                             </>

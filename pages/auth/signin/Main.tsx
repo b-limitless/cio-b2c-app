@@ -5,6 +5,7 @@ import Header from 'components/Header/Header';
 import Input from 'components/Input';
 import { APIS } from 'config/apis';
 import { camelCaseToNormal } from 'functions/camelCaseToNormal';
+import { onChangeHandler } from 'functions/onChangeHandler';
 import { onSubmitHandler } from 'functions/onSubmitHandler';
 import { SigninForm } from 'interface/IAuth.interface';
 import { signInModel } from 'model/auth';
@@ -13,6 +14,7 @@ import { useRouter } from 'next/router';
 import FormTemplate from 'pages/order/template/form';
 import { useEffect, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
+import { setCurrentCustomer } from 'slices/customerSlice';
 import styles from 'style-module/shipping.module.scss';
 import { request } from 'utils/request';
 
@@ -122,24 +124,18 @@ function Main({ userId }: IMain) {
     onSubmitHandler(form, signInModel, dispatch, 'signin')
   }
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    dispatch({ type: 'UPDATE_FORM', payload: { name, value: e.target.type === 'checkbox' ? e.target.checked : value } });
-}
-
-
 
   useEffect(() => {
     const submitFormToServer = async () => {
       try {
-        const response = await request({
-          url: APIS.auth.signin,
+         const signinUser = await request({
+          url: APIS.customer.signin,
           method: 'post',
           body: form
         });
 
-        // globalDispatch(actions.authenticatedUser(response))
-        router.push('/dashboard');
+         globalDispatch(setCurrentCustomer(signinUser));
+         router.push('/dashboard');
 
       } catch (err: any) {
         const { response: { data: { errors } } } = err;
@@ -173,7 +169,7 @@ function Main({ userId }: IMain) {
             <Input label='Email Address'
               name='email'
               value={form.email ?? ''}
-              onChange={onChangeHandler}
+              onChange={(e: any) => onChangeHandler(e, dispatch)}
               error={formError?.email}
               helperText={formError?.email}
               onBlur={() => onMouseLeaveEventHandler('email', form.email)}
@@ -186,7 +182,7 @@ function Main({ userId }: IMain) {
             <Input label='Password'
               name='password'
               value={form.password ?? ''}
-              onChange={onChangeHandler}
+              onChange={(e: any) => onChangeHandler(e, dispatch)}
               error={formError?.password}
               helperText={formError?.password}
               onBlur={() => onMouseLeaveEventHandler('password', form.password)}
