@@ -4,6 +4,8 @@ export const REQUEST_BASE_URI = `${BASE_URI}/${API_PRIFIX}`;
 export const productBaseURI = `${REQUEST_BASE_URI}/products`;
 export const cart = `${REQUEST_BASE_URI}/cart`;
 export const customer = `${REQUEST_BASE_URI}/customer`;
+export const shirt = `${REQUEST_BASE_URI}/shirt`;
+
 
 export const APIS = {
   upload: `${productBaseURI}/v1/upload`,
@@ -12,6 +14,9 @@ export const APIS = {
     signup: `${customer}/signup`, 
     signin: `${customer}/signin`, 
     currentUser:`${customer}/currentCustomer`, 
+  },
+  shirt: {
+    measurement: `${shirt}/measurement`
   },
   cart
 };

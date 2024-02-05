@@ -13,7 +13,7 @@ interface IUseIsCustomerAuthenticated {
 
 
 export default function useIsCustomerAuthenticated({ pathname, query }: IUseIsCustomerAuthenticated) {
-    const { token } = useSelector((state: RootState) => state.currentCustomer);
+    const { data } = useSelector((state: RootState) => state.currentCustomer);
     const router = useRouter();
 
     useEffect(() => {
@@ -32,9 +32,9 @@ export default function useIsCustomerAuthenticated({ pathname, query }: IUseIsCu
             }
         };
 
-        if (!token) {
+        if (!data) {
             checkIfCustomerIsAuthenticated();
         }
-    }, [token, router, pathname, query]);
+    }, [data, router, pathname, query]);
     return null;
 }

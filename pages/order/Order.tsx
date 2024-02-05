@@ -50,10 +50,11 @@ interface IOrder {
     userId: string | string[]
 }
 export default function Order({ userId }: IOrder) {
-    const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('shipping');
+    const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
     const measurement = useSelector((state: RootState) => state.measurment);
     const shipping = useSelector((state: RootState) => state.shipping);
     const { token } = useSelector((state: RootState) => state.currentCustomer);
+    
     const [selectedCountry, setSelectedCountry] = useState<any>({
         code: 'AE',
         label: 'United Arab Emirates',
@@ -76,7 +77,7 @@ export default function Order({ userId }: IOrder) {
             for (const field of Object.keys(userAndShirtMeasurement) as Array<keyof (IShirtMeasurement | IPantMeasurement)>) {
                 if (measurement.data.unite === 'cm' && field === 'inch') continue;
                 // @ts-ignore
-                if (!userAndShirtMeasurement[field].test(measurement.data[field])) {
+                if (!userAndShirtMeasurement[field].test(measurement.token[field])) {
                     measurementError[field] = `${camelCaseToNormal(field)} is required`
                 } else {
                     measurementError[field] = null;
@@ -100,7 +101,7 @@ export default function Order({ userId }: IOrder) {
             for (const field of Object.keys(shippingModel) as Array<keyof (IShipping)>) {
 
                 // @ts-ignore
-                if (!shippingModel[field].test(shipping.data[field])) {
+                if (!shippingModel[field].test(shipping.token[field])) {
                     measurementError[field] = `${camelCaseToNormal(field)} is required`
                 } else {
                     measurementError[field] = null;

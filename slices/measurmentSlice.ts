@@ -42,6 +42,7 @@ const stateError: IShirtMeasurement | IPantMeasurement = {
 interface IMeasurement {
   data: IShirtMeasurement | IPantMeasurement;
   errors: IShirtMeasurement | IPantMeasurement;
+  fetchedFromAPI: boolean;
 }
 export interface IPayloadMeasurment {
   key: keyof IShirtMeasurement | keyof IPantMeasurement;
@@ -51,6 +52,7 @@ export interface IPayloadMeasurment {
 const initialState: IMeasurement = {
   data: state,
   errors: stateError,
+  fetchedFromAPI: false
 };
 
 interface IUpdateHeight {
@@ -95,6 +97,9 @@ const measurementSlice = createSlice({
         }
       }
     },
+    updateFetchedFromAPIAction:(state: IMeasurement, action: PayloadAction<boolean>) =>{
+      return {...state, fetchedFromAPI: action.payload}
+    }
     
   },
 });
