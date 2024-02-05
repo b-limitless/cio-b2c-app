@@ -99,6 +99,10 @@ const measurementSlice = createSlice({
     },
     updateFetchedFromAPIAction:(state: IMeasurement, action: PayloadAction<boolean>) =>{
       return {...state, fetchedFromAPI: action.payload}
+    },
+
+    updateMeasurementPartialPropsAction: (state: IMeasurement, action: PayloadAction<IShirtMeasurement | IPantMeasurement>) => {
+      return {...state, data: action.payload}
     }
     
   },
