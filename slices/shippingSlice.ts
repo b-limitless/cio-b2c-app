@@ -27,7 +27,7 @@ export interface IPayloadShipping {
   value: any;
 }
 
-const initialState: IShippingState = {
+export const initialState: IShippingState = {
   data: {
     firstName: '',
     lastName: '',

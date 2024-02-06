@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIS, shipping } from 'config/apis';
+import { shipping } from 'config/apis';
 import { initialState } from 'slices/shippingSlice';
 import { request } from 'utils/request';
 

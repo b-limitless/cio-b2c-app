@@ -61,6 +61,7 @@ export default function Order({ userId }: IOrder) {
     const measurement = useSelector((state: RootState) => state.measurment);
     const shipping = useSelector((state: RootState) => state.shipping);
     const { token } = useSelector((state: RootState) => state.currentCustomer);
+    const {fetching: fetchingMeasurement} = measurement;
 
     const [selectedCountry, setSelectedCountry] = useState<any>({
         code: 'AE',
@@ -234,6 +235,7 @@ export default function Order({ userId }: IOrder) {
                     nextStageHandler={nextStageHandler}
                     onChangeHandler={measurementOnChangeHandler}
                     onMouseLeaveEventHandler={onMouseLeaveEventHandlerMeasurement}
+                    fetching={false}
 
                 />}
             {measurementJourney === OrderProcess.shipping &&
@@ -246,6 +248,7 @@ export default function Order({ userId }: IOrder) {
                     onChangeHandler={onChangeHandlerShipping}
                     handleOptionChange={handleOptionChange}
                     selectedCountry={selectedCountry}
+                    fetching={false}
                 // setSelectedCountry={setSelectedCountry}
 
                 />}

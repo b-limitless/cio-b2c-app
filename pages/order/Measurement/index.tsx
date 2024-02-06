@@ -9,63 +9,69 @@ import { IMeasurementForm } from '../../../types/common.interface';
 import styles from './measurement.module.scss';
 import BaseProductMeasurementForm from './product/base';
 import ProductShirt from './product/shirt';
+import { CircularProgress } from '@mui/material';
+import Loader from 'components/Loader';
 
 
 
 
-export default function Measurement({ measurementJourney, setMeasurementJourney, nextStageHandler, onChangeHandler, onMouseLeaveEventHandler }: IMeasurementForm) {
+export default function Measurement({fetching, measurementJourney, setMeasurementJourney, nextStageHandler, onChangeHandler, onMouseLeaveEventHandler }: IMeasurementForm) {
     // const modelType = useSelector((state:RootState) => state.modelType);
 
-    const {data, errors} = useSelector((state:RootState) => state.measurment);
+    const { data, errors } = useSelector((state: RootState) => state.measurment);
 
     const baseMeasurementForm = useMemo(() => {
-        const {firstName, lastName, age, weight, inch, unite, height} = data;
-        return {firstName, lastName, height, age, weight, inch, unite};
+        const { firstName, lastName, age, weight, inch, unite, height } = data;
+        return { firstName, lastName, height, age, weight, inch, unite };
     }, [data]);
 
     const shirtMeasurementForm = useMemo(() => {
-        const {firstName, lastName, age, weight, unite, height, inch, ...rest} = data;
+        const { firstName, lastName, age, weight, unite, height, inch, ...rest } = data;
 
-        return {...rest} as IShirtMeasurement;
+        return { ...rest } as IShirtMeasurement;
     }, [data]);
 
     const errorMeasurement = useMemo(() => {
-        const {firstName, lastName, age, weight, unite, height, inch, ...rest} = errors;
-        return {...rest} as IShirtMeasurement;
+        const { firstName, lastName, age, weight, unite, height, inch, ...rest } = errors;
+        return { ...rest } as IShirtMeasurement;
     }, [errors]);
 
-    
-    
+
+
     return (
         <div className={styles.measurement__container}>
-           
-            <div className={styles.measurement__form}>
-                <div className={styles.title}>
-                    and now, let{'\''}s measure!
-                </div>
-                <p className={styles.description}>
-                    We are going to create your body measurements profile. All we need is some basic information.
-                </p>
-                <div className={styles.form__group}>
-                    <BaseProductMeasurementForm
-                      onChangeHandler={onChangeHandler ? onChangeHandler : () => {}}
-                      formData={baseMeasurementForm}
-                      errors={errors}
-                      onMouseLeaveEventHandler={onMouseLeaveEventHandler}
-                    />
-                    <ProductShirt 
-                        measurement={shirtMeasurementForm}
-                        errors={errorMeasurement}
-                        onMouseLeaveEventHandler={onMouseLeaveEventHandler}
-                        onChangeHandler={onChangeHandler ? onChangeHandler : () => {}}
-                    />
-                </div>
 
-                <div className={styles.actions}>
-                    <Button variant='primary' type='square' onClick={() => nextStageHandler()}>
-                        Next
-                    </Button>
-                </div>
+            <div className={styles.measurement__form}>
+                {fetching && <Loader/>}
+               
+               {!fetching && <>
+                    <div className={styles.title}>
+                        and now, let{'\''}s measure!
+                    </div>
+                    <p className={styles.description}>
+                        We are going to create your body measurements profile. All we need is some basic information.
+                    </p>
+                    <div className={styles.form__group}>
+                        <BaseProductMeasurementForm
+                            onChangeHandler={onChangeHandler ? onChangeHandler : () => { }}
+                            formData={baseMeasurementForm}
+                            errors={errors}
+                            onMouseLeaveEventHandler={onMouseLeaveEventHandler}
+                        />
+                        <ProductShirt
+                            measurement={shirtMeasurementForm}
+                            errors={errorMeasurement}
+                            onMouseLeaveEventHandler={onMouseLeaveEventHandler}
+                            onChangeHandler={onChangeHandler ? onChangeHandler : () => { }}
+                        />
+                    </div>
+
+                    <div className={styles.actions}>
+                        <Button variant='primary' type='square' onClick={() => nextStageHandler()}>
+                            Next
+                        </Button>
+                    </div>
+                </>} 
             </div>
 
 
