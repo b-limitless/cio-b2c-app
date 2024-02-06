@@ -37,7 +37,7 @@ import { userAndShirtMeasurement } from 'model/user';
 import useIsCustomerAuthenticated from 'hooks/useIsCustomerAuthenticated';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateErrors, updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
-import { IShipping, updatePartiallyAction, updateShippingAction, updateShippingErrorAction, updateShippingWholeError } from 'slices/shippingSlice';
+import { IPayloadShipping, IShipping, updatePartiallyAction, updateShippingAction, updateShippingErrorAction, updateShippingWholeError } from 'slices/shippingSlice';
 import { AppDispatch, RootState } from 'store';
 import { OrderProcess, combinedTypes } from 'types/enums';
 import OrderCompleted from './Completed';
@@ -50,6 +50,8 @@ import { fetchCustomerMeasurementShirt } from 'actions/fetchCustomerMeasurementS
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { request } from 'utils/request';
 import { APIS, customer } from 'config/apis';
+import { fetchCustomerShipping } from 'actions/fetchCustomerShipping.action';
+import {shipping as shippingAPI}  from 'config/apis';
 
 interface IOrder {
     userId: string | string[]
@@ -95,6 +97,18 @@ export default function Order({ userId }: IOrder) {
         }
     }
 
+    const updateUserShipping  = async(body:IShipping) => {
+        try {
+            await request({
+                url: shippingAPI,
+                method:'post', 
+                body
+            });
+        } catch(err) {
+            console.log(`Could not update the user profile ${err}`);
+        }
+    }
+
     const nextStageHandler = async() => {
 
         // Need to validate the form if all of them are filled then only move to the next step
@@ -132,7 +146,7 @@ export default function Order({ userId }: IOrder) {
             for (const field of Object.keys(shippingModel) as Array<keyof (IShipping)>) {
 
                 // @ts-ignore
-                if (!shippingModel[field].test(shipping.token[field])) {
+                if (!shippingModel[field].test(shipping?.data?.[field]) || !shipping?.data?.[field]) {
                     measurementError[field] = `${camelCaseToNormal(field)} is required`
                 } else {
                     measurementError[field] = null;
@@ -142,6 +156,7 @@ export default function Order({ userId }: IOrder) {
             dispatch(updateShippingWholeError(measurementError));
 
             if (!isThereAnyError(measurementError)) {
+                updateUserShipping(shipping.data);
                 nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
                 setShouldMoveToNextStep(true);
             }
@@ -171,6 +186,7 @@ export default function Order({ userId }: IOrder) {
 
             dispatch(updateShippingErrorAction({ key: name, value: `${camelCaseToNormal(name, true)} is required` }));
         } else {
+            console.log(`${name} is good ${value}`)
             dispatch(updateShippingErrorAction({ key: name, value: null }));
         }
     }
@@ -195,7 +211,13 @@ export default function Order({ userId }: IOrder) {
 
     useEffect(() => {
         dispatch(fetchCustomerMeasurementShirt());
-    }, [dispatch])
+    }, [dispatch]);
+
+    useEffect(() => {
+        if(measurementJourney === 'shipping') {
+            dispatch(fetchCustomerShipping());
+        }
+    }, [measurementJourney, dispatch])
 
     return (
         <>{token && <>

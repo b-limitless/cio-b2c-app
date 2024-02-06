@@ -3,8 +3,8 @@
 @import "styles/minxin/scroolbar.scss";
 
 .measurement__container {
-  max-width: 1187px;
-  margin: 83px auto 0 auto;
+  max-width: 651px;;
+  margin: auto;
   display: flex;
   flex-direction: column;
   row-gap: 3rem;
@@ -23,6 +23,11 @@
     border-radius: 6px;
     row-gap: 1rem;
     padding: 3rem 0;
+
+    .description {
+      padding: 0 1rem 0 1rem;
+      text-align: center;
+    }
 
     @media only screen and (width < $bp-small) {
       width: 100vw;

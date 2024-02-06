@@ -6,3 +6,5 @@ export const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 export const validString = /^[\w ]{2,}$/;
 export const validDigit = /^(?!0\d)[0-9]{1,100}$/; ///^[0-9]{1,100}$/
 export const validUnite = /^(feet|cm)$/i
+
+export const anything = /^[\w ]{0,}$/;

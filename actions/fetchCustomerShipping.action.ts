@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIS, shipping } from 'config/apis';
+import { initialState } from 'slices/shippingSlice';
 import { request } from 'utils/request';
 
 
@@ -10,6 +11,8 @@ export const fetchCustomerShipping = createAsyncThunk(
       url: shipping,
       method: 'get',
     });
-    return response;
+
+    
+    return response ? response : initialState.data;
   },
 )

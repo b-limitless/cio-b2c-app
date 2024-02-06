@@ -72,7 +72,7 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
             {/* <div className={styles.video__guide}>
                 <Image src='/img/video.png' width={1190} height={670} alt='' />
             </div> */}
-            <div className={styles.time__tape}>
+            {/* <div className={styles.time__tape}>
                 <div className={styles.col}>
                     <Image src='/icon/time.svg' width={60} height={60} alt='time' />
                     <span className={styles.sub}>Are you in a hurry?</span>
@@ -93,7 +93,7 @@ export default function Measurement({ measurementJourney, setMeasurementJourney,
                         and take your measurements later
                     </span>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
