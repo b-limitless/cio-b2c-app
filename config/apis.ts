@@ -5,6 +5,7 @@ export const productBaseURI = `${REQUEST_BASE_URI}/products`;
 export const cart = `${REQUEST_BASE_URI}/cart`;
 export const customer = `${REQUEST_BASE_URI}/customer`;
 export const shirt = `${REQUEST_BASE_URI}/shirt`;
+export const shipping = `${REQUEST_BASE_URI}/shipping`;
 
 
 export const APIS = {
@@ -18,5 +19,8 @@ export const APIS = {
   shirt: {
     measurement: `${shirt}/measurement`
   },
-  cart
+  cart, 
+  shipping: {
+    
+  }
 };

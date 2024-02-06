@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { fetchCustomerShipping } from 'actions/fetchCustomerShipping.action';
 
 export interface IShipping {
   firstName: string | null;
@@ -17,6 +18,8 @@ export interface IShipping {
 export interface IShippingState {
   data: IShipping;
   errors: IShipping;
+  fetching:boolean;
+  error:null | string | undefined;
 }
 
 export interface IPayloadShipping {
@@ -51,6 +54,8 @@ const initialState: IShippingState = {
     city: null,
     email: null,
   },
+  fetching:false,
+  error:null
 };
 
 const shippingSlice = createSlice({
@@ -98,7 +103,28 @@ const shippingSlice = createSlice({
         },
       };
     },
+    
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCustomerShipping.fulfilled, (state, action) => {
+      return {
+        ...state,
+        fetching: false,
+        data: action.payload
+      }
+    }),
+    builder.addCase(fetchCustomerShipping.pending, (state, action) => {
+      return {
+        ...state,
+        loading: action.payload
+      }
+    }), 
+    builder.addCase(fetchCustomerShipping.rejected, (state, action) => {
+      state.fetching = false;
+      state.error = action.error.message
+    })
+
+  }
 });
 
 export const {

@@ -4,7 +4,7 @@ import { request } from 'utils/request';
 
 
 export const fetchCustomerMeasurementShirt = createAsyncThunk(
-  'users/fetchByIdStatus',
+  'users/fetchMeasurement',
   async () => {
         const response = await request({
       url: APIS.shirt.measurement,
