@@ -33,18 +33,23 @@ import { IPantMeasurement } from 'interface/IPantMeasurement';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 import { shippingModel } from 'model/shipping';
 import { userAndShirtMeasurement } from 'model/user';
-import { useEffect, useState } from 'react';
+
+import useIsCustomerAuthenticated from 'hooks/useIsCustomerAuthenticated';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateErrors, updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
 import { IShipping, updatePartiallyAction, updateShippingAction, updateShippingErrorAction, updateShippingWholeError } from 'slices/shippingSlice';
-import { RootState } from 'store';
+import { AppDispatch, RootState } from 'store';
 import { OrderProcess, combinedTypes } from 'types/enums';
 import OrderCompleted from './Completed';
 import Measurement from './Measurement';
 import Payment from './Payment';
 import Shipping from './Shipping';
-import useIsCustomerAuthenticated from 'hooks/useIsCustomerAuthenticated';
 
+import { useEffect, useState } from 'react';
+import { fetchCustomerMeasurementShirt } from 'actions/fetchCustomerMeasurementShirt.action';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { request } from 'utils/request';
+import { APIS, customer } from 'config/apis';
 
 interface IOrder {
     userId: string | string[]
@@ -54,7 +59,7 @@ export default function Order({ userId }: IOrder) {
     const measurement = useSelector((state: RootState) => state.measurment);
     const shipping = useSelector((state: RootState) => state.shipping);
     const { token } = useSelector((state: RootState) => state.currentCustomer);
-    
+
     const [selectedCountry, setSelectedCountry] = useState<any>({
         code: 'AE',
         label: 'United Arab Emirates',
@@ -64,10 +69,33 @@ export default function Order({ userId }: IOrder) {
     // const shipping = useSelector((state: RootState) => state.);
     const { errors: errorsMeasurement } = measurement;
     const [shouldMoveToNextStep, setShouldMoveToNextStep] = useState<boolean>(false);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
+    const updateUserMeasurmen = async(body:any) => {
+        try {
+            await request({
+                url: APIS.shirt.measurement,
+                method:'post', 
+                body
+            });
+        } catch(err) {
+            console.log(`Could not update the user shirt measurement ${err}`);
+        }
+    }
 
-    const nextStageHandler = () => {
+    const updateUserProfile = async(body:any) => {
+        try {
+            await request({
+                url: customer,
+                method:'put', 
+                body
+            });
+        } catch(err) {
+            console.log(`Could not update the user profile ${err}`);
+        }
+    }
+
+    const nextStageHandler = async() => {
 
         // Need to validate the form if all of them are filled then only move to the next step
         if (measurementJourney === 'measurement') {
@@ -76,8 +104,8 @@ export default function Order({ userId }: IOrder) {
 
             for (const field of Object.keys(userAndShirtMeasurement) as Array<keyof (IShirtMeasurement | IPantMeasurement)>) {
                 if (measurement.data.unite === 'cm' && field === 'inch') continue;
-                // @ts-ignore
-                if (!userAndShirtMeasurement[field].test(measurement.token[field])) {
+               
+                if (!userAndShirtMeasurement[field].test(measurement.data[field] as (any)) || !measurement.data[field]) {
                     measurementError[field] = `${camelCaseToNormal(field)} is required`
                 } else {
                     measurementError[field] = null;
@@ -87,6 +115,9 @@ export default function Order({ userId }: IOrder) {
             dispatch(updateErrors(measurementError));
             if (!isThereAnyError(measurementError)) {
                 nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
+                // In this tage make a request to update the user measurment and user profile details
+                await updateUserMeasurmen(measurement.data);
+                await updateUserProfile(measurement.data);
                 setShouldMoveToNextStep(true);
             }
 
@@ -125,9 +156,12 @@ export default function Order({ userId }: IOrder) {
     }
 
     const onMouseLeaveEventHandlerMeasurement = (name: keyof IMeasurementBase, value: string) => {
-        if (!userAndShirtMeasurement[name]?.test(value)) {
+        
+        if (!userAndShirtMeasurement[name]?.test(value) || !value) {
+            
             dispatch(updateMeasurementErrorAction({ key: name, value: `${camelCaseToNormal(name, true)} is required` }));
         } else {
+            console.log(`${name} ${value} is valid`)
             dispatch(updateMeasurementErrorAction({ key: name, value: null }));
         }
     }
@@ -157,6 +191,11 @@ export default function Order({ userId }: IOrder) {
         pathname: '/auth/signin',
         query: { from: '/order' },
     });
+
+
+    useEffect(() => {
+        dispatch(fetchCustomerMeasurementShirt());
+    }, [dispatch])
 
     return (
         <>{token && <>
@@ -194,3 +233,4 @@ export default function Order({ userId }: IOrder) {
         </>}</>
     )
 }
+

@@ -7,7 +7,8 @@ export type IMeasurementHeight = {
 };
 
 export interface IMeasurementBase {
-  fullName: string | null;
+  firstName: string | null;
+  lastName: string | null;
   height: number | null;
   inch: number | null;
   weight: number | null;

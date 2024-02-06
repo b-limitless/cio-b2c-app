@@ -1,7 +1,8 @@
 import { validDigit, validString, validUnite } from 'regrex';
 
 export const user = {
-  fullName: validString,
+  firstName: validString,
+  lastName: validString,
   height: validDigit,
   weight: validDigit,
   age: validDigit,

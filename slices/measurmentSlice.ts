@@ -1,10 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { fetchCustomerMeasurementShirt } from 'actions/fetchCustomerMeasurementShirt.action';
 import { IMeasurementHeight } from 'interface/IMeasurementBase';
 import { IPantMeasurement } from 'interface/IPantMeasurement';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 
 const state: IShirtMeasurement | IPantMeasurement = {
-  fullName: '',
+  firstName: '',
+  lastName: '',
   height: null,
   inch: null,
   sleevLength: null,
@@ -18,11 +20,12 @@ const state: IShirtMeasurement | IPantMeasurement = {
   weight: null,
   age: null,
   unite: 'feet',
-  neck: null
+  neck: null,
 };
 
 const stateError: IShirtMeasurement | IPantMeasurement = {
-  fullName: null,
+  firstName: null,
+  lastName: null,
   height: null,
   inch: null,
   sleevLength: null,
@@ -36,13 +39,15 @@ const stateError: IShirtMeasurement | IPantMeasurement = {
   weight: null,
   age: null,
   unite: null,
-  neck: null
+  neck: null,
 };
 
 interface IMeasurement {
   data: IShirtMeasurement | IPantMeasurement;
   errors: IShirtMeasurement | IPantMeasurement;
   fetchedFromAPI: boolean;
+  fetching: boolean;
+  error:null | string | undefined;
 }
 export interface IPayloadMeasurment {
   key: keyof IShirtMeasurement | keyof IPantMeasurement;
@@ -52,7 +57,9 @@ export interface IPayloadMeasurment {
 const initialState: IMeasurement = {
   data: state,
   errors: stateError,
-  fetchedFromAPI: false
+  fetchedFromAPI: false,
+  fetching: false,
+  error:null
 };
 
 interface IUpdateHeight {
@@ -88,26 +95,73 @@ const measurementSlice = createSlice({
         },
       };
     },
-    updateErrors: (state: IMeasurement, action: PayloadAction<IShirtMeasurement | IPantMeasurement>) => {
-      const {payload} = action;
+    updateErrors: (
+      state: IMeasurement,
+      action: PayloadAction<IShirtMeasurement | IPantMeasurement>
+    ) => {
+      const { payload } = action;
       return {
         ...state,
         errors: {
-          ...payload
-        }
-      }
+          ...payload,
+        },
+      };
     },
-    updateFetchedFromAPIAction:(state: IMeasurement, action: PayloadAction<boolean>) =>{
-      return {...state, fetchedFromAPI: action.payload}
+    updateFetchedFromAPIAction: (state: IMeasurement, action: PayloadAction<boolean>) => {
+      return { ...state, fetchedFromAPI: action.payload };
     },
 
-    updateMeasurementPartialPropsAction: (state: IMeasurement, action: PayloadAction<IShirtMeasurement | IPantMeasurement>) => {
-      return {...state, data: action.payload}
-    }
-    
+    updateMeasurementPartialPropsAction: (
+      state: IMeasurement,
+      action: PayloadAction<IShirtMeasurement | IPantMeasurement>
+    ) => {
+      return { ...state, data: action.payload };
+    },
+    updateErrorsPartial: (
+      state: IMeasurement,
+      action: PayloadAction<IShirtMeasurement | IPantMeasurement>
+    ) => {
+      return {
+        ...state,
+        errors: action.payload,
+      };
+    },
+    fetchingUserShirtMeasurementAction: (state: IMeasurement, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        fetching: action.payload,
+      };
+    },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCustomerMeasurementShirt.fulfilled, (state, action) => {
+      return {
+        ...state,
+        fetching: false,
+        data: action.payload
+      }
+    }),
+    builder.addCase(fetchCustomerMeasurementShirt.pending, (state, action) => {
+      return {
+        ...state,
+        loading: action.payload
+      }
+    }), 
+    builder.addCase(fetchCustomerMeasurementShirt.rejected, (state, action) => {
+      state.fetching = false;
+      state.error = action.error.message
+    })
+
+  }
 });
 
-export const { updateMeasurementAction, updateMeasurementErrorAction, updateErrors } = measurementSlice.actions;
+export const {
+  fetchingUserShirtMeasurementAction,
+  updateErrorsPartial,
+  updateMeasurementPartialPropsAction,
+  updateMeasurementAction,
+  updateMeasurementErrorAction,
+  updateErrors,
+} = measurementSlice.actions;
 
 export default measurementSlice.reducer;

@@ -1,5 +1,5 @@
 'use client';
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, createAsyncThunk } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import accent from "slices/accentSlice";
 import cart from 'slices/cartSlice';
@@ -13,6 +13,7 @@ import shipping from "slices/shippingSlice";
 import store from "slices/storeSlice";
 import cartIndexToupdate from "slices/updateCartIndex";
 
+
 export const Store = configureStore({
     reducer: {
         model, 
@@ -25,7 +26,7 @@ export const Store = configureStore({
         shipping, 
         febrics, 
         store, 
-        currentCustomer
+        currentCustomer, 
         
     },
     middleware: [thunk]

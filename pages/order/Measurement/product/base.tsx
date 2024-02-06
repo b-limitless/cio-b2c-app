@@ -15,7 +15,6 @@ const inches = countEleven.map((item, i) => {
     return { name: i, code: i }
 })
 
-console.log('inches', inches)
 
 interface IBaseProductMeasurementForm {
     onChangeHandler: Function;
@@ -28,13 +27,22 @@ function BaseProductMeasurementForm({ onChangeHandler, formData, errors, onMouse
     return (
         <>
             <div className={styles.form__row}>
-                <Input label='Full Name'
-                    name='fullName'
+            <Input label='First Name'
+                    name='firstName'
                     onChange={(e: any) => onChangeHandler(e)}
-                    value={formData?.fullName ?? ''}
-                    error={errors?.fullName}
-                    onBlur={() => onMouseLeaveEventHandler('fullName', formData.fullName)}
-                    helperText={errors?.fullName}
+                    value={formData?.firstName ?? ''}
+                    error={errors?.firstName}
+                    onBlur={() => onMouseLeaveEventHandler('firstName', formData.firstName)}
+                    helperText={errors?.firstName}
+                />
+
+<Input label='Last Name'
+                    name='lastName'
+                    onChange={(e: any) => onChangeHandler(e)}
+                    value={formData?.lastName ?? ''}
+                    error={errors?.lastName}
+                    onBlur={() => onMouseLeaveEventHandler('lastName', formData.lastName)}
+                    helperText={errors?.lastName}
                 />
             </div>
             <p className={styles.unite}>
