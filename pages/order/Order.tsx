@@ -52,12 +52,13 @@ import { request } from 'utils/request';
 import { APIS, customer } from 'config/apis';
 import { fetchCustomerShipping } from 'actions/fetchCustomerShipping.action';
 import {shipping as shippingAPI}  from 'config/apis';
+import { Review } from './Review';
 
 interface IOrder {
     userId: string | string[]
 }
 export default function Order({ userId }: IOrder) {
-    const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
+    const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('review');
     const measurement = useSelector((state: RootState) => state.measurment);
     const shipping = useSelector((state: RootState) => state.shipping);
     const { token } = useSelector((state: RootState) => state.currentCustomer);
@@ -259,6 +260,8 @@ export default function Order({ userId }: IOrder) {
                measurementJourney={measurementJourney} 
                setMeasurementJourney={setMeasurementJourney} 
                nextStageHandler={nextStageHandler} />}
+
+            {measurementJourney === OrderProcess.review && <Review/>}
             {measurementJourney === OrderProcess.order_completed && <OrderCompleted measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
 
         </>}</>

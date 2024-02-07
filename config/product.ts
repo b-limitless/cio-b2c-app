@@ -27,6 +27,10 @@ export const measurementNavigation = [
         value: "payment_options"
     }, 
     {
+        title: "Review", 
+        value: "review"
+    },
+    {
         title: "order completed", 
         value: "order_completed"
     }

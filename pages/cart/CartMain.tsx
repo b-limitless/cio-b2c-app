@@ -1,4 +1,8 @@
 // 'use client'
+/**
+ * This component can be use full in review section only few things need to add 
+ * Such as shipping details and payment option which is selected by the user
+ * **/
 import { Button } from 'components/Button';
 import Header from 'components/Header/Header';
 import { moneyFormat } from 'functions/moneyFormat';
@@ -18,14 +22,15 @@ import Model from './model';
 import CartItem from './CartItem';
 import { APIS } from 'config/apis';
 import { request } from 'utils/request';
+import Radio from 'components/Radio/Radio';
 
 
 
 interface ICartMain {
-    userId: string | string[]
+  userId: string | string[]
 }
 // cart-shirt, add, copy, eye, delete, hunburg
-export default function Cart({userId}: ICartMain) {
+export default function Cart({ userId }: ICartMain) {
   const [showCartDetailsModel, setShowCartDetailsModel] = useState<number>(-1);
   const [selectedCartIndex, setSelectedCartIndex] = useState<null | number>(null);
   const carts = useSelector((state: RootState) => state.cart);
@@ -41,50 +46,50 @@ export default function Cart({userId}: ICartMain) {
     dispatchSampleCartData();
   }, [dispatch]);
 
-  const addOrRemoveHanlder = async(params: IUpdateQuantity) => {
-    const {addOrRemove, qty, index, id} = params
-  
+  const addOrRemoveHanlder = async (params: IUpdateQuantity) => {
+    const { addOrRemove, qty, index, id } = params
+
     const finalQty = addOrRemove === 'add' ? carts[index].qty + 1 : carts[index].qty - qty;
 
     try {
-        await request({
-          url: `${APIS.cart}/${id}`,
-          method: 'patch', 
-          body: {qty: finalQty}
-        });
-    } catch(err) {
+      await request({
+        url: `${APIS.cart}/${id}`,
+        method: 'patch',
+        body: { qty: finalQty }
+      });
+    } catch (err) {
       console.error(`Could not update quanity ${err}`);
       throw new Error(`Could not update quanity ${err}`);
     }
     dispatch(updateQuantity(params));
   }
 
-  const duplicateCartItem = async(params: IUpdateBase) => {
+  const duplicateCartItem = async (params: IUpdateBase) => {
     // Get cart by index and remove the id from it and sent creat cart API 
-    const {index} = params;
+    const { index } = params;
 
     const copyCart = carts[index];
-    const {id, ...body} = copyCart;
+    const { id, ...body } = copyCart;
 
     try {
       await request({
         url: APIS.cart,
-        method: 'post', 
+        method: 'post',
         body
       });
-    } catch(err) {
+    } catch (err) {
       console.log(`Could be duplicate the cart ${err}`);
     }
     dispatch(duplicateItem(params));
   }
 
-  const deleteItem = async(params: IUpdateBase) => {
+  const deleteItem = async (params: IUpdateBase) => {
 
     // Send the request to the server to delete the item
-    const{index} = params;
+    const { index } = params;
     try {
-       await request({url: `${APIS.cart}/${index}`, method: 'delete'})
-    } catch(err) {
+      await request({ url: `${APIS.cart}/${index}`, method: 'delete' })
+    } catch (err) {
       console.error(`could not delete the item ${err}`)
     }
     dispatch(deleteItemAction(params))
@@ -112,9 +117,9 @@ export default function Cart({userId}: ICartMain) {
   }, [carts]);
 
   const cartIndexToUpdate = (index: number) => {
-    const {model, accent, febric}  = carts[index];
+    const { model, accent, febric } = carts[index];
     dispatch(updateCartIndexAction(index));
-    
+
     dispatch(updateAllProps(model));
     dispatch(updateAllAccent(accent));
     dispatch(updateFebric(febric));
@@ -131,26 +136,74 @@ export default function Cart({userId}: ICartMain) {
         setSelectedCartIndex={setSelectedCartIndex}
         cart={carts[showCartDetailsModel - 1] ?? null}
       />
-      <Header userId={userId}/>
+      <Header userId={userId} />
       <div className={styles.cart__container}>
         <div className={styles.title}>
           <Link href={`/customize/shirt/${userId}`}>Shopping Bag</Link>
-          </div>
+        </div>
 
         {carts.length > 0 && <div className={styles.cart__details}>
-          <div className={styles.items}>
-            {carts.map((cart, i) => <CartItem
-              key={'cart-item' + i}
-              id={i}
-              cart={cart}
-              addOrRemoveHanlder={addOrRemoveHanlder}
-              duplicateCartItem={duplicateCartItem}
-              deleteItem={deleteItem}
-              setShowCartDetailsModel={setShowCartDetailsModel}
-              cartIndexToUpdate={cartIndexToUpdate}
-            />
 
-            )}
+          <div className={styles.items}>
+            <div className={styles.shipping}>
+             <div className="styles row">
+                <div className="styles address">Shipping Address</div>
+             </div>
+
+             <div className="styles row">
+                <div className="styles sub_row">
+                  <div className="styles col">
+                    Shahil Misran
+                  </div>
+
+                  <div className="styles col">
+                    +971 56598789745
+                  </div>  
+                </div>
+                <div className="styles sub_row">
+                901 Qubaisi Building. 16, Talaha Bin Obaid street, Abu Shagara, Sharjah.
+                </div>
+             </div>
+              
+            </div>
+            <div className={styles.payment}>
+              <div className="styles row">
+                <div className="styles title">Payment Method</div>
+              </div>
+              <div className="styles row">
+                <div className="styles payment_item">
+                    <Radio label=''></Radio>
+                    <label>
+                      <span><Image src={'/icon/rular.svg'} width={30} height={30} alt='' /></span>
+                      <span>Add a new card</span>
+                    </label>
+                </div>
+                <div className="styles payment_item">
+                    <Radio label=''></Radio>
+                    <label>
+                      <span><Image src={'/icon/rular.svg'} width={30} height={30} alt='' /></span>
+                      <span>Paypal</span>
+                    </label>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.cart_items}>
+              {carts.map((cart, i) => <CartItem
+                key={'cart-item' + i}
+                id={i}
+                cart={cart}
+                addOrRemoveHanlder={addOrRemoveHanlder}
+                duplicateCartItem={duplicateCartItem}
+                deleteItem={deleteItem}
+                setShowCartDetailsModel={setShowCartDetailsModel}
+                cartIndexToUpdate={cartIndexToUpdate}
+              />
+
+              )}
+
+            </div>
+
 
           </div>
           <div className={styles.summary}>
@@ -190,12 +243,12 @@ export default function Cart({userId}: ICartMain) {
 
                 <div className={styles.tr}>
                   <Link href={`/order/${userId}`}>
-                  <Button variant='primary' type='square'>
-                    <Image src={'/icon/rular.svg'} width={30} height={30} alt='' />
-                    <span>MEASUREMENT AND CHECKOUT</span>
-                  </Button>
+                    <Button variant='primary' type='square'>
+                      <Image src={'/icon/rular.svg'} width={30} height={30} alt='' />
+                      <span>MEASUREMENT AND CHECKOUT</span>
+                    </Button>
                   </Link>
-                  
+
                 </div>
               </div>
 
