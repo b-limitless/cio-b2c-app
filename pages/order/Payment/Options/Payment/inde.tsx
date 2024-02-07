@@ -28,7 +28,7 @@ export default function Options({ setSelectedPaymentOption, selectedPaymentOpiti
 
                 </div>
 
-                <div className={styles.option} onClick={() => setSelectedPaymentOption(PaymentOptions.creditCard)}>
+                <div style={{pointerEvents: 'none', opacity:0.6}} className={styles.option} onClick={() => setSelectedPaymentOption(PaymentOptions.creditCard)}>
                     <Image src={'/icon/credit-card.svg'} width={24} height={28.31} alt='credit-card'></Image>
                     <span className={styles.title}>credit card</span>
 

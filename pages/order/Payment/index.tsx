@@ -14,6 +14,8 @@ export default function Payment({ measurementJourney, setMeasurementJourney, nex
   const [selectedPaymentOpition, setSelectedPaymentOption] = useState<PaymentOptionsTypes>(null)
   const [isNextButtonClicked, setIsNextButtonClicked] = useState<boolean>(false);
 
+  console.log('selectedPaymentOpition', selectedPaymentOpition);
+
 
   return (
     <>

@@ -77,7 +77,7 @@ function BaseProductMeasurementForm({ onChangeHandler, formData, errors, onMouse
                     // options={height}
                     type='number'
                     name={'height'}
-                    value={formData.height}
+                    value={formData.height ?? 0}
                     label={`Height in ${formData.unite}`}
                     onChange={onChangeHandler}
                     error={errors.height}
@@ -99,7 +99,7 @@ function BaseProductMeasurementForm({ onChangeHandler, formData, errors, onMouse
                 <Input
                     name='weight'
                     type='number'
-                    value={formData.weight}
+                    value={formData.weight ?? 0}
                     label={`Weight in ${formData.unite === 'feet' ? 'LB' : 'KG'}`}
                     onChange={onChangeHandler}
                     error={errors?.weight}
@@ -116,7 +116,7 @@ function BaseProductMeasurementForm({ onChangeHandler, formData, errors, onMouse
                 /> */}
                 <Input
                     // options={ages}
-                    value={formData.age}
+                    value={formData.age ?? 0}
                     name='age'
                     label='Age'
                     type='number'

@@ -9,9 +9,13 @@ const style: any = {
     height:'100%'
 
 }
-export default function Loader() {
+
+interface ILoader {
+    message?:string;
+}
+export default function Loader({message}: ILoader) {
     return (
         <div style={style}>
-            <CircularProgress style={{ color: colors.primary }} color={'info'} />Please wait....</div>
+            <CircularProgress style={{ color: colors.primary }} color={'info'} />{ message ? message :'Please wait....'}</div>
     )
 }

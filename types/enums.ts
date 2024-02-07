@@ -1,16 +1,17 @@
 export enum SelectionProcess {
-  febrics = "febrics",
-  styles = "styles",
-  accents = "accents",
+  febrics = 'febrics',
+  styles = 'styles',
+  accents = 'accents',
 }
 
 export type SelectionTypes = `${SelectionProcess}`;
 
 export enum OrderProcess {
-  measurement = "measurement",
-  shipping = "shipping",
-  payment_options = "payment_options",
-  order_completed = "order_completed",
+  measurement = 'measurement',
+  shipping = 'shipping',
+  payment_options = 'payment_options',
+  review='review',
+  order_completed = 'order_completed',
 }
 
 export type OrderProcessType = `${OrderProcess}`;

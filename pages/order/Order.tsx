@@ -164,6 +164,8 @@ export default function Order({ userId }: IOrder) {
             }
 
         }
+
+        
     }
 
     const measurementOnChangeHandler = (e: any) => {
@@ -219,7 +221,7 @@ export default function Order({ userId }: IOrder) {
         if(measurementJourney === 'shipping') {
             dispatch(fetchCustomerShipping());
         }
-    }, [measurementJourney, dispatch])
+    }, [measurementJourney, dispatch]);
 
     return (
         <>{token && <>
@@ -249,11 +251,14 @@ export default function Order({ userId }: IOrder) {
                     onChangeHandler={onChangeHandlerShipping}
                     handleOptionChange={handleOptionChange}
                     selectedCountry={selectedCountry}
-                    fetching={true}
+                    fetching={fetchingShipping}
                 // setSelectedCountry={setSelectedCountry}
 
                 />}
-            {measurementJourney === OrderProcess.payment_options && <Payment measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
+            {measurementJourney === OrderProcess.payment_options && <Payment 
+               measurementJourney={measurementJourney} 
+               setMeasurementJourney={setMeasurementJourney} 
+               nextStageHandler={nextStageHandler} />}
             {measurementJourney === OrderProcess.order_completed && <OrderCompleted measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
 
         </>}</>
