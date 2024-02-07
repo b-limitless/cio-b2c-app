@@ -5,6 +5,8 @@
     display: flex;
     flex-direction: column;
     row-gap: 42px;
+    width: 100% !important;
+    height: 100% !important;
 
     .title {
         p {color: #000;

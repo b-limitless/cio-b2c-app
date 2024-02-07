@@ -2,13 +2,16 @@ import { ReactNode } from 'react';
 import styles from './form.module.scss';
 
 interface FormTemplate {
-    children: ReactNode
+    children: ReactNode,
+    extraStyles?:any;
 }
-export default function FormTemplate({ children }: FormTemplate) {
+
+
+
+export default function FormTemplate({ children, extraStyles }: FormTemplate) {
     return (
 
-
-        <div className={styles.container}>
+        <div className={styles.container} style={extraStyles}>
             {children}
         </div>
 

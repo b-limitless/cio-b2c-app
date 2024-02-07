@@ -154,7 +154,7 @@ function Main({ userId }: IMain) {
     if (formSubmitted && !formHasError) {
       submitFormToServer();
     }
-  }, [formHasError, formSubmitted, router, form, globalDispatch]);
+  }, [formHasError, formSubmitted, router, form, globalDispatch, userId]);
 
 
 

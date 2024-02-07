@@ -22,4 +22,5 @@ export interface IShippingFrom extends IMeasurementForm {
   shipping: IShippingState
   handleOptionChange:Function;
   selectedCountry:string;
+  fetching: boolean;
 }

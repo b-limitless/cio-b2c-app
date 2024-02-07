@@ -4,6 +4,7 @@ import CountrySelect from 'components/Select/CountrySelect';
 import { IShippingFrom } from '../../../types/common.interface';
 import FormTemplate from '../template/form';
 import styles from 'style-module/shipping.module.scss';
+import Loader from 'components/Loader';
 
 interface IInputText {
   name: string;
@@ -11,6 +12,11 @@ interface IInputText {
   value: string;
 }
 
+const extraStyles = {
+  display:'grid',
+  height: 'calc(100vh - (89px + 1rem))',
+  placeItems: 'center'
+}
 
 export default function Shipping({ measurementJourney,
 
@@ -19,15 +25,18 @@ export default function Shipping({ measurementJourney,
   onMouseLeaveEventHandler,
   onChangeHandler,
   handleOptionChange,
-  selectedCountry
+  selectedCountry,
+  fetching
 }: IShippingFrom) {
   // This state is needed for the select component 
 
 
 
   return (
-    <FormTemplate>
-      <div className={styles.shipping}>
+    <FormTemplate extraStyles={ extraStyles}>
+      {fetching && <Loader />}
+
+      {!fetching && <div className={styles.shipping}>
         <div className={styles.form__row}>
           <CountrySelect
             value={selectedCountry}
@@ -152,7 +161,8 @@ export default function Shipping({ measurementJourney,
             Continue to payment
           </Button>
         </div>
-      </div>
+      </div>}
+
     </FormTemplate>
 
 

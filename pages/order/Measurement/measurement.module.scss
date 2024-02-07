@@ -8,22 +8,27 @@
   display: flex;
   flex-direction: column;
   row-gap: 3rem;
-  min-height: pxToRem(886);
+  margin-bottom: 1rem;
+  
 
   @media only screen and (width < $bp-small) {
     width: 100vw;
-    
   }
   
 
   .measurement__form {
-    display: flex;
-    flex-direction: column;
+    height: calc(100vh - (89px + 1rem));
+    // min-height: pxToRem(886);
+    // display: flex;
+    // flex-direction: column;
     align-items: center;
     background-color: $light;
     border-radius: 6px;
     row-gap: 1rem;
     padding: 3rem 0;
+
+    display: grid;
+    place-items: center;
 
     .description {
       padding: 0 1rem 0 1rem;
