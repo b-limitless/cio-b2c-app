@@ -209,6 +209,14 @@ $content-height: calc(100vh - (56px + 32px + 1rem + 25px + 80px + 186.5px + 191.
             justify-content: space-between;
             padding: 1rem 0;
 
+            a {
+              width: 100%;
+
+              button {
+                width: 100%;
+              }
+            }
+
             .price {
               color: $gray-medium-4;
               font-family: $default-font;
