@@ -9,7 +9,7 @@ import { moneyFormat } from 'functions/moneyFormat';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAllAccent } from 'slices/accentSlice';
 import { ICartItem, IUpdateBase, IUpdateQuantity, deleteItemAction, duplicateItem, updateQuantity } from 'slices/cartSlice';
@@ -32,10 +32,11 @@ const paymentStyle1 = { fontFamily: 'Poppins', fontSize: '14px' }
 
 
 interface ICartMain {
-  userId: string | string[]
+  userId: string | string[], 
+  children:ReactNode
 }
 // cart-shirt, add, copy, eye, delete, hunburg
-export default function Cart({ userId }: ICartMain) {
+export default function Cart({ userId, children }: ICartMain) {
   const [showCartDetailsModel, setShowCartDetailsModel] = useState<number>(-1);
   const [selectedCartIndex, setSelectedCartIndex] = useState<null | number>(null);
   const carts = useSelector((state: RootState) => state.cart);
@@ -141,7 +142,8 @@ export default function Cart({ userId }: ICartMain) {
         setSelectedCartIndex={setSelectedCartIndex}
         cart={carts[showCartDetailsModel - 1] ?? null}
       />
-      <Header userId={userId} />
+      {children}
+      {/* <Header userId={userId} /> */}
       <div className={styles.cart__container}>
         <div className={styles.title}>
           <Link href={`/customize/shirt/${userId}`}>Shopping Bag</Link>

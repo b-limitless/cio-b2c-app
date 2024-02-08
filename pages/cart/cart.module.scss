@@ -42,13 +42,11 @@ $content-height: calc(100vh - (56px + 32px + 1rem + 25px + 80px + 186.5px + 191.
         width: 100%;
         height: $content-height;
         overflow: auto;
+        row-gap: 8px;
 
         @include scroolbar();
       }
       
-
-      
-
       .row {
         padding: 32px 25px;
         display: flex;
