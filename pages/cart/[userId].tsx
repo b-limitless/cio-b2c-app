@@ -8,7 +8,7 @@ export default function CartRouteBaseUserId() {
   const {userId} = router.query;
 
   return (
-    <Cart userId={userId ?? ''}>
+    <Cart userId={userId ?? ''} usedFrom='cart'>
        <Header userId={userId ?? ''} />
     </Cart>
   )

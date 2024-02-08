@@ -5,7 +5,7 @@ import Header from 'components/Header/Header'
 
 export default function CartHardCodedUserId() {
   return (
-    <Cart userId={storeID}>
+    <Cart userId={storeID} usedFrom='cart'>
        <Header userId={storeID} />
     </Cart>
   )

@@ -23,6 +23,7 @@ import CartItem from './CartItem';
 import { APIS } from 'config/apis';
 import { request } from 'utils/request';
 import Radio from 'components/Radio/Radio';
+import { TCartUsedFrom } from 'types/cart';
 
 const stylePayment: any =
   { display: 'flex', alignItems: 'center' }
@@ -31,12 +32,15 @@ const stylePaymentBase = { ...stylePayment, columnGap: '8px' };
 const paymentStyle1 = { fontFamily: 'Poppins', fontSize: '14px' }
 
 
+
+
 interface ICartMain {
   userId: string | string[], 
-  children:ReactNode
+  children:ReactNode;
+  usedFrom: TCartUsedFrom
 }
 // cart-shirt, add, copy, eye, delete, hunburg
-export default function Cart({ userId, children }: ICartMain) {
+export default function Cart({ userId, children, usedFrom }: ICartMain) {
   const [showCartDetailsModel, setShowCartDetailsModel] = useState<number>(-1);
   const [selectedCartIndex, setSelectedCartIndex] = useState<null | number>(null);
   const carts = useSelector((state: RootState) => state.cart);
@@ -134,6 +138,21 @@ export default function Cart({ userId, children }: ICartMain) {
 
   }
 
+  
+
+  const getCartItemStyle = useMemo(() => {
+    let styleCartItem:any = {height: 'calc(100vh - (56px + 32px + 1rem + 25px + 80px + 186.5px + 191.5px))'};
+    if(usedFrom === 'cart') {
+      styleCartItem = {height: 'calc(100vh - (56px + 32px + 1rem + 25px + 80px))'};
+    }
+
+    return styleCartItem;
+
+    
+  }, [usedFrom]);
+
+  console.log('usedFrom', usedFrom)
+
   return (
     <>
       <Model
@@ -152,6 +171,7 @@ export default function Cart({ userId, children }: ICartMain) {
         {carts.length > 0 && <div className={styles.cart__details}>
 
           <div className={styles.items}>
+            {usedFrom === 'review' && <>
             <div className={styles.shipping}>
               <div className={styles.row}>
                 <div className={styles.address}>Shipping Address</div>
@@ -191,19 +211,28 @@ export default function Cart({ userId, children }: ICartMain) {
               </div>
               <div className={styles.row}>
                 <div className={styles.payment_item}>
-                  <Radio label={
+                  <Radio 
+                  
+                  name='payment'
+                  label={
                     <span style={stylePaymentBase}><span style={stylePayment}><Image src={'/icon/card.svg'} width={20} height={20} alt='' /></span>
                       <span style={paymentStyle1}>Cardit / Debit Card</span></span>}></Radio>
                 </div>
                 <div className={styles.payment_item}>
-                  <Radio label={
+                  <Radio 
+                  name='payment'
+                  label={
                     <span style={stylePaymentBase}><span style={stylePayment}><Image src={'/icon/paypal-p.svg'} width={20} height={20} alt='' /></span>
                       <span style={paymentStyle1}>Paypal</span></span>}></Radio>
                 </div>
               </div>
             </div>
+            
+            </>
+        }
+            
 
-            <div className={styles.cart_items}>
+            <div className={styles.cart_items} style={getCartItemStyle}>
               {carts.map((cart, i) => <CartItem
                 key={'cart-item' + i}
                 id={i}
@@ -216,33 +245,6 @@ export default function Cart({ userId, children }: ICartMain) {
               />
 
               )}
-
-{carts.map((cart, i) => <CartItem
-                key={'cart-item' + i}
-                id={i}
-                cart={cart}
-                addOrRemoveHanlder={addOrRemoveHanlder}
-                duplicateCartItem={duplicateCartItem}
-                deleteItem={deleteItem}
-                setShowCartDetailsModel={setShowCartDetailsModel}
-                cartIndexToUpdate={cartIndexToUpdate}
-              />
-
-              )}
-
-               {carts.map((cart, i) => <CartItem
-                key={'cart-item' + i}
-                id={i}
-                cart={cart}
-                addOrRemoveHanlder={addOrRemoveHanlder}
-                duplicateCartItem={duplicateCartItem}
-                deleteItem={deleteItem}
-                setShowCartDetailsModel={setShowCartDetailsModel}
-                cartIndexToUpdate={cartIndexToUpdate}
-              />
-
-              )}
-
             </div>
 
 

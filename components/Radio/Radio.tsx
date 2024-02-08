@@ -1,5 +1,6 @@
 'use client';
-import { FormControlLabel, Radio } from '@mui/material'
+import { FormControlLabel, Radio } from '@mui/material';
+import { colors } from 'config/colors';
 
 import React from 'react'
 
@@ -10,7 +11,7 @@ interface IRadio {
 export default function RadioButton({ label, ...rest }: IRadio) {
     return (
         <FormControlLabel 
-         control={<Radio />} 
+         control={<Radio sx={{color: colors.black , '&.Mui-checked': { color: colors.black } }}/>} 
          label={label} {...rest} 
          sx={{fontFamily: 'Poppins'}}
          />
