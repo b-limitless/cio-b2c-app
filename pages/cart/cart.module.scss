@@ -20,7 +20,7 @@ $content-height: calc(100vh - (56px + 32px + 1rem + 25px + 80px + 186.5px + 191.
   }
   .cart__details {
     display: flex;
-    column-gap: 82px;
+    column-gap: pxToRem(16);
     justify-content: space-between;
     margin-top: 25px;
     align-items: flex-start;
@@ -42,10 +42,12 @@ $content-height: calc(100vh - (56px + 32px + 1rem + 25px + 80px + 186.5px + 191.
         width: 100%;
         height: $content-height;
         overflow: auto;
+
+        @include scroolbar();
       }
       
 
-      @include scroolbar();
+      
 
       .row {
         padding: 32px 25px;
