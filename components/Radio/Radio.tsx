@@ -4,7 +4,7 @@ import { FormControlLabel, Radio } from '@mui/material'
 import React from 'react'
 
 interface IRadio {
-    label: string;
+    label: any;
     [x: string]: any;
 }
 export default function RadioButton({ label, ...rest }: IRadio) {

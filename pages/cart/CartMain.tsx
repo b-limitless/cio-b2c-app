@@ -24,6 +24,11 @@ import { APIS } from 'config/apis';
 import { request } from 'utils/request';
 import Radio from 'components/Radio/Radio';
 
+const stylePayment: any =
+  { display: 'flex', alignItems: 'center' }
+
+const stylePaymentBase = { ...stylePayment, columnGap: '8px' };
+const paymentStyle1 = { fontFamily: 'Poppins', fontSize: '14px' }
 
 
 interface ICartMain {
@@ -146,50 +151,84 @@ export default function Cart({ userId }: ICartMain) {
 
           <div className={styles.items}>
             <div className={styles.shipping}>
-             <div className="styles row">
-                <div className="styles address">Shipping Address</div>
-             </div>
+              <div className={styles.row}>
+                <div className={styles.address}>Shipping Address</div>
+              </div>
 
-             <div className="styles row">
-                <div className="styles sub_row">
-                  <div className="styles col">
+              <div className={styles.row}>
+
+                <div className={styles.sub_row}>
+                  <div className={styles.col}>
                     Shahil Misran
                   </div>
 
-                  <div className="styles col">
-                    +971 56598789745
-                  </div>  
+                  <div className={styles.col}>
+                    <span className={styles.phone_number}>+971 56598789745</span>
+
+                  </div>
                 </div>
-                <div className="styles sub_row">
-                901 Qubaisi Building. 16, Talaha Bin Obaid street, Abu Shagara, Sharjah.
+                <div className={styles.sub_row}>
+                  <div className={styles.col}>
+                    <span className={styles.shpping_address}>
+                      901 Qubaisi Building. 16, Talaha Bin Obaid street, Abu Shagara, Sharjah.
+                    </span>
+
+                  </div>
+                  <div className={styles.col}>
+                    <span className={styles.change}>Change</span>
+                    
+                  </div>
+
                 </div>
-             </div>
-              
+              </div>
+
             </div>
             <div className={styles.payment}>
-              <div className="styles row">
-                <div className="styles title">Payment Method</div>
+              <div className={styles.row}>
+                <div className={styles.title}>Payment Methods</div>
               </div>
-              <div className="styles row">
-                <div className="styles payment_item">
-                    <Radio label=''></Radio>
-                    <label>
-                      <span><Image src={'/icon/rular.svg'} width={30} height={30} alt='' /></span>
-                      <span>Add a new card</span>
-                    </label>
+              <div className={styles.row}>
+                <div className={styles.payment_item}>
+                  <Radio label={
+                    <span style={stylePaymentBase}><span style={stylePayment}><Image src={'/icon/card.svg'} width={20} height={20} alt='' /></span>
+                      <span style={paymentStyle1}>Cardit / Debit Card</span></span>}></Radio>
                 </div>
-                <div className="styles payment_item">
-                    <Radio label=''></Radio>
-                    <label>
-                      <span><Image src={'/icon/rular.svg'} width={30} height={30} alt='' /></span>
-                      <span>Paypal</span>
-                    </label>
+                <div className={styles.payment_item}>
+                  <Radio label={
+                    <span style={stylePaymentBase}><span style={stylePayment}><Image src={'/icon/paypal-p.svg'} width={20} height={20} alt='' /></span>
+                      <span style={paymentStyle1}>Paypal</span></span>}></Radio>
                 </div>
               </div>
             </div>
 
             <div className={styles.cart_items}>
               {carts.map((cart, i) => <CartItem
+                key={'cart-item' + i}
+                id={i}
+                cart={cart}
+                addOrRemoveHanlder={addOrRemoveHanlder}
+                duplicateCartItem={duplicateCartItem}
+                deleteItem={deleteItem}
+                setShowCartDetailsModel={setShowCartDetailsModel}
+                cartIndexToUpdate={cartIndexToUpdate}
+              />
+
+              )}
+
+{carts.map((cart, i) => <CartItem
+                key={'cart-item' + i}
+                id={i}
+                cart={cart}
+                addOrRemoveHanlder={addOrRemoveHanlder}
+                duplicateCartItem={duplicateCartItem}
+                deleteItem={deleteItem}
+                setShowCartDetailsModel={setShowCartDetailsModel}
+                cartIndexToUpdate={cartIndexToUpdate}
+              />
+
+              )}
+
+               {carts.map((cart, i) => <CartItem
                 key={'cart-item' + i}
                 id={i}
                 cart={cart}
