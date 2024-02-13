@@ -10,20 +10,19 @@ import Paypal from './Options/Paypal';
 import styles from './payment.module.scss';
 
 
-export default function Payment({ measurementJourney, setMeasurementJourney, nextStageHandler }: OrderCommonInterface) {
-  const [selectedPaymentOpition, setSelectedPaymentOption] = useState<PaymentOptionsTypes>(null)
-  const [isNextButtonClicked, setIsNextButtonClicked] = useState<boolean>(false);
+export default function Payment({setMeasurementJourney, nextStageHandler,  }: OrderCommonInterface) {
+  const [selectedPaymentOption, setSelectedPaymentOption] = useState<PaymentOptionsTypes>(null)
 
   return (
     <>
-      
+
       <FormTemplate>
 
-        
          <Options
           setSelectedPaymentOption={setSelectedPaymentOption}
-          selectedPaymentOpition={selectedPaymentOpition}
-          setMeasurementJourney={setMeasurementJourney}
+          selectedPaymentOption={selectedPaymentOption}
+         
+          nextStageHandler={nextStageHandler}
         />
       </FormTemplate>
 
