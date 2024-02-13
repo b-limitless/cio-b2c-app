@@ -8,20 +8,19 @@ import CreditCard from './Options/CreditCard';
 import Options from './Options/Payment/inde';
 import Paypal from './Options/Paypal';
 import styles from './payment.module.scss';
+import { FormHelperText } from '@mui/material';
 
 
-export default function Payment({setMeasurementJourney, nextStageHandler,  }: OrderCommonInterface) {
+export default function Payment({nextStageHandler, error}: OrderCommonInterface) {
   const [selectedPaymentOption, setSelectedPaymentOption] = useState<PaymentOptionsTypes>(null)
 
   return (
     <>
 
       <FormTemplate>
-
+          
          <Options
-          setSelectedPaymentOption={setSelectedPaymentOption}
-          selectedPaymentOption={selectedPaymentOption}
-         
+          error={error}
           nextStageHandler={nextStageHandler}
         />
       </FormTemplate>

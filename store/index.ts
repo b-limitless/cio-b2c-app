@@ -1,18 +1,18 @@
 'use client';
-import { configureStore, createAsyncThunk } from "@reduxjs/toolkit";
-import thunk from "redux-thunk";
-import accent from "slices/accentSlice";
+import { configureStore, createAsyncThunk } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
+import accent from 'slices/accentSlice';
 import cart from 'slices/cartSlice';
-import currentCustomer from "slices/customerSlice";
-import febric from "slices/febricSlice";
-import febrics from "slices/febricsSlice";
-import measurment from "slices/measurmentSlice";
-import model from "slices/modelSlice";
-import modelType from "slices/modelTypeSlice";
-import shipping from "slices/shippingSlice";
-import store from "slices/storeSlice";
-import cartIndexToupdate from "slices/updateCartIndex";
-
+import currentCustomer from 'slices/customerSlice';
+import febric from 'slices/febricSlice';
+import febrics from 'slices/febricsSlice';
+import measurment from 'slices/measurmentSlice';
+import model from 'slices/modelSlice';
+import modelType from 'slices/modelTypeSlice';
+import shipping from 'slices/shippingSlice';
+import store from 'slices/storeSlice';
+import cartIndexToupdate from 'slices/updateCartIndex';
+import payment from 'slices/paymentSlice';
 
 export const Store = configureStore({
     reducer: {
@@ -27,6 +27,7 @@ export const Store = configureStore({
         febrics, 
         store, 
         currentCustomer, 
+        payment
         
     },
     middleware: [thunk]

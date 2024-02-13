@@ -51,8 +51,9 @@ import { ThunkDispatch } from '@reduxjs/toolkit';
 import { request } from 'utils/request';
 import { APIS, customer } from 'config/apis';
 import { fetchCustomerShipping } from 'actions/fetchCustomerShipping.action';
-import {shipping as shippingAPI}  from 'config/apis';
+import { shipping as shippingAPI } from 'config/apis';
 import { Review } from './Review';
+import { updatePaymentError } from 'slices/paymentSlice';
 
 interface IOrder {
     userId: string | string[]
@@ -61,9 +62,13 @@ export default function Order({ userId }: IOrder) {
     const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('review');
     const measurement = useSelector((state: RootState) => state.measurment);
     const shipping = useSelector((state: RootState) => state.shipping);
+    const payment = useSelector((state: RootState) => state.payment);
+    const { type: selectedPaymentType, error: paymentError } = payment;
+
     const { token } = useSelector((state: RootState) => state.currentCustomer);
-    const {fetching: fetchingMeasurement} = measurement;
-    const {fetching: fetchingShipping} = shipping;
+
+    const { fetching: fetchingMeasurement } = measurement;
+    const { fetching: fetchingShipping } = shipping;
 
     const [selectedCountry, setSelectedCountry] = useState<any>({
         code: 'AE',
@@ -76,43 +81,43 @@ export default function Order({ userId }: IOrder) {
     const [shouldMoveToNextStep, setShouldMoveToNextStep] = useState<boolean>(false);
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
-    const updateUserMeasurmen = async(body:any) => {
+    const updateUserMeasurmen = async (body: any) => {
         try {
             await request({
                 url: APIS.shirt.measurement,
-                method:'post', 
+                method: 'post',
                 body
             });
-        } catch(err) {
+        } catch (err) {
             console.log(`Could not update the user shirt measurement ${err}`);
         }
     }
 
-    const updateUserProfile = async(body:any) => {
+    const updateUserProfile = async (body: any) => {
         try {
             await request({
                 url: customer,
-                method:'put', 
+                method: 'put',
                 body
             });
-        } catch(err) {
+        } catch (err) {
             console.log(`Could not update the user profile ${err}`);
         }
     }
 
-    const updateUserShipping  = async(body:IShipping) => {
+    const updateUserShipping = async (body: IShipping) => {
         try {
             await request({
                 url: shippingAPI,
-                method:'post', 
+                method: 'post',
                 body
             });
-        } catch(err) {
+        } catch (err) {
             console.log(`Could not update the user profile ${err}`);
         }
     }
 
-    const nextStageHandler = async() => {
+    const nextStageHandler = async () => {
 
         // Need to validate the form if all of them are filled then only move to the next step
         if (measurementJourney === 'measurement') {
@@ -121,7 +126,7 @@ export default function Order({ userId }: IOrder) {
 
             for (const field of Object.keys(userAndShirtMeasurement) as Array<keyof (IShirtMeasurement | IPantMeasurement)>) {
                 if (measurement.data.unite === 'cm' && field === 'inch') continue;
-               
+
                 if (!userAndShirtMeasurement[field].test(measurement.data[field] as (any)) || !measurement.data[field]) {
                     measurementError[field] = `${camelCaseToNormal(field)} is required`
                 } else {
@@ -166,10 +171,18 @@ export default function Order({ userId }: IOrder) {
 
         }
 
-        if(measurementJourney === OrderProcess.payment_options) {
-            console.log('Processing payment')
+        if (measurementJourney === OrderProcess.payment_options) {
+            if (!selectedPaymentType) {
+                dispatch(updatePaymentError('Please select payment method'));
+                return;
+            }
+            if (selectedPaymentType) {
+                dispatch(updatePaymentError(null));
+                nextStage(OrderProcess, measurementJourney, setMeasurementJourney);
+            }
+
         }
-        
+
     }
 
     const measurementOnChangeHandler = (e: any) => {
@@ -179,9 +192,9 @@ export default function Order({ userId }: IOrder) {
     }
 
     const onMouseLeaveEventHandlerMeasurement = (name: keyof IMeasurementBase, value: string) => {
-        
+
         if (!userAndShirtMeasurement[name]?.test(value) || !value) {
-            
+
             dispatch(updateMeasurementErrorAction({ key: name, value: `${camelCaseToNormal(name, true)} is required` }));
         } else {
             console.log(`${name} ${value} is valid`)
@@ -222,7 +235,7 @@ export default function Order({ userId }: IOrder) {
     }, [dispatch]);
 
     useEffect(() => {
-        if(measurementJourney === 'shipping') {
+        if (measurementJourney === 'shipping') {
             dispatch(fetchCustomerShipping());
         }
     }, [measurementJourney, dispatch]);
@@ -259,16 +272,18 @@ export default function Order({ userId }: IOrder) {
                 // setSelectedCountry={setSelectedCountry}
 
                 />}
-            {measurementJourney === OrderProcess.payment_options && <Payment 
-               measurementJourney={measurementJourney} 
-               setMeasurementJourney={setMeasurementJourney} 
-               nextStageHandler={nextStageHandler} 
-               />}
+            {measurementJourney === OrderProcess.payment_options && <Payment
+                measurementJourney={measurementJourney}
+                setMeasurementJourney={setMeasurementJourney}
+                nextStageHandler={nextStageHandler}
+                error={paymentError}
+            />}
 
-            {measurementJourney === OrderProcess.review && <Review 
-               measurementJourney={measurementJourney} 
-               setMeasurementJourney={setMeasurementJourney} 
-               nextStageHandler={nextStageHandler} />}
+            {measurementJourney === OrderProcess.review && <Review
+                measurementJourney={measurementJourney}
+                setMeasurementJourney={setMeasurementJourney}
+                nextStageHandler={nextStageHandler} />
+            }
             {measurementJourney === OrderProcess.order_completed && <OrderCompleted measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
 
         </>}</>

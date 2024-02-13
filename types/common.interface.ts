@@ -8,6 +8,7 @@ export interface Base {
 export interface OrderCommonInterface extends Base {
   setMeasurementJourney: Function;
   measurementJourney: OrderProcessType;
+  error?: null | string;
   
 }
 

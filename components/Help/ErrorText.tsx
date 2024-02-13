@@ -2,6 +2,7 @@ import React from 'react'
 
 interface IFormHelperText {
     text: string | null;
+    style?:any;
 }
 
 const myStyles: any = {
@@ -18,10 +19,10 @@ const myStyles: any = {
     color: "#d32f2f",
 };
 
-export default function ErrorText({ text }: IFormHelperText) {
+export default function ErrorText({ text, style }: IFormHelperText) {
     return (
         <div
-            style={myStyles}
+            style={{...myStyles, ...style}}
         >{text}</div>
     )
 }

@@ -25,5 +25,5 @@ const storeSlice = createSlice({
   },
 });
 
-export const {updatePaymentType} = storeSlice.actions;
+export const {updatePaymentType, updatePaymentError} = storeSlice.actions;
 export default storeSlice.reducer;
