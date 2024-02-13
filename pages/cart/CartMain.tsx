@@ -40,12 +40,14 @@ interface ICartMain {
   userId: string | string[], 
   children:ReactNode;
   usedFrom: TCartUsedFrom
+  setMeasurementJourney?: Function;
 }
 // cart-shirt, add, copy, eye, delete, hunburg
-export default function Cart({ userId, children, usedFrom }: ICartMain) {
+export default function Cart({ userId, children, usedFrom, setMeasurementJourney }: ICartMain) {
   const [showCartDetailsModel, setShowCartDetailsModel] = useState<number>(-1);
   const [selectedCartIndex, setSelectedCartIndex] = useState<null | number>(null);
   const carts = useSelector((state: RootState) => state.cart);
+  const shipping = useSelector((state: RootState) => state.shipping);
   const dispatch = useDispatch();
   const router = useRouter();
   // for the testing lets dispatch the cart
@@ -140,8 +142,6 @@ export default function Cart({ userId, children, usedFrom }: ICartMain) {
 
   }
 
-  
-
   const getCartItemStyle = useMemo(() => {
     let styleCartItem:any = {height: 'calc(100vh - (56px + 32px + 1rem + 25px + 80px + 186.5px + 191.5px))'};
     if(usedFrom === 'cart') {
@@ -153,7 +153,6 @@ export default function Cart({ userId, children, usedFrom }: ICartMain) {
     
   }, [usedFrom]);
 
-  console.log('usedFrom', usedFrom)
 
   return (
     <>
@@ -174,7 +173,10 @@ export default function Cart({ userId, children, usedFrom }: ICartMain) {
 
           <div className={styles.items}>
             {usedFrom === 'review' && <>
-            <Shipping/>
+            <Shipping
+            data={shipping.data}
+            setMeasurementJourney={setMeasurementJourney}
+            />
             <Payment/>
             </>
         }

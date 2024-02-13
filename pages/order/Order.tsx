@@ -166,6 +166,9 @@ export default function Order({ userId }: IOrder) {
 
         }
 
+        if(measurementJourney === OrderProcess.payment_options) {
+            console.log('Processing payment')
+        }
         
     }
 
@@ -259,9 +262,13 @@ export default function Order({ userId }: IOrder) {
             {measurementJourney === OrderProcess.payment_options && <Payment 
                measurementJourney={measurementJourney} 
                setMeasurementJourney={setMeasurementJourney} 
-               nextStageHandler={nextStageHandler} />}
+               nextStageHandler={nextStageHandler} 
+               />}
 
-            {measurementJourney === OrderProcess.review && <Review/>}
+            {measurementJourney === OrderProcess.review && <Review 
+               measurementJourney={measurementJourney} 
+               setMeasurementJourney={setMeasurementJourney} 
+               nextStageHandler={nextStageHandler} />}
             {measurementJourney === OrderProcess.order_completed && <OrderCompleted measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
 
         </>}</>

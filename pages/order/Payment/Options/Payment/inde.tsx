@@ -8,10 +8,10 @@ import { Button } from 'components/Button';
 interface PaymentOptionsInterface {
     setSelectedPaymentOption: Function;
     selectedPaymentOpition: PaymentOptionsTypes;
-    setIsNextButtonClicked: Function;
+    setMeasurementJourney: Function;
 }
 
-export default function Options({ setSelectedPaymentOption, selectedPaymentOpition, setIsNextButtonClicked }: PaymentOptionsInterface) {
+export default function Options({ setSelectedPaymentOption, selectedPaymentOpition, setMeasurementJourney }: PaymentOptionsInterface) {
     return (
         <div className={styles.payment__container}>
             <div className={styles.title}>
@@ -36,7 +36,7 @@ export default function Options({ setSelectedPaymentOption, selectedPaymentOpiti
                 </div>
             </div>
 
-            <Button variant='primary' type='square' onClick={() => setIsNextButtonClicked(true)}>
+            <Button variant='primary' type='square' onClick={() => setMeasurementJourney()}>
                 Next
             </Button>
         </div>

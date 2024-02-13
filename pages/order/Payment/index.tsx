@@ -14,24 +14,17 @@ export default function Payment({ measurementJourney, setMeasurementJourney, nex
   const [selectedPaymentOpition, setSelectedPaymentOption] = useState<PaymentOptionsTypes>(null)
   const [isNextButtonClicked, setIsNextButtonClicked] = useState<boolean>(false);
 
-  console.log('selectedPaymentOpition', selectedPaymentOpition);
-
-
   return (
     <>
-      {isNextButtonClicked && <div className={styles.back} onClick={() => setIsNextButtonClicked(false)}>
-        <Image src='/icon/arrow-left-to-right.svg' width={18} height={12} alt='Back'></Image>
-      </div>
-      }
+      
       <FormTemplate>
 
-        {isNextButtonClicked && selectedPaymentOpition === PaymentOptions.creditCard && <CreditCard nextStageHandler={nextStageHandler} />}
-        {isNextButtonClicked && selectedPaymentOpition === PaymentOptions.paypal && <Paypal />}
-        {!isNextButtonClicked && <Options
+        
+         <Options
           setSelectedPaymentOption={setSelectedPaymentOption}
           selectedPaymentOpition={selectedPaymentOpition}
-          setIsNextButtonClicked={setIsNextButtonClicked}
-        />}
+          setMeasurementJourney={setMeasurementJourney}
+        />
       </FormTemplate>
 
     </>
