@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PaymentOptionsTypes } from 'types';
 
 
 export interface IPayment {
-  type: string | null;
+  type: PaymentOptionsTypes | null;
   error: null | string;
 }
 
@@ -15,7 +16,7 @@ const storeSlice = createSlice({
   name: 'modelType',
   initialState,
   reducers: {
-    updatePaymentType: (state: IPayment, action: PayloadAction<null | string>) => {
+    updatePaymentType: (state: IPayment, action: PayloadAction<null | PaymentOptionsTypes>) => {
       return { ...state, type: action.payload };
     },
     updatePaymentError: (state: IPayment, action: PayloadAction<null | string>) => {
