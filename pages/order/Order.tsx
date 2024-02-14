@@ -37,29 +37,28 @@ import { userAndShirtMeasurement } from 'model/user';
 import useIsCustomerAuthenticated from 'hooks/useIsCustomerAuthenticated';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateErrors, updateMeasurementAction, updateMeasurementErrorAction } from 'slices/measurmentSlice';
-import { IPayloadShipping, IShipping, updatePartiallyAction, updateShippingAction, updateShippingErrorAction, updateShippingWholeError } from 'slices/shippingSlice';
-import { AppDispatch, RootState } from 'store';
+import { IShipping, updatePartiallyAction, updateShippingAction, updateShippingErrorAction, updateShippingWholeError } from 'slices/shippingSlice';
+import { RootState } from 'store';
 import { OrderProcess, combinedTypes } from 'types/enums';
 import OrderCompleted from './Completed';
 import Measurement from './Measurement';
 import Payment from './Payment';
 import Shipping from './Shipping';
 
-import { useEffect, useState } from 'react';
-import { fetchCustomerMeasurementShirt } from 'actions/fetchCustomerMeasurementShirt.action';
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import { request } from 'utils/request';
-import { APIS, customer } from 'config/apis';
+import { fetchCustomerMeasurementShirt } from 'actions/fetchCustomerMeasurementShirt.action';
 import { fetchCustomerShipping } from 'actions/fetchCustomerShipping.action';
-import { shipping as shippingAPI } from 'config/apis';
-import { Review } from './Review';
+import { APIS, customer, shipping as shippingAPI } from 'config/apis';
+import { useEffect, useState } from 'react';
 import { updatePaymentError } from 'slices/paymentSlice';
+import { request } from 'utils/request';
+import { Review } from './Review';
 
 interface IOrder {
     userId: string | string[]
 }
 export default function Order({ userId }: IOrder) {
-    const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('review');
+    const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
     const measurement = useSelector((state: RootState) => state.measurment);
     const shipping = useSelector((state: RootState) => state.shipping);
     const payment = useSelector((state: RootState) => state.payment);
