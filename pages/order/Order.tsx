@@ -281,7 +281,9 @@ export default function Order({ userId }: IOrder) {
             {measurementJourney === OrderProcess.review && <Review
                 measurementJourney={measurementJourney}
                 setMeasurementJourney={setMeasurementJourney}
-                nextStageHandler={nextStageHandler} />
+                nextStageHandler={nextStageHandler}
+                userId={userId} 
+                />
             }
             {measurementJourney === OrderProcess.order_completed && <OrderCompleted measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
 

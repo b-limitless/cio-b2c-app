@@ -26,6 +26,7 @@ import Radio from 'components/Radio/Radio';
 import { TCartUsedFrom } from 'types/cart';
 import Payment from './review/Payment';
 import Shipping from './review/Shipping';
+import PayThroughPaypal from 'pages/payment/Main';
 
 const stylePayment: any =
   { display: 'flex', alignItems: 'center' }
@@ -50,15 +51,7 @@ export default function Cart({ userId, children, usedFrom, setMeasurementJourney
   const shipping = useSelector((state: RootState) => state.shipping);
   const dispatch = useDispatch();
   const router = useRouter();
-  // for the testing lets dispatch the cart
-  useEffect(() => {
-    const dispatchSampleCartData = () => {
-      // dispatch(addToCart(cartSameDate[0] as any));
-      // dispatch(addToCart(cartSameDate[1] as any));
-      // dispatch(addToCart(cartSameDate[2] as any));
-    }
-    dispatchSampleCartData();
-  }, [dispatch]);
+
 
   const addOrRemoveHanlder = async (params: IUpdateQuantity) => {
     const { addOrRemove, qty, index, id } = params
@@ -120,12 +113,12 @@ export default function Cart({ userId, children, usedFrom, setMeasurementJourney
 
   const getQty = useMemo(() => {
     if (carts.length < 1) return null;
-    return carts.map((cart) => cart.qty).reduce((a: number, b: number) => a + b)
+    return carts.map((cart:any) => cart.qty).reduce((a: number, b: number) => a + b)
   }, [carts])
 
   const totalAmount = useMemo(() => {
     if (carts.length < 1) return null;
-    const amount = carts.map((cart) => cart.subTotal).reduce((a: number, b: number) => a + b);
+    const amount = carts.map((cart:any) => cart.subTotal).reduce((a: number, b: number) => a + b);
     return moneyFormat().format(amount);
 
   }, [carts]);
@@ -163,7 +156,6 @@ export default function Cart({ userId, children, usedFrom, setMeasurementJourney
         cart={carts[showCartDetailsModel - 1] ?? null}
       />
       {children}
-      {/* <Header userId={userId} /> */}
       <div className={styles.cart__container}>
         <div className={styles.title}>
           <Link href={`/customize/shirt/${userId}`}>Shopping Bag</Link>
@@ -239,15 +231,17 @@ export default function Cart({ userId, children, usedFrom, setMeasurementJourney
                     {/* 
                        Different button need to show based on where it is used from
                     */}
-                    <Button variant='primary' type='square'>
-                      {usedFrom === 'cart' && <>
+                    {usedFrom === 'cart' &&<Button variant='primary' type='square'>
+                       
                       <Image src={'/icon/rular.svg'} width={30} height={30} alt='' />
                       <span>MEASUREMENT AND CHECKOUT</span>
-                      </>}
-
-                      {usedFrom === 'review' && <span>Paypal</span>}
                       
-                    </Button>
+
+                    </Button> }
+
+                    
+                    {usedFrom === 'review' && 
+                      <PayThroughPaypal id={userId} setMeasurementJourney={setMeasurementJourney}/>}
                   </Link>
 
                 </div>

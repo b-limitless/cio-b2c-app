@@ -8,6 +8,9 @@ import Loader from "components/Loader";
 import { APIS } from "config/apis";
 import { currency } from "config/paypal";
 import { useEffect, useReducer } from "react";
+import { useDispatch } from "react-redux";
+import { addAllItemsToTheCart } from "slices/cartSlice";
+import { OrderProcess } from "types/enums";
 import { request } from "utils/request";
 
 // This value is from the props in the UI
@@ -20,15 +23,12 @@ async function createOrder(id:TId) {
         const {id:orderId} = await request({url: `${APIS.paypal.createOrder}/${id}`, method: 'post'});
 
         return orderId; 
-
     } catch(err) {
         console.error(`Could not create an order ${err}`);
         throw new Error(`Could not create an order ${err}`)
     }
-
-   
 }
-async function onApprove(data: any, id:TId) {
+async function onApprove(data: any, id:TId, makeCartEmptyOnApprove:Function) {
 
     try {
          await request({
@@ -36,6 +36,10 @@ async function onApprove(data: any, id:TId) {
             method:'post', 
             body: {orderID: data.orderID}
         });
+        // Make the cart empty 
+        makeCartEmptyOnApprove();
+        // Update the user journey to order completed
+
     } catch(err) {
         console.error(`Unable to approve the request ${err}`);
         throw new Error(`Unable to approve the request ${err}`)
@@ -73,7 +77,7 @@ function paypalReducer(state: IPaypalState, action: any) {
     }
 }
 // Custom component to wrap the PayPalButtons and show loading spinner
-const ButtonWrapper = ({ showSpinner, id }: { showSpinner: boolean, id:TId }) => {
+const ButtonWrapper = ({ showSpinner, id, makeCartEmptyOnApprove }: { showSpinner: boolean, id:TId, makeCartEmptyOnApprove:Function }) => {
     const [{ isPending }] = usePayPalScriptReducer();
     return (
         <>
@@ -84,7 +88,7 @@ const ButtonWrapper = ({ showSpinner, id }: { showSpinner: boolean, id:TId }) =>
                 forceReRender={[style]}
                 fundingSource={'paypal'}
                 createOrder={() => createOrder(id)}
-                onApprove={(data:any) => onApprove(data, id)}
+                onApprove={(data:any) => onApprove(data, id, makeCartEmptyOnApprove)}
             />
         </>
     );
@@ -93,11 +97,18 @@ const ButtonWrapper = ({ showSpinner, id }: { showSpinner: boolean, id:TId }) =>
 
 interface IPayThroughPaypal {
     id: string | string[];
+    setMeasurementJourney:Function | undefined;
 }
-export default function PayThroughPaypal({ id }: IPayThroughPaypal) {
+export default function PayThroughPaypal({ id, setMeasurementJourney }: IPayThroughPaypal) {
 
     const [{ clientId, loading, error }, dispatch] = useReducer(paypalReducer, paypalInitialState);
-    
+    const dispatchGlobal = useDispatch();
+
+    const makeCartEmptyOnApprove = () => {
+        dispatchGlobal(addAllItemsToTheCart([]));
+        setMeasurementJourney && setMeasurementJourney(OrderProcess.order_completed);
+    }
+
     useEffect(() => {
         const fetchPaypalClientIdForBusiness = async () => {
             dispatch({ type: FETCHING, payload: true });
@@ -132,7 +143,10 @@ export default function PayThroughPaypal({ id }: IPayThroughPaypal) {
     return (
         <>{clientId ? <div>
             <PayPalScriptProvider options={{ clientId, components: "buttons", currency: currency }}>
-                <ButtonWrapper showSpinner={false} id={id ?? ''}/>
+                <ButtonWrapper 
+                  showSpinner={false} id={id ?? ''}
+                  makeCartEmptyOnApprove={makeCartEmptyOnApprove}
+                  />
             </PayPalScriptProvider>
         </div> : <div className="notfound">Client Id not</div>}</>
     );

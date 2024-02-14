@@ -2,6 +2,9 @@ import React from 'react';
 import styles from '../cart.module.scss';
 import Radio from 'components/Radio/Radio';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
+import { PaymentOptions, PaymentOptionsTypes } from 'types';
 
 const stylePayment: any =
     { display: 'flex', alignItems: 'center' }
@@ -11,6 +14,7 @@ const paymentStyle1 = { fontFamily: 'Poppins', fontSize: '14px' }
 
 
 export default function Payment() {
+    const {type} = useSelector((state:RootState) => state.payment)
     return (
         <div className={styles.payment}>
             <div className={styles.row}>
@@ -19,7 +23,7 @@ export default function Payment() {
             <div className={styles.row}>
                 <div className={styles.payment_item}>
                     <Radio
-
+                        disabled={true}
                         name='payment'
                         label={
                             <span style={stylePaymentBase}><span style={stylePayment}><Image src={'/icon/card.svg'} width={20} height={20} alt='' /></span>
@@ -27,6 +31,7 @@ export default function Payment() {
                 </div>
                 <div className={styles.payment_item}>
                     <Radio
+                       checked={type === PaymentOptions.paypal}
                         name='payment'
                         label={
                             <span style={stylePaymentBase}><span style={stylePayment}><Image src={'/icon/paypal-p.svg'} width={20} height={20} alt='' /></span>

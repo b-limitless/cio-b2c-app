@@ -1,4 +1,5 @@
 import { IShippingState } from "slices/shippingSlice";
+import { Triangle } from "three";
 import { OrderProcessType } from "types/enums";
 
 export interface Base {
@@ -9,6 +10,7 @@ export interface OrderCommonInterface extends Base {
   setMeasurementJourney: Function;
   measurementJourney: OrderProcessType;
   error?: null | string;
+  userId?:string | string[]
   
 }
 
