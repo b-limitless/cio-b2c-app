@@ -132,6 +132,9 @@ const measurementSlice = createSlice({
         fetching: action.payload,
       };
     },
+    updateMeasurementToInitialState:() => {
+      return initialState;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCustomerMeasurementShirt.fulfilled, (state, action) => {
@@ -162,6 +165,7 @@ export const {
   updateMeasurementAction,
   updateMeasurementErrorAction,
   updateErrors,
+  updateMeasurementToInitialState
 } = measurementSlice.actions;
 
 export default measurementSlice.reducer;

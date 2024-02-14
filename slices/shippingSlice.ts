@@ -103,6 +103,9 @@ const shippingSlice = createSlice({
         },
       };
     },
+    updateShippingToInitialState:() => {
+      return initialState;
+    }
     
   },
   extraReducers: (builder) => {
@@ -132,5 +135,6 @@ export const {
   updateShippingErrorAction,
   updateShippingWholeError,
   updatePartiallyAction,
+  updateShippingToInitialState
 } = shippingSlice.actions;
 export default shippingSlice.reducer;

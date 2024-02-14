@@ -10,6 +10,9 @@ import { currency } from "config/paypal";
 import { useEffect, useReducer } from "react";
 import { useDispatch } from "react-redux";
 import { addAllItemsToTheCart } from "slices/cartSlice";
+import { updateMeasurementToInitialState } from "slices/measurmentSlice";
+import { updatePaymentType } from "slices/paymentSlice";
+import { updateShippingToInitialState } from "slices/shippingSlice";
 import { OrderProcess } from "types/enums";
 import { request } from "utils/request";
 
@@ -106,6 +109,9 @@ export default function PayThroughPaypal({ id, setMeasurementJourney }: IPayThro
 
     const makeCartEmptyOnApprove = () => {
         dispatchGlobal(addAllItemsToTheCart([]));
+        dispatchGlobal(updatePaymentType(null));
+        dispatchGlobal(updateShippingToInitialState());
+        dispatchGlobal(updateMeasurementToInitialState());
         setMeasurementJourney && setMeasurementJourney(OrderProcess.order_completed);
     }
 
