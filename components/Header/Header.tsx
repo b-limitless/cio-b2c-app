@@ -37,11 +37,51 @@ export default function Header({userId, showNavigation, navigations, designJourn
             <div className={styles.col + ' ' + styles.side__menu}>
                 <div className={styles.menu}>
                     <ul>
-                        <input type="radio" name="radio-side-menu" id="clothing" className={styles.radio__side__menu} />
+                        {/* <input type="radio" name="radio-side-menu" id="clothing" className={styles.radio__side__menu} />
                         <label htmlFor="clothing">
                             <Link href={'/auth/signin'}>
                             <li>
                                 Sign in
+                            </li>
+                            </Link>
+                            
+                        </label> */}
+
+                        <input type="radio" name="radio-side-menu" id="clothing" className={styles.radio__side__menu} />
+                        <label htmlFor="clothing">
+                            <Link href={'/auth/signin'}>
+                            <li className={styles.auth__menu}>
+                                Hi, Bharat
+
+                                <div className={styles.user_menu}>
+                                    <ul>
+                                        <li>
+                                           
+                                                <Image src='/icon/order.svg' width={14} height={14} alt='order'/>
+                                            
+                                            <span>My Order</span>
+                                        </li>
+                                        <li>
+                                            
+                                                <Image src='/icon/payment.svg' width={14} height={14} alt='order'/>
+                                            
+                                            <span>Payment</span>
+                                        </li>
+                                        <li>
+                                           
+                                                <Image src='/icon/heart.svg' width={14} height={14} alt='order'/>
+                                            
+                                            <span>Wish List</span>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                             <Image src='/icon/order.svg' width={14} height={14} alt='order'/>
+                                            <span>Logout</span>
+                                            
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                             </Link>
                             
