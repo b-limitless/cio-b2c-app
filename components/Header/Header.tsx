@@ -30,7 +30,7 @@ export default function Header({userId, showNavigation, navigations, designJourn
             </div>
             {showNavigation && navigations && <div className={styles.col}>
                 <div className={styles.nav}>
-                    <Navigation data={navigations} designJourney={designJourney} setDesignJourney={setDesignJourney}/ >
+                    <Navigation data={navigations} designJourney={designJourney} setDesignJourney={setDesignJourney} />
                 </div>
             </div>}
 

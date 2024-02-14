@@ -21,7 +21,8 @@ export interface NavigationInterface {
 const NavigationItem = ({ title, value, designJourney, setDesignJourney }: navigationRow) => {
     return <>
         <input type="radio" className={styles.navigation__radio} name="navigation" id={value} checked={designJourney === value} readOnly/>
-        <label htmlFor={value} onClick={() => setDesignJourney ? setDesignJourney(value) : null}>
+        {/* onClick={() => setDesignJourney ? setDesignJourney(value) : null} */}
+        <label htmlFor={value} >
             <li>
                 <span>
                     {title}
