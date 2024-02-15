@@ -29,12 +29,6 @@ import Shipping from './review/Shipping';
 const stylePayment: any =
   { display: 'flex', alignItems: 'center' }
 
-const stylePaymentBase = { ...stylePayment, columnGap: '8px' };
-const paymentStyle1 = { fontFamily: 'Poppins', fontSize: '14px' }
-
-
-
-
 interface ICartMain {
   userId: string | string[], 
   children:ReactNode;

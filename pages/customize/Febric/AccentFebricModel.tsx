@@ -1,9 +1,8 @@
-import Image from 'next/image';
-import styles from './filter.module.scss';
-import Febric from './Febric';
-import febricStyle from '../common.module.scss';
-import { ModelKeys } from 'slices/modelSlice';
 import { accentFebrics } from 'config/models';
+import Image from 'next/image';
+import febricStyle from '../common.module.scss';
+import Febric from './Febric';
+import styles from './filter.module.scss';
 interface FilterInterface {
     setShowFilterModel: Function;
     showFilterModel: boolean;

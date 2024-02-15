@@ -29,11 +29,6 @@ export default function FebricLoader() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className={styles.col}>
-                        <div className={styles.price}>
-                            <Skeleton width={40} />
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </>

@@ -1,28 +1,12 @@
-import React from 'react';
-import styles from '../cart.module.scss';
 import { IShipping } from 'slices/shippingSlice';
-import { shipping } from 'config/apis';
+import styles from '../cart.module.scss';
 
 interface IShippingLocal {
     data: IShipping
     setMeasurementJourney:Function | undefined;
 }
 
-// firstName: 'John',
-//       lastName: 'Doe',
-//       addressLine1: '123 Main St',
-//       addressLine2: 'Apt 4',
-//       city: 'Cityville',
-//       state: 'Stateville',
-//       postalCode: '12345',
-//       country: 'Countryland',
-//       phoneNumber: '1234567890',
-//       countryCode: '1',
-//       email: 'john.doe@example.com',
-
 export default function Shipping({data, setMeasurementJourney}: IShippingLocal) {
-
-    console.log('setMeasurementJourney', setMeasurementJourney)
     return (
         <div className={styles.shipping}>
             <div className={styles.row}>

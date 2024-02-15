@@ -32,6 +32,7 @@ export const AuthMenu = ({logOutHandler, token}: IAuthMenu) => {
         <label htmlFor="clothing">
             
                 <li className={styles.auth__menu}>
+                    
                     Hi, {token?.firstName ?? 'Customer'}
                     <div className={styles.menu_wrapper}>
                         <div className={styles.user_menu}>
