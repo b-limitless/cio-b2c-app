@@ -40,7 +40,7 @@
           font-weight: 500;
           line-height: normal;
           letter-spacing: 1.1px;
-
+          text-transform: capitalize;
           font-family: $default-font;
         }
       }
@@ -86,6 +86,7 @@
                   opacity: 0.9;
                   color: $blue;
                   line-height: 24px;
+                  
 
                   &:hover {
                     background-color: rgba(0, 0, 0, 0.1);
@@ -105,7 +106,7 @@
         column-gap: pxToRem(18);
         li {
           font-family: $default-font;
-
+          
           font-size: 18px;
           font-style: normal;
           font-weight: 500;

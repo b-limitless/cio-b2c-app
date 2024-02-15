@@ -117,12 +117,7 @@ export default function Header({ userId, showNavigation, navigations, designJour
 
                         {token && <AuthMenu logOutHandler={logOutHandler}/>}
 
-                        <input type="radio" name="radio-side-menu" id="contact" className={styles.radio__side__menu} />
-                        <label htmlFor="contact">
-                            <li>
-                                Contact
-                            </li>
-                        </label>
+                        
                     </ul>
                 </div>
                 <div className={styles.icon}>

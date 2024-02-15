@@ -4,29 +4,27 @@
  * Such as shipping details and payment option which is selected by the user
  * **/
 import { Button } from 'components/Button';
-import Header from 'components/Header/Header';
+import { APIS } from 'config/apis';
 import { moneyFormat } from 'functions/moneyFormat';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+import PayThroughPaypal from 'pages/payment/Main';
+import { ReactNode, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAllAccent } from 'slices/accentSlice';
-import { ICartItem, IUpdateBase, IUpdateQuantity, deleteItemAction, duplicateItem, updateQuantity } from 'slices/cartSlice';
+import { IUpdateBase, IUpdateQuantity, deleteItemAction, duplicateItem, updateQuantity } from 'slices/cartSlice';
 import { updateFebric } from 'slices/febricSlice';
 import { updateAllProps } from 'slices/modelSlice';
 import { updateCartIndexAction } from 'slices/updateCartIndex';
 import { RootState } from 'store';
+import { TCartUsedFrom } from 'types/cart';
+import { request } from 'utils/request';
+import CartItem from './CartItem';
 import styles from './cart.module.scss';
 import Model from './model';
-import CartItem from './CartItem';
-import { APIS } from 'config/apis';
-import { request } from 'utils/request';
-import Radio from 'components/Radio/Radio';
-import { TCartUsedFrom } from 'types/cart';
 import Payment from './review/Payment';
 import Shipping from './review/Shipping';
-import PayThroughPaypal from 'pages/payment/Main';
 
 const stylePayment: any =
   { display: 'flex', alignItems: 'center' }

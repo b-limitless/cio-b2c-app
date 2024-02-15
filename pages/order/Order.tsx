@@ -219,7 +219,7 @@ export default function Order({ userId }: IOrder) {
 
     const handleOptionChange = (event: any, value: any) => {
         setSelectedCountry(value);
-        dispatch(updatePartiallyAction({ countryCode: value.phone, country: value.label }));
+        dispatch(updatePartiallyAction({ countryCode: value?.phone, country: value.label }));
     };
 
     // Check that if customer is authenticated

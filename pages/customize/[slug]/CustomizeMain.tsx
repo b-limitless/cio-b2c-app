@@ -35,38 +35,32 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
     // If the febric for the collar is default then do not need to update that state as well
     // If not then that means user has already updated and keep the user selection on the model
  * **/
-import { Canvas, useThree } from '@react-three/fiber';
-import axios from 'axios';
+import { Canvas } from '@react-three/fiber';
 import { Button } from 'components/Button';
 import Header from 'components/Header/Header';
-import { APIS } from 'config/apis';
 import { defaultCollarModel, defaultFebric } from 'config/default';
 import { productNavigation } from 'config/product';
-import { dataURLtoBlob } from 'functions/dataURLtoBlob';
+import { removeTimestamp } from 'functions/removeTimeStamp';
+import useFetchFebrics from 'hooks/useFetchFebric';
+import { TSnapShotUploadingStates } from 'interface/ICart.interface';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Shirt3DModel from 'pages/customize/3DModel/Shirt';
+import AccentFebricModel from 'pages/customize/Febric/AccentFebricModel';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
-import { TCheckIfItemIsSameToUpdateCart, addToCart, updateCartDataByIndex } from 'slices/cartSlice';
-import { RowType, UpdateModelAction, updateModel } from 'slices/modelSlice';
+import { TCheckIfItemIsSameToUpdateCart } from 'slices/cartSlice';
+import { TFebric, updateFebric } from 'slices/febricSlice';
 import { RootState } from 'store';
 import { SelectionProcess, SelectionTypes } from '../../../types/enums';
-import Shirt3DModel from 'pages/customize/3DModel/Shirt';
-import AccentFebricModel from 'pages/customize/Febric/AccentFebricModel';
 import Filter from '../Febric/Filter';
 import FebricDetails from '../FebricDetails';
 import Accents from '../Select/Accents';
 import Febrics from '../Select/Febrics';
 import Styles from '../Select/Styles';
 import styles from '../customize.module.scss';
-import { ICaptureModelScreenShot, TSnapShotUploadingStates } from 'interface/ICart.interface';
-import { updateFebric } from 'slices/febricSlice';
-import { TFebric } from 'slices/febricSlice';
-import { updateCartIndexAction } from 'slices/updateCartIndex';
-import { removeTimestamp } from 'functions/removeTimeStamp';
-import useFetchFebrics from 'hooks/useFetchFebric';
-import { request } from 'utils/request';
+import CaptureModelScreenShot from './CaptureModelScreenShot';
 const https = require('https');
 
 export const sampleData = {
@@ -141,92 +135,90 @@ const agent = new https.Agent({
  });
 
 
-const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData, index, cart }: ICaptureModelScreenShot) => {
+// const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData, index, cart }: ICaptureModelScreenShot) => {
 
-    const { gl, scene, camera } = useThree();
-    useEffect(() => {
-        const runTakeScreenShot = async () => {
+//     const { gl, scene, camera } = useThree();
+//     useEffect(() => {
+//         const runTakeScreenShot = async () => {
 
-            gl.render(scene, camera);
-            const screenShot = gl.domElement.toDataURL(); 
+//             gl.render(scene, camera);
+//             const screenShot = gl.domElement.toDataURL(); 
 
-            const boblFile = dataURLtoBlob(screenShot);
+//             const boblFile = dataURLtoBlob(screenShot);
 
-            if (!boblFile) return;
+//             if (!boblFile) return;
 
-            const snapShotFile = new File([boblFile], 'shot.png', { type: 'image/png' })
+//             const snapShotFile = new File([boblFile], 'shot.png', { type: 'image/png' })
 
-            const formData = new FormData();
+//             const formData = new FormData();
 
-            formData.append('image', snapShotFile);
+//             formData.append('image', snapShotFile);
 
-            try {
-                setTakeScreenShot('uploading');
-                APIS.upload, formData
-                const response = await request({
-                    url: APIS.upload, 
-                    body: formData, 
-                    method:'post'
-                });
-                const { originalImageUrl, thumbnailImageUrl }  = response || {};
+//             try {
+//                 setTakeScreenShot('uploading');
+//                 APIS.upload, formData
+//                 const response = await request({
+//                     url: APIS.upload, 
+//                     body: formData, 
+//                     method:'post'
+//                 });
+//                 const { originalImageUrl, thumbnailImageUrl }  = response || {};
 
-                if (originalImageUrl) {
-                    const screenCDNURIs = { originalImageUrl, thumbnailImageUrl };
-                    const data = { ...screenCDNURIs, ...cartData };
-                    /**
-                     * This stage need to check if there is index is not null then simply update the cart with specific index
-                     * Other wise simply add new item to the cart
-                     * **/
-                    if(index !== null) {
-                        // Send the request to the server to update the cart
-                        const {id, ...body} = data;
-                        try {
-                            await request({url: `${APIS.cart}/${cart[index].id}`, body: {...body, status: cart[index].status}, method:'put'})
-                        } catch(err) {
-                            console.error(`Unable to update the cart ${err}`);
-                        }
+//                 if (originalImageUrl) {
+//                     const screenCDNURIs = { originalImageUrl, thumbnailImageUrl };
+//                     const data = { ...screenCDNURIs, ...cartData };
+//                     /**
+//                      * This stage need to check if there is index is not null then simply update the cart with specific index
+//                      * Other wise simply add new item to the cart
+//                      * **/
+//                     if(index !== null) {
+//                         // Send the request to the server to update the cart
+//                         const {id, ...body} = data;
+//                         try {
+//                             await request({url: `${APIS.cart}/${cart[index].id}`, body: {...body, status: cart[index].status}, method:'put'})
+//                         } catch(err) {
+//                             console.error(`Unable to update the cart ${err}`);
+//                         }
                         
-                        dispatch(updateCartDataByIndex({index, item:data as any}));
-                        dispatch(updateCartIndexAction(null));
-                    }
+//                         dispatch(updateCartDataByIndex({index, item:data as any}));
+//                         dispatch(updateCartIndexAction(null));
+//                     }
 
-                    if(index === null) {
-                        try {
+//                     if(index === null) {
+//                         try {
                             
-                            const newCart = await request({
-                                url: APIS.cart,
-                                method: 'post', 
-                                body: {...data, status:'open'}
-                            });
+//                             const newCart = await request({
+//                                 url: APIS.cart,
+//                                 method: 'post', 
+//                                 body: {...data, status:'open'}
+//                             });
 
-        
-                            const {id} = newCart;
+//                             const {id} = newCart;
                            
-                            dispatch(addToCart({...data, id} as any));
+//                             dispatch(addToCart({...data, id} as any));
                             
-                        } catch(err) {
-                            console.error(`Could not add item to the server ${err}`)
-                        }
-                       
-                    }
+//                         } catch(err) {
+//                             console.error(`Could not add item to the server ${err}`)
+//                         }
+//                     }
                     
-                    setTakeScreenShot('uploaded');
+//                     setTakeScreenShot('uploaded');
 
-                }
-                if (!originalImageUrl) {
-                }
+//                 }
+//                 if (!originalImageUrl) {
+//                 }
 
-            } catch (err: any) {
-                console.error(err);
-            }
+//             } catch (err: any) {
+//                 console.error(err);
+//             }
 
 
-        }
-        if (takeScreenShot === 'upload') runTakeScreenShot();
-    }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch, index, cart])
+//         }
+//         if (takeScreenShot === 'upload') runTakeScreenShot();
+//     }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch, index, cart])
 
-    return null;
-}
+//     return null;
+// }
 
 interface ICustomizeMain {
     userId: string | string[]
@@ -367,7 +359,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
         <>
             {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel} />
             }
-            x
+            
             <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel} />
             <AccentFebricModel
                 setShowFilterModel={setShowAccentFebricModel}
