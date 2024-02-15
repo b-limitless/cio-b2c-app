@@ -7,9 +7,6 @@ import { IMeasurementBase } from 'interface/IMeasurementBase';
 import dynamic from 'next/dynamic';
 import styles from '../measurement.module.scss';
 const countEleven = new Array(10).fill(0);
-const ages = [{ name: "0-18", value: "0-18" }];
-const height = [{ name: 5, value: 5 }];
-
 
 const inches = countEleven.map((item, i) => {
     return { name: i, code: i }
@@ -107,15 +104,8 @@ function BaseProductMeasurementForm({ onChangeHandler, formData, errors, onMouse
                     onBlur={() => onMouseLeaveEventHandler('weight', formData.weight)}
                 />
 
-                {/* <Select
-                options={[]}
-                value=''
-                label='Weight in KG'
-                onChange={() => { }}
-
-                /> */}
+               
                 <Input
-                    // options={ages}
                     value={formData.age ?? 0}
                     name='age'
                     label='Age'

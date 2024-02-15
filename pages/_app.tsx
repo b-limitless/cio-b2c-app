@@ -1,12 +1,11 @@
 
-import type { AppProps } from 'next/app';
 import { Poppins } from '@next/font/google';
-import '/styles/index.scss';
+import MainLayout from 'layout/MainLayout';
+import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
 import { Store } from 'store';
-import useFetchCart from 'hooks/useFetchCart';
-import MainLayout from 'layout/MainLayout';
+import '/styles/index.scss';
 
 
 const poppins = Poppins({

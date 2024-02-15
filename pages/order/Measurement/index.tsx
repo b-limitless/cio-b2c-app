@@ -1,7 +1,7 @@
 'use client';
 import { Button } from 'components/Button';
+import Loader from 'components/Loader';
 import { IShirtMeasurement } from 'interface/IShirtMeasurement';
-import Image from 'next/image';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
@@ -9,8 +9,6 @@ import { IMeasurementForm } from '../../../types/common.interface';
 import styles from './measurement.module.scss';
 import BaseProductMeasurementForm from './product/base';
 import ProductShirt from './product/shirt';
-import { CircularProgress } from '@mui/material';
-import Loader from 'components/Loader';
 
 
 

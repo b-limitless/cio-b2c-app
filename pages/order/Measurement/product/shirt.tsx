@@ -12,7 +12,6 @@ export const NumberInputField = ({ ...rest }) => {
     return <Input
         {...rest}
         type='number'
-    // error={true}
     />;
 }
 export const NumberInputFieldWithToltip = ({toltip, toltipText, ...rest }:INumberInputFieldWithToltip) => {

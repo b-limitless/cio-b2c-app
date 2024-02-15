@@ -7,5 +7,5 @@ export default function Paypal() {
   const router = useRouter();
   const {id} = router.query;
 
-  return <PayToPaypal id={id ?? ''}/>
+  return <PayToPaypal id={id ?? ''} setMeasurementJourney={() => {}}/>
 }
