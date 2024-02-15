@@ -4,6 +4,12 @@ import Image from 'next/image';
 import Navigation, { navigationRow } from './Navigation';
 import { OrderProcessType, SelectionTypes, combinedTypes } from 'types/enums';
 import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store';
+import { request } from 'utils/request';
+import { APIS } from 'config/apis';
+import { Router, useRouter } from 'next/router';
+import { setCurrentCustomer } from 'slices/customerSlice';
 
 
 
@@ -15,9 +21,66 @@ interface HeaderInterface {
     userId: string | string[]
 }
 
-export default function Header({userId, showNavigation, navigations, designJourney, setDesignJourney}: HeaderInterface) {
 
-    
+export const AuthMenu = () => {
+    const dispatch = useDispatch();
+    const router = useRouter();
+    const logOutHandler = async() => {
+        try {
+            await request({
+                url:APIS.customer.signout, 
+                method:'post',
+                body: {}
+            });
+            dispatch(setCurrentCustomer(null));
+            router.push('/auth/signin');
+        } catch(err) {
+            throw new Error(`Could not logout customer ${err}`)
+        }
+    }
+    return <>
+        <input type="radio" name="radio-side-menu" id="clothing" className={styles.radio__side__menu} />
+        <label htmlFor="clothing">
+            
+                <li className={styles.auth__menu}>
+                    Hi, Bharat
+                    <div className={styles.menu_wrapper}>
+                        <div className={styles.user_menu}>
+                            <ul>
+                                <li>
+                                    <Image src='/icon/order.svg' width={14} height={14} alt='order' />
+                                    <span>My Order</span>
+                                </li>
+                                <li>
+                                    <Image src='/icon/payment.svg' width={14} height={14} alt='order' />
+                                    <span>Payment</span>
+                                </li>
+                                <li>
+
+                                    <Image src='/icon/heart.svg' width={14} height={14} alt='order' />
+
+                                    <span>Wish List</span>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li onClick={logOutHandler}>
+                                    <Image src='/icon/order.svg' width={14} height={14} alt='order' />
+                                    <span>Logout</span>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </li>
+          
+
+        </label>
+    </>
+}
+export default function Header({ userId, showNavigation, navigations, designJourney, setDesignJourney }: HeaderInterface) {
+
+    const { token } = useSelector((state: RootState) => state.currentCustomer);
     return (
         <header className={styles.header}>
             <div className={styles.col}>
@@ -37,55 +100,17 @@ export default function Header({userId, showNavigation, navigations, designJourn
             <div className={styles.col + ' ' + styles.side__menu}>
                 <div className={styles.menu}>
                     <ul>
-                        {/* <input type="radio" name="radio-side-menu" id="clothing" className={styles.radio__side__menu} />
-                        <label htmlFor="clothing">
-                            <Link href={'/auth/signin'}>
-                            <li>
-                                Sign in
-                            </li>
-                            </Link>
-                            
-                        </label> */}
+                        {!token && <><input type="radio" name="radio-side-menu" id="clothing" className={styles.radio__side__menu} />
+                            <label htmlFor="clothing">
+                                <Link href={'/auth/signin'}>
+                                    <li>
+                                        Sign in
+                                    </li>
+                                </Link>
 
-                        <input type="radio" name="radio-side-menu" id="clothing" className={styles.radio__side__menu} />
-                        <label htmlFor="clothing">
-                            <Link href={'/auth/signin'}>
-                            <li className={styles.auth__menu}>
-                                Hi, Bharat
+                            </label></>}
 
-                                <div className={styles.user_menu}>
-                                    <ul>
-                                        <li>
-                                           
-                                                <Image src='/icon/order.svg' width={14} height={14} alt='order'/>
-                                            
-                                            <span>My Order</span>
-                                        </li>
-                                        <li>
-                                            
-                                                <Image src='/icon/payment.svg' width={14} height={14} alt='order'/>
-                                            
-                                            <span>Payment</span>
-                                        </li>
-                                        <li>
-                                           
-                                                <Image src='/icon/heart.svg' width={14} height={14} alt='order'/>
-                                            
-                                            <span>Wish List</span>
-                                        </li>
-                                    </ul>
-                                    <ul>
-                                        <li>
-                                             <Image src='/icon/order.svg' width={14} height={14} alt='order'/>
-                                            <span>Logout</span>
-                                            
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            </Link>
-                            
-                        </label>
+                        {token && <AuthMenu />}
 
                         <input type="radio" name="radio-side-menu" id="contact" className={styles.radio__side__menu} />
                         <label htmlFor="contact">
@@ -97,14 +122,14 @@ export default function Header({userId, showNavigation, navigations, designJourn
                 </div>
                 <div className={styles.icon}>
                     <Link href={`/cart/${userId}`}>
-                    <Image
-                        src={'/icon/cart.svg'}
-                        width={32}
-                        height={30.55}
-                        alt='cart'
-                    ></Image>
+                        <Image
+                            src={'/icon/cart.svg'}
+                            width={32}
+                            height={30.55}
+                            alt='cart'
+                        ></Image>
                     </Link>
-                    
+
                 </div>
             </div>
         </header>

@@ -16,6 +16,7 @@ export const APIS = {
     signup: `${customer}/signup`, 
     signin: `${customer}/signin`, 
     currentUser:`${customer}/currentCustomer`, 
+    signout: `${customer}/signout`, 
   },
   shirt: {
     measurement: `${shirt}/measurement`
