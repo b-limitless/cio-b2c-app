@@ -136,7 +136,7 @@ function Main({ userId }: IMain) {
 
          globalDispatch(setCurrentCustomer(signinUser));
          const {query} =router;
-         const redirectPath = `/${query.from}/${userId}` || `/${userId}`;
+         const redirectPath = query.from ? `/${query.from}/${userId}` : `/${userId}`;
          router.push(redirectPath);
 
       } catch (err: any) {

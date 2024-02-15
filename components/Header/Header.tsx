@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import styles from './header.module.scss';
 import Image from 'next/image';
 import Navigation, { navigationRow } from './Navigation';
@@ -21,23 +21,12 @@ interface HeaderInterface {
     userId: string | string[]
 }
 
+interface IAuthMenu {
+    logOutHandler:  MouseEventHandler<HTMLLIElement>;
+}
 
-export const AuthMenu = () => {
-    const dispatch = useDispatch();
-    const router = useRouter();
-    const logOutHandler = async() => {
-        try {
-            await request({
-                url:APIS.customer.signout, 
-                method:'post',
-                body: {}
-            });
-            dispatch(setCurrentCustomer(null));
-            router.push('/auth/signin');
-        } catch(err) {
-            throw new Error(`Could not logout customer ${err}`)
-        }
-    }
+export const AuthMenu = ({logOutHandler}: IAuthMenu) => {
+    
     return <>
         <input type="radio" name="radio-side-menu" id="clothing" className={styles.radio__side__menu} />
         <label htmlFor="clothing">
@@ -80,6 +69,22 @@ export const AuthMenu = () => {
 }
 export default function Header({ userId, showNavigation, navigations, designJourney, setDesignJourney }: HeaderInterface) {
 
+    const dispatch = useDispatch();
+    const router = useRouter();
+    const logOutHandler = async() => {
+        try {
+            await request({
+                url:APIS.customer.signout, 
+                method:'post',
+                body: {}
+            });
+            dispatch(setCurrentCustomer(null));
+            router.push(`/${userId.toString()}`);
+        } catch(err) {
+            throw new Error(`Could not logout customer ${err}`)
+        }
+    }
+
     const { token } = useSelector((state: RootState) => state.currentCustomer);
     return (
         <header className={styles.header}>
@@ -110,7 +115,7 @@ export default function Header({ userId, showNavigation, navigations, designJour
 
                             </label></>}
 
-                        {token && <AuthMenu />}
+                        {token && <AuthMenu logOutHandler={logOutHandler}/>}
 
                         <input type="radio" name="radio-side-menu" id="contact" className={styles.radio__side__menu} />
                         <label htmlFor="contact">
