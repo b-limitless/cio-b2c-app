@@ -52,7 +52,7 @@ import { APIS, customer, shipping as shippingAPI } from 'config/apis';
 import { useEffect, useState } from 'react';
 import { updatePaymentError } from 'slices/paymentSlice';
 import { request } from 'utils/request';
-import { Review } from './Review';
+import Review from './Review';
 
 interface IOrder {
     userId: string | string[]
