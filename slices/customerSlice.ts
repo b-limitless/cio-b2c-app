@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface ICurrentCustomer {
-  token: string | null;
+  token: any;
 }
 
 const initialState: ICurrentCustomer = {

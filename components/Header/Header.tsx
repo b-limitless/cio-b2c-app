@@ -9,7 +9,7 @@ import { RootState } from 'store';
 import { request } from 'utils/request';
 import { APIS } from 'config/apis';
 import { Router, useRouter } from 'next/router';
-import { setCurrentCustomer } from 'slices/customerSlice';
+import { ICurrentCustomer, setCurrentCustomer } from 'slices/customerSlice';
 
 
 
@@ -21,18 +21,18 @@ interface HeaderInterface {
     userId: string | string[]
 }
 
-interface IAuthMenu {
+interface IAuthMenu extends ICurrentCustomer {
     logOutHandler:  MouseEventHandler<HTMLLIElement>;
 }
 
-export const AuthMenu = ({logOutHandler}: IAuthMenu) => {
+export const AuthMenu = ({logOutHandler, token}: IAuthMenu) => {
     
     return <>
         <input type="radio" name="radio-side-menu" id="clothing" className={styles.radio__side__menu} />
         <label htmlFor="clothing">
             
                 <li className={styles.auth__menu}>
-                    Hi, Bharat
+                    Hi, {token?.firstName ?? 'Customer'}
                     <div className={styles.menu_wrapper}>
                         <div className={styles.user_menu}>
                             <ul>
@@ -69,6 +69,7 @@ export const AuthMenu = ({logOutHandler}: IAuthMenu) => {
 }
 export default function Header({ userId, showNavigation, navigations, designJourney, setDesignJourney }: HeaderInterface) {
 
+   
     const dispatch = useDispatch();
     const router = useRouter();
     const logOutHandler = async() => {
@@ -115,7 +116,7 @@ export default function Header({ userId, showNavigation, navigations, designJour
 
                             </label></>}
 
-                        {token && <AuthMenu logOutHandler={logOutHandler}/>}
+                        {token && <AuthMenu logOutHandler={logOutHandler} token={token}/>}
 
                         
                     </ul>
