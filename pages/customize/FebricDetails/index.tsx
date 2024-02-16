@@ -8,7 +8,7 @@ import Image from 'next/image';
 interface FebricDetailsInterface {
     setShowFebricDetailsModel: Function;
     showFebricDetailsModel: boolean | number;
-    febriId?: number | string;
+    
 }
 
 const elementStyles = {
@@ -16,7 +16,7 @@ const elementStyles = {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover'
 }
-export default function FebricDetails({ showFebricDetailsModel, setShowFebricDetailsModel, febriId }: FebricDetailsInterface) {
+export default function FebricDetails({ showFebricDetailsModel, setShowFebricDetailsModel }: FebricDetailsInterface) {
     const [toogleIconChecked, setToggleIconChecked] = useState(false);
     return (
         <div className={`${styles.model__container} ? ${showFebricDetailsModel ? styles.fedInModel : styles.fedInModel}`}>

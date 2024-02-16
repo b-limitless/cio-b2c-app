@@ -242,7 +242,12 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     }
 
     const computePrice = useMemo(() => {
-        return febric.price + collarAccent.price + cuffAccent.price;
+        if(febric.price) {
+            return febric.price + collarAccent.price + cuffAccent.price;
+        }
+
+        return 0;
+        
     }, [febric.price, collarAccent.price, cuffAccent.price]);
 
 

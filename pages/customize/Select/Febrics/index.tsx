@@ -52,7 +52,7 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
             setShowFebricDetailsModel={setShowFebricDetailsModel}
             onClick={(event: any) => onClickHandler(event,
               {
-                id: i,
+                id: i.toString(),
                 model: febric.originalImageUrl,
                 price: febric.price,
                 title: febric.title,
