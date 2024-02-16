@@ -1,8 +1,8 @@
-import React, { useState } from "react"
-import styles from "./febric-details.module.scss";
-import Star from "components/Star";
-import { pngCDNAssetsURIs, svgCDNAssets } from "../../../config/assets";
-
+import React, { useState } from 'react'
+import styles from './febric-details.module.scss';
+import Star from 'components/Star';
+import { pngCDNAssetsURIs, svgCDNAssets } from '../../../config/assets';
+import Image from 'next/image';
 
 
 interface FebricDetailsInterface {
@@ -12,7 +12,7 @@ interface FebricDetailsInterface {
 }
 
 const elementStyles = {
-    backgroundImage: `url("${pngCDNAssetsURIs.febric1}")`,
+    backgroundImage: `url('${pngCDNAssetsURIs.febric1}')`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover'
 }
@@ -23,8 +23,8 @@ export default function FebricDetails({ showFebricDetailsModel, setShowFebricDet
             <div className={styles.model}>
                 <div className={styles.febric__container} style={elementStyles}>
                     <div className={styles.action}>
-                        <div className={styles.close} onClick={() => setShowFebricDetailsModel(false)}>
-                            <img src={`${svgCDNAssets.crossIcon}`} alt="" width={18} height={18} />
+                        <div className={styles.close} onClick={() => setShowFebricDetailsModel(-1)}>
+                            <Image src={`${svgCDNAssets.crossIcon}`} alt='' width={18} height={18} />
                         </div>
                     </div>
                     <div className={styles.details}>
@@ -46,22 +46,22 @@ export default function FebricDetails({ showFebricDetailsModel, setShowFebricDet
                                 </div>
                             </div>
                             {/* <div className={styles.col}>
-                                <label htmlFor="toggle--checkbox">
-                                <img className = {styles.toggle__icon}src="/svg/up.svg" width={12} height={18} alt="show" />
+                                <label htmlFor='toggle--checkbox'>
+                                <img className = {styles.toggle__icon}src='/svg/up.svg' width={12} height={18} alt='show' />
                                 </label>
-                                <input className = {styles.toggle__checkbox}type="checkbox" name="" id="toggle--checkbox" />
+                                <input className = {styles.toggle__checkbox}type='checkbox' name='' id='toggle--checkbox' />
                             </div> */}
                         </div>
 
                         <input checked={toogleIconChecked}
                             className={styles.toggle__checkbox}
-                            type="checkbox"
-                            name=""
-                            id="toggle--checkbox"
+                            type='checkbox'
+                            name=''
+                            id='toggle--checkbox'
                             onChange={(e) => setToggleIconChecked(e.target.checked)}
                         />
-                        <label htmlFor="toggle--checkbox" className={styles.toggle__label}>
-                            <img className={styles.toggle__icon} src={svgCDNAssets.arrowUpIcon} width={12} height={18} alt="show" />
+                        <label htmlFor='toggle--checkbox' className={styles.toggle__label}>
+                            <img className={styles.toggle__icon} src={svgCDNAssets.arrowUpIcon} width={12} height={18} alt='show' />
                         </label>
 
                         <div className={styles.hidden__details}>
@@ -70,7 +70,7 @@ export default function FebricDetails({ showFebricDetailsModel, setShowFebricDet
                                     <div className={styles.item}>
                                         <div className={styles.title__icon}>
                                             <span className={styles.icon}>
-                                                <img src={svgCDNAssets.primiumIcon} width={20} height={20} alt="Primium" />
+                                                <img src={svgCDNAssets.primiumIcon} width={20} height={20} alt='Primium' />
                                             </span>
                                             <span className={styles.title}>
                                                 PrimiuAm (+$40)
@@ -83,7 +83,7 @@ export default function FebricDetails({ showFebricDetailsModel, setShowFebricDet
                                     <div className={styles.item}>
                                         <div className={styles.title__icon}>
                                             <span className={styles.icon}>
-                                                <img src={svgCDNAssets.primiumIcon} width={20} height={20} alt="Primium" />
+                                                <img src={svgCDNAssets.primiumIcon} width={20} height={20} alt='Primium' />
                                             </span>
                                             <span className={styles.title}>
                                                 PrimiuAm (+$40)
@@ -96,7 +96,7 @@ export default function FebricDetails({ showFebricDetailsModel, setShowFebricDet
                                     <div className={styles.item}>
                                         <div className={styles.title__icon}>
                                             <span className={styles.icon}>
-                                                <img src={svgCDNAssets.primiumIcon} width={20} height={20} alt="Primium" />
+                                                <img src={svgCDNAssets.primiumIcon} width={20} height={20} alt='Primium' />
                                             </span>
                                             <span className={styles.title}>
                                                 PrimiuAm (+$40)

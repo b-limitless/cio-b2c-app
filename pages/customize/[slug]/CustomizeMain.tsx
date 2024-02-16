@@ -141,7 +141,7 @@ interface ICustomizeMain {
 export default function CustomizeMain({userId}: ICustomizeMain) {
     const router = useRouter();
     const [showFilterModel, setShowFilterModel] = useState(false);
-    const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(false);
+    const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(-1);
     const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
     const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false);
     const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
@@ -232,6 +232,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
     const updateAccentHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
         event.stopPropagation();
+        
         const { payload } = params;
         const { meshName, type } = activeAccent === 'collar' ? collarAccent : cuffAccent;
         payload.meshName = meshName;
@@ -266,16 +267,18 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
         }
     }, [takeScreenShot, router]);
 
-    // Fetching febrics
     useFetchFebrics({userId});
     
-
     return (
         <>
-            {showFebricDetailsModel && <FebricDetails setShowFebricDetailsModel={setShowFebricDetailsModel} showFebricDetailsModel={showFebricDetailsModel} />
+            {showFebricDetailsModel > -1 && <FebricDetails 
+                  setShowFebricDetailsModel={setShowFebricDetailsModel}
+                  showFebricDetailsModel={showFebricDetailsModel} />
             }
             
-            <Filter setShowFilterModel={setShowFilterModel} showFilterModel={showFilterModel} />
+            <Filter 
+            setShowFilterModel={setShowFilterModel} 
+            showFilterModel={showFilterModel} />
             <AccentFebricModel
                 setShowFilterModel={setShowAccentFebricModel}
                 showFilterModel={showAccentFebricModel}

@@ -48,6 +48,7 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
           {febrics?.data?.febrics?.map((febric, i) => <Febric
             febricImageURI={febric.originalImageUrl}
             key={'febri-item-custom' + i}
+            index={i}
             setShowFebricDetailsModel={setShowFebricDetailsModel}
             onClick={(event: any) => onClickHandler(event,
               {
