@@ -3,6 +3,8 @@ import styles from './febric-details.module.scss';
 import Star from 'components/Star';
 import { pngCDNAssetsURIs, svgCDNAssets } from '../../../config/assets';
 import Image from 'next/image';
+import Febric from '../Febric/Febric';
+import FebricDetailsV1 from './FebricDetails';
 
 
 interface FebricDetailsInterface {
@@ -21,7 +23,7 @@ export default function FebricDetails({ showFebricDetailsModel, setShowFebricDet
     return (
         <div className={`${styles.model__container} ? ${showFebricDetailsModel ? styles.fedInModel : styles.fedInModel}`}>
             <div className={styles.model}>
-                <div className={styles.febric__container} style={elementStyles}>
+                {/* <div className={styles.febric__container} style={elementStyles}>
                     <div className={styles.action}>
                         <div className={styles.close} onClick={() => setShowFebricDetailsModel(-1)}>
                             <Image src={`${svgCDNAssets.crossIcon}`} alt='' width={18} height={18} />
@@ -45,12 +47,7 @@ export default function FebricDetails({ showFebricDetailsModel, setShowFebricDet
                                     Year round - Poplin - Pure White - 110 gr/m2 - Super 50s
                                 </div>
                             </div>
-                            {/* <div className={styles.col}>
-                                <label htmlFor='toggle--checkbox'>
-                                <img className = {styles.toggle__icon}src='/svg/up.svg' width={12} height={18} alt='show' />
-                                </label>
-                                <input className = {styles.toggle__checkbox}type='checkbox' name='' id='toggle--checkbox' />
-                            </div> */}
+                           
                         </div>
 
                         <input checked={toogleIconChecked}
@@ -127,7 +124,8 @@ export default function FebricDetails({ showFebricDetailsModel, setShowFebricDet
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
+                <FebricDetailsV1/>
             </div>
         </div>
     )
