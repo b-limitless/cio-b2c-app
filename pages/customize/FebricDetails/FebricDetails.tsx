@@ -35,20 +35,20 @@ const febric = {
             "percentage": 16
         }
     ],
-    "rating": [
-        {
-            "component": "Silk",
-            "percentage": 63
-        },
-        {
-            "component": "Cotton",
-            "percentage": 38
-        },
-        {
-            "component": "Cotton",
-            "percentage": 69
-        }
-    ],
+    // "rating": [
+    //     {
+    //         "component": "Silk",
+    //         "percentage": 63
+    //     },
+    //     {
+    //         "component": "Cotton",
+    //         "percentage": 38
+    //     },
+    //     {
+    //         "component": "Cotton",
+    //         "percentage": 69
+    //     }
+    // ],
     "userId": "65aa90cc181f5b0656d73e44",
     "title": "Dr",
     "price": 144.82,
@@ -158,10 +158,11 @@ export default function FebricDetailsV1() {
 
     const renderKeyValuePairs = (item:TObjectType) => (
         <>
-          {Object.entries(item).map(([subKey, subVal], k) => (
+          {Object.entries(item).map(([, subVal], k) => (
             <React.Fragment key={k}>
-              {k !== 0 && ':'}
-              {subVal} {typeof subVal === 'number' && '%'}
+              {k === 0 ? <strong>{subVal}</strong> : subVal}
+              
+               {k === 0 && <strong>:</strong> } {typeof subVal === 'number' && '%'}
             </React.Fragment>
           ))}
         </>
@@ -206,16 +207,7 @@ export default function FebricDetailsV1() {
                 <div className={styles.details}>
                     <div className={styles.detail}>
                         <h2>Fabric Details</h2>
-                        {/* <p><strong>Title:</strong> Dr</p>
-                        <p><strong>Price:</strong> $144.82</p>
-                        <p><strong>Delivery Time:</strong> 5-7 business days</p>
-                        <p><strong>Excellence:</strong> Low</p>
-                        <p><strong>Warmth:</strong> Medium</p>
-                        <p><strong>Weight:</strong> Heavy</p>
-                        <p><strong>Thread Style:</strong> Smooth</p>
-                        <p><strong>Brightness:</strong> Neutral</p> */}
                         <GetPrimitiveValueType />
-
                     </div>
 
 
