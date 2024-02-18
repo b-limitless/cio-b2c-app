@@ -273,17 +273,12 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     }, [takeScreenShot, router]);
 
     useFetchFebrics({userId});
-
-    // @ts-ignore
-    console.log(febrics.data.febrics[showFebricDetailsModel] );
-    console.log('showFebricDetails model', showFebricDetailsModel)
     
     return (
         <>
             {showFebricDetailsModel > -1 && <FebricDetails 
                   setShowFebricDetailsModel={setShowFebricDetailsModel}
                   showFebricDetailsModel={showFebricDetailsModel} 
-                  // @ts-ignore
                   febric={showFebricDetailsModel > -1 ? febrics.data.febrics[showFebricDetailsModel] : null}
                   />
             }

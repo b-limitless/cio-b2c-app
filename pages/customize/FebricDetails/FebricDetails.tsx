@@ -95,12 +95,15 @@ export default function FebricDetailsV1({ setShowFebricDetailsModel, febric }: I
     }
 
     const renderKeyValuePairs = (item: TObjectType) => (
+        
         <>
             {Object.entries(item).map(([, subVal], k) => (
                 <React.Fragment key={k}>
+                  
                     {k === 0 ? <strong>{subVal}</strong> : subVal}
 
-                    {k === 0 && <strong>:</strong>} {typeof subVal === 'number' && '%'}
+                    {k === 0 && <strong>:</strong>}{typeof subVal !== 'number' ?' ': ''}
+                    {typeof subVal === 'number' && '%'}
                 </React.Fragment>
             ))}
         </>
