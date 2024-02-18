@@ -2,19 +2,6 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { defaultFebric } from 'config/default';
 import { febricSample } from 'sample/febric';
 
-// export type TFebric = {
-//   title: string;
-//   price: number;
-//   material?: string;
-//   tone?: string;
-//   febricTypes?: string;
-//   id: number;
-//   model: string;
-//   originalImageUrl?: string;
-//   code?: string;
-//   label?: string;
-//   season?: string;
-// };
 
 export type TBaseFebric = typeof febricSample;
 export type TFebric = Partial<TBaseFebric>
