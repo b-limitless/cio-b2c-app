@@ -9,7 +9,7 @@
 .shirt-icon {
   font-family: man_shirt;
   font-size: 60px;
-  display: block;
+  // display: block;
   font-size: 62px;
   height: 62px;
   line-height: 62px;
@@ -196,3 +196,13 @@
   }
   
 
+.icons-container {
+  display: flex;
+  flex-wrap: wrap;
+  .icon-col {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    align-items: center;
+  }
+}
