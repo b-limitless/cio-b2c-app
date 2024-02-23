@@ -1,7 +1,5 @@
-import { StarRate } from '@mui/icons-material';
 import { APIS } from 'config/apis';
-import { Router, useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentCustomer } from 'slices/customerSlice';
 import { RootState } from 'store';

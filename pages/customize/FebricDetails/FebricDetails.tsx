@@ -139,9 +139,7 @@ export default function FebricDetailsV1({ setShowFebricDetailsModel, febric }: I
             <div className={styles.row}>
                 <div className={styles.image}>
                     <Image fill={true} className={styles.fabric_image} src={febric?.originalImageUrl ?? ''} alt="Fabric Thumbnail" />
-
                 </div>
-
             </div>
 
             <div className={styles.row}>
