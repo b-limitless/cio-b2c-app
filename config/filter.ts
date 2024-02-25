@@ -1,12 +1,18 @@
-import { febricTypes, febricSeasons, febricColor, threadTypes, waterProof, weaveTypes, materialType } from "./febric";
+/**
+ * 
+ * If you want to add color, circle UI then please add type to color or text
+ * Below is the example
+ * {
+    name: "COLORS",
+    code: "colors",
+    type: "color",
+    childrens: febricColor ,
+  },
+*/
+
+import { febricSeasons, materialType, weaveTypes } from "./febric";
 
 export const filterData = [
-  // {
-  //   name: "CATEGORY",
-  //   code: "CATEGORY",
-  //   type: "text",
-  //   childrens: febricTypes,
-  // },
   {
     name: "SEASON",
     code: "season",
@@ -19,24 +25,10 @@ export const filterData = [
     type: "text",
     childrens: weaveTypes ,
   },
-  
-  // {
-  //   name: "COLORS",
-  //   code: "colors",
-  //   type: "color",
-  //   childrens: febricColor ,
-  // },
   {
     name: "Material",
     code: "material",
     type: "text",
     childrens: materialType ,
   },
-  // {
-  //   name: "WATER PROOF",
-  //   code: "water_proof",
-  //   type: "text",
-  //   childrens: waterProof ,
-  // },
-  
 ];
