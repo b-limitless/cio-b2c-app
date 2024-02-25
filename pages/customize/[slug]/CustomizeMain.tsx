@@ -332,7 +332,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                     <div className={styles.model}>
 
                         {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
-                        <Canvas>
+                        {/* <Canvas>
                             <Shirt3DModel
                                 collar={collar?.modelURL ?? defaultCollarModel}
                                 cuff={cuff}
@@ -366,7 +366,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                                 cart={cart}
                                 />
 
-                        </Canvas>
+                        </Canvas> */}
 
                     </div>
                     <div className={styles.infomration}>

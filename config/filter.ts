@@ -1,12 +1,12 @@
-import { febricTypes, febricSeasons, febricColor, threadTypes, waterProof } from "./febric";
+import { febricTypes, febricSeasons, febricColor, threadTypes, waterProof, weaveTypes, materialType } from "./febric";
 
 export const filterData = [
-  {
-    name: "CATEGORY",
-    code: "CATEGORY",
-    type: "text",
-    childrens: febricTypes,
-  },
+  // {
+  //   name: "CATEGORY",
+  //   code: "CATEGORY",
+  //   type: "text",
+  //   childrens: febricTypes,
+  // },
   {
     name: "SEASON",
     code: "season",
@@ -14,22 +14,29 @@ export const filterData = [
     childrens: febricSeasons ,
   },
   {
-    name: "COLORS",
-    code: "colors",
-    type: "color",
-    childrens: febricColor ,
-  },
-  {
-    name: "THREAD",
-    code: "thread",
+    name: "Weave",
+    code: "weave",
     type: "text",
-    childrens: threadTypes ,
+    childrens: weaveTypes ,
   },
+  
+  // {
+  //   name: "COLORS",
+  //   code: "colors",
+  //   type: "color",
+  //   childrens: febricColor ,
+  // },
   {
-    name: "WATER PROOF",
-    code: "water_proof",
+    name: "Material",
+    code: "material",
     type: "text",
-    childrens: waterProof ,
+    childrens: materialType ,
   },
+  // {
+  //   name: "WATER PROOF",
+  //   code: "water_proof",
+  //   type: "text",
+  //   childrens: waterProof ,
+  // },
   
 ];
