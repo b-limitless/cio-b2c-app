@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { febricSeasons } from 'config/febric';
 
-
 export interface FebricAttrs {
   // userId: mongoose.Schema.Types.ObjectId;
   title: string;
@@ -33,19 +32,18 @@ export interface FebricAttrs {
   compositions: any[];
 }
 
-enum EFebricFilter {
-  season='season',
-   material='material', 
-   weave='weave'
+export enum EFebricFilter {
+  season = 'season',
+  material = 'material',
+  weave = 'weave',
 }
 
 interface IFebricGroup {
   febrics: FebricAttrs[];
   affectedRows: number | null;
   limit: number | null;
-  filters: {[key in EFebricFilter]: any[]}
+  filters: { [key in EFebricFilter]: any[] };
 }
-
 
 export interface IFebrics {
   loading: boolean;
@@ -59,7 +57,7 @@ const initialState: IFebrics = {
     febrics: [],
     affectedRows: null,
     limit: null,
-    filters: {season: [], material: [], weave: []}
+    filters: { season: [], material: [], weave: [] },
   },
   error: null,
 };
@@ -86,24 +84,28 @@ const febricsSlice = createSlice({
         error: action.payload,
       };
     },
-    updateFilter:(state:IFebrics, action:PayloadAction<{key:EFebricFilter, value:string}>) => {
-      const {key, value} = action.payload;
+    updateFilter: (
+      state: IFebrics,
+      action: PayloadAction<{ key: EFebricFilter; value: string }>
+    ) => {
+      const { key, value } = action.payload;
 
       return {
         ...state,
         data: {
           ...state.data,
           filters: {
-            ...state.data.filters, 
-            [key]: state.data.filters[key].includes(value) ? 
-                   state.data.filters[key].filter((val) => val !== value) : 
-                   [...state.data.filters[key], value]
-          }
-        }
-      }
-    }
+            ...state.data.filters,
+            [key]: state.data.filters[key].includes(value)
+              ? state.data.filters[key].filter((val) => val !== value)
+              : [...state.data.filters[key], value],
+          },
+        },
+      };
+    },
   },
 });
 
-export const { fetchingFebricAction, fetchedFebricsAction, fetchedErrorAction } = febricsSlice.actions;
-export default febricsSlice.reducer; 
+export const { fetchingFebricAction, fetchedFebricsAction, fetchedErrorAction } =
+  febricsSlice.actions;
+export default febricsSlice.reducer;
