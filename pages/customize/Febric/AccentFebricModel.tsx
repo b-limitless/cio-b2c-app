@@ -34,6 +34,7 @@ export default function AccentFebricModel({ onClickHandler, setShowFilterModel, 
             <div className={febricStyle.febrics}>
 
                 {accentFebrics.map((febric, i) => <Febric
+                    index={i}
                     febricImageURI={febric.febricURI}
                     key={'febri-item-custom' + i}
                     setShowFebricDetailsModel={() => null}

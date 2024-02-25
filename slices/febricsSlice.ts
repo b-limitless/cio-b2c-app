@@ -45,6 +45,7 @@ interface IFebricGroup extends IFebricFilter{
   febrics: FebricAttrs[];
   affectedRows: number | null;
   limit: number | null;
+  page: number | null;
   
 }
 
@@ -61,6 +62,7 @@ const initialState: IFebrics = {
     affectedRows: null,
     limit: null,
     filters: { season: [], material: [], weave: [] },
+    page: 0
   },
   error: null,
 };
@@ -106,6 +108,15 @@ const febricsSlice = createSlice({
         },
       };
     },
+    updaeFebricsPage: (state:IFebrics, action: PayloadAction<number>) => {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          page: action.payload
+        }
+      }
+    }
   },
 });
 

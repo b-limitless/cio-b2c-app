@@ -1,14 +1,11 @@
 import Image from 'next/image';
 import Febric from 'pages/customize/Febric/Febric';
-import React from 'react';
-import { UpdateModelAction } from 'slices/modelSlice';
-import styles from './febric.module.scss';
-import { sampleFebric } from 'sample/sample-febrics';
-import { TFebric } from 'slices/febricSlice';
 import FebricLoader from 'pages/customize/Febric/loaders/FebricLoader';
-import Skeleton from '@mui/material/Skeleton';
 import FilterFebricLoader from 'pages/customize/Febric/loaders/FilterFebricLoader';
+import React from 'react';
+import { TFebric } from 'slices/febricSlice';
 import { IFebrics } from 'slices/febricsSlice';
+import styles from './febric.module.scss';
 
 interface FebricInterface {
   setShowFilterModel: Function;
@@ -34,7 +31,7 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
               FILTERS
             </span>
             <span className={styles.count}>
-              (100 Febrics)
+              ({febrics?.data?.febrics?.length} Febrics)
             </span>
 
           </div>
@@ -43,7 +40,7 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
 
       </div>
 
-      <div className={styles.febrics}>
+      <div className={styles.febrics} id='febrics-scroll-container'>
         <>
           {febrics?.data?.febrics?.map((febric, i) => <Febric
             febricImageURI={febric.originalImageUrl}
@@ -64,18 +61,8 @@ export default function Febrics({ setShowFilterModel, setShowFebricDetailsModel,
               })}
           />)}
 
-
-          {/* {countArray.map((_, i) => <Febric
-            febricImageURI='/img/febric-thumnail.png'
-            key={'febri-item' + i}
-            setShowFebricDetailsModel={setShowFebricDetailsModel}
-            onClick={(event: any) => { }}
-
-          />)} */}
-
           {febrics?.loading && countArray.map((_, i) => <FebricLoader
             key={`febric-loader-${i}`}
-
           />)}
 
         </>

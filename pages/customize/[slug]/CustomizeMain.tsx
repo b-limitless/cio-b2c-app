@@ -62,6 +62,7 @@ import Styles from '../Select/Styles';
 import styles from '../customize.module.scss';
 import CaptureModelScreenShot from './CaptureModelScreenShot';
 import { EFebricFilter, updatFebricFilter } from 'slices/febricsSlice';
+import { isScrolledToBottom } from 'functions/scrollToBottom';
 const https = require('https');
 
 export const sampleData = {
@@ -273,11 +274,28 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     useEffect(() => {
         if (takeScreenShot === 'uploaded') {
             // In this stage we need to create cart to the server as well
-
             router.push('/cart');
         }
     }, [takeScreenShot, router]);
 
+    
+
+    useEffect(() => {
+        const container = document.getElementById('febrics-scroll-container');
+
+        function handleScroll() {
+            if(isScrolledToBottom(container)) {
+                console.log('Scrolled to the bottom!');
+            }
+        }
+
+        container?.addEventListener('scroll', handleScroll);
+
+        return () => {
+            container?.removeEventListener('scroll', handleScroll);
+        }
+        
+    }, []);
     
 
     useFetchFebrics({userId, filters: JSON.stringify(filters)});
