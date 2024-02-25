@@ -62,7 +62,7 @@ const initialState: IFebrics = {
     affectedRows: null,
     limit: null,
     filters: { season: [], material: [], weave: [] },
-    page: 0
+    page: 1
   },
   error: null,
 };
@@ -116,10 +116,22 @@ const febricsSlice = createSlice({
           page: action.payload
         }
       }
+    }, 
+    fetchMoreFebrics: (state: IFebrics, action:PayloadAction<FebricAttrs[]>) => {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          febrics: [
+            ...state.data.febrics, 
+            ...action.payload
+          ]
+        }
+      }
     }
-  },
+  }
 });
 
-export const { fetchingFebricAction, fetchedFebricsAction, fetchedErrorAction, updatFebricFilter } =
+export const {fetchMoreFebrics, fetchingFebricAction, fetchedFebricsAction, fetchedErrorAction, updatFebricFilter, updaeFebricsPage } =
   febricsSlice.actions;
 export default febricsSlice.reducer;

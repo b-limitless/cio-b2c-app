@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import {
   EFebricFilter,
   IFebricFilter,
+  fetchMoreFebrics,
   fetchedErrorAction,
   fetchedFebricsAction,
   fetchingFebricAction,
@@ -20,16 +21,25 @@ import {
 interface IUseFebric {
   userId: string | string[] | undefined;
   filters:string;
+  page:number | null;
 }
-export default function useFetchFebrics({filters, userId }: IUseFebric) {
+export default function useFetchFebrics({page, filters, userId }: IUseFebric) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchFebricAPI = async () => {
       dispatch(fetchingFebricAction(true));
       try {
-        const response = await axios.get(`${APIS.product}/${userId}?filters=${filters}`);
-        dispatch(fetchedFebricsAction(response.data));
+        const response = await axios.get(`${APIS.product}/${userId}?filters=${filters}&page=${page}`);
+        if(page && page > 0) {
+          dispatch(fetchMoreFebrics(response.data.febrics));
+        }
+
+        if(page && page === 0) {
+          dispatch(fetchedFebricsAction(response.data));
+        }
+
+        
       } catch (err: any) {
         dispatch(fetchedErrorAction(err.response.message));
         console.error(err);
@@ -37,7 +47,7 @@ export default function useFetchFebrics({filters, userId }: IUseFebric) {
       dispatch(fetchingFebricAction(false));
     };
     if(userId) fetchFebricAPI();
-  }, [userId, dispatch, filters]);
+  }, [userId, dispatch, filters, page]);
 
 
   return null;

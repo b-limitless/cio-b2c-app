@@ -61,7 +61,7 @@ import Febrics from '../Select/Febrics';
 import Styles from '../Select/Styles';
 import styles from '../customize.module.scss';
 import CaptureModelScreenShot from './CaptureModelScreenShot';
-import { EFebricFilter, updatFebricFilter } from 'slices/febricsSlice';
+import { EFebricFilter, updaeFebricsPage, updatFebricFilter } from 'slices/febricsSlice';
 import { isScrolledToBottom } from 'functions/scrollToBottom';
 const https = require('https');
 
@@ -153,7 +153,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     const febric =  useSelector((state:RootState) => state.febric); 
     const accent = useSelector((state: RootState) => state.accent);
     const febrics = useSelector((state: RootState) => state.febrics);
-    const {data: {filters}} = febrics;
+    const {data: {filters, page}} = febrics;
     const { modelType } = useSelector((state: RootState) => state.modelType);
     const {index} = useSelector((state: RootState) => state.cartIndexToupdate);
     const cart = useSelector((state: RootState) => state.cart);
@@ -285,7 +285,8 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
         function handleScroll() {
             if(isScrolledToBottom(container)) {
-                console.log('Scrolled to the bottom!');
+                console.log('reach to the')
+                dispatch(updaeFebricsPage(page ? page + 1 : 1))
             }
         }
 
@@ -295,10 +296,10 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
             container?.removeEventListener('scroll', handleScroll);
         }
         
-    }, []);
+    }, [page, dispatch]);
     
 
-    useFetchFebrics({userId, filters: JSON.stringify(filters)});
+    useFetchFebrics({userId, filters: JSON.stringify(filters), page});
     
     return (
         <>
