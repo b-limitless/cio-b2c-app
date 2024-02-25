@@ -5,8 +5,9 @@ import styles from './filter.module.scss';
 interface FilterInterface {
     setShowFilterModel:Function;
     showFilterModel:boolean;
+    updateFebricFiltersHandler:Function;
 }
-export default function Filter({setShowFilterModel, showFilterModel}: FilterInterface) {
+export default function Filter({updateFebricFiltersHandler, setShowFilterModel, showFilterModel}: FilterInterface) {
     return (
         <div className={styles.filter + ' ' + (showFilterModel ? styles.show : styles.hide)}>
             <div className={styles.header}>
@@ -32,6 +33,7 @@ export default function Filter({setShowFilterModel, showFilterModel}: FilterInte
                     code={filter.code}
                     childrens={filter.childrens}
                     type={filter.type}
+                    updateFebricFiltersHandler={updateFebricFiltersHandler}
                 />
                 )}
                 {}

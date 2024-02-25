@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { febricSeasons } from 'config/febric';
 
 export interface FebricAttrs {
   // userId: mongoose.Schema.Types.ObjectId;
@@ -38,11 +37,15 @@ export enum EFebricFilter {
   weave = 'weave',
 }
 
-interface IFebricGroup {
+export interface IFebricFilter  {
+  filters: { [key in EFebricFilter]: string[] };
+}
+
+interface IFebricGroup extends IFebricFilter{
   febrics: FebricAttrs[];
   affectedRows: number | null;
   limit: number | null;
-  filters: { [key in EFebricFilter]: any[] };
+  
 }
 
 export interface IFebrics {
@@ -84,7 +87,7 @@ const febricsSlice = createSlice({
         error: action.payload,
       };
     },
-    updateFilter: (
+    updatFebricFilter: (
       state: IFebrics,
       action: PayloadAction<{ key: EFebricFilter; value: string }>
     ) => {
@@ -106,6 +109,6 @@ const febricsSlice = createSlice({
   },
 });
 
-export const { fetchingFebricAction, fetchedFebricsAction, fetchedErrorAction } =
+export const { fetchingFebricAction, fetchedFebricsAction, fetchedErrorAction, updatFebricFilter } =
   febricsSlice.actions;
 export default febricsSlice.reducer;

@@ -239,16 +239,16 @@ export const febricTypes = [
 
 
   export const weaveTypes = [
-    { code: 'plain', name: 'Plain Weave', description: 'The most basic and common weave, featuring a simple over-and-under pattern of interlacing threads.' },
-    { code: 'twill', name: 'Twill Weave', description: 'Characterized by a diagonal pattern created by the interlacing of threads. It produces a sturdy and durable fabric.' },
-    { code: 'satin', name: 'Satin Weave', description: 'Known for its smooth and glossy surface, achieved by floating threads over a number of yarns before interlacing. Often used for luxurious fabrics.' },
-    { code: 'basket', name: 'Basket Weave', description: 'Created by grouping threads together and interlacing them in pairs. It results in a checkerboard-like pattern with a textured appearance.' },
-    { code: 'herringbone', name: 'Herringbone Weave', description: 'Similar to a twill weave but with a distinctive V-shaped pattern, resembling the bones of a herring fish.' },
-    { code: 'jacquard', name: 'Jacquard Weave', description: 'A complex weave that allows for intricate patterns and designs to be woven into the fabric using a Jacquard loom.' },
-    { code: 'duck', name: 'Duck Weave', description: 'A strong, plain-weave fabric often used for sturdy, heavy-duty materials like canvas.' },
-    { code: 'sateen', name: 'Sateen Weave', description: 'Similar to satin but with a smoother and softer feel. It has a lustrous surface and is commonly used for bedding and apparel.' },
+    { code: 'plain', name: 'Plain', description: 'The most basic and common weave, featuring a simple over-and-under pattern of interlacing threads.' },
+    { code: 'twill', name: 'Twill', description: 'Characterized by a diagonal pattern created by the interlacing of threads. It produces a sturdy and durable fabric.' },
+    { code: 'satin', name: 'Satin', description: 'Known for its smooth and glossy surface, achieved by floating threads over a number of yarns before interlacing. Often used for luxurious fabrics.' },
+    { code: 'basket', name: 'Basket', description: 'Created by grouping threads together and interlacing them in pairs. It results in a checkerboard-like pattern with a textured appearance.' },
+    { code: 'herringbone', name: 'Herringbone', description: 'Similar to a twill weave but with a distinctive V-shaped pattern, resembling the bones of a herring fish.' },
+    { code: 'jacquard', name: 'Jacquard', description: 'A complex weave that allows for intricate patterns and designs to be woven into the fabric using a Jacquard loom.' },
+    { code: 'duck', name: 'Duck', description: 'A strong, plain-weave fabric often used for sturdy, heavy-duty materials like canvas.' },
+    { code: 'sateen', name: 'Sateen', description: 'Similar to satin but with a smoother and softer feel. It has a lustrous surface and is commonly used for bedding and apparel.' },
     { code: 'knitted', name: 'Knitted Fabric', description: 'Created by interlocking loops of yarn, resulting in a flexible and stretchable fabric often used in garments like sweaters and T-shirts.' },
-    { code: 'sharkskin', name: 'Sharkskin Weave', description: 'Known for its smooth and slightly shiny appearance, sharkskin is a type of twill weave with a fine diagonal pattern.' },
-    { code: 'seersucker', name: 'Seersucker Weave', description: 'A puckered cotton fabric with a crinkled surface, usually striped or checkered. It is lightweight and breathable, making it suitable for warm weather.' },
+    { code: 'sharkskin', name: 'Sharkskin', description: 'Known for its smooth and slightly shiny appearance, sharkskin is a type of twill weave with a fine diagonal pattern.' },
+    { code: 'seersucker', name: 'Seersucker', description: 'A puckered cotton fabric with a crinkled surface, usually striped or checkered. It is lightweight and breathable, making it suitable for warm weather.' },
     // Add more weave types with descriptions as needed
   ];

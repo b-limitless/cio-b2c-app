@@ -9,4 +9,5 @@ export interface ColorInterface extends FebricBase {
 export interface FilterItemInterface extends FebricBase {
   childrens: any[];
   type: string;
+  updateFebricFiltersHandler:Function;
 }

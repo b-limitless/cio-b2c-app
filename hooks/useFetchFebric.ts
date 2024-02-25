@@ -10,6 +10,8 @@ import { APIS } from 'config/apis';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
+  EFebricFilter,
+  IFebricFilter,
   fetchedErrorAction,
   fetchedFebricsAction,
   fetchingFebricAction,
@@ -17,15 +19,16 @@ import {
 
 interface IUseFebric {
   userId: string | string[] | undefined;
+  filters:string;
 }
-export default function useFetchFebrics({ userId }: IUseFebric) {
+export default function useFetchFebrics({filters, userId }: IUseFebric) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchFebricAPI = async () => {
       dispatch(fetchingFebricAction(true));
       try {
-        const response = await axios.get(`${APIS.product}/${userId}`);
+        const response = await axios.get(`${APIS.product}/${userId}?filters=${filters}`);
         dispatch(fetchedFebricsAction(response.data));
       } catch (err: any) {
         dispatch(fetchedErrorAction(err.response.message));
@@ -34,7 +37,7 @@ export default function useFetchFebrics({ userId }: IUseFebric) {
       dispatch(fetchingFebricAction(false));
     };
     if(userId) fetchFebricAPI();
-  }, [userId, dispatch]);
+  }, [userId, dispatch, filters]);
 
 
   return null;

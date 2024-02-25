@@ -61,6 +61,7 @@ import Febrics from '../Select/Febrics';
 import Styles from '../Select/Styles';
 import styles from '../customize.module.scss';
 import CaptureModelScreenShot from './CaptureModelScreenShot';
+import { EFebricFilter, updatFebricFilter } from 'slices/febricsSlice';
 const https = require('https');
 
 export const sampleData = {
@@ -151,6 +152,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     const febric =  useSelector((state:RootState) => state.febric); 
     const accent = useSelector((state: RootState) => state.accent);
     const febrics = useSelector((state: RootState) => state.febrics);
+    const {data: {filters}} = febrics;
     const { modelType } = useSelector((state: RootState) => state.modelType);
     const {index} = useSelector((state: RootState) => state.cartIndexToupdate);
     const cart = useSelector((state: RootState) => state.cart);
@@ -263,6 +265,10 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
     }, [showFilterModel]);
 
+    const updateFebricFiltersHandler = (key: EFebricFilter, value:string) => {
+        dispatch(updatFebricFilter({key, value}));
+    }
+
 
     useEffect(() => {
         if (takeScreenShot === 'uploaded') {
@@ -272,7 +278,9 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
         }
     }, [takeScreenShot, router]);
 
-    useFetchFebrics({userId});
+    
+
+    useFetchFebrics({userId, filters: JSON.stringify(filters)});
     
     return (
         <>
@@ -285,7 +293,10 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
             
             <Filter 
             setShowFilterModel={setShowFilterModel} 
-            showFilterModel={showFilterModel} />
+            showFilterModel={showFilterModel} 
+            updateFebricFiltersHandler={updateFebricFiltersHandler}
+            />
+
             <AccentFebricModel
                 setShowFilterModel={setShowAccentFebricModel}
                 showFilterModel={showAccentFebricModel}

@@ -6,7 +6,7 @@ import Color from "./Color";
 
 
 
-const FilterItem = ({ name, code, childrens, type }: FilterItemInterface) => {
+const FilterItem = ({updateFebricFiltersHandler, name, code, childrens, type }: FilterItemInterface) => {
     return <div className={styles.item}>
         <input hidden type='checkbox' name='' id={code} className={styles.options__checkbox} />
 
@@ -22,7 +22,10 @@ const FilterItem = ({ name, code, childrens, type }: FilterItemInterface) => {
         <div className={styles.form__element}>
             {type === 'text' &&
                 <div className={styles.wrapper}>
-                    {childrens.map((children, i) => <CheckboxWithLabel key={`${i}-filter-checkbox`} label={children.name} />)}
+                    {childrens.map((children, i) => <CheckboxWithLabel 
+                    onChange={() => updateFebricFiltersHandler(code, children.code)}
+                    key={`${i}-filter-checkbox`} 
+                    label={children.name} />)}
                 </div>}
 
 
