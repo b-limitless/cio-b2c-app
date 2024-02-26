@@ -32,10 +32,10 @@ export default function useFetchFebrics({page, filters, userId }: IUseFebric) {
       try {
         const response = await axios.get(`${APIS.product}/${userId}?filters=${filters}&page=${page}`);
         if(page && page > 0) {
-          dispatch(fetchMoreFebrics(response.data.febrics));
+          dispatch(fetchMoreFebrics(response.data));
         }
 
-        if(page && page === 0) {
+        if(page === 0) {
           dispatch(fetchedFebricsAction(response.data));
         }
 

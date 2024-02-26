@@ -43,9 +43,9 @@ export interface IFebricFilter  {
 
 interface IFebricGroup extends IFebricFilter{
   febrics: FebricAttrs[];
-  affectedRows: number | null;
-  limit: number | null;
-  page: number | null;
+  affectedRows: number;
+  limit: number;
+  page: number;
   
 }
 
@@ -59,10 +59,10 @@ const initialState: IFebrics = {
   loading: true,
   data: {
     febrics: [],
-    affectedRows: null,
-    limit: null,
+    affectedRows: 0,
+    limit: 0,
     filters: { season: [], material: [], weave: [] },
-    page: 1
+    page: 0
   },
   error: null,
 };
@@ -78,6 +78,7 @@ const febricsSlice = createSlice({
       };
     },
     fetchedFebricsAction: (state: IFebrics, action: PayloadAction<IFebricGroup>) => {
+      
       return {
         ...state,
         data: action.payload,
@@ -117,15 +118,18 @@ const febricsSlice = createSlice({
         }
       }
     }, 
-    fetchMoreFebrics: (state: IFebrics, action:PayloadAction<FebricAttrs[]>) => {
+    fetchMoreFebrics: (state: IFebrics, action:PayloadAction<IFebricGroup>) => {
+      // Access previous state and merge this with new one
+      const febrics = state.data.febrics;
+      const {affectedRows, limit, filters, page} = action.payload;
       return {
         ...state,
         data: {
-          ...state.data,
-          febrics: [
-            ...state.data.febrics, 
-            ...action.payload
-          ]
+          febrics: [...febrics, ...action.payload.febrics],
+          affectedRows, 
+          limit,
+          filters,
+          page
         }
       }
     }
