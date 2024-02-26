@@ -41,18 +41,24 @@ export interface IFebricFilter  {
   filters: { [key in EFebricFilter]: string[] };
 }
 
+export enum EPageUpdatedFrom {
+  none='none',
+  scroll='scroll',
+  filter='filter'
+}
+
 interface IFebricGroup extends IFebricFilter{
   febrics: FebricAttrs[];
   affectedRows: number;
   limit: number;
   page: number;
-  
 }
 
 export interface IFebrics {
   loading: boolean;
   data: IFebricGroup;
   error: string | null;
+  pageUpdateFrom: EPageUpdatedFrom
 }
 
 const initialState: IFebrics = {
@@ -65,6 +71,7 @@ const initialState: IFebrics = {
     page: 0
   },
   error: null,
+  pageUpdateFrom: EPageUpdatedFrom.none
 };
 
 const febricsSlice = createSlice({
@@ -131,6 +138,12 @@ const febricsSlice = createSlice({
           filters,
           page
         }
+      }
+    }, 
+    updatePageUpdatedFrom:(state:IFebrics, action: PayloadAction<EPageUpdatedFrom>)=> {
+      return {
+        ...state, 
+        pageUpdateFrom: action.payload
       }
     }
   }

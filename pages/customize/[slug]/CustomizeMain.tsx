@@ -153,7 +153,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     const febric =  useSelector((state:RootState) => state.febric); 
     const accent = useSelector((state: RootState) => state.accent);
     const febrics = useSelector((state: RootState) => state.febrics);
-    const {data: {filters, page, limit, affectedRows}} = febrics;
+    const {data: {filters, page, limit, affectedRows}, loading} = febrics;
     const { modelType } = useSelector((state: RootState) => state.modelType);
     const {index} = useSelector((state: RootState) => state.cartIndexToupdate);
     const cart = useSelector((state: RootState) => state.cart);
@@ -267,6 +267,8 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     }, [showFilterModel]);
 
     const updateFebricFiltersHandler = (key: EFebricFilter, value:string) => {
+        // dispatch the page to 0 
+        dispatch(updaeFebricsPage(0));
         dispatch(updatFebricFilter({key, value}));
     }
 
@@ -288,7 +290,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                 // When user loading all data then stop this process
                 // Even user reaches to the end of the scroll bar
                 // page + 1 * limit === affectedRows then stop
-                if(((page + 1) * limit) !== affectedRows) {
+                if(((page + 1) * limit) !== affectedRows && !loading) {
                     dispatch(updaeFebricsPage(page ? page + 1 : 1))
                 }
             }
@@ -300,7 +302,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
             container?.removeEventListener('scroll', handleScroll);
         }
         
-    }, [page, dispatch, affectedRows, limit]);
+    }, [page, dispatch, affectedRows, limit, loading]);
     
 
     useFetchFebrics({userId, filters: JSON.stringify(filters), page});
