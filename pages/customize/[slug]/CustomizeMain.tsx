@@ -8,7 +8,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
  *   * Just scroll to the bottom of febric sidebar and it will load more data 
  *   * Click to the filter and then it will send 2 request to server for fetching data 
  *   * Issue is page is updated to 0 when its clicked to filter button so that we have new data 
- *   * Due to main prayority moving to another feature and will be fixed in next stage
+ *   * Due to main priority moving to another feature and will be fixed in next stage
  *  
  * **/
 import { Canvas } from '@react-three/fiber';
@@ -244,6 +244,11 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
     const updateFebricFiltersHandler = (key: EFebricFilter, value:string) => {
         // dispatch the page to 0 
+        const container = document.getElementById('febrics-scroll-container');
+        if(container) {
+            container.scrollTop = 0;
+        }
+       
         dispatch(updaeFebricsPage(0));
         dispatch(updatFebricFilter({key, value}));
     }
