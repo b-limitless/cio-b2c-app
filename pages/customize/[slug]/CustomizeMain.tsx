@@ -1,39 +1,15 @@
 
 'use client';
-// For testing purpose only
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 
 /**
- * Now we have functionality where
- * - We can update the febric of shirt model completely
- * - Select different type of collar based on provided configuration
- * - Select different type of accent for that collar such as differnet febric
- *   or select to add different febric inside the collor 
- * - We can select different cuff for the shirt since we do not have model therefore 
- *   i am using same model as soon as we replace that model it would start to work 
- *   but keep in mind that model structure need to be the same perphas we might change all model
- * - Select different febric for that cuff, all changes presit vise versa
- * 
- *  Now we need to have model which is good in quality
- *  In addition to that we If we need different configuration to be added such as
- *  - Button whole different thread
- *  - Button whole cuff only in hand
- *  - You might want to add different button color 
- * 
- *  - In Style we might need to add half sleeves, full sleev etc
- *  - Chest pocket perhaps 
- *  - There could be more configuration
- * 
- *  No matter what the process will be more or less same 
- * 
- * Step Next:
- *  - Need to design how to take screen short of customized shirt and show them in card
- *  - we might have edit option how we can update the current selected configuration 
+ * Issue: When filtering for one case reporducing in this way
+ *   * Just scroll to the bottom of febric sidebar and it will load more data 
+ *   * Click to the filter and then it will send 2 request to server for fetching data 
+ *   * Issue is page is updated to 0 when its clicked to filter button so that we have new data 
+ *   * Due to main prayority moving to another feature and will be fixed in next stage
  *  
-    // You need to check the collor febric as well 
-    // If the febric for the collar is default then do not need to update that state as well
-    // If not then that means user has already updated and keep the user selection on the model
  * **/
 import { Canvas } from '@react-three/fiber';
 import { Button } from 'components/Button';
@@ -290,6 +266,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                 // When user loading all data then stop this process
                 // Even user reaches to the end of the scroll bar
                 // page + 1 * limit === affectedRows then stop
+                
                 if(((page + 1) * limit) !== affectedRows && !loading) {
                     dispatch(updaeFebricsPage(page ? page + 1 : 1))
                 }
