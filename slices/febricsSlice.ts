@@ -29,6 +29,7 @@ export interface FebricAttrs {
   thumbnailImageUrl: string;
   originalImageUrl: string;
   compositions: any[];
+  weave:string;
 }
 
 export enum EFebricFilter {

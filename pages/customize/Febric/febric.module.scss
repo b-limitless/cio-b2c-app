@@ -61,6 +61,7 @@
           font-style: normal;
           font-weight: 500;
           line-height: normal;
+          text-transform: capitalize;
         }
         .bold {
           color: $gray-medium-4;
@@ -69,6 +70,7 @@
           font-style: normal;
           font-weight: 500;
           line-height: normal;
+          text-transform: uppercase;
         }
       }
     }
