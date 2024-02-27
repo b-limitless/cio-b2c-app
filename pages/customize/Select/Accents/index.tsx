@@ -26,6 +26,7 @@ export default function Accents({ setShowAccentFebricModel, showAccentFebricMode
                     showAccentFebricModel={showAccentFebricModel}
                     type='accent'
                     setActiveAccent={setActiveAccent}
+                    
                 />)}
 
         </div>

@@ -118,12 +118,14 @@ export const accentsStyles = [
     childrens: [
       {
         id: 1,
-        label: 'By Default',
-        code: 'button_down',
+        label: 'default',
+        code: 'default',
         mediaUrl: '/icon/collars/button-down.svg',
         type: 'default',
         meshName: [],
         price: defaultPrices.collar,
+        iconClass: 'icon-62'
+
       },
       {
         id: 2,
@@ -133,6 +135,7 @@ export const accentsStyles = [
         type: 'all',
         meshName: ['Collar_Top', 'Collor_Button_Holder', 'Collor_Inner', 'Node_5'],
         price: defaultPrices.collar + 10,
+        iconClass: 'icon-42'
       },
       {
         id: 3,
@@ -142,6 +145,7 @@ export const accentsStyles = [
         type: 'innerFebric',
         meshName: ['Collor_Inner'],
         price: defaultPrices.collar + 10,
+        iconClass: 'icon-41'
       },
     ],
   },
@@ -156,6 +160,7 @@ export const accentsStyles = [
         mediaUrl: '/icon/cuff/french.svg',
         type: 'default',
         meshName: [],
+        iconClass: 'icon-77'
       },
       {
         id: 6,
@@ -164,6 +169,7 @@ export const accentsStyles = [
         mediaUrl: '/icon/cuff/one-button.svg',
         type: 'all',
         meshName: [],
+        iconClass: 'icon-45'
       },
       {
         id: 7,
@@ -172,9 +178,24 @@ export const accentsStyles = [
         mediaUrl: '/icon/cuff/three-button.svg',
         type: 'innerFebric',
         meshName: [],
+        iconClass: 'icon-44'
       },
     ],
   },
+  {
+    label: 'Contrasting button whole/stitch',
+    code: 'cbws', 
+    childrens: [
+
+    ]
+  }, 
+  {
+    label: 'Button colors',
+    code: 'button-colors', 
+    childrens: [
+      
+    ]
+  }
 ];
 
 export const accentFebrics = [
