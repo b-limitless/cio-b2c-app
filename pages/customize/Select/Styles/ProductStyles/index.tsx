@@ -12,8 +12,8 @@ function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
     return (<Fragment>
         <input className={styles.checkbox} type='radio' name={name} id={id} hidden />
         <label className={styles.item} htmlFor={id} onClick={onClickHanlder}>
-            <span className={styles.col}>
-                <Image src={mediaUrl} width={60} height={51.93} alt='styles' />
+            <span className={`${styles.col} shirt-icon icon-61`}>
+                {/* <Image src={mediaUrl} width={60} height={51.93} alt='styles' /> */}
                 <span className={styles.style__name}>{title}</span>
             </span>
         </label>

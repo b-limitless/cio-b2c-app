@@ -3,7 +3,9 @@ export const defaultPrices = {
   cuff: 10,
 };
 export const modelsURL = {
-  shirt: '/models/shirt/shirt-without-collar-and-cuff.glb',
+  // shirt: '/models/shirt/shirt-without-collar-and-cuff.glb',
+  shirt: '/models/shirt/shirt-v1.glb',
+  
 };
 
 export const productStyles = [
@@ -17,6 +19,7 @@ export const productStyles = [
         code: 'button_down',
         mediaUrl: '/icon/collars/button-down.svg',
         modelURL: `/models/collars/collar-3-3.glb`,
+        iconClass: 'icon-65'
       },
       {
         id: 2,
@@ -24,6 +27,7 @@ export const productStyles = [
         code: 'club',
         mediaUrl: '/icon/collars/club.svg',
         modelURL: `/models/collars/collar-2-2.glb`,
+        iconClass: 'icon-65'
       },
       {
         id: 3,
@@ -31,6 +35,7 @@ export const productStyles = [
         code: 'cutway',
         mediaUrl: '/icon/collars/cutway.svg',
         modelURL: `/models/collars/collar-1-1.glb`,
+        iconClass: 'icon-62'
       },
     ],
   },
@@ -44,6 +49,7 @@ export const productStyles = [
         code: 'button_down',
         mediaUrl: '/icon/cuff/french.svg',
         modelURL: `/models/cuffs/cuff-1-normal.glb`,
+        iconClass: 'icon-62'
       },
       {
         id: 6,
@@ -51,6 +57,7 @@ export const productStyles = [
         code: 'one_button',
         mediaUrl: '/icon/cuff/one-button.svg',
         modelURL: `/models/cuffs/cuff-2-normal.glb`,
+        iconClass: 'icon-62'
       },
       {
         id: 7,
@@ -58,6 +65,7 @@ export const productStyles = [
         code: 'button_down',
         mediaUrl: '/icon/cuff/three-button.svg',
         modelURL: `/models/cuffs/cuff-3-normal.glb`,
+        iconClass: 'icon-62'
       },
     ],
   },
