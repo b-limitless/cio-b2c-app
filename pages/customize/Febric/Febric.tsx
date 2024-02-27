@@ -18,7 +18,7 @@ export default function Febric({ setShowFebricDetailsModel, onClick, index, febr
         <>
             <div className={styles.febric} onClick={(e:any) => onClick(e)}>
                 <div className={styles.img}>
-                    <Image alt='' src={febric?.originalImageUrl} width={140} height={103} ></Image>
+                    <Image alt='' src={febric?.originalImageUrl} width={140} height={103} className={styles.febric_thumb} ></Image>
 
                     <Image src={'/icon/search.svg'} className={styles.search__icon} width={14} height={14} alt='search' onClick={(e:any) => {
                         e.stopPropagation();

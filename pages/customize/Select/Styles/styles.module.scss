@@ -5,8 +5,10 @@
 .styles__container {
     display: flex;
     flex-direction: column;
-    row-gap: 32px;
+    row-gap: pxToRem(62);
     margin-top: 20.39px;
+    height: calc(100vh - 254px);
+    padding-bottom: 1rem;
     .row {
         display: flex;
         flex-direction: column;
@@ -21,9 +23,12 @@
             text-transform: capitalize;
         }
         .items {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             column-gap: 24px;
             align-items: center;
+            flex-wrap: wrap;
+            row-gap: 2rem;
 
         .item {
             position: relative;

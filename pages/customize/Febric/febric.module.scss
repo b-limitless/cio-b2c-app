@@ -7,6 +7,11 @@
   //   height: 103px;
   .img {
     position: relative;
+
+    .febric_thumb {
+      border-radius: 8px;
+    }
+    
     .feature {
       position: absolute;
       color: $light;

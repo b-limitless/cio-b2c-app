@@ -4,11 +4,11 @@
 
 
 .main__content.febrics {
-  grid-template-columns: pxToRem(calc(482 + 11)) 1fr pxToRem(262) !important;
+  grid-template-columns: pxToRem(468) 1fr pxToRem(262);
 }
 
 .main__content.styles {
-  grid-template-columns: 16.8125rem 1fr pxToRem(262) !important;
+  grid-template-columns: 16.8125rem 1fr pxToRem(262);
 }
 
 .main__content {

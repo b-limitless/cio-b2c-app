@@ -14,6 +14,7 @@ export interface ItemInterface {
   title: string;
   mediaUrl: string;
   onClickHanlder: MouseEventHandler<HTMLLabelElement>;
+  iconClass: string;
 }
 export type TOnClickEvent = 'accent' | 'style' | 'febric';
 
