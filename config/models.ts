@@ -69,28 +69,44 @@ export const productStyles = [
     childrens: [
       {
         id: 5,
-        label: 'french',
-        code: 'button_down',
+        label: 'single 1 button',
+        code: 'single_cuff',
         mediaUrl: '/icon/cuff/french.svg',
         modelURL: `/models/cuffs/cuff-1-normal.glb`,
-        iconClass: 'icon-62'
+        iconClass: 'icon-68'
       },
       {
         id: 6,
-        label: 'one button',
-        code: 'one_button',
+        label: 'double 2 buttons',
+        code: '2_buttons',
         mediaUrl: '/icon/cuff/one-button.svg',
         modelURL: `/models/cuffs/cuff-2-normal.glb`,
-        iconClass: 'icon-62'
+        iconClass: 'icon-69'
       },
       {
         id: 7,
-        label: 'three button',
-        code: 'button_down',
+        label: 'two button cut',
+        code: 'two_button_cut',
         mediaUrl: '/icon/cuff/three-button.svg',
         modelURL: `/models/cuffs/cuff-3-normal.glb`,
-        iconClass: 'icon-62'
+        iconClass: 'icon-76'
       },
+      {
+        id: 7,
+        label: 'rounded 1 button',
+        code: 'rounded_1_button',
+        mediaUrl: '/icon/cuff/three-button.svg',
+        modelURL: `/models/cuffs/cuff-3-normal.glb`,
+        iconClass: 'icon-77'
+      }, 
+      {
+        id: 7,
+        label: 'double squared',
+        code: 'double_squared',
+        mediaUrl: '/icon/cuff/three-button.svg',
+        modelURL: `/models/cuffs/cuff-3-normal.glb`,
+        iconClass: 'icon-78'
+      }
     ],
   },
 ];
