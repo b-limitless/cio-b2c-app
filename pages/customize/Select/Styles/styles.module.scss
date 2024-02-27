@@ -10,7 +10,7 @@
     .row {
         display: flex;
         flex-direction: column;
-        row-gap: 23px;
+        row-gap: 4px;
         .title {
             color: #000;
             font-family: $default-font;
@@ -18,7 +18,7 @@
             font-style: normal;
             font-weight: 500;
             line-height: normal;
-            text-transform: uppercase;
+            text-transform: capitalize;
         }
         .items {
             display: flex;
@@ -33,13 +33,13 @@
             position: absolute;
 
             content: url('/icon/checked.svg');
-            top: -14px;
+            top: -10px;
          }
             .item {
                 .col {
                 display: flex;
                 flex-direction: column;
-                row-gap: 10.07px;
+                // row-gap: 10.07px;
                 align-items: center;
 
                 .style__name {
@@ -49,7 +49,7 @@
                     font-style: normal;
                     font-weight: 500;
                     line-height: normal;
-                    text-transform: uppercase;
+                    text-transform: capitalize;
                 }
                 }
             }

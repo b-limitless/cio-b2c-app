@@ -120,7 +120,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     const router = useRouter();
     const [showFilterModel, setShowFilterModel] = useState(false);
     const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(-1);
-    const [designJourney, setDesignJourney] = useState<SelectionTypes>('febrics');
+    const [designJourney, setDesignJourney] = useState<SelectionProcess>(SelectionProcess.febrics);
     const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false);
     const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
 
@@ -288,6 +288,16 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     
 
     useFetchFebrics({userId, filters: JSON.stringify(filters), page});
+
+    // main content style need to be dynamic
+
+    const getClass = useMemo(() => {
+        return designJourney === SelectionProcess.febrics ? styles.febrics : 
+               designJourney === SelectionProcess.styles ? styles.styles : 
+               designJourney === SelectionProcess.accents ? styles.styles : 
+               'default';
+    }, [designJourney]);
+
     
     return (
         <>
@@ -319,7 +329,9 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                   showNavigation 
                   userId={userId ?? ''}
                   />
-                <main className={styles.main__content}>
+<main className={`${styles.main__content} ${getClass}`}>
+  {/* Your main content goes here */}
+
 
                     <div className={styles.filter}>
                         <div className={styles.title}>Select {designJourney}</div>

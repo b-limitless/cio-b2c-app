@@ -27,7 +27,7 @@ export const productStyles = [
         code: 'club',
         mediaUrl: '/icon/collars/club.svg',
         modelURL: `/models/collars/collar-2-2.glb`,
-        iconClass: 'icon-65'
+        iconClass: 'icon-59'
       },
       {
         id: 3,
@@ -37,6 +37,30 @@ export const productStyles = [
         modelURL: `/models/collars/collar-1-1.glb`,
         iconClass: 'icon-62'
       },
+      // {
+      //   id: 3,
+      //   label: 'stand up',
+      //   code: 'standup',
+      //   mediaUrl: '/icon/collars/cutway.svg',
+      //   modelURL: `/models/collars/collar-1-1.glb`,
+      //   iconClass: 'icon-66'
+      // }, 
+      // {
+      //   id: 3,
+      //   label: 'wing',
+      //   code: 'wing',
+      //   mediaUrl: '/icon/collars/cutway.svg',
+      //   modelURL: `/models/collars/collar-1-1.glb`,
+      //   iconClass: 'icon-67'
+      // }, 
+      // {
+      //   id: 3,
+      //   label: 'rounded',
+      //   code: 'rounded',
+      //   mediaUrl: '/icon/collars/cutway.svg',
+      //   modelURL: `/models/collars/collar-1-1.glb`,
+      //   iconClass: 'icon-64'
+      // }
     ],
   },
   {

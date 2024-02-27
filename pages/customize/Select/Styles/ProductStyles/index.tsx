@@ -8,11 +8,11 @@ import styles from '../styles.module.scss';
 import { ItemInterface, ProductStylesInterface } from 'interface/IProductStyle.interface';
 
 
-function Items({ name, id, title, mediaUrl, onClickHanlder }: ItemInterface) {
+function Items({ name, id, title, mediaUrl, onClickHanlder, iconClass }: ItemInterface) {
     return (<Fragment>
         <input className={styles.checkbox} type='radio' name={name} id={id} hidden />
         <label className={styles.item} htmlFor={id} onClick={onClickHanlder}>
-            <span className={`${styles.col} shirt-icon icon-61`}>
+            <span className={`${styles.col} shirt-icon ${iconClass}`}>
                 {/* <Image src={mediaUrl} width={60} height={51.93} alt='styles' /> */}
                 <span className={styles.style__name}>{title}</span>
             </span>
@@ -73,6 +73,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
             <div className={styles.items}>
                 {childrens && childrens.map((children: any, i: number) => <Items
                     key={`items-${i}`}
+                    iconClass={children.iconClass}
                     name={code}
                     id={`styles-children-${code}-${i}`}
                     title={children.label}
