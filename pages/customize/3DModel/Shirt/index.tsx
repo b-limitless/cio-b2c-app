@@ -45,7 +45,7 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: S
 
   return (
     <>
-      <ambientLight />
+      <ambientLight intensity={0.8}/>
       <directionalLight position={[5, 5, 5]} intensity={1} />
       <directionalLight position={[-5, -5, -5]} intensity={1} />
       <pointLight position={[100, 100, 100]} />
