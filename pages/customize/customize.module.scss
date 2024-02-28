@@ -4,11 +4,11 @@
 
 
 .main__content.febrics {
-  grid-template-columns: pxToRem(468) 1fr pxToRem(262);
+  grid-template-columns: pxToRem(468) 1fr 100px;
 }
 
 .main__content.styles {
-  grid-template-columns: 16.8125rem 1fr pxToRem(262);
+  grid-template-columns: 16.8125rem 1fr 100px;
 }
 
 .main__content {
@@ -146,7 +146,7 @@
   }
 
   .model {
-    margin-top: calc(111px - 55px);
+    // margin-top: calc(111px - 55px);
     img {
         height: auto;
 

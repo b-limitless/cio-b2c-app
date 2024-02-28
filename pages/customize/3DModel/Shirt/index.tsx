@@ -12,6 +12,9 @@ import { Group, MeshPhongMaterial, Object3DEventMap, TextureLoader } from 'three
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
+const modelScale = 8;
+const modelYPostion = -10.5;
+
 interface BaseModel {
   collar: string;
 }
@@ -63,11 +66,11 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: S
       />
 
       <OrbitControls
-        maxPolarAngle={Math.PI}
+        maxPolarAngle={Math.PI }
         minPolarAngle={0}
         enableDamping={true}
         enablePan={false}
-        dampingFactor={0.1}
+        dampingFactor={0.2}
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
@@ -96,11 +99,19 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: S
 const Model = () => {
   const { scene } = useLoader(GLTFLoader, modelsURL.shirt);
 
-  scene.scale.set(6, 6, 6);
+  scene.scale.set(modelScale, modelScale, modelScale);
   // Optionally adjust position or scale here
-  scene.position.y = -7;
+  scene.position.y = modelYPostion;
   scene.position.x = 0;
   scene.name = 'shirt-model-without-collar'
+
+  // This is for the testing only 
+  // Calculate and log the dimensions
+  // const boundingBox = new THREE.Box3().setFromObject(scene);
+  // const dimensions = new THREE.Vector3();
+  // boundingBox.getSize(dimensions);
+
+  // console.log("Width:", dimensions.x, "Height:", dimensions.y, "Depth:", dimensions.z);
 
 
   return <primitive object={scene} />;
@@ -116,15 +127,18 @@ const AddModelToScene = ({ name, modelURI }: IAddModelToScene) => {
 
   const { scene } = useLoader(GLTFLoader, modelURI);
 
+  // scene.rotation.set(0, 0, Math.PI / 2);
+
   const existingCollar = scene.getObjectByName(name);
   if (existingCollar) {
     scene.remove(existingCollar);
   }
 
-  scene.scale.set(6, 6, 6);
+  scene.scale.set(modelScale, modelScale, modelScale);
   // Optionally adjust position or scale here
-  scene.position.y = -7;
+  scene.position.y = modelYPostion;
   scene.position.x = 0;
+  
   scene.name = name;
 
   return <primitive object={scene} />;
@@ -146,7 +160,7 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddText
   // needed to add to have real experiences
   // Considere the lighting way on the model which will provide more
   // Realistic experiences for the model
-  texture.repeat.set(2, 2);
+  texture.repeat.set(2,2);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
 
