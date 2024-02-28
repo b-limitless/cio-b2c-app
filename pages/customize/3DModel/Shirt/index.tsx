@@ -46,10 +46,13 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: S
   return (
     <>
       <ambientLight intensity={0.8}/>
-      <directionalLight position={[5, 5, 5]} intensity={1} />
-      <directionalLight position={[-5, -5, -5]} intensity={1} />
+       <directionalLight position={[5, 5, 5]} intensity={.1} color={0xffffff}/> 
+       <directionalLight position={[-5, -5, -5]} intensity={.1} color={0xffffff}/> 
       <pointLight position={[100, 100, 100]} />
-      <hemisphereLight color={0xffffff} intensity={0.6} position={[100, 50, 0]} />
+      <hemisphereLight color={0xffffff} intensity={0.4} position={[100, 50, 0]} />
+      <directionalLight castShadow={true} />
+      <mesh receiveShadow castShadow />
+     
       <perspectiveCamera
         // This makes this camera the default camera for the scene
         fov={15}
