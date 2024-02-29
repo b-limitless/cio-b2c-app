@@ -4,7 +4,7 @@ export const defaultPrices = {
 };
 export const modelsURL = {
   shirt: '/models/shirt/shirt-without-collar-and-cuff.glb',
-  // shirt: '/models/shirt/shirt-v1.glb',
+  // shirt: '/models/shirt/Metres.glb',
   
 };
 

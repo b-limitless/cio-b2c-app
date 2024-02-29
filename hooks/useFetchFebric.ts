@@ -4,19 +4,18 @@
  *
  *
  * **/
-import { Reorder } from '@mui/icons-material';
 import axios from 'axios';
 import { APIS } from 'config/apis';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  EFebricFilter,
-  IFebricFilter,
   fetchMoreFebrics,
   fetchedErrorAction,
   fetchedFebricsAction,
-  fetchingFebricAction,
+  fetchingFebricAction
 } from 'slices/febricsSlice';
+import { febricsMock } from './mock';
+
 
 interface IUseFebric {
   userId: string | string[] | undefined;
@@ -31,12 +30,16 @@ export default function useFetchFebrics({page, filters, userId }: IUseFebric) {
       dispatch(fetchingFebricAction(true));
       try {
         const response = await axios.get(`${APIS.product}/${userId}?filters=${filters}&page=${page}`);
+        const mock = [...febricsMock, ...response.data.febrics];
+
+        const res = {...response.data, febrics: mock};
+        console.log('res', res)
         if(page && page > 0) {
           dispatch(fetchMoreFebrics(response.data));
         }
 
         if(page === 0) {
-          dispatch(fetchedFebricsAction(response.data));
+          dispatch(fetchedFebricsAction(res));
         }
 
         
