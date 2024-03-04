@@ -74,14 +74,14 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: S
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
-      <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
+      {/* <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
         <AddModelToScene name='collar' modelURI={collar} />
-      </AddTextureToModel>
+      </AddTextureToModel> */}
 
-      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
+      {/* <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
 
         <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
-      </AddTextureToModel>
+      </AddTextureToModel> */}
 
 
       <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true}>
@@ -160,7 +160,7 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddText
   // needed to add to have real experiences
   // Considere the lighting way on the model which will provide more
   // Realistic experiences for the model
-  texture.repeat.set(2,2);
+  texture.repeat.set(4,4);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
 

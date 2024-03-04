@@ -3,8 +3,10 @@ export const defaultPrices = {
   cuff: 10,
 };
 export const modelsURL = {
-  shirt: '/models/shirt/shirt-without-collar-and-cuff.glb',
+  // shirt: '/models/shirt/shirt-without-collar-and-cuff.glb',
+  shirt: '/models/shirt/MainGLBNew.glb',
   // shirt: '/models/shirt/Metres.glb',
+  
   
 };
 
