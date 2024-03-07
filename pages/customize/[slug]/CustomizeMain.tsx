@@ -133,6 +133,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     const { modelType } = useSelector((state: RootState) => state.modelType);
     const {index} = useSelector((state: RootState) => state.cartIndexToupdate);
     const cart = useSelector((state: RootState) => state.cart);
+   
     
     
     const {slug} = router.query;
@@ -369,6 +370,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                                 febricURI={originalImageUrl ?? defaultFebric}
                                 collarAccent={collarAccent}
                                 cuffAccent={cuffAccent}
+                               
 
                             />
 
@@ -394,8 +396,8 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                                     }
                                 }
                                 cart={cart}
+                        
                                 />
-
                         </Canvas>
 
                     </div>

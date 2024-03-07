@@ -8,14 +8,22 @@ import { updateCartIndexAction } from 'slices/updateCartIndex';
 import { request } from 'utils/request';
 
 
-const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, cartData, index, cart }: ICaptureModelScreenShot) => {
+
+
+const CaptureModelScreenShot = ({dispatch, takeScreenShot, setTakeScreenShot, cartData, index, cart }: ICaptureModelScreenShot) => {
 
     const { gl, scene, camera } = useThree();
+
+  
+
     useEffect(() => {
         const runTakeScreenShot = async () => {
-
+            const canvasElement = gl.domElement;
+            canvasElement.style.display = 'none';  
+            gl.setSize(140, 173);
             gl.render(scene, camera);
             const screenShot = gl.domElement.toDataURL(); 
+            
 
             const boblFile = dataURLtoBlob(screenShot);
 
@@ -78,16 +86,17 @@ const CaptureModelScreenShot = ({ dispatch, takeScreenShot, setTakeScreenShot, c
                     setTakeScreenShot('uploaded');
 
                 }
-                if (!originalImageUrl) {
-                }
+                
 
             } catch (err: any) {
                 console.error(err);
             }
-
+            
 
         }
-        if (takeScreenShot === 'upload') runTakeScreenShot();
+        if (takeScreenShot === 'upload') {
+            runTakeScreenShot();
+        }
     }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch, index, cart])
 
     return null;

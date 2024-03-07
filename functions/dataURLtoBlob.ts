@@ -1,4 +1,5 @@
 export const dataURLtoBlob = (dataURL: any) => {
+  
   const arr = dataURL.split(',');
   if (!arr[0]) return null;
   const mime = arr[0].match(/:(.*?);/)[1];
