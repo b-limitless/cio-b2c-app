@@ -1,4 +1,6 @@
+import { FormHelperText } from '@mui/material';
 import { Button } from 'components/Button';
+import FormErrorMessage from 'components/FromErrorMessage';
 import Header from 'components/Header/Header';
 import Input from 'components/Input';
 import { APIS } from 'config/apis';
@@ -155,8 +157,6 @@ function Main({ userId }: IMain) {
   }, [formHasError, formSubmitted, router, form, globalDispatch, userId]);
 
 
-
-
   return (
     <>
       <Header
@@ -191,8 +191,8 @@ function Main({ userId }: IMain) {
 
           </div>
 
-
-
+        {formError.message && <FormErrorMessage message={formError.message} />}
+          
 
           <div className={styles.form__row}>
             <Button

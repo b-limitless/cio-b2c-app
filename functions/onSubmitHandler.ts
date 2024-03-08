@@ -18,8 +18,6 @@ export const onSubmitHandler = (
         : (key as keyof FormInterface);
     const value = form[formKey] as string;
 
-    console.log('key', key)
-
     if (!model[formKey].test(value)) {
       dispatch({
         type: 'FORM_ERROR',

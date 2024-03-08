@@ -1,5 +1,4 @@
 import { IShippingState } from "slices/shippingSlice";
-import { Triangle } from "three";
 import { OrderProcessType } from "types/enums";
 
 export interface Base {
