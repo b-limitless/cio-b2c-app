@@ -5,7 +5,13 @@ import { ECartStatus, ICartItem } from 'slices/cartSlice';
 import { TFebric } from 'slices/febricSlice';
 import { IModelAction } from 'slices/modelSlice';
 
-export type TSnapShotUploadingStates = 'upload' | 'uploaded' | 'uploading' | 'error' | 'ideal';
+export enum tSnapShotUploadingStates {
+  Upload = 'upload',
+  Uploaded = 'uploaded',
+  Uploading = 'uploading',
+  Error = 'error',
+  Ideal = 'ideal',
+}
 
 export interface IScreenShortCartItem {
   cartData: Partial<Omit<ICartItem, 'model' | 'accent'>> & {
@@ -20,7 +26,7 @@ export interface IScreenShortCartItem {
 }
 
 export interface ICaptureModelScreenShot extends IScreenShortCartItem {
-  takeScreenShot: TSnapShotUploadingStates;
+  takeScreenShot: tSnapShotUploadingStates;
   setTakeScreenShot: Function;
   dispatch: Dispatch<AnyAction>;
   index:number | null;

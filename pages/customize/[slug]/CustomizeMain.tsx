@@ -22,7 +22,7 @@ import { defaultCollarModel, defaultFebric } from 'config/default';
 import { productNavigation } from 'config/product';
 import { removeTimestamp } from 'functions/removeTimeStamp';
 import useFetchFebrics from 'hooks/useFetchFebric';
-import { TSnapShotUploadingStates } from 'interface/ICart.interface';
+import { tSnapShotUploadingStates } from 'interface/ICart.interface';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Shirt3DModel from 'pages/customize/3DModel/Shirt';
@@ -33,7 +33,7 @@ import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSl
 import { TCheckIfItemIsSameToUpdateCart } from 'slices/cartSlice';
 import { TFebric, updateFebric } from 'slices/febricSlice';
 import { RootState } from 'store';
-import { selectionProcess, SelectionTypes } from '../../../types/enums';
+import { selectionProcess } from '../../../types/enums';
 import Filter from '../Febric/Filter';
 import FebricDetails from '../FebricDetails';
 import Accents from '../Select/Accents';
@@ -43,79 +43,8 @@ import styles from '../customize.module.scss';
 import CaptureModelScreenShot from './CaptureModelScreenShot';
 import { EFebricFilter, updaeFebricsPage, updatFebricFilter } from 'slices/febricsSlice';
 import { isScrolledToBottom } from 'functions/scrollToBottom';
-const https = require('https');
-
-export const sampleData = {
-    originalImageUrl:
-      'https://res.cloudinary.com/dun5p8e5d/image/upload/v1704620406/images/ABC/xulgkzie5hkkrvpttxel.png',
-    thumbnailImageUrl:
-      'https://res.cloudinary.com/dun5p8e5d/image/upload/v1704620416/thumbnails/ABC/jtxc8moiphu8vwqrzjms.png',
-    model: {
-      collar: {
-        id: 12,
-        model: '/models/collars/collar-1-1.glb?timestamp=1704620380222',
-        price: 0,
-        title: 'Default collar model',
-        label: 'default',
-        code: 'default',
-      },
-      cuff: {
-        id: 12,
-        model: '/models/cuffs/cuff-1-normal.glb?timestamp=1704620380222',
-        price: 0,
-        title: 'default cuff model',
-        label: 'default',
-        code: 'default',
-      },
-    },
-    accent: {
-      collar: {
-        id: 12,
-        febric: '/img/febric-5.jpg',
-        type: 'default',
-        meshName: [],
-        updatedFrom: 'febrics',
-        price: 10,
-      },
-      cuff: {
-        id: 12,
-        febric: '/img/febric-5.jpg',
-        type: 'default',
-        meshName: [],
-        updatedFrom: 'febrics',
-        price: 10,
-      },
-    },
-    modelType: 'shirt',
-    subTotal: 50,
-    qty: 1,
-    discount: 0,
-    availability: '',
-    id: 1,
-    deliveryTime: '3 weeks',
-    febric: {
-      id: 1,
-      model: '/img/febric-5.jpg',
-      price: 30,
-      title: 'XYZ',
-      material: 'Cotton 80 %',
-      tone: 'light',
-      febricTypes: 'string',
-      season: 'summer',
-      label: 'default',
-      code: 'default',
-      originalImageUrl: '/img/febric-5.jpg',
-    },
-    status: 'open',
-  };
-
-
-const agent = new https.Agent({
-    rejectUnauthorized: false,
-    requestCert: false,
-    agent: false,
- });
-
+import { ERoute } from 'config/route';
+import { styleOne } from '../styles';
 
 interface ICustomizeMain {
     userId: string | string[]
@@ -140,7 +69,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
     const { collar: collarAccent } = accent;
     const { cuff: cuffAccent } = accent;
-    const [takeScreenShot, setTakeScreenShot] = useState<TSnapShotUploadingStates>('ideal');
+    const [takeScreenShot, setTakeScreenShot] = useState<tSnapShotUploadingStates>(tSnapShotUploadingStates.Ideal);
 
 
     const { originalImageUrl } = febric;
@@ -174,11 +103,11 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
          * **/
         if (designJourney === selectionProcess.accents) {
             if(checkIfItemIsSameToUpdateCart({index, model, accent, modelType, febric})) {
-                router.push('/cart');
+                router.push(ERoute.cart);
                 return;
             }
 
-            setTakeScreenShot('upload');
+            setTakeScreenShot(tSnapShotUploadingStates.Upload);
             return;
         }
         // First get the index of selected step 
@@ -253,8 +182,8 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
 
     useEffect(() => {
-        if (takeScreenShot === 'uploaded') {
-            router.push('/cart');
+        if (takeScreenShot === tSnapShotUploadingStates.Uploaded) {
+            router.push(ERoute.cart);
         }
     }, [takeScreenShot, router]);
 
@@ -282,7 +211,6 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
     useFetchFebrics({userId, filters: JSON.stringify(filters), page});
 
-    // main content style need to be dynamic
 
     const getClass = useMemo(() => {
         return designJourney === selectionProcess.febrics ? styles.febrics : 
@@ -322,10 +250,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                   showNavigation 
                   userId={userId ?? ''}
                   />
-<main className={`${styles.main__content} ${getClass}`}>
-  {/* Your main content goes here */}
-
-
+                 <main className={`${styles.main__content} ${getClass}`}>
                     <div className={styles.filter}>
                         <div className={styles.title}>Select {designJourney}</div>
 
@@ -338,14 +263,14 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                                 febrics={febrics}
                             />}
 
-                        {designJourney === 'styles' &&
+                        {designJourney === selectionProcess.styles &&
                             <Styles
                                 collarAccent={collarAccent}
                                 cuffAccent={cuffAccent}
 
                             />}
 
-                        {designJourney === 'accents' && <Accents
+                        {designJourney === selectionProcess.accents && <Accents
                             setShowAccentFebricModel={setShowAccentFebricModel}
                             showAccentFebricModel={showAccentFebricModel}
                             setActiveAccent={setActiveAccent}
@@ -353,7 +278,6 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
                     </div>
                     <div className={styles.model}>
-
                         <Canvas>
                             <Shirt3DModel
                                 collar={collar?.modelURL ?? defaultCollarModel}
@@ -411,8 +335,8 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                             </div>
                         </div>
                         <div className={styles.row}>
-                            <Button variant='primary' type='square' onClick={() => takeScreenShot === 'uploading' ? null : nextStepHandler()}>
-                                <span style={{whiteSpace:'nowrap'}}>{takeScreenShot === 'uploading' ? 'Please wait...' : 'Next'}</span>
+                            <Button variant='primary' type='square' onClick={() => takeScreenShot === tSnapShotUploadingStates.Uploading ? null : nextStepHandler()}>
+                                <span style={styleOne}>{takeScreenShot === tSnapShotUploadingStates.Uploading ? 'Please wait...' : 'Next'}</span>
 
                                 
                             </Button>
