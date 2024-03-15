@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface FebricAttrs {
-  // userId: mongoose.Schema.Types.ObjectId;
   title: string;
   price: number;
   deliveryTime: string;

@@ -1,4 +1,3 @@
-import { defaultFebric } from 'config/default';
 
 export const cartSameDate = [
   {
