@@ -1,4 +1,3 @@
-import { FormHelperText } from '@mui/material';
 import { Button } from 'components/Button';
 import FormErrorMessage from 'components/FromErrorMessage';
 import Header from 'components/Header/Header';
@@ -101,10 +100,6 @@ function signInProcessReducer(state: SigninProcess, action: any) {
   }
 }
 
-interface SignInInterface {
-  actions: any;
-  globalDispatch: any;
-}
 
 function Main({ userId }: IMain) {
   const router = useRouter();
@@ -192,8 +187,6 @@ function Main({ userId }: IMain) {
           </div>
 
         {formError.message && <FormErrorMessage message={formError.message} />}
-          
-
           <div className={styles.form__row}>
             <Button
               type='square'

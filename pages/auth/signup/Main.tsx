@@ -211,14 +211,8 @@ function Main({ userId }: IMain) {
                                 />
                                 <label htmlFor="check-me">I agree to terms & conditions</label>
                             </>
-
-
                             {formError.agreement && <ErrorText text={'Please read and check the agreement'} />}
                         </div>
-
-
-
-
                     </div>
                     <div className={styles.form__row}>
                         <Button

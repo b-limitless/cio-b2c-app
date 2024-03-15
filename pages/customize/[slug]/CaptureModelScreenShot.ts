@@ -1,3 +1,7 @@
+ /**
+ * This stage need to check if there is index is not null then simply update the cart with specific index
+ * Other wise simply add new item to the cart Line 53 
+ * **/
 import { useThree } from '@react-three/fiber';
 import { APIS } from 'config/apis';
 import { dataURLtoBlob } from 'functions/dataURLtoBlob';
@@ -46,10 +50,6 @@ const CaptureModelScreenShot = ({dispatch, takeScreenShot, setTakeScreenShot, ca
                 if (originalImageUrl) {
                     const screenCDNURIs = { originalImageUrl, thumbnailImageUrl };
                     const data = { ...screenCDNURIs, ...cartData };
-                    /**
-                     * This stage need to check if there is index is not null then simply update the cart with specific index
-                     * Other wise simply add new item to the cart
-                     * **/
                     if(index !== null) {
                         // Send the request to the server to update the cart
                         const {id, ...body} = data;
@@ -85,7 +85,6 @@ const CaptureModelScreenShot = ({dispatch, takeScreenShot, setTakeScreenShot, ca
 
                 }
                 
-
             } catch (err: any) {
                 console.error(err);
             }

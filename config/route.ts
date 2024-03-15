@@ -1,3 +1,5 @@
 export enum ERoute {
-    cart='/cart'
+    cart='/cart',
+    order='/order', 
+    signin='/auth/signin'
 }

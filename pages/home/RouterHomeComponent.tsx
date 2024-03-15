@@ -1,13 +1,3 @@
-/**
- * This component is used in two places for example 
- * If the application is used to passed differet user id in url then using 
- * /pages/[userId].tsx 
- * 
- * When this application is directly deployed to the client server then 
- * /pages/index.tsx where id is passed from the codebase 
- * 
- * 
- * **/
 'use client';
 import { Button } from 'components/Button';
 import Header from 'components/Header/Header';
@@ -15,28 +5,19 @@ import { storeID } from 'config/user';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { updaetModelType } from 'slices/modelTypeSlice';
 import { updateStoreIdAction } from 'slices/storeSlice';
 import styles from './home.module.scss';
-
-
 interface IRouterHomeComponent {
     userId:string | string[];
 }
-
 function RouterHomeComponent({userId}:IRouterHomeComponent) {
-
     const dispatch = useDispatch();
-
     const actionButtonHandler = () => {
         dispatch(updaetModelType('shirt'));
         dispatch(updateStoreIdAction(storeID));
     }
-
-    
-
     return (
         <>
             <div className={styles.page__container}>
@@ -52,13 +33,10 @@ function RouterHomeComponent({userId}:IRouterHomeComponent) {
                                     that fit you perfectly
                                 </div>
                             </div>
-
                             <div className={styles.description}>
                                 Shirts that fit you perfectly. Choose a custom dress shirt designed by you. Make a statement with a made to measure shirt perfect for any occasions, whether it {'\\'} s business or casual we will tailor the perfect men s dress shirt for you. Buy the best custom dress shirt online.
                             </div>
-
                             <Link href={`/customize/shirt/${userId}`}>
-
                                 <Button variant='primary' type='round' onClick={actionButtonHandler}>
                                     <span>Design shirt</span>
                                     <span>
@@ -66,21 +44,14 @@ function RouterHomeComponent({userId}:IRouterHomeComponent) {
                                     </span>
                                 </Button>
                             </Link>
-
-
-
                         </div>
                     </div>
                     <div className={styles.col}>
                         <Image src="/img/man.png" alt="" width={300} height={816.5} />
                     </div>
                 </div>
-
             </div>
         </>
-
     )
 }
-
-
 export default dynamic(() => Promise.resolve(RouterHomeComponent), { ssr: false });

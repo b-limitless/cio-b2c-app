@@ -3,7 +3,7 @@ import styles from './form.module.scss';
 
 interface FormTemplate {
     children: ReactNode,
-    extraStyles?:any;
+    extraStyles?: any;
 }
 
 

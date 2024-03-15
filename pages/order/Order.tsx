@@ -44,7 +44,6 @@ import OrderCompleted from './Completed';
 import Measurement from './Measurement';
 import Payment from './Payment';
 import Shipping from './Shipping';
-
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { fetchCustomerMeasurementShirt } from 'actions/fetchCustomerMeasurementShirt.action';
 import { fetchCustomerShipping } from 'actions/fetchCustomerShipping.action';
@@ -53,12 +52,13 @@ import { useEffect, useState } from 'react';
 import { updatePaymentError } from 'slices/paymentSlice';
 import { request } from 'utils/request';
 import Review from './Review';
+import { ERoute } from 'config/route';
 
 interface IOrder {
     userId: string | string[]
 }
 export default function Order({ userId }: IOrder) {
-    const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>('measurement');
+    const [measurementJourney, setMeasurementJourney] = useState<combinedTypes>(OrderProcess.measurement);
     const measurement = useSelector((state: RootState) => state.measurment);
     const shipping = useSelector((state: RootState) => state.shipping);
     const payment = useSelector((state: RootState) => state.payment);
@@ -76,8 +76,8 @@ export default function Order({ userId }: IOrder) {
     });
 
     // const shipping = useSelector((state: RootState) => state.);
-    const { errors: errorsMeasurement } = measurement;
-    const [shouldMoveToNextStep, setShouldMoveToNextStep] = useState<boolean>(false);
+
+    const [, setShouldMoveToNextStep] = useState<boolean>(false);
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
     const updateUserMeasurmen = async (body: any) => {
@@ -119,7 +119,7 @@ export default function Order({ userId }: IOrder) {
     const nextStageHandler = async () => {
 
         // Need to validate the form if all of them are filled then only move to the next step
-        if (measurementJourney === 'measurement') {
+        if (measurementJourney === OrderProcess.measurement) {
             // Make sure that the form is filled
             const measurementError: any = {};
 
@@ -146,7 +146,7 @@ export default function Order({ userId }: IOrder) {
         }
 
         // If the process is under shipping stage
-        if (measurementJourney === 'shipping') {
+        if (measurementJourney === OrderProcess.shipping) {
             // Make sure that the form is filled
             const measurementError: any = {};
 
@@ -224,8 +224,8 @@ export default function Order({ userId }: IOrder) {
 
     // Check that if customer is authenticated
     useIsCustomerAuthenticated({
-        pathname: '/auth/signin',
-        query: { from: '/order' },
+        pathname: ERoute.signin,
+        query: { from: ERoute.cart },
     });
 
 
@@ -234,7 +234,7 @@ export default function Order({ userId }: IOrder) {
     }, [dispatch]);
 
     useEffect(() => {
-        if (measurementJourney === 'shipping') {
+        if (measurementJourney === OrderProcess.shipping) {
             dispatch(fetchCustomerShipping());
         }
     }, [measurementJourney, dispatch]);
@@ -282,8 +282,8 @@ export default function Order({ userId }: IOrder) {
                 measurementJourney={measurementJourney}
                 setMeasurementJourney={setMeasurementJourney}
                 nextStageHandler={nextStageHandler}
-                userId={userId} 
-                />
+                userId={userId}
+            />
             }
             {measurementJourney === OrderProcess.order_completed && <OrderCompleted measurementJourney={measurementJourney} setMeasurementJourney={setMeasurementJourney} nextStageHandler={nextStageHandler} />}
 

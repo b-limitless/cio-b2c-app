@@ -6,12 +6,6 @@ import FormTemplate from '../template/form';
 import styles from 'style-module/shipping.module.scss';
 import Loader from 'components/Loader';
 
-interface IInputText {
-  name: string;
-  label: string;
-  value: string;
-}
-
 const extraStyles = {
   display:'grid',
   height: 'calc(100vh - (89px + 1rem))',
@@ -28,10 +22,6 @@ export default function Shipping({ measurementJourney,
   selectedCountry,
   fetching
 }: IShippingFrom) {
-  // This state is needed for the select component 
-
-
-
   return (
     <FormTemplate extraStyles={ extraStyles}>
       {fetching && <Loader />}

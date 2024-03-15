@@ -14,8 +14,6 @@ import ProductShirt from './product/shirt';
 
 
 export default function Measurement({fetching, measurementJourney, setMeasurementJourney, nextStageHandler, onChangeHandler, onMouseLeaveEventHandler }: IMeasurementForm) {
-    // const modelType = useSelector((state:RootState) => state.modelType);
-
     const { data, errors } = useSelector((state: RootState) => state.measurment);
 
     const baseMeasurementForm = useMemo(() => {
