@@ -92,7 +92,7 @@ const CaptureModelScreenShot = ({dispatch, takeScreenShot, setTakeScreenShot, ca
             
 
         }
-        if (takeScreenShot === 'upload') {
+        if (takeScreenShot === tSnapShotUploadingStates.Upload) {
             runTakeScreenShot();
         }
     }, [takeScreenShot, camera, gl, scene, setTakeScreenShot, cartData, dispatch, index, cart])
