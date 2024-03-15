@@ -1,7 +1,7 @@
 import { useThree } from '@react-three/fiber';
 import { APIS } from 'config/apis';
 import { dataURLtoBlob } from 'functions/dataURLtoBlob';
-import { ICaptureModelScreenShot } from 'interface/ICart.interface';
+import { ICaptureModelScreenShot, tSnapShotUploadingStates } from 'interface/ICart.interface';
 import { useEffect } from 'react';
 import { addToCart, updateCartDataByIndex } from 'slices/cartSlice';
 import { updateCartIndexAction } from 'slices/updateCartIndex';
@@ -18,7 +18,6 @@ const CaptureModelScreenShot = ({dispatch, takeScreenShot, setTakeScreenShot, ca
         const runTakeScreenShot = async () => {
             const canvasElement = gl.domElement;
             canvasElement.style.display = 'none';  
-            canvasElement.innerHTML = 'Please wait....'
             gl.setSize(140, 173);
             gl.render(scene, camera);
             const screenShot = gl.domElement.toDataURL(); 
@@ -35,7 +34,7 @@ const CaptureModelScreenShot = ({dispatch, takeScreenShot, setTakeScreenShot, ca
             formData.append('image', snapShotFile);
 
             try {
-                setTakeScreenShot('uploading');
+                setTakeScreenShot(tSnapShotUploadingStates.Uploading);
                 APIS.upload, formData
                 const response = await request({
                     url: APIS.upload, 
@@ -82,7 +81,7 @@ const CaptureModelScreenShot = ({dispatch, takeScreenShot, setTakeScreenShot, ca
                         }
                     }
                     
-                    setTakeScreenShot('uploaded');
+                    setTakeScreenShot(tSnapShotUploadingStates.Uploaded);
 
                 }
                 
