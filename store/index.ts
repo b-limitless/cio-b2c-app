@@ -1,5 +1,5 @@
 'use client';
-import { configureStore, createAsyncThunk } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import accent from 'slices/accentSlice';
 import cart from 'slices/cartSlice';

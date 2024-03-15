@@ -1,10 +1,10 @@
-export enum SelectionProcess {
+export enum selectionProcess {
   febrics = 'febrics',
   styles = 'styles',
   accents = 'accents',
 }
 
-export type SelectionTypes = `${SelectionProcess}`;
+export type SelectionTypes = `${selectionProcess}`;
 
 export enum OrderProcess {
   measurement = 'measurement',

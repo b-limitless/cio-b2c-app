@@ -9,7 +9,11 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
  *   * Click to the filter and then it will send 2 request to server for fetching data 
  *   * Issue is page is updated to 0 when its clicked to filter button so that we have new data 
  *   * Due to main priority moving to another feature and will be fixed in next stage
- *  
+ *   
+ *   Line 263 explanation 
+ *    When user loading all data then stop this process
+      Even user reaches to the end of the scroll bar
+      page + 1 * limit === affectedRows then stop
  * **/
 import { Canvas } from '@react-three/fiber';
 import { Button } from 'components/Button';
@@ -29,7 +33,7 @@ import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSl
 import { TCheckIfItemIsSameToUpdateCart } from 'slices/cartSlice';
 import { TFebric, updateFebric } from 'slices/febricSlice';
 import { RootState } from 'store';
-import { SelectionProcess, SelectionTypes } from '../../../types/enums';
+import { selectionProcess, SelectionTypes } from '../../../types/enums';
 import Filter from '../Febric/Filter';
 import FebricDetails from '../FebricDetails';
 import Accents from '../Select/Accents';
@@ -120,7 +124,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     const router = useRouter();
     const [showFilterModel, setShowFilterModel] = useState(false);
     const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(-1);
-    const [designJourney, setDesignJourney] = useState<SelectionProcess>(SelectionProcess.febrics);
+    const [designJourney, setDesignJourney] = useState<selectionProcess>(selectionProcess.febrics);
     const [showAccentFebricModel, setShowAccentFebricModel] = useState<boolean>(false);
     const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
 
@@ -133,10 +137,6 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     const { modelType } = useSelector((state: RootState) => state.modelType);
     const {index} = useSelector((state: RootState) => state.cartIndexToupdate);
     const cart = useSelector((state: RootState) => state.cart);
-   
-    
-    
-    const {slug} = router.query;
 
     const { collar: collarAccent } = accent;
     const { cuff: cuffAccent } = accent;
@@ -172,7 +172,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
          * If update finllay update the state cartIndexToupdate to null
          * 
          * **/
-        if (designJourney === SelectionProcess.accents) {
+        if (designJourney === selectionProcess.accents) {
             if(checkIfItemIsSameToUpdateCart({index, model, accent, modelType, febric})) {
                 router.push('/cart');
                 return;
@@ -182,9 +182,9 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
             return;
         }
         // First get the index of selected step 
-        const findIndex = Object.keys(SelectionProcess).indexOf(designJourney);
+        const findIndex = Object.keys(selectionProcess).indexOf(designJourney);
         // Add one to that index 
-        const getNextValue = Object.values(SelectionProcess)[findIndex + 1];
+        const getNextValue = Object.values(selectionProcess)[findIndex + 1];
         setDesignJourney(getNextValue);
     }
 
@@ -195,8 +195,6 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
         dispatch(updateFebric(payload));
 
         if (collarAccent.updatedFrom === 'febrics') {
-
-            // Update the collor with different febric
             const payloadC: any = {
                 ...collarAccent,
                 febric: payload.originalImageUrl ?? defaultFebric,
@@ -244,7 +242,6 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     }, [showFilterModel]);
 
     const updateFebricFiltersHandler = (key: EFebricFilter, value:string) => {
-        // dispatch the page to 0 
         const container = document.getElementById('febrics-scroll-container');
         if(container) {
             container.scrollTop = 0;
@@ -257,7 +254,6 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
     useEffect(() => {
         if (takeScreenShot === 'uploaded') {
-            // In this stage we need to create cart to the server as well
             router.push('/cart');
         }
     }, [takeScreenShot, router]);
@@ -269,10 +265,6 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
         function handleScroll() {
             if(isScrolledToBottom(container)) {
-                // When user loading all data then stop this process
-                // Even user reaches to the end of the scroll bar
-                // page + 1 * limit === affectedRows then stop
-                
                 if(((page + 1) * limit) !== affectedRows && !loading) {
                     dispatch(updaeFebricsPage(page ? page + 1 : 1))
                 }
@@ -293,9 +285,9 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     // main content style need to be dynamic
 
     const getClass = useMemo(() => {
-        return designJourney === SelectionProcess.febrics ? styles.febrics : 
-               designJourney === SelectionProcess.styles ? styles.styles : 
-               designJourney === SelectionProcess.accents ? styles.styles : 
+        return designJourney === selectionProcess.febrics ? styles.febrics : 
+               designJourney === selectionProcess.styles ? styles.styles : 
+               designJourney === selectionProcess.accents ? styles.styles : 
                'default';
     }, [designJourney]);
 
@@ -338,7 +330,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                         <div className={styles.title}>Select {designJourney}</div>
 
 
-                        {designJourney === 'febrics' &&
+                        {designJourney === selectionProcess.febrics &&
                             <Febrics
                                 setShowFilterModel={setShowFilterModel}
                                 setShowFebricDetailsModel={setShowFebricDetailsModel}
@@ -362,7 +354,6 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                     </div>
                     <div className={styles.model}>
 
-                        {/* <Image src='/img/shirt.png' width={503} height={600} alt='model' /> */}
                         <Canvas>
                             <Shirt3DModel
                                 collar={collar?.modelURL ?? defaultCollarModel}
@@ -370,15 +361,12 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                                 febricURI={originalImageUrl ?? defaultFebric}
                                 collarAccent={collarAccent}
                                 cuffAccent={cuffAccent}
-                               
-
                             />
 
                             <CaptureModelScreenShot
                                 dispatch={dispatch}
                                 takeScreenShot={takeScreenShot}
                                 setTakeScreenShot={setTakeScreenShot}
-                                // setSnapShotUploadState={setSnapShotUploadState}
                                 index={index}
                                 cartData={
                                     {
