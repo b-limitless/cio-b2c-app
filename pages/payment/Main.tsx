@@ -15,42 +15,11 @@ import { updatePaymentType } from "slices/paymentSlice";
 import { updateShippingToInitialState } from "slices/shippingSlice";
 import { OrderProcess } from "types/enums";
 import { request } from "utils/request";
+import { onApprove } from "./on-approve";
+import { createOrder } from "./create-order";
 
 // This value is from the props in the UI
 const style: any = { "layout": "vertical" };
-type TId = string | string[];
-
-async function createOrder(id:TId) {
-
-    try {
-        const {id:orderId} = await request({url: `${APIS.paypal.createOrder}/${id}`, method: 'post'});
-
-        return orderId; 
-    } catch(err) {
-        console.error(`Could not create an order ${err}`);
-        throw new Error(`Could not create an order ${err}`)
-    }
-}
-async function onApprove(data: any, id:TId, makeCartEmptyOnApprove:Function) {
-
-    try {
-         await request({
-            url: `${APIS.paypal.onApprove}/${id}`,
-            method:'post', 
-            body: {orderID: data.orderID}
-        });
-        // Make the cart empty 
-        makeCartEmptyOnApprove();
-        // Update the user journey to order completed
-
-    } catch(err) {
-        console.error(`Unable to approve the request ${err}`);
-        throw new Error(`Unable to approve the request ${err}`)
-    }
-}
-const disabledFunding = {
-    disallowed: ['card'],
-};
 
 interface IPaypalState {
     clientId: null | string;

@@ -268,7 +268,6 @@ export default function Order({ userId }: IOrder) {
                     handleOptionChange={handleOptionChange}
                     selectedCountry={selectedCountry}
                     fetching={fetchingShipping}
-                // setSelectedCountry={setSelectedCountry}
 
                 />}
             {measurementJourney === OrderProcess.payment_options && <Payment
