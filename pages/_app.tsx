@@ -15,10 +15,6 @@ const poppins = Poppins({
   display: 'swap',
 })
 
-interface MyAppProps extends AppProps {
-  customProp: string;
-
-}
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
