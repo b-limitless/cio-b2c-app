@@ -424,7 +424,9 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                         </div>
                         <div className={styles.row}>
                             <Button variant='primary' type='square' onClick={() => takeScreenShot === 'uploading' ? null : nextStepHandler()}>
-                                <span>{takeScreenShot === 'uploading' ? 'Please wait...' : 'Next'}</span>
+                                <span style={{whiteSpace:'nowrap'}}>{takeScreenShot === 'uploading' ? 'Please wait...' : 'Next'}</span>
+
+                                
                             </Button>
                             <div className={styles.receives__when}>
                                 RECEIVE IN 3 WEEKS

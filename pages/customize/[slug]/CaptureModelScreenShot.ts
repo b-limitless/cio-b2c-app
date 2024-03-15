@@ -14,12 +14,11 @@ const CaptureModelScreenShot = ({dispatch, takeScreenShot, setTakeScreenShot, ca
 
     const { gl, scene, camera } = useThree();
 
-  
-
     useEffect(() => {
         const runTakeScreenShot = async () => {
             const canvasElement = gl.domElement;
             canvasElement.style.display = 'none';  
+            canvasElement.innerHTML = 'Please wait....'
             gl.setSize(140, 173);
             gl.render(scene, camera);
             const screenShot = gl.domElement.toDataURL(); 
