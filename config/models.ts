@@ -136,7 +136,7 @@ export const accentsStyles = [
         code: 'all',
         mediaUrl: '/icon/collars/button-down.svg',
         type: 'all',
-        meshName: ['Collar_Top', 'Collor_Button_Holder', 'Collor_Inner', 'Node_5'],
+        meshName: ['Collar_Node', 'Collar_Stand_Node', 'MatShape_1135259_Node', 'Node_25'],
         price: defaultPrices.collar + 10,
         iconClass: 'icon-42'
       },
@@ -146,7 +146,7 @@ export const accentsStyles = [
         code: 'innerFebric',
         mediaUrl: '/icon/collars/button-down.svg',
         type: 'innerFebric',
-        meshName: ['Collor_Inner'],
+        meshName: ['Collar_Node'],
         price: defaultPrices.collar + 10,
         iconClass: 'icon-41'
       },
@@ -171,7 +171,7 @@ export const accentsStyles = [
         code: 'all',
         mediaUrl: '/icon/cuff/one-button.svg',
         type: 'all',
-        meshName: [],
+        meshName: ['Cuffs_1_Node', 'Cuffs_Node', 'Node_39', 'Node_43'],
         iconClass: 'icon-45'
       },
       {
@@ -201,17 +201,20 @@ export const accentsStyles = [
   }
 ];
 
-export const accentFebrics = [
+export const accentFebrics:any = [
   {
-    febricURI: '/img/febric1.jpg',
+    febricURI: '/img/febric-22.webp',
+    originalImageUrl: '/img/febric-22.webp',
     price: 10,
   },
   {
-    febricURI: '/img/febric-5.jpg',
+    febricURI: '/img/febric-23.webp',
+    originalImageUrl: '/img/febric-23.webp',
     price: 20,
   },
   {
     febricURI: '/img/febric-6.jpg',
+    originalImageUrl: '/img/febric-6.jpg',
     price: 30,
   },
 ];
