@@ -33,7 +33,7 @@ export default function useFetchFebrics({page, filters, userId }: IUseFebric) {
         const mock = [...febricsMock, ...response.data.febrics];
 
         const res = {...response.data, febrics: mock};
-        console.log('res', res)
+
         if(page && page > 0) {
           dispatch(fetchMoreFebrics(response.data));
         }

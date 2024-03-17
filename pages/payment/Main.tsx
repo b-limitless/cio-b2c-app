@@ -48,6 +48,7 @@ function paypalReducer(state: IPaypalState, action: any) {
             return state;
     }
 }
+type TId = string | string[];
 // Custom component to wrap the PayPalButtons and show loading spinner
 const ButtonWrapper = ({ showSpinner, id, makeCartEmptyOnApprove }: { showSpinner: boolean, id:TId, makeCartEmptyOnApprove:Function }) => {
     const [{ isPending }] = usePayPalScriptReducer();

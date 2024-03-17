@@ -1,3 +1,13 @@
+/**
+ * 
+ * Using Draco compression for your 3D models can indeed improve performance in terms of 
+ * loading times and memory usage. Draco is a compression library developed by Google 
+ * that reduces the size of 3D geometry and animation data without significantly 
+ * compromising visual quality. By using Draco compression, you can decrease 
+ * the file size of your 3D models, leading to faster loading times, 
+ * reduced bandwidth usage, and better overall performance, especially 
+ * for web-based applications.
+*/
 'use client';
 import { OrbitControls } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
@@ -10,6 +20,7 @@ import { RowType } from 'slices/modelSlice';
 import * as THREE from 'three';
 import { Group, MeshPhongMaterial, Object3DEventMap, TextureLoader } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 
 const modelScale = 8;
@@ -35,7 +46,7 @@ interface AddTextureModel {
   children: ReactNode
   meshName: string[];
   fullBody: boolean;
-  
+
 }
 
 interface IAddModelToScene {
@@ -44,18 +55,18 @@ interface IAddModelToScene {
 }
 
 
-const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: ShirtModelInterface) => {
+const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, }: ShirtModelInterface) => {
 
   return (
     <>
-      <ambientLight intensity={0.8}/>
-       <directionalLight position={[5, 5, 5]} intensity={.1} color={0xffffff}/> 
-       <directionalLight position={[-5, -5, -5]} intensity={.1} color={0xffffff}/> 
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[5, 5, 5]} intensity={.1} color={0xffffff} />
+      <directionalLight position={[-5, -5, -5]} intensity={.1} color={0xffffff} />
       <pointLight position={[100, 100, 100]} />
       <hemisphereLight color={0xffffff} intensity={0.4} position={[100, 50, 0]} />
       <directionalLight castShadow={true} />
       <mesh receiveShadow castShadow />
-     
+
       <perspectiveCamera
         // This makes this camera the default camera for the scene
         fov={15}
@@ -66,7 +77,7 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: S
       />
 
       <OrbitControls
-        maxPolarAngle={Math.PI }
+        maxPolarAngle={Math.PI}
         minPolarAngle={0}
         enableDamping={true}
         enablePan={false}
@@ -74,14 +85,14 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: S
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
-      {/* <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
+      <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
         <AddModelToScene name='collar' modelURI={collar} />
-      </AddTextureToModel> */}
+      </AddTextureToModel>
 
-      {/* <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
+      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
 
         <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
-      </AddTextureToModel> */}
+      </AddTextureToModel>
 
 
       <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true}>
@@ -97,6 +108,7 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent,  }: S
 };
 
 const Model = () => {
+
   const { scene } = useLoader(GLTFLoader, modelsURL.shirt);
 
   scene.scale.set(modelScale, modelScale, modelScale);
@@ -138,7 +150,7 @@ const AddModelToScene = ({ name, modelURI }: IAddModelToScene) => {
   // Optionally adjust position or scale here
   scene.position.y = modelYPostion;
   scene.position.x = 0;
-  
+
   scene.name = name;
 
   return <primitive object={scene} />;
@@ -160,7 +172,7 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddText
   // needed to add to have real experiences
   // Considere the lighting way on the model which will provide more
   // Realistic experiences for the model
-  texture.repeat.set(4,4);
+  texture.repeat.set(4, 4);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
 
