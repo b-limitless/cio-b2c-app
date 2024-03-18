@@ -138,8 +138,7 @@ const Model = () => {
   const { scene } = useLoader(GLTFLoader, modelsURL.shirt);
 
   
-  // @ts-ignore
-  hideMeshByName(scene, ['Pattern_285866_Node', 'Pattern_288949_Node']);
+  hideMeshByName(scene as any, ['Pattern_285866_Node', 'Pattern_288949_Node']);
   scene.scale.set(modelScale, modelScale, modelScale);
   // Optionally adjust position or scale here
   scene.position.y = modelYPostion;
