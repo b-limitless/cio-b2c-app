@@ -93,11 +93,18 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, }: Sh
         <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
       </AddTextureToModel> 
 
-      {/* This is render button in front of the shirt */}
-      <AddModelToScene name='buttons' modelURI={modelsURL.buttons} />
+     {/* This is render button in front of the shirt */}
+
+      <AddTextureToModel textureURL={'/img/126.jpg'} meshName={[]} fullBody={true}>
+
+        <AddModelToScene name='buttons' modelURI={modelsURL.buttons} />
+
+      </AddTextureToModel>
 
       {/* render button wholes e */}
+      {/* <AddTextureToModel textureURL={'/img/126.jpg'} meshName={[]} fullBody={true}> </AddTextureToModel> */}
       <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} />
+     
 
       {/* render cuff button based on different condition, initial value */}
       {/* Model url value will be keep change based on user interecting */}
@@ -180,7 +187,7 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddText
   // needed to add to have real experiences
   // Considere the lighting way on the model which will provide more
   // Realistic experiences for the model
-  texture.repeat.set(4, 4);
+  texture.repeat.set(1, 1);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
 
