@@ -90,10 +90,18 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, }: Sh
       </AddTextureToModel>
 
       <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
-
         <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
-      </AddTextureToModel>
+      </AddTextureToModel> 
 
+      {/* This is render button in front of the shirt */}
+      <AddModelToScene name='buttons' modelURI={modelsURL.buttons} />
+
+      {/* render button wholes e */}
+      <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} />
+
+      {/* render cuff button based on different condition, initial value */}
+      {/* Model url value will be keep change based on user interecting */}
+      <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} />
 
       <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true}>
         <Model />
