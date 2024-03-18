@@ -124,24 +124,27 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, }: Sh
   );
 };
 
+const hideMeshByName = (scene:THREE.Scene, names:string[]) => {
+  scene.traverse((o:any) => {
+    if (o.isMesh &&  names.indexOf(o.name) !== -1) {
+      o.visible = false; // Hide the mesh
+    }
+  });
+};
+
+
 const Model = () => {
 
   const { scene } = useLoader(GLTFLoader, modelsURL.shirt);
 
+  
+  // @ts-ignore
+  hideMeshByName(scene, ['Pattern_285866_Node', 'Pattern_288949_Node']);
   scene.scale.set(modelScale, modelScale, modelScale);
   // Optionally adjust position or scale here
   scene.position.y = modelYPostion;
   scene.position.x = 0;
   scene.name = 'shirt-model-without-collar'
-
-  // This is for the testing only 
-  // Calculate and log the dimensions
-  // const boundingBox = new THREE.Box3().setFromObject(scene);
-  // const dimensions = new THREE.Vector3();
-  // boundingBox.getSize(dimensions);
-
-  // console.log("Width:", dimensions.x, "Height:", dimensions.y, "Depth:", dimensions.z);
-
 
   return <primitive object={scene} />;
 };
