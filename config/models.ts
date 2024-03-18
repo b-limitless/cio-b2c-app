@@ -7,7 +7,7 @@ export const modelsURL = {
   // shirt: '/models/shirt/MainGLBNew.glb',
   // shirt: '/models/shirt/Metres.glb',
   shirt: '/models/shirt/shirt-v2.glb',
-  buttonsWholes: '/models/shirt/buttons-wholes.glb',
+  buttonsWholes: '/models/shirt/buttons-wholes-1.glb',
   buttons: '/models/button/buttons.glb',
   singleCuffOneButton: '/models/cuffs/buttons/single-cuff-1-button.glb'
   
