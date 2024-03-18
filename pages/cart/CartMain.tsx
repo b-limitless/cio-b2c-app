@@ -150,7 +150,7 @@ export default function Cart({ userId, children, usedFrom, setMeasurementJourney
       {children}
       <div className={styles.cart__container}>
         <div className={styles.title}>
-          <Link href={`/customize/shirt/${userId}`}>Shopping Bag</Link>
+          <Link href={`/customize/shirt/${userId}`}>Customize</Link>
         </div>
 
         {carts.length > 0 && <div className={styles.cart__details}>

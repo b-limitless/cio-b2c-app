@@ -1,6 +1,10 @@
 
 'use client';
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+if(process.env.NODE_ENV === 'development') {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+}
+ 
 
 
 /**
@@ -49,7 +53,7 @@ import { styleOne } from '../styles';
 interface ICustomizeMain {
     userId: string | string[]
 }
-export default function CustomizeMain({userId}: ICustomizeMain) {
+export default function CustomizeMain({ userId }: ICustomizeMain) {
     const router = useRouter();
     const [showFilterModel, setShowFilterModel] = useState(false);
     const [showFebricDetailsModel, setShowFebricDetailsModel] = useState(-1);
@@ -59,12 +63,12 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
     const model = useSelector((state: RootState) => state.model);
     const { collar, cuff } = model;
-    const febric =  useSelector((state:RootState) => state.febric); 
+    const febric = useSelector((state: RootState) => state.febric);
     const accent = useSelector((state: RootState) => state.accent);
     const febrics = useSelector((state: RootState) => state.febrics);
-    const {data: {filters, page, limit, affectedRows}, loading} = febrics;
+    const { data: { filters, page, limit, affectedRows }, loading } = febrics;
     const { modelType } = useSelector((state: RootState) => state.modelType);
-    const {index} = useSelector((state: RootState) => state.cartIndexToupdate);
+    const { index } = useSelector((state: RootState) => state.cartIndexToupdate);
     const cart = useSelector((state: RootState) => state.cart);
 
     const { collar: collarAccent } = accent;
@@ -76,11 +80,11 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     const dispatch = useDispatch();
 
 
-    const checkIfItemIsSameToUpdateCart = (params: TCheckIfItemIsSameToUpdateCart ) => {
-        const {index, ...rest} = params;
-        if(index === null) return false;
-        const {model, accent, febric, modelType} = cart[index];
-        const previousCartData = JSON.stringify({model, accent,  modelType, febric});
+    const checkIfItemIsSameToUpdateCart = (params: TCheckIfItemIsSameToUpdateCart) => {
+        const { index, ...rest } = params;
+        if (index === null) return false;
+        const { model, accent, febric, modelType } = cart[index];
+        const previousCartData = JSON.stringify({ model, accent, modelType, febric });
         return removeTimestamp(previousCartData) === removeTimestamp(JSON.stringify(rest));
     }
 
@@ -102,7 +106,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
          * 
          * **/
         if (designJourney === selectionProcess.accents) {
-            if(checkIfItemIsSameToUpdateCart({index, model, accent, modelType, febric})) {
+            if (checkIfItemIsSameToUpdateCart({ index, model, accent, modelType, febric })) {
                 router.push(ERoute.cart);
                 return;
             }
@@ -139,7 +143,6 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
     const updateAccentHandler = (event: React.MouseEvent<HTMLButtonElement>, params: UpdateAccentAction) => {
         event.stopPropagation();
-        
         const { payload } = params;
         const { meshName, type } = activeAccent === 'collar' ? collarAccent : cuffAccent;
         payload.meshName = meshName;
@@ -149,12 +152,12 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
     }
 
     const computePrice = useMemo(() => {
-        if(febric.price) {
+        if (febric.price) {
             return febric.price + collarAccent.price + cuffAccent.price;
         }
 
         return 0;
-        
+
     }, [febric.price, collarAccent.price, cuffAccent.price]);
 
 
@@ -170,14 +173,14 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
 
     }, [showFilterModel]);
 
-    const updateFebricFiltersHandler = (key: EFebricFilter, value:string) => {
+    const updateFebricFiltersHandler = (key: EFebricFilter, value: string) => {
         const container = document.getElementById('febrics-scroll-container');
-        if(container) {
+        if (container) {
             container.scrollTop = 0;
         }
-       
+
         dispatch(updaeFebricsPage(0));
-        dispatch(updatFebricFilter({key, value}));
+        dispatch(updatFebricFilter({ key, value }));
     }
 
 
@@ -187,14 +190,14 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
         }
     }, [takeScreenShot, router]);
 
-    
+
 
     useEffect(() => {
         const container = document.getElementById('febrics-scroll-container');
 
         function handleScroll() {
-            if(isScrolledToBottom(container)) {
-                if(((page + 1) * limit) !== affectedRows && !loading) {
+            if (isScrolledToBottom(container)) {
+                if (((page + 1) * limit) !== affectedRows && !loading) {
                     dispatch(updaeFebricsPage(page ? page + 1 : 1))
                 }
             }
@@ -205,34 +208,34 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
         return () => {
             container?.removeEventListener('scroll', handleScroll);
         }
-        
-    }, [page, dispatch, affectedRows, limit, loading]);
-    
 
-    useFetchFebrics({userId, filters: JSON.stringify(filters), page});
+    }, [page, dispatch, affectedRows, limit, loading]);
+
+
+    useFetchFebrics({ userId, filters: JSON.stringify(filters), page });
 
 
     const getClass = useMemo(() => {
-        return designJourney === selectionProcess.febrics ? styles.febrics : 
-               designJourney === selectionProcess.styles ? styles.styles : 
-               designJourney === selectionProcess.accents ? styles.styles : 
-               'default';
+        return designJourney === selectionProcess.febrics ? styles.febrics :
+            designJourney === selectionProcess.styles ? styles.styles :
+                designJourney === selectionProcess.accents ? styles.styles :
+                    'default';
     }, [designJourney]);
 
-    
+
     return (
         <>
-            {showFebricDetailsModel > -1 && <FebricDetails 
-                  setShowFebricDetailsModel={setShowFebricDetailsModel}
-                  showFebricDetailsModel={showFebricDetailsModel} 
-                  febric={showFebricDetailsModel > -1 ? febrics.data.febrics[showFebricDetailsModel] : null}
-                  />
+            {showFebricDetailsModel > -1 && <FebricDetails
+                setShowFebricDetailsModel={setShowFebricDetailsModel}
+                showFebricDetailsModel={showFebricDetailsModel}
+                febric={showFebricDetailsModel > -1 ? febrics.data.febrics[showFebricDetailsModel] : null}
+            />
             }
-            
-            <Filter 
-            setShowFilterModel={setShowFilterModel} 
-            showFilterModel={showFilterModel} 
-            updateFebricFiltersHandler={updateFebricFiltersHandler}
+
+            <Filter
+                setShowFilterModel={setShowFilterModel}
+                showFilterModel={showFilterModel}
+                updateFebricFiltersHandler={updateFebricFiltersHandler}
             />
 
             <AccentFebricModel
@@ -240,20 +243,18 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                 showFilterModel={showAccentFebricModel}
                 onClickHandler={updateAccentHandler}
             />
-           
-            <div className={styles.container}>
 
-                <Header 
-                  navigations={productNavigation} 
-                  designJourney={designJourney} 
-                  setDesignJourney={setDesignJourney} 
-                  showNavigation 
-                  userId={userId ?? ''}
-                  />
-                 <main className={`${styles.main__content} ${getClass}`}>
+            <div className={styles.container}>
+                <Header
+                    navigations={productNavigation}
+                    designJourney={designJourney}
+                    setDesignJourney={setDesignJourney}
+                    showNavigation
+                    userId={userId ?? ''}
+                />
+                <main className={`${styles.main__content} ${getClass}`}>
                     <div className={styles.filter}>
                         <div className={styles.title}>Select {designJourney}</div>
-
 
                         {designJourney === selectionProcess.febrics &&
                             <Febrics
@@ -302,21 +303,21 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                                         discount: 0,
                                         availability: '',
                                         id: cart.length + 1,
-                                        deliveryTime: '3 weeks', 
+                                        deliveryTime: '3 weeks',
                                         febric,
-                                        
+
                                     }
                                 }
                                 cart={cart}
-                        
-                                />
+
+                            />
                         </Canvas>
 
                     </div>
                     <div className={styles.infomration}>
                         <div className={styles.row}>
                             <div className={styles.name}>
-                                {}
+                                { }
                             </div>
                             <div className={styles.price}>
                                 ${computePrice.toFixed(2)}
@@ -338,7 +339,7 @@ export default function CustomizeMain({userId}: ICustomizeMain) {
                             <Button variant='primary' type='square' onClick={() => takeScreenShot === tSnapShotUploadingStates.Uploading ? null : nextStepHandler()}>
                                 <span style={styleOne}>{takeScreenShot === tSnapShotUploadingStates.Uploading ? 'Please wait...' : 'Next'}</span>
 
-                                
+
                             </Button>
                             <div className={styles.receives__when}>
                                 RECEIVE IN 3 WEEKS

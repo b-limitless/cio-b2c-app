@@ -171,7 +171,7 @@ export const accentsStyles = [
         code: 'all',
         mediaUrl: '/icon/cuff/one-button.svg',
         type: 'all',
-        meshName: ['Cuffs_1_Node', 'Cuffs_Node', 'Node_39', 'Node_43'],
+        meshName: ['Cuffs_1_Node', 'Cuffs_Node', 'Node_39', 'Node_43', 'Cuffs_3_Node', 'Cuffs_2_Node'],
         iconClass: 'icon-45'
       },
       {
@@ -180,7 +180,7 @@ export const accentsStyles = [
         code: 'innerFebric',
         mediaUrl: '/icon/cuff/three-button.svg',
         type: 'innerFebric',
-        meshName: [],
+        meshName: ['Cuffs_3_Node', 'Cuffs_2_Node'],
         iconClass: 'icon-44'
       },
     ],
