@@ -17,7 +17,7 @@ export const modelsURL = {
 export enum EStyles {
   Collar='collar', 
   Cuff='cuff', 
-  Chestpocket='Chestpocket'
+  Chestpocket='chestpocket'
 }
 
 export const productStyles = [
@@ -126,19 +126,15 @@ export const productStyles = [
     code: EStyles.Chestpocket, 
     childrens: [
       {
-        id: 5,
+        id: null,
         label: 'No Poacket',
         code: 'no_pocket',
-        mediaUrl: null,
-        modelURL: `/models/cuffs/cuff-1.glb`,
         iconClass: 'icon-57'
       }, 
       {
-        id: 5,
+        id: 1,
         label: 'Standard',
         code: 'standard',
-        mediaUrl: null,
-        modelURL: `/models/cuffs/cuff-1.glb`,
         iconClass: 'icon-70'
       }
     ]

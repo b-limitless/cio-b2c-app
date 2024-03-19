@@ -62,7 +62,8 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
     const [activeAccent, setActiveAccent] = useState<keyof IAccentGlobal>('collar');
 
     const model = useSelector((state: RootState) => state.model);
-    const { collar, cuff } = model;
+    const { collar, cuff, chestpocket } = model;
+    const {id: chestPocket} = chestpocket;
     const febric = useSelector((state: RootState) => state.febric);
     const accent = useSelector((state: RootState) => state.accent);
     const febrics = useSelector((state: RootState) => state.febrics);
@@ -70,6 +71,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
     const { modelType } = useSelector((state: RootState) => state.modelType);
     const { index } = useSelector((state: RootState) => state.cartIndexToupdate);
     const cart = useSelector((state: RootState) => state.cart);
+    
 
     const { collar: collarAccent } = accent;
     const { cuff: cuffAccent } = accent;
@@ -286,6 +288,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                                 febricURI={originalImageUrl ?? defaultFebric}
                                 collarAccent={collarAccent}
                                 cuffAccent={cuffAccent}
+                                chestPocket={!!chestPocket}
                             />
 
                             <CaptureModelScreenShot

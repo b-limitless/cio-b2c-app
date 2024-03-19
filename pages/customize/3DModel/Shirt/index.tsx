@@ -39,6 +39,7 @@ interface ShirtModelInterface extends BaseModel {
   collarAccent: TBase;
   cuffAccent: TBase;
   cuff: RowType;
+  chestPocket: boolean
 }
 
 interface AddTextureModel {
@@ -59,7 +60,7 @@ interface IAddModelToScene {
 }
 
 
-const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, }: ShirtModelInterface) => {
+const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, chestPocket }: ShirtModelInterface) => {
 
   return (
     <>
@@ -118,7 +119,7 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, }: Sh
       <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} />
 
       <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true}>
-        <Model />
+        <Model chestPocket={chestPocket}/>
       </AddTextureToModel>
 
 
@@ -129,20 +130,26 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, }: Sh
   );
 };
 
-const hideMeshByName = (scene:THREE.Scene, names:string[]) => {
+const hideMeshByName = (scene:THREE.Scene, names:string[], show:boolean) => {
   scene.traverse((o:any) => {
-    if (o.isMesh &&  names.indexOf(o.name) !== -1) {
+    if (o.isMesh &&  names.indexOf(o.name) !== -1 && !show) {
       o.visible = false; // Hide the mesh
+    } else {
+      o.visible = true;
     }
   });
 };
 
+interface IModel {
+  chestPocket:boolean;
+}
 
-const Model = () => {
+const Model = ({chestPocket}: IModel) => {
 
   const { scene } = useLoader(GLTFLoader, modelsURL.shirt);
 
-  hideMeshByName(scene as any, ['Pattern_285866_Node', 'Pattern_288949_Node']);
+  hideMeshByName(scene as any, ['Pattern_285866_Node', 'Pattern_288949_Node'], chestPocket);
+  
   scene.scale.set(modelScale, modelScale, modelScale);
   // Optionally adjust position or scale here
   scene.position.y = modelYPostion;
@@ -157,7 +164,6 @@ const AddModelToScene = ({ name, modelURI }: IAddModelToScene) => {
 
   const { scene } = useLoader(GLTFLoader, modelURI);
 
-  console.log('scene', scene)
 
   const existingCollar = scene.getObjectByName(name);
   if (existingCollar) {

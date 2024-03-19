@@ -1,12 +1,11 @@
 'use client';
-import Image from 'next/image';
+import { EStyles } from 'config/models';
+import { ItemInterface, ProductStylesInterface } from 'interface/IProductStyle.interface';
 import { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
-import { IAccentGlobal, TBase, TCollarAccent, UpdateAccentActionType, accentProperties, updateAccent, updateAccentType } from 'slices/accentSlice';
+import { IAccentGlobal, TBase, UpdateAccentActionType, accentProperties, updateAccent, updateAccentType } from 'slices/accentSlice';
 import { RowType, updateModel } from 'slices/modelSlice';
 import styles from '../styles.module.scss';
-import { ItemInterface, ProductStylesInterface } from 'interface/IProductStyle.interface';
-import { EStyles } from 'config/models';
 
 
 function Items({ name, id, title, mediaUrl, onClickHanlder, iconClass }: ItemInterface) {
@@ -14,7 +13,6 @@ function Items({ name, id, title, mediaUrl, onClickHanlder, iconClass }: ItemInt
         <input className={styles.checkbox} type='radio' name={name} id={id} hidden />
         <label className={styles.item} htmlFor={id} onClick={onClickHanlder}>
             <span className={`${styles.col} shirt-icon ${iconClass}`}>
-                {/* <Image src={mediaUrl} width={60} height={51.93} alt='styles' /> */}
                 <span className={styles.style__name}>{title}</span>
             </span>
         </label>
@@ -26,7 +24,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     const dispatch = useDispatch();
 
     const dispatchSelectedModelConfig = ({modelURL, ...rest }: RowType) => {
-         dispatch(updateModel({ payload: 
+    dispatch(updateModel({ payload: 
                { 
                 modelURL,
                 ...rest 
@@ -45,6 +43,10 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
             const payload = { ...collarAccent, febric: `${collarAccent?.febric}?timestamp=${Date.now()}` } as TBase;
             dispatch(updateAccent({ key: code as keyof IAccentGlobal , payload }))
         }
+
+        
+
+
     }
 
     const dispatchAccentType = ({ key, payload }: UpdateAccentActionType) => {
@@ -56,7 +58,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
         
             const { collar, cuff } = accentProperties;
 
-            dispatch(updateAccent({ key, payload: code === 'cuff' ? cuff : collar }));
+            dispatch(updateAccent({ key, payload: code === EStyles.Cuff ? cuff : collar }));
 
             return;
         };
@@ -82,7 +84,8 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                         dispatchSelectedModelConfig
                             ({ 
                                 ...children,
-                                modelURL: `${children.modelURL}?timestamp=${Date.now()}` 
+                                modelURL: `${children.modelURL}?timestamp=${Date.now()}`,
+                                id: children.id
                                 
                             }) :
 
