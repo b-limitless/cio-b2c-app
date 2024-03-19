@@ -14,10 +14,16 @@ export const modelsURL = {
   
 };
 
+export enum EStyles {
+  Collar='collar', 
+  Cuff='cuff', 
+  Chestpocket='Chestpocket'
+}
+
 export const productStyles = [
   {
     label: 'collars',
-    code: 'collar',
+    code: EStyles.Collar,
     childrens: [
       {
         id: 1,
@@ -71,7 +77,7 @@ export const productStyles = [
   },
   {
     label: 'cuffs',
-    code: 'cuff',
+    code: EStyles.Cuff,
     childrens: [
       {
         id: 5,
@@ -117,7 +123,7 @@ export const productStyles = [
   },
   {
     label: 'Chestpocket',
-    code: 'chestpocket', 
+    code: EStyles.Chestpocket, 
     childrens: [
       {
         id: 5,

@@ -20,7 +20,7 @@ import { RowType } from 'slices/modelSlice';
 import * as THREE from 'three';
 import { Group, MeshPhongMaterial, Object3DEventMap, TextureLoader } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+
 
 
 const modelScale = 8;

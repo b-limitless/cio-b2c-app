@@ -4,21 +4,23 @@ import { defaultCuffModel, defaultFebric } from 'config/default';
 
 const modelProperties = {
   collar: {
-    id: 12,
+    id: null,
     modelURL: defaultFebric,
     price: 0,
     title: '',
   },
   cuff: {
-    id: 13,
+    id: null,
     modelURL: defaultCuffModel,
     price: 0,
     title: '',
   },
-  // sleeves: {
-  //   id: 13,
-  //   modelURL: 'URL for the model to load',
-  // },
+  chestpocket: {
+    id: 13,
+    modelURL: defaultCuffModel,
+    price: 0,
+    title: '',
+  }
   // checkpocket: {
   //   id: 13,
   //   modelURL: 'URL for the model to load',
@@ -35,10 +37,10 @@ export interface UpdateModelAction {
 }
 
 export type RowType = {
-  id: number;
+  id: number | null;
   modelURL: string;
   price: number;
-  title: string;
+  title?: string;
   originalImageUrl?: string;
   code?: string;
   label?: string;
@@ -67,6 +69,12 @@ const initialState: IModelAction = {
     label: 'default',
     code: 'default',
   },
+  chestpocket: {
+    id: null,
+    modelURL: '',
+    price: 0,
+    
+  }
 };
 
 const modelSlice = createSlice({
@@ -86,23 +94,6 @@ const modelSlice = createSlice({
     },
   },
 });
-
-// const accent = {
-//   collar: {
-//     selected: 'By Default',
-//     febric: {
-//       id: null,
-//       url: 'http://',
-//     },
-//   },
-//   cuff: {
-//     selected: 'By Default',
-//     febric: {
-//       id: null,
-//       url: 'http://',
-//     },
-//   },
-// };
 
 export const { updateModel, updateAllProps } = modelSlice.actions;
 export default modelSlice.reducer;
