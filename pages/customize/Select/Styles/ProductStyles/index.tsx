@@ -6,6 +6,7 @@ import { IAccentGlobal, TBase, TCollarAccent, UpdateAccentActionType, accentProp
 import { RowType, updateModel } from 'slices/modelSlice';
 import styles from '../styles.module.scss';
 import { ItemInterface, ProductStylesInterface } from 'interface/IProductStyle.interface';
+import { EStyles } from 'config/models';
 
 
 function Items({ name, id, title, mediaUrl, onClickHanlder, iconClass }: ItemInterface) {
@@ -25,9 +26,6 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     const dispatch = useDispatch();
 
     const dispatchSelectedModelConfig = ({modelURL, ...rest }: RowType) => {
-        // Here we need to check something about the collor check the issue folder about the issue
-
-        console.log('modelURL, ...rest ', modelURL, rest );
          dispatch(updateModel({ payload: 
                { 
                 modelURL,
@@ -36,14 +34,14 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                key: code as keyof IAccentGlobal }));
     
 
-        if (cuffAccent && code !== 'collar') {
+        if (cuffAccent && code !== EStyles.Collar) {
             const payload = { 
                    ...cuffAccent, 
                    febric: `${cuffAccent?.febric}?timestamp=${Date.now()}` } as TBase;
             dispatch(updateAccent({ key: code as keyof IAccentGlobal , payload }))
         }
 
-        if (collarAccent && code !== 'cuff') {
+        if (collarAccent && code !== EStyles.Cuff) {
             const payload = { ...collarAccent, febric: `${collarAccent?.febric}?timestamp=${Date.now()}` } as TBase;
             dispatch(updateAccent({ key: code as keyof IAccentGlobal , payload }))
         }

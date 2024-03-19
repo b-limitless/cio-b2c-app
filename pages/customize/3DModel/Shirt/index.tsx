@@ -89,21 +89,21 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, }: Sh
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
-      {/* <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
+      <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
         <AddModelToScene name='collar' modelURI={collar} />
-      </AddTextureToModel> */}
+      </AddTextureToModel>
 
-      {/* <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
+      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
         <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
-      </AddTextureToModel> */}
+      </AddTextureToModel>
 
       {/* This is render button in front of the shirt */}
 
-      {/* <AddTextureToModel textureURL={'/img/126.jpg'} meshName={[]} fullBody={true}>
+      <AddTextureToModel textureURL={'/img/126.jpg'} meshName={[]} fullBody={true}>
 
         <AddModelToScene name='buttons' modelURI={modelsURL.buttons} />
 
-      </AddTextureToModel> */}
+      </AddTextureToModel>
 
       {/* render button wholes e */}
     

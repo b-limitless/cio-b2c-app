@@ -73,7 +73,7 @@ const initialState: IModelAction = {
     id: null,
     modelURL: '',
     price: 0,
-    
+    title:''
   }
 };
 
