@@ -49,6 +49,10 @@ interface AddTextureModel {
 
 }
 
+interface AddColorToModel extends Omit<AddTextureModel, 'textureURL'> {
+
+}
+
 interface IAddModelToScene {
   name: string;
   modelURI: string;
@@ -85,26 +89,27 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, }: Sh
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
-      <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
+      {/* <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
         <AddModelToScene name='collar' modelURI={collar} />
-      </AddTextureToModel>
+      </AddTextureToModel> */}
 
-      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
+      {/* <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
         <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
-      </AddTextureToModel>
+      </AddTextureToModel> */}
 
       {/* This is render button in front of the shirt */}
 
-      <AddTextureToModel textureURL={'/img/126.jpg'} meshName={[]} fullBody={true}>
+      {/* <AddTextureToModel textureURL={'/img/126.jpg'} meshName={[]} fullBody={true}>
 
         <AddModelToScene name='buttons' modelURI={modelsURL.buttons} />
 
-      </AddTextureToModel>
+      </AddTextureToModel> */}
 
       {/* render button wholes e */}
-      <AddTextureToModel textureURL={'/img/126.jpg'} meshName={[]} fullBody={true}>
-
-        <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} /> </AddTextureToModel>
+    
+      <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} /> 
+      {/* <AddColorToModel  meshName={['MatShape_55582_Node']} fullBody={false}>
+      </AddColorToModel> */}
 
 
 
@@ -137,7 +142,6 @@ const Model = () => {
 
   const { scene } = useLoader(GLTFLoader, modelsURL.shirt);
 
-  
   hideMeshByName(scene as any, ['Pattern_285866_Node', 'Pattern_288949_Node']);
   scene.scale.set(modelScale, modelScale, modelScale);
   // Optionally adjust position or scale here
@@ -151,14 +155,9 @@ const Model = () => {
 
 const AddModelToScene = ({ name, modelURI }: IAddModelToScene) => {
 
-  // const collarModelURL =  collar ?? '/models/collars/collar-2.glb';
-  // console.log('collarModelURL', collarModelURL);
-  // Before adding get the object by name 
-
-
   const { scene } = useLoader(GLTFLoader, modelURI);
 
-  // scene.rotation.set(0, 0, Math.PI / 2);
+  console.log('scene', scene)
 
   const existingCollar = scene.getObjectByName(name);
   if (existingCollar) {
@@ -191,7 +190,7 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddText
   // needed to add to have real experiences
   // Considere the lighting way on the model which will provide more
   // Realistic experiences for the model
-  texture.repeat.set(1, 1);
+  texture.repeat.set(4, 4);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
 
@@ -223,6 +222,45 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddText
     if (modelRef.current) setMaterial(modelRef.current, meshName, material, fullBody);
 
   }, [texture, material, meshName, fullBody]);
+
+  return (
+    <group ref={modelRef}>
+      {children}
+    </group>
+  );
+
+
+}
+
+const AddColorToModel = ({meshName, children }: AddColorToModel) => {
+
+  const modelRef = useRef<Group<Object3DEventMap>>(null);
+
+  // Define material with the loaded texture
+  const material = useMemo(() => {
+    return new MeshPhongMaterial({
+      // color: parseInt("0x" + 'FF0000'), // Assuming color is a hex string, if not, adjust accordingly
+      // shininess: 10 // You can adjust shininess as needed
+    });
+  }, []);
+
+
+
+  // Set the material to the specific mesh in the model
+
+  const setMaterial = (parent: THREE.Object3D, meshName: string[], mtl: THREE.Material) => {
+
+    parent.traverse((o) => {
+      if (o instanceof THREE.Mesh && meshName.includes(o.name)) {
+        o.material = mtl;
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (modelRef.current) setMaterial(modelRef.current, meshName, material);
+
+  }, [material, meshName]);
 
   return (
     <group ref={modelRef}>

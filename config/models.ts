@@ -6,11 +6,11 @@ export const modelsURL = {
   // shirt: '/models/shirt/shirt-without-collar-and-cuff.glb',
   // shirt: '/models/shirt/MainGLBNew.glb',
   // shirt: '/models/shirt/Metres.glb',
-  shirt: '/models/shirt/shirt-v2.glb',
+  shirt: '/models/shirt/shirt-v3.glb',
   buttonsWholes: '/models/shirt/buttons-wholes-1.glb',
   buttons: '/models/button/buttons.glb',
-  singleCuffOneButton: '/models/cuffs/buttons/single-cuff-1-button.glb'
-  
+  singleCuffOneButton: '/models/cuffs/buttons/single-cuff-1-button.glb',
+  button2DWhole:'/models/shirt/button-whole.png'
   
 };
 
@@ -115,6 +115,28 @@ export const productStyles = [
       }
     ],
   },
+  {
+    label: 'Chestpocket',
+    code: 'chestpocket', 
+    childrens: [
+      {
+        id: 5,
+        label: 'No Poacket',
+        code: 'no_pocket',
+        mediaUrl: null,
+        modelURL: `/models/cuffs/cuff-1.glb`,
+        iconClass: 'icon-57'
+      }, 
+      {
+        id: 5,
+        label: 'Standard',
+        code: 'standard',
+        mediaUrl: null,
+        modelURL: `/models/cuffs/cuff-1.glb`,
+        iconClass: 'icon-70'
+      }
+    ]
+  }
 ];
 
 export const accentsStyles = [
