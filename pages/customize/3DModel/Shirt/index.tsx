@@ -9,6 +9,7 @@
  * for web-based applications.
 */
 'use client';
+import { Email } from '@mui/icons-material';
 import { OrbitControls } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
 import { defaultCuffModel } from 'config/default';
@@ -30,6 +31,14 @@ interface BaseModel {
   collar: string;
 }
 
+export enum EModel {
+  Shirt = 'shirt',
+  Pocket = 'pocket', 
+  Cuff='cuff',
+  Collar='collar'
+  
+}
+
 interface CollarInterface extends BaseModel {
 
 }
@@ -47,6 +56,7 @@ interface AddTextureModel {
   children: ReactNode
   meshName: string[];
   fullBody: boolean;
+  modelType?: EModel
 
 }
 
@@ -61,6 +71,7 @@ interface IAddModelToScene {
 
 
 const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, chestPocket }: ShirtModelInterface) => {
+
 
   return (
     <>
@@ -90,15 +101,15 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, chest
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
-      <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0}>
-        <AddModelToScene name='collar' modelURI={collar} />
+      <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0} modelType={EModel.Collar}>
+        <AddModelToScene name='collar' modelURI={collar}/>
       </AddTextureToModel>
 
-      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0}>
+      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0} modelType={EModel.Cuff}>
         <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
       </AddTextureToModel>
 
-      {/* This is render button in front of the shirt */}
+      
 
       <AddTextureToModel textureURL={'/img/126.jpg'} meshName={[]} fullBody={true}>
 
@@ -106,22 +117,19 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, chest
 
       </AddTextureToModel>
 
-      {/* render button wholes e */}
-    
-      <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} /> 
-      {/* <AddColorToModel  meshName={['MatShape_55582_Node']} fullBody={false}>
-      </AddColorToModel> */}
+      
 
-
-
-      {/* render cuff button based on different condition, initial value */}
-      {/* Model url value will be keep change based on user interecting */}
+      <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} />
+      
       <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} />
+      {chestPocket && <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Pocket}>
+        <AddModelToScene name='pocket' modelURI={modelsURL.pocket} />
+      </AddTextureToModel>}
 
-      <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true}>
-        <Model chestPocket={chestPocket}/>
+
+      <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Shirt}>
+        <Model />
       </AddTextureToModel>
-
 
 
     </>
@@ -130,26 +138,11 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, chest
   );
 };
 
-const hideMeshByName = (scene:THREE.Scene, names:string[], show:boolean) => {
-  scene.traverse((o:any) => {
-    if (o.isMesh &&  names.indexOf(o.name) !== -1 && !show) {
-      o.visible = false; // Hide the mesh
-    } else {
-      o.visible = true;
-    }
-  });
-};
 
-interface IModel {
-  chestPocket:boolean;
-}
-
-const Model = ({chestPocket}: IModel) => {
+const Model = () => {
 
   const { scene } = useLoader(GLTFLoader, modelsURL.shirt);
 
-  hideMeshByName(scene as any, ['Pattern_285866_Node', 'Pattern_288949_Node'], chestPocket);
-  
   scene.scale.set(modelScale, modelScale, modelScale);
   // Optionally adjust position or scale here
   scene.position.y = modelYPostion;
@@ -181,14 +174,21 @@ const AddModelToScene = ({ name, modelURI }: IAddModelToScene) => {
 };
 
 
-const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddTextureModel) => {
+const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType }: AddTextureModel) => {
 
   // console.log(`textureURL, meshName, children, fullBody`, textureURL, meshName, children, fullBody);
 
   const modelRef = useRef<Group<Object3DEventMap>>(null);
 
+  const getTexture = modelType === EModel.Shirt ? 'timestamp=1' 
+                     : modelType === EModel.Pocket ? 'timestamp=2'
+                     : modelType === EModel.Cuff ? 'timestamp=3'
+                     : modelType === EModel.Collar ? 'timestamp=4'
+                     : modelType === EModel.Cuff ? 'timestamp=5'
+                     :'timestamp=3'
+
   // Load texture using userLoader 
-  const texture = useLoader(TextureLoader, textureURL);
+  const texture = useLoader(TextureLoader, `${textureURL}?${getTexture}`);
 
   // Check the proper resolution of model 
   // On the other hand the febric need to be high resolution 
@@ -196,7 +196,25 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddText
   // needed to add to have real experiences
   // Considere the lighting way on the model which will provide more
   // Realistic experiences for the model
-  texture.repeat.set(4, 4);
+
+  if(modelType === EModel.Cuff) {
+    texture.repeat.set(4, 4);
+  }
+  if (modelType === EModel.Pocket) {
+    texture.repeat.set(2, 2);
+
+  }
+
+  if(modelType === EModel.Collar) {
+    texture.repeat.set(4, 4)
+  }
+ 
+  if (modelType === EModel.Shirt) {
+    texture.repeat.set(4, 4);
+
+  }
+
+
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
 
@@ -238,7 +256,8 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody }: AddText
 
 }
 
-const AddColorToModel = ({meshName, children }: AddColorToModel) => {
+
+const AddColorToModel = ({ meshName, children }: AddColorToModel) => {
 
   const modelRef = useRef<Group<Object3DEventMap>>(null);
 

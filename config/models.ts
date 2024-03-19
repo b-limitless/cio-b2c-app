@@ -10,7 +10,8 @@ export const modelsURL = {
   buttonsWholes: '/models/shirt/buttons-wholes-1.glb',
   buttons: '/models/button/buttons.glb',
   singleCuffOneButton: '/models/cuffs/buttons/single-cuff-1-button.glb',
-  button2DWhole:'/models/shirt/button-whole.png'
+  button2DWhole:'/models/shirt/button-whole.png', 
+  pocket: '/models/shirt/pocket.glb',
   
 };
 
