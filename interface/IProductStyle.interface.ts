@@ -9,7 +9,7 @@ export interface IAccents {
 }
 
 export interface ItemInterface {
-  name: string;
+  code: string;
   id: string;
   title: string;
   mediaUrl: string;
