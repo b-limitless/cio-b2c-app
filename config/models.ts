@@ -7,7 +7,7 @@ export const modelsURL = {
   // shirt: '/models/shirt/MainGLBNew.glb',
   // shirt: '/models/shirt/Metres.glb',
   shirt: '/models/shirt/shirt-v3.glb',
-  buttonsWholes: '/models/shirt/buttons-wholes-1.glb',
+  buttonsWholes: '/models/shirt/buttons-wholes.glb',
   buttons: '/models/button/buttons.glb',
   singleCuffOneButton: '/models/cuffs/buttons/single-cuff-1-button.glb',
   button2DWhole:'/models/shirt/button-whole.png', 
@@ -19,6 +19,18 @@ export enum EStyles {
   Collar='collar', 
   Cuff='cuff', 
   Chestpocket='chestpocket'
+}
+
+export enum EAccent {
+  ButtonWholeStitch='buttonWholeAndStitch', 
+  Collar='collar',
+  Cuff='cuff'
+}
+
+export enum EAccentChildrens {
+  Default='default',
+  All='all',
+  CuffOnly='cuffOnly'
 }
 
 export const productStyles = [
@@ -145,7 +157,7 @@ export const productStyles = [
 export const accentsStyles = [
   {
     label: 'Contrasted Collor',
-    code: 'collar',
+    code: EAccent.Collar,
     childrens: [
       {
         id: 1,
@@ -182,7 +194,7 @@ export const accentsStyles = [
   },
   {
     label: 'Contrasted cuff',
-    code: 'cuff',
+    code: EAccent.Cuff,
     childrens: [
       {
         id: 5,
@@ -215,9 +227,38 @@ export const accentsStyles = [
   },
   {
     label: 'Contrasting button whole/stitch',
-    code: 'cbws', 
+    code: EAccent.ButtonWholeStitch, 
     childrens: [
-
+      {
+        id: 1,
+        label: 'default',
+        code: EAccentChildrens.Default,
+        mediaUrl: '/icon/collars/button-down.svg',
+        type: 'default',
+        meshName: [],
+        price: defaultPrices.collar,
+        iconClass: 'icon-55'
+      }, 
+      {
+        id: 2,
+        label: 'All',
+        code: EAccentChildrens.All,
+        mediaUrl: '/icon/collars/button-down.svg',
+        type: EAccentChildrens.All,
+        meshName: [],
+        price: defaultPrices.collar,
+        iconClass: 'icon-52'
+      }, 
+      {
+        id: 3,
+        label: 'Cuff Only',
+        code: EAccentChildrens.CuffOnly,
+        mediaUrl: '/icon/collars/button-down.svg',
+        type: EAccentChildrens.CuffOnly,
+        meshName: [],
+        price: defaultPrices.collar,
+        iconClass: 'icon-78'
+      }
     ]
   }, 
   {

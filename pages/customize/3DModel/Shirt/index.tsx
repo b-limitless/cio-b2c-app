@@ -35,7 +35,8 @@ export enum EModel {
   Shirt = 'shirt',
   Pocket = 'pocket', 
   Cuff='cuff',
-  Collar='collar'
+  Collar='collar', 
+  ThreadWholes='threadWholes'
   
 }
 
@@ -118,13 +119,15 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, chest
       </AddTextureToModel>
 
       
-
-      <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} />
+      <AddTextureToModel textureURL='/img/button-threads/thread-blue.png' meshName={['MatShape_948560_Node']} modelType= {EModel.ThreadWholes} fullBody>
+        <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} />
+      </AddTextureToModel>
+      
       
       <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} />
       {chestPocket && <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Pocket}>
         <AddModelToScene name='pocket' modelURI={modelsURL.pocket} />
-      </AddTextureToModel>}
+      </AddTextureToModel>} 
 
 
       <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Shirt}>
@@ -184,7 +187,7 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType
                      : modelType === EModel.Pocket ? 'timestamp=2'
                      : modelType === EModel.Cuff ? 'timestamp=3'
                      : modelType === EModel.Collar ? 'timestamp=4'
-                     : modelType === EModel.Cuff ? 'timestamp=5'
+                     : modelType === EModel.ThreadWholes ? 'timestamp=5'
                      :'timestamp=3'
 
   // Load texture using userLoader 
@@ -196,10 +199,13 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType
   // needed to add to have real experiences
   // Considere the lighting way on the model which will provide more
   // Realistic experiences for the model
+  // Write code in this way [EModel.Cuff, EModel.Collar, EModel.Shirt].includes(modelType)
 
   if(modelType === EModel.Cuff) {
     texture.repeat.set(4, 4);
   }
+  
+
   if (modelType === EModel.Pocket) {
     texture.repeat.set(2, 2);
 
@@ -212,6 +218,9 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType
   if (modelType === EModel.Shirt) {
     texture.repeat.set(4, 4);
 
+  } 
+  if(modelType === EModel.ThreadWholes) {
+    texture.repeat.set(1, 1);
   }
 
 
@@ -264,8 +273,8 @@ const AddColorToModel = ({ meshName, children }: AddColorToModel) => {
   // Define material with the loaded texture
   const material = useMemo(() => {
     return new MeshPhongMaterial({
-      // color: parseInt("0x" + 'FF0000'), // Assuming color is a hex string, if not, adjust accordingly
-      // shininess: 10 // You can adjust shininess as needed
+      color: parseInt("0x" + '008000'), // Assuming color is a hex string, if not, adjust accordingly
+      shininess: 10 // You can adjust shininess as needed
     });
   }, []);
 
