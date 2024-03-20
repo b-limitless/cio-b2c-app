@@ -24,7 +24,7 @@ export type TBase = {
 export interface IAccentGlobal {
   collar: TBase;
   cuff: TBase;
-  buttonWholeColor: TBase
+  buttonWholeAndStitch: TBase
 }
 export const accentProperties: IAccentGlobal = {
   collar: {
@@ -46,7 +46,7 @@ export const accentProperties: IAccentGlobal = {
     updatedFrom: 'febrics',
     price: defaultPrices.cuff
   },
-  buttonWholeColor: {
+  buttonWholeAndStitch: {
     id: 1,
     febric: '',
     price: defaultPrices.cuff
@@ -89,8 +89,8 @@ const initialState: TAccent = {
     updatedFrom: 'febrics',
     price: defaultPrices.cuff
   },
-  buttonWholeColor: {
-    id: 1,
+  buttonWholeAndStitch: {
+    id: '',
     febric: '',
     price: defaultPrices.cuff
   },

@@ -102,11 +102,11 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, chest
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
-      <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName} fullBody={collarAccent.meshName.length === 0} modelType={EModel.Collar}>
+      <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName ?? []} fullBody={collarAccent?.meshName?.length === 0} modelType={EModel.Collar}>
         <AddModelToScene name='collar' modelURI={collar}/>
       </AddTextureToModel>
 
-      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName} fullBody={cuffAccent.meshName.length === 0} modelType={EModel.Cuff}>
+      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName ?? []} fullBody={cuffAccent?.meshName?.length === 0} modelType={EModel.Cuff}>
         <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
       </AddTextureToModel>
 
