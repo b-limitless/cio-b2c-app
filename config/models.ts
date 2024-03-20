@@ -27,10 +27,12 @@ export enum EAccent {
   Cuff='cuff'
 }
 
+const childrenPrefix = 'AccentChild';
+
 export enum EAccentChildrens {
-  Default='default',
-  All='all',
-  CuffOnly='cuffOnly'
+  Default='AccentChildrenDefault',
+  All='AccentChildrenAll',
+  CuffOnly='AccentChildCuffOnly'
 }
 
 export const productStyles = [

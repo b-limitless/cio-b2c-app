@@ -1,19 +1,67 @@
 'use client';
-import { EAccent, EStyles } from 'config/models';
+import { EAccent, EAccentChildrens, EStyles } from 'config/models';
 import { ItemInterface, ProductStylesInterface } from 'interface/IProductStyle.interface';
-import { Fragment } from 'react';
+import { Fragment, MouseEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
 import { IAccentGlobal, TBase, UpdateAccentActionType, accentProperties, updateAccent, updateAccentType } from 'slices/accentSlice';
 import { RowType, updateModel } from 'slices/modelSlice';
 import styles from '../styles.module.scss';
+import Image from 'next/image';
+
+const baseURL = '/img/button-threads';
+
+const buttonWholeThreadColors = [{
+    url: `${baseURL}/thread-black.png`
+},
+{
+    url: `${baseURL}/thread-black.png`
+},
+{
+    url: `${baseURL}/thread-black.png`
+},
+{
+    url: `${baseURL}/thread-black.png`
+},
+{
+    url: `${baseURL}/thread-black.png`
+},
+{
+    url: `${baseURL}/thread-black.png`
+},
+]
+
+
+interface IColorPalate {
+    onClick: MouseEventHandler<HTMLImageElement>;
+}
+
+const ColorPalate = ({onClick}: IColorPalate) => {
+    return (
+        <div className={styles.colors}>
+            <div className={styles.navigation}></div>
+
+            <div className={styles.threads}>
+                { }
+                {buttonWholeThreadColors.map((val, key) => <div key={key} className={styles.color}>
+                    <Image src={val.url} width={57} height={37} alt='color' onClick={onClick}/>
+                </div>)}
+
+
+            </div>
+        </div>
+    );
+};
 
 
 function Items({ code, id, title, mediaUrl, onClickHanlder, iconClass }: ItemInterface) {
     return (<Fragment>
+
         <input className={styles.checkbox} type='radio' name={code} id={id} hidden />
         <label className={styles.item} htmlFor={id} onClick={onClickHanlder}>
+            {code === EAccentChildrens.All && <ColorPalate onClick={() => {}}/>}
             <span className={`${styles.col} shirt-icon ${iconClass}`}>
                 <span className={styles.style__name}>{title}</span>
+
             </span>
         </label>
     </Fragment>
@@ -49,11 +97,11 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
 
     const dispatchAccentType = ({ key, payload }: UpdateAccentActionType) => {
 
-         // If code === constrasting button then we do not need for 
+        // If code === constrasting button then we do not need for 
         // now to process the request in same way
         // We need to open a small model which is show the available thread color
 
-        if(code === EAccent.ButtonWholeStitch) {
+        if (code === EAccent.ButtonWholeStitch) {
             return;
         }
 
@@ -81,11 +129,11 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                 {childrens && childrens.map((children: any, i: number) => <Items
                     key={`items-${i}`}
                     iconClass={children.iconClass}
-                    code={code}
+                    code={children.code}
                     id={`styles-children-${code}-${i}`}
                     title={children.label}
                     mediaUrl={children.mediaUrl}
-                     
+
                     onClickHanlder={() => type ===
                         'style' ?
                         dispatchSelectedModelConfig

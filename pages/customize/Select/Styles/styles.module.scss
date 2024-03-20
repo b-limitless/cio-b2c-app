@@ -62,3 +62,29 @@
     }
 }
 
+.colors {
+    position: absolute;
+    width: 287px;
+    height: 151px;
+    background-color: $light;
+    overflow: hidden;
+    z-index: 1000;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+
+    .threads {
+        display: flex;
+        gap: 5px !important;
+        flex-wrap: wrap;
+
+        img {
+            border-radius: 2px;
+        }
+    }
+
+
+
+
+}

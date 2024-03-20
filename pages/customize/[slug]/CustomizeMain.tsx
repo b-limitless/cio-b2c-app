@@ -281,7 +281,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
 
                     </div>
                     <div className={styles.model}>
-                        <Canvas>
+                        {/* <Canvas>
                             <Shirt3DModel
                                 collar={collar?.modelURL ?? defaultCollarModel}
                                 cuff={cuff}
@@ -314,7 +314,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                                 cart={cart}
 
                             />
-                        </Canvas>
+                        </Canvas> */}
 
                     </div>
                     <div className={styles.infomration}>
