@@ -30,7 +30,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                 modelURL,
                 ...rest
             },
-            key: code as keyof IAccentGlobal
+            key: code as any
         }));
 
         if (cuffAccent && code !== EStyles.Collar) {

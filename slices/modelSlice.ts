@@ -21,10 +21,7 @@ const modelProperties = {
     price: 0,
     title: '',
   }
-  // checkpocket: {
-  //   id: 13,
-  //   modelURL: 'URL for the model to load',
-  // },
+
 } as const;
 
 type ModelType = typeof modelProperties;

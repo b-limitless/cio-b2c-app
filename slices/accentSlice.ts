@@ -10,20 +10,21 @@ export type TModelNavigation = 'febrics' | 'styles' | 'accents';
 
 export type TBase = {
   id: number | string;
-  meshName: string[];
+  meshName?: string[];
   febric: string;
-  updatedFrom: TModelNavigation;
+  updatedFrom?: TModelNavigation;
   price: number;
   code?: string
   label?:string;
   season?:string;
-  type: TCollarAccent;
+  type?: TCollarAccent;
 };
 
 
 export interface IAccentGlobal {
   collar: TBase;
   cuff: TBase;
+  buttonWholeColor: TBase
 }
 export const accentProperties: IAccentGlobal = {
   collar: {
@@ -43,6 +44,11 @@ export const accentProperties: IAccentGlobal = {
     febric: defaultFebric,
     type: 'default',
     updatedFrom: 'febrics',
+    price: defaultPrices.cuff
+  },
+  buttonWholeColor: {
+    id: 1,
+    febric: '',
     price: defaultPrices.cuff
   },
 };
@@ -81,6 +87,11 @@ const initialState: TAccent = {
     type: 'default',
     meshName: [],
     updatedFrom: 'febrics',
+    price: defaultPrices.cuff
+  },
+  buttonWholeColor: {
+    id: 1,
+    febric: '',
     price: defaultPrices.cuff
   },
 };
