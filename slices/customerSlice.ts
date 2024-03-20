@@ -20,3 +20,4 @@ const customerSlice = createSlice({
 
 export const { setCurrentCustomer } = customerSlice.actions;
 export default customerSlice.reducer;
+

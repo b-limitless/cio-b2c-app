@@ -3,7 +3,7 @@
 // For example in accent we have collor defualt, all, inner
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { defaultFebric } from 'config/default';
-import { defaultPrices } from 'config/models';
+import { EAccentChildrens, defaultPrices } from 'config/models';
 
 export type TCollarAccent = 'default' | 'all' | 'innerFebric'; // can extends for cuff as well
 export type TModelNavigation = 'febrics' | 'styles' | 'accents';
@@ -61,6 +61,7 @@ export interface UpdateAccentActionType {
     type: TBase['type'];
     meshName: TBase['meshName'];
   };
+  childCode?:EAccentChildrens; 
 }
 
 export type TAccent = Record<ModelKeys, TBase>; // expecting RowType

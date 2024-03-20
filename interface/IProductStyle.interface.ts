@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, RefObject } from 'react';
 
 import { TBase } from 'slices/accentSlice';
 
@@ -15,6 +15,9 @@ export interface ItemInterface {
   mediaUrl: string;
   onClickHanlder: MouseEventHandler<HTMLLabelElement>;
   iconClass: string;
+  name:string;
+  showColorPlateOne:boolean;
+  ref:RefObject<HTMLInputElement>
 }
 export type TOnClickEvent = 'accent' | 'style' | 'febric';
 

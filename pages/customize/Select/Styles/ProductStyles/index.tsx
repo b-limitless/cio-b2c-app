@@ -1,75 +1,51 @@
 'use client';
 import { EAccent, EAccentChildrens, EStyles } from 'config/models';
 import { ItemInterface, ProductStylesInterface } from 'interface/IProductStyle.interface';
-import { Fragment, MouseEventHandler } from 'react';
+import { Fragment, MouseEventHandler, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { IAccentGlobal, TBase, UpdateAccentActionType, accentProperties, updateAccent, updateAccentType } from 'slices/accentSlice';
 import { RowType, updateModel } from 'slices/modelSlice';
 import styles from '../styles.module.scss';
 import Image from 'next/image';
-
-const baseURL = '/img/button-threads';
-
-const buttonWholeThreadColors = [{
-    url: `${baseURL}/thread-black.png`
-},
-{
-    url: `${baseURL}/thread-black.png`
-},
-{
-    url: `${baseURL}/thread-black.png`
-},
-{
-    url: `${baseURL}/thread-black.png`
-},
-{
-    url: `${baseURL}/thread-black.png`
-},
-{
-    url: `${baseURL}/thread-black.png`
-},
-]
+import useOnClickOutside from 'hooks/useOnClickOutSide';
+import { useAspect } from '@react-three/drei';
+import Items, { ColorPalate } from './Items';
 
 
-interface IColorPalate {
-    onClick: MouseEventHandler<HTMLImageElement>;
-}
-
-const ColorPalate = ({onClick}: IColorPalate) => {
-    return (
-        <div className={styles.colors}>
-            <div className={styles.navigation}></div>
-
-            <div className={styles.threads}>
-                { }
-                {buttonWholeThreadColors.map((val, key) => <div key={key} className={styles.color}>
-                    <Image src={val.url} width={57} height={37} alt='color' onClick={onClick}/>
-                </div>)}
 
 
-            </div>
-        </div>
-    );
-};
 
 
-function Items({ code, id, title, mediaUrl, onClickHanlder, iconClass }: ItemInterface) {
-    return (<Fragment>
 
-        <input className={styles.checkbox} type='radio' name={code} id={id} hidden />
-        <label className={styles.item} htmlFor={id} onClick={onClickHanlder}>
-            {code === EAccentChildrens.All && <ColorPalate onClick={() => {}}/>}
-            <span className={`${styles.col} shirt-icon ${iconClass}`}>
-                <span className={styles.style__name}>{title}</span>
 
-            </span>
-        </label>
-    </Fragment>
-    )
-}
+
+
+// function Items({showColorPlateOne, name, code, id, title, mediaUrl, onClickHanlder, iconClass }: ItemInterface) {
+//     return (<Fragment>
+
+//         <input className={styles.checkbox} type='radio' name={name} id={id} hidden />
+//         <label className={styles.item} htmlFor={id} onClick={onClickHanlder}>
+//             {code === EAccentChildrens.All && <><ColorPalate show={showColorPlateOne} onClick={() => {}}/></> }
+//             <span className={`${styles.col} shirt-icon ${iconClass}`}>
+//                 <span className={styles.style__name}>{title}</span>
+
+//             </span>
+//         </label>
+//     </Fragment>
+//     )
+// }
 
 export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent, collarAccent, cuffAccent }: ProductStylesInterface) {
     const dispatch = useDispatch();
+    
+    const ref = useRef(null);
+    
+    const [showColorPlateOne, setShowColorPlateOne] = useState(false);
+
+    useOnClickOutside(ref, () => {
+        console.log('clicked outside')
+        setShowColorPlateOne(false);
+    });
 
     const dispatchSelectedModelConfig = ({ modelURL, ...rest }: RowType) => {
         dispatch(updateModel({
@@ -95,15 +71,20 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
         }
     }
 
-    const dispatchAccentType = ({ key, payload }: UpdateAccentActionType) => {
+    const dispatchAccentType = ({ key, payload, childCode }: UpdateAccentActionType) => {
 
         // If code === constrasting button then we do not need for 
         // now to process the request in same way
         // We need to open a small model which is show the available thread color
-
+        
+        // if(childCode && [EAccentChildrens.All, EAccentChildrens.CuffOnly].includes(childCode)) {
+        //     setShowColorPlateOne(false);
+        // }
+        
         if (code === EAccent.ButtonWholeStitch) {
+            setShowColorPlateOne(true)
             return;
-        }
+        } 
 
 
         if (setActiveAccent) {
@@ -133,7 +114,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                     id={`styles-children-${code}-${i}`}
                     title={children.label}
                     mediaUrl={children.mediaUrl}
-
+                    name={code}
                     onClickHanlder={() => type ===
                         'style' ?
                         dispatchSelectedModelConfig
@@ -143,9 +124,10 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                                 id: children.id
 
                             }) :
-
-                        dispatchAccentType({ key: code as keyof IAccentGlobal, payload: children })
+                        dispatchAccentType({ key: code as keyof IAccentGlobal, payload: children, childCode: children.code })
                     }
+                    showColorPlateOne={showColorPlateOne}
+                    ref={ref}
 
                 />)}
                 { }
