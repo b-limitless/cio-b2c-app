@@ -12,29 +12,6 @@ import { useAspect } from '@react-three/drei';
 import Items, { ColorPalate } from './Items';
 
 
-
-
-
-
-
-
-
-
-// function Items({showColorPlateOne, name, code, id, title, mediaUrl, onClickHanlder, iconClass }: ItemInterface) {
-//     return (<Fragment>
-
-//         <input className={styles.checkbox} type='radio' name={name} id={id} hidden />
-//         <label className={styles.item} htmlFor={id} onClick={onClickHanlder}>
-//             {code === EAccentChildrens.All && <><ColorPalate show={showColorPlateOne} onClick={() => {}}/></> }
-//             <span className={`${styles.col} shirt-icon ${iconClass}`}>
-//                 <span className={styles.style__name}>{title}</span>
-
-//             </span>
-//         </label>
-//     </Fragment>
-//     )
-// }
-
 export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent, collarAccent, cuffAccent }: ProductStylesInterface) {
     const dispatch = useDispatch();
     
@@ -43,7 +20,6 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     const [showColorPlateOne, setShowColorPlateOne] = useState(false);
 
     useOnClickOutside(ref, () => {
-        console.log('clicked outside')
         setShowColorPlateOne(false);
     });
 
@@ -71,21 +47,35 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
         }
     }
 
-    const dispatchAccentType = ({ key, payload, childCode }: UpdateAccentActionType) => {
+    const buttonContrastSwitching = ({childCode}: {childCode: EAccentChildrens}) => {
+        // Since you have access to differet parts such as all and cuff only 
+        // You can access the value for the button whole color and dispatch to the redux store
+        // add redux store to manage buttonWholeColor
+        // data structure could be like this
+        // in this way it will help to understand which user has selected full body or cuff only 
+        // you have rest of the details as well which can be brough from the onclick event from the grid
+        // {
+        //     type: EAccentChildrens,
+        //     url: 'mediaurl'
+        // }
+        if (childCode === EAccentChildrens.All ||
+            childCode === EAccentChildrens.CuffOnly
+            ) {
+            setShowColorPlateOne(true)
+            return;
+        } 
+    }
+    const dispatchAccentType = async({ key, payload, childCode }: UpdateAccentActionType) => {
 
         // If code === constrasting button then we do not need for 
         // now to process the request in same way
         // We need to open a small model which is show the available thread color
         
-        // if(childCode && [EAccentChildrens.All, EAccentChildrens.CuffOnly].includes(childCode)) {
-        //     setShowColorPlateOne(false);
-        // }
-        
-        if (code === EAccent.ButtonWholeStitch) {
-            setShowColorPlateOne(true)
-            return;
-        } 
+         if(childCode) buttonContrastSwitching({childCode});
 
+         if(code === EAccent.ButtonWholeStitch) {
+            return;
+         }
 
         if (setActiveAccent) {
             setActiveAccent(code);
