@@ -1,9 +1,8 @@
 'use client';
-import { TBase } from 'slices/accentSlice';
-import ProductStyles from './ProductStyles';
-import styles from './styles.module.scss';
 import { productStyles } from 'config/models';
 import { IStyles } from 'interface/IProductStyle.interface';
+import ProductStyles from './ProductStyles';
+import styles from './styles.module.scss';
 
 export default function Styles({collarAccent, cuffAccent}: IStyles) {
     return (

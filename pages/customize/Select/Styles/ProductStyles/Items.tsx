@@ -115,7 +115,7 @@ export const ColorPalate = React.forwardRef((
     );
 });
 
-ColorPalate.displayName = 'ColorPalate';
+
 
 function Items({ onColorClickHandler, showColorPlateOne, name, code, id, title, onClickHanlder, iconClass }: ItemInterface, ref: ForwardedRef<HTMLInputElement>) {
     return (<Fragment>
@@ -134,5 +134,7 @@ function Items({ onColorClickHandler, showColorPlateOne, name, code, id, title, 
     </Fragment>
     )
 }
+
+ColorPalate.displayName = 'ColorPalate';
 
 export default forwardRef(Items);

@@ -13,6 +13,8 @@ import shipping from 'slices/shippingSlice';
 import store from 'slices/storeSlice';
 import cartIndexToupdate from 'slices/updateCartIndex';
 import payment from 'slices/paymentSlice';
+import buttonWholeAndStitch from 'slices/buttonWholeAndStitchSlice';
+import buttonColors from 'slices/buttonColors';
 
 export const Store = configureStore({
     reducer: {
@@ -27,7 +29,9 @@ export const Store = configureStore({
         febrics, 
         store, 
         currentCustomer, 
-        payment
+        payment, 
+        buttonWholeAndStitch, 
+        buttonColors
         
     },
     middleware: [thunk]

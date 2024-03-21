@@ -196,8 +196,6 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
         }
     }, [takeScreenShot, router]);
 
-
-
     useEffect(() => {
         const container = document.getElementById('febrics-scroll-container');
 
