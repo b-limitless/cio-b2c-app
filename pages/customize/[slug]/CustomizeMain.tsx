@@ -224,7 +224,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                     'default';
     }, [designJourney]);
 
-    console.log('buttonWholesFebric')
+   
 
     return (
         <>

@@ -1,5 +1,5 @@
 'use client';
-import { EAccent, EAccentChildrens, EStyles } from 'config/models';
+import { EAccent, EAccentButtonColor, EAccentChildrens, EStyles } from 'config/models';
 import { ItemInterface, ProductStylesInterface } from 'interface/IProductStyle.interface';
 import { Fragment, MouseEventHandler, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -48,7 +48,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
         }
     }
 
-    const buttonContrastSwitching = ({childCode}: {childCode: EAccentChildrens}) => {
+    const buttonContrastSwitching = ({childCode}: {childCode: EAccentChildrens | EAccentButtonColor}) => {
         // Since you have access to differet parts such as all and cuff only 
         // You can access the value for the button whole color and dispatch to the redux store
         // add redux store to manage buttonWholeColor
@@ -67,7 +67,8 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
         }
         
         if (childCode === EAccentChildrens.All ||
-            childCode === EAccentChildrens.CuffOnly
+            childCode === EAccentChildrens.CuffOnly ||
+            childCode === EAccentButtonColor.All
             ) {
             setShowColorPlateOne(true);
             return;
@@ -79,9 +80,10 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
         // now to process the request in same way
         // We need to open a small model which is show the available thread color
         
+        
          if(childCode) buttonContrastSwitching({childCode});
 
-         if(code === EAccent.ButtonWholeStitch) {
+         if([EAccent.ButtonWholeStitch, EAccent.ButtonColors].includes(code as any)) {
             return;
          }
 
@@ -102,6 +104,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     }
 
     const onColorClickHandler = (val:any) => {
+        console.log(val);
         dispatch(updateAccent({key: EAccent.ButtonWholeStitch, payload: val}));
     }
 
@@ -131,6 +134,8 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                     showColorPlateOne={showColorPlateOne}
                     ref={ref}
                     onColorClickHandler={onColorClickHandler}
+
+
                     
 
                 />)}

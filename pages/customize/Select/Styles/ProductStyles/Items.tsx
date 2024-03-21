@@ -1,7 +1,7 @@
 import React from "react";
 import { ForwardedRef, Fragment, MouseEventHandler, RefObject, forwardRef } from "react";
 import styles from '../styles.module.scss';
-import { EAccentChildrens } from "config/models";
+import { EAccentButtonColor, EAccentChildrens } from "config/models";
 import Image from "next/image";
 import { ItemInterface } from "interface/IProductStyle.interface";
 import { buttonThreadBaseURI } from "config/default";
@@ -88,7 +88,7 @@ function Items({onColorClickHandler, showColorPlateOne, name, code, id, title, m
 
         <input className={styles.checkbox} type='radio' name={name} id={id} hidden />
         <label className={styles.item} htmlFor={id} onClick={onClickHanlder}>
-            {code === EAccentChildrens.All && <><ColorPalate code={code} ref={ref} show={showColorPlateOne} onClick={onColorClickHandler} /></>}
+            {[EAccentChildrens.All, EAccentButtonColor.All].includes(code as any) && <><ColorPalate code={code} ref={ref} show={showColorPlateOne} onClick={onColorClickHandler} /></>}
             <span className={`${styles.col} shirt-icon ${iconClass}`}>
                 <span className={styles.style__name}>{title}</span>
 

@@ -12,6 +12,11 @@
   line-height: 55px;
 }
 
+.icon-21::before {
+  content: "\21";
+  
+}
+
 .icon-40::before {
     content: "\40";
     
