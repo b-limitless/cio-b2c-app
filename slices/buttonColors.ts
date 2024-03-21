@@ -12,9 +12,6 @@ export interface ButtonColor extends ThreadColor {
     texture: string;
 }
 
-
-
-
 const initialState: ButtonColor[] = [
     {
         id: '1',

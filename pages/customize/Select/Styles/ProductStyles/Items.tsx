@@ -5,6 +5,8 @@ import { EAccentButtonColor, EAccentChildrens } from "config/models";
 import Image from "next/image";
 import { ItemInterface } from "interface/IProductStyle.interface";
 import { buttonThreadBaseURI } from "config/default";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 
 export interface ThreadColor {
     id: string; 
@@ -92,14 +94,9 @@ export const ColorPalate = React.forwardRef((
     ref: ForwardedRef<HTMLDivElement>
 ) => {
     let data : ThreadColor[] | ButtonColor[] = [];
-    // Based on code we have to map different object
-    if(code === EAccentChildrens.All) {
-        data = buttonWholeThreadColors;
-    }
 
-    if(code === EAccentButtonColor.All) {
-        data = buttonColor;
-    }
+    data = useSelector((state:RootState) => code === EAccentChildrens.All ? state.buttonWholeAndStitch : state.buttonColors)
+    
     return (
         <div ref={ref} className={`${styles.colors} ${show && styles.showColorPlate}`}>
             <div className={styles.navigation}></div>

@@ -12,33 +12,6 @@ export interface ButtonColor extends ThreadColor {
     texture: string;
 }
 
-
-
-
-const buttonColor: ButtonColor[] = [
-    {
-        id: '1',
-        title: 'Black',
-        texture: `/img/buttons/texture/blue.png`,
-        price: 0,
-        febric: `/img/buttons/icon/blue.png`
-    }, 
-    {
-        id: '2',
-        title: 'Black',
-        texture: `/img/buttons/texture/black.png`,
-        price: 0,
-        febric: `/img/buttons/icon/black.png`
-    }, 
-    {
-        id: '3',
-        title: 'Black',
-        texture: `/img/buttons/texture/red.png`,
-        price: 0,
-        febric: `/img/buttons/icon/red.png`
-    }
-];
-
 const initialState: ThreadColor[] = [
     {
         id: '1',
