@@ -10,6 +10,7 @@ import Image from 'next/image';
 import useOnClickOutside from 'hooks/useOnClickOutSide';
 import { useAspect } from '@react-three/drei';
 import Items, { ColorPalate } from './Items';
+import { defaultContrastButtonThread } from 'config/default';
 
 
 export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent, collarAccent, cuffAccent }: ProductStylesInterface) {
@@ -58,10 +59,17 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
         //     type: EAccentChildrens,
         //     url: 'mediaurl'
         // }
+
+        // If childcode happens to be default then simply dispatch default febric
+        // User does not need to select any febric in that case
+        if(childCode === EAccentChildrens.Default) {
+            dispatch(updateAccent({key: EAccent.ButtonWholeStitch, payload: defaultContrastButtonThread as any})); 
+        }
+        
         if (childCode === EAccentChildrens.All ||
             childCode === EAccentChildrens.CuffOnly
             ) {
-            setShowColorPlateOne(true)
+            setShowColorPlateOne(true);
             return;
         } 
     }
@@ -93,6 +101,10 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
         dispatch(updateAccentType({ key, payload }));
     }
 
+    const onColorClickHandler = (val:any) => {
+        dispatch(updateAccent({key: EAccent.ButtonWholeStitch, payload: val}));
+    }
+
     return (
         <div className={styles.row}>
             <div className={styles.title}>{label}</div>
@@ -118,6 +130,8 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                     }
                     showColorPlateOne={showColorPlateOne}
                     ref={ref}
+                    onColorClickHandler={onColorClickHandler}
+                    
 
                 />)}
                 { }

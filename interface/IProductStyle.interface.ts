@@ -17,7 +17,8 @@ export interface ItemInterface {
   iconClass: string;
   name:string;
   showColorPlateOne:boolean;
-  ref:RefObject<HTMLInputElement>
+  ref:RefObject<HTMLInputElement>;
+  onColorClickHandler: Function;
 }
 export type TOnClickEvent = 'accent' | 'style' | 'febric';
 

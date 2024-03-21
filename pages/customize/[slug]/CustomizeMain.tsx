@@ -73,7 +73,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
     const cart = useSelector((state: RootState) => state.cart);
     
 
-    const { collar: collarAccent } = accent;
+    const { collar: collarAccent, buttonWholeAndStitch:{febric : buttonWholesFebric} } = accent;
     const { cuff: cuffAccent } = accent;
     const [takeScreenShot, setTakeScreenShot] = useState<tSnapShotUploadingStates>(tSnapShotUploadingStates.Ideal);
 
@@ -155,7 +155,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
 
     const computePrice = useMemo(() => {
         if (febric.price) {
-            return febric.price + collarAccent.price + cuffAccent.price;
+            return febric.price + collarAccent?.price + cuffAccent?.price;
         }
 
         return 0;
@@ -224,6 +224,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                     'default';
     }, [designJourney]);
 
+    console.log('buttonWholesFebric')
 
     return (
         <>
@@ -281,7 +282,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
 
                     </div>
                     <div className={styles.model}>
-                        {/* <Canvas>
+                        <Canvas>
                             <Shirt3DModel
                                 collar={collar?.modelURL ?? defaultCollarModel}
                                 cuff={cuff}
@@ -289,6 +290,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                                 collarAccent={collarAccent}
                                 cuffAccent={cuffAccent}
                                 chestPocket={!!chestPocket}
+                                buttonWholesFebric={buttonWholesFebric}
                             />
 
                             <CaptureModelScreenShot
@@ -314,7 +316,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                                 cart={cart}
 
                             />
-                        </Canvas> */}
+                        </Canvas>
 
                     </div>
                     <div className={styles.infomration}>

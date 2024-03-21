@@ -4,46 +4,54 @@ import styles from '../styles.module.scss';
 import { EAccentChildrens } from "config/models";
 import Image from "next/image";
 import { ItemInterface } from "interface/IProductStyle.interface";
+import { buttonThreadBaseURI } from "config/default";
 
 
-const baseURL = '/img/button-threads';
 
-interface ThreadColor {
+
+export interface ThreadColor {
     id: string; // MongoDB document ID
     title: string; // Color name
-    url: string; // Image URL
+    febric: string; // Image URL
+    price:number;
 }
 
 const buttonWholeThreadColors: ThreadColor[] = [
     {
         id: '1',
         title: 'Black',
-        url: `${baseURL}/thread-black.png`
+        febric: `${buttonThreadBaseURI}/thread-black.png`,
+        price:0
     },
     {
         id: '2',
         title: 'Blue',
-        url: `${baseURL}/thread-blue.png`
+        febric: `${buttonThreadBaseURI}/thread-blue.png`, 
+        price:0
     },
     {
         id: '3',
         title: 'Brown',
-        url: `${baseURL}/thread-brown.png`
+        febric: `${buttonThreadBaseURI}/thread-brown.png`, 
+        price:0
     },
     {
         id: '4',
         title: 'Gray',
-        url: `${baseURL}/thread-gray.png`
+        febric: `${buttonThreadBaseURI}/thread-gray.png`, 
+        price:0
     },
     {
         id: '5',
         title: 'Green',
-        url: `${baseURL}/thread-green.png`
+        febric: `${buttonThreadBaseURI}/thread-green.png`, 
+        price:0
     },
     {
         id: '6',
         title: 'Red',
-        url: `${baseURL}/thread-red.png`
+        febric: `${buttonThreadBaseURI}/thread-red.png`, 
+        price:0
     }
 ];
 
@@ -55,7 +63,7 @@ interface IColorPalate {
 }
 
 export const ColorPalate = React.forwardRef((
-    { onClick, show }: IColorPalate,
+    { onClick, show, code }: IColorPalate,
     ref: ForwardedRef<HTMLDivElement>
 ) => {
     return (
@@ -65,7 +73,7 @@ export const ColorPalate = React.forwardRef((
             <div className={styles.threads}>
                 {buttonWholeThreadColors.map((val, key) => (
                     <div key={key} className={styles.color}>
-                        <Image src={val.url} width={57} height={37} alt='color' onClick={onClick} />
+                        <Image src={val.febric} width={57} height={37} alt='color' onClick={() => onClick({...val, code} as any)} />
                     </div>
                 ))}
             </div>
@@ -75,12 +83,12 @@ export const ColorPalate = React.forwardRef((
 
 ColorPalate.displayName = 'ColorPalate';
 
-function Items({ showColorPlateOne, name, code, id, title, mediaUrl, onClickHanlder, iconClass }: ItemInterface, ref: ForwardedRef<HTMLInputElement>) {
+function Items({onColorClickHandler, showColorPlateOne, name, code, id, title, mediaUrl, onClickHanlder, iconClass }: ItemInterface, ref: ForwardedRef<HTMLInputElement>) {
     return (<Fragment>
 
         <input className={styles.checkbox} type='radio' name={name} id={id} hidden />
         <label className={styles.item} htmlFor={id} onClick={onClickHanlder}>
-            {code === EAccentChildrens.All && <><ColorPalate ref={ref} show={showColorPlateOne} onClick={() => { }} /></>}
+            {code === EAccentChildrens.All && <><ColorPalate code={code} ref={ref} show={showColorPlateOne} onClick={onColorClickHandler} /></>}
             <span className={`${styles.col} shirt-icon ${iconClass}`}>
                 <span className={styles.style__name}>{title}</span>
 

@@ -30,7 +30,7 @@ export const accentProperties: IAccentGlobal = {
   collar: {
     id: 12,
     // Iterate through the mesh name and apply the selected febric to that mesh
-    meshName: [], //'because it can be combining all or inner',
+    meshName: [], //   'because it can be combining all or inner',
     febric: defaultFebric,
     type: 'default',
     updatedFrom: 'febrics',
@@ -91,7 +91,7 @@ const initialState: TAccent = {
   },
   buttonWholeAndStitch: {
     id: '',
-    febric: '',
+    febric: '/img/button-threads/thread-black.png',
     price: defaultPrices.cuff
   },
 };
@@ -101,6 +101,7 @@ const accentSlice = createSlice({
   initialState,
   reducers: {
     updateAccent: (state: IAccentGlobal, action: PayloadAction<UpdateAccentAction>) => {
+      console.log(action.payload.key, action.payload.key)
       return {
         ...state,
         [action.payload.key]: action.payload.payload,

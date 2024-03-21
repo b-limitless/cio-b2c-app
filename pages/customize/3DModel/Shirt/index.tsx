@@ -50,6 +50,7 @@ interface ShirtModelInterface extends BaseModel {
   cuffAccent: TBase;
   cuff: RowType;
   chestPocket: boolean
+  buttonWholesFebric:string;
 }
 
 interface AddTextureModel {
@@ -71,7 +72,7 @@ interface IAddModelToScene {
 }
 
 
-const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, chestPocket }: ShirtModelInterface) => {
+const Shirt3DModel = ({buttonWholesFebric, collar, cuff, febricURI, collarAccent, cuffAccent, chestPocket }: ShirtModelInterface) => {
 
 
   return (
@@ -113,18 +114,17 @@ const Shirt3DModel = ({ collar, cuff, febricURI, collarAccent, cuffAccent, chest
       
 
       <AddTextureToModel textureURL={'/img/126.jpg'} meshName={[]} fullBody={true}>
-
         <AddModelToScene name='buttons' modelURI={modelsURL.buttons} />
-
       </AddTextureToModel>
 
       
-      <AddTextureToModel textureURL='/img/button-threads/thread-blue.png' meshName={['MatShape_948560_Node']} modelType= {EModel.ThreadWholes} fullBody>
+      <AddTextureToModel textureURL={buttonWholesFebric} meshName={[]} modelType= {EModel.ThreadWholes} fullBody>
         <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} />
       </AddTextureToModel>
       
       
-      <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} />
+      {/* <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} /> */}
+
       {chestPocket && <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Pocket}>
         <AddModelToScene name='pocket' modelURI={modelsURL.pocket} />
       </AddTextureToModel>} 
