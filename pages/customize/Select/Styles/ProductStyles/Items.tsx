@@ -7,9 +7,9 @@ import { ItemInterface } from "interface/IProductStyle.interface";
 import { buttonThreadBaseURI } from "config/default";
 
 export interface ThreadColor {
-    id: string; // MongoDB document ID
-    title: string; // Color name
-    febric: string; // Image URL
+    id: string; 
+    title: string; 
+    febric: string; 
     price: number;
 }
 
@@ -117,7 +117,7 @@ export const ColorPalate = React.forwardRef((
 
 ColorPalate.displayName = 'ColorPalate';
 
-function Items({ onColorClickHandler, showColorPlateOne, name, code, id, title, mediaUrl, onClickHanlder, iconClass }: ItemInterface, ref: ForwardedRef<HTMLInputElement>) {
+function Items({ onColorClickHandler, showColorPlateOne, name, code, id, title, onClickHanlder, iconClass }: ItemInterface, ref: ForwardedRef<HTMLInputElement>) {
     return (<Fragment>
 
         <input className={styles.checkbox} type='radio' name={name} id={id} hidden />

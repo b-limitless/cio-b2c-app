@@ -1,16 +1,14 @@
 'use client';
+import { defaultButtonColor, defaultContrastButtonThread } from 'config/default';
 import { EAccent, EAccentButtonColor, EAccentChildrens, EStyles } from 'config/models';
-import { ItemInterface, ProductStylesInterface } from 'interface/IProductStyle.interface';
-import { Fragment, MouseEventHandler, useRef, useState } from 'react';
+import useOnClickOutside from 'hooks/useOnClickOutSide';
+import { ProductStylesInterface } from 'interface/IProductStyle.interface';
+import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { IAccentGlobal, TBase, UpdateAccentActionType, accentProperties, updateAccent, updateAccentType } from 'slices/accentSlice';
 import { RowType, updateModel } from 'slices/modelSlice';
 import styles from '../styles.module.scss';
-import Image from 'next/image';
-import useOnClickOutside from 'hooks/useOnClickOutSide';
-import { useAspect } from '@react-three/drei';
-import Items, { ColorPalate } from './Items';
-import { defaultButtonColor, defaultContrastButtonThread } from 'config/default';
+import Items from './Items';
 
 
 export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent, collarAccent, cuffAccent }: ProductStylesInterface) {
@@ -49,19 +47,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     }
 
     const buttonContrastSwitching = ({childCode}: {childCode: EAccentChildrens | EAccentButtonColor}) => {
-        // Since you have access to differet parts such as all and cuff only 
-        // You can access the value for the button whole color and dispatch to the redux store
-        // add redux store to manage buttonWholeColor
-        // data structure could be like this
-        // in this way it will help to understand which user has selected full body or cuff only 
-        // you have rest of the details as well which can be brough from the onclick event from the grid
-        // {
-        //     type: EAccentChildrens,
-        //     url: 'mediaurl'
-        // }
-
-        // If childcode happens to be default then simply dispatch default febric
-        // User does not need to select any febric in that case
+    
         if(childCode === EAccentButtonColor.Default) {
             dispatch(updateAccent({key: EAccent.ButtonColors, payload: defaultButtonColor}));
         }
@@ -132,7 +118,7 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                     code={children.code}
                     id={`styles-children-${code}-${i}`}
                     title={children.label}
-                    mediaUrl={children.mediaUrl}
+                    
                     name={code}
                     onClickHanlder={() => type ===
                         'style' ?

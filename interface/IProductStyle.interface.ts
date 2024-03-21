@@ -12,7 +12,7 @@ export interface ItemInterface {
   code: string;
   id: string;
   title: string;
-  mediaUrl: string;
+  
   onClickHanlder: MouseEventHandler<HTMLLabelElement>;
   iconClass: string;
   name:string;
