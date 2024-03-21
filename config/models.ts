@@ -251,16 +251,16 @@ export const accentsStyles = [
         price: defaultPrices.collar,
         iconClass: 'icon-52'
       }, 
-      {
-        id: 3,
-        label: 'Cuff Only',
-        code: EAccentChildrens.CuffOnly,
-        mediaUrl: '/icon/collars/button-down.svg',
-        type: EAccentChildrens.CuffOnly,
-        meshName: [],
-        price: defaultPrices.collar,
-        iconClass: 'icon-78'
-      }
+      // {
+      //   id: 3,
+      //   label: 'Cuff Only',
+      //   code: EAccentChildrens.CuffOnly,
+      //   mediaUrl: '/icon/collars/button-down.svg',
+      //   type: EAccentChildrens.CuffOnly,
+      //   meshName: [],
+      //   price: defaultPrices.collar,
+      //   iconClass: 'icon-78'
+      // }
     ]
   }, 
   {
