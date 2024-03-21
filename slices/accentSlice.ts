@@ -14,17 +14,19 @@ export type TBase = {
   febric: string;
   updatedFrom?: TModelNavigation;
   price: number;
-  code?: string
-  label?:string;
-  season?:string;
+  code?: string;
+  label?: string;
+  season?: string;
   type?: TCollarAccent;
+  texture?: string;
+  title?: string;
 };
-
 
 export interface IAccentGlobal {
   collar: TBase;
   cuff: TBase;
-  buttonWholeAndStitch: TBase
+  buttonWholeAndStitch: TBase;
+  buttonColors: TBase;
 }
 export const accentProperties: IAccentGlobal = {
   collar: {
@@ -34,7 +36,7 @@ export const accentProperties: IAccentGlobal = {
     febric: defaultFebric,
     type: 'default',
     updatedFrom: 'febrics',
-    price: defaultPrices.collar
+    price: defaultPrices.collar,
   },
 
   cuff: {
@@ -44,12 +46,19 @@ export const accentProperties: IAccentGlobal = {
     febric: defaultFebric,
     type: 'default',
     updatedFrom: 'febrics',
-    price: defaultPrices.cuff
+    price: defaultPrices.cuff,
   },
   buttonWholeAndStitch: {
     id: 1,
     febric: '',
-    price: defaultPrices.cuff
+    price: defaultPrices.cuff,
+  },
+  buttonColors: {
+    id: '2',
+    title: 'Black',
+    texture: `/img/buttons/texture/black.png`,
+    price: 0,
+    febric: `/img/buttons/icon/black.png`,
   },
 };
 
@@ -67,7 +76,7 @@ export interface UpdateAccentActionType {
     type: TBase['type'];
     meshName: TBase['meshName'];
   };
-  childCode?:EAccentChildrens; 
+  childCode?: EAccentChildrens;
 }
 
 export type TAccent = Record<ModelKeys, TBase>; // expecting RowType
@@ -79,7 +88,7 @@ const initialState: TAccent = {
     type: 'default',
     meshName: [],
     updatedFrom: 'febrics',
-    price: defaultPrices.collar
+    price: defaultPrices.collar,
   },
   cuff: {
     id: 12,
@@ -87,12 +96,19 @@ const initialState: TAccent = {
     type: 'default',
     meshName: [],
     updatedFrom: 'febrics',
-    price: defaultPrices.cuff
+    price: defaultPrices.cuff,
   },
   buttonWholeAndStitch: {
     id: '',
     febric: '/img/button-threads/thread-black.png',
-    price: defaultPrices.cuff
+    price: defaultPrices.cuff,
+  },
+  buttonColors: {
+    id: '2',
+    title: 'Black',
+    texture: `/img/buttons/texture/black.png`,
+    price: 0,
+    febric: `/img/buttons/icon/black.png`,
   },
 };
 
@@ -101,7 +117,7 @@ const accentSlice = createSlice({
   initialState,
   reducers: {
     updateAccent: (state: IAccentGlobal, action: PayloadAction<UpdateAccentAction>) => {
-      console.log(action.payload.key, action.payload.key)
+      console.log(action.payload.key, action.payload.key);
       return {
         ...state,
         [action.payload.key]: action.payload.payload,
@@ -117,11 +133,11 @@ const accentSlice = createSlice({
         },
       };
     },
-    updateAllAccent:(state: IAccentGlobal, action: PayloadAction<TAccent>) => {
-      const {...rest} = action.payload;
+    updateAllAccent: (state: IAccentGlobal, action: PayloadAction<TAccent>) => {
+      const { ...rest } = action.payload;
 
-      return {...state, ...rest};
-    }
+      return { ...state, ...rest };
+    },
   },
 });
 

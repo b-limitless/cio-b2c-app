@@ -36,7 +36,8 @@ export enum EModel {
   Pocket = 'pocket', 
   Cuff='cuff',
   Collar='collar', 
-  ThreadWholes='threadWholes'
+  ThreadWholes='threadWholes', 
+  Buttons='buttons'
   
 }
 
@@ -113,7 +114,7 @@ const Shirt3DModel = ({buttonWholesFebric, collar, cuff, febricURI, collarAccent
 
       
 
-      <AddTextureToModel textureURL={'/img/126.jpg'} meshName={[]} fullBody={true}>
+      <AddTextureToModel textureURL={'/img/buttons/texture/black.png'} meshName={[]} fullBody={true} modelType={EModel.Buttons}>
         <AddModelToScene name='buttons' modelURI={modelsURL.buttons} />
       </AddTextureToModel>
 
@@ -188,6 +189,7 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType
                      : modelType === EModel.Cuff ? 'timestamp=3'
                      : modelType === EModel.Collar ? 'timestamp=4'
                      : modelType === EModel.ThreadWholes ? 'timestamp=5'
+                     
                      :'timestamp=3'
 
   // Load texture using userLoader 
@@ -220,6 +222,10 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType
 
   } 
   if(modelType === EModel.ThreadWholes) {
+    texture.repeat.set(1, 1);
+  }
+
+  if(modelType === EModel.Buttons) {
     texture.repeat.set(1, 1);
   }
 

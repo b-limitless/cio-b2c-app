@@ -104,8 +104,15 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
     }
 
     const onColorClickHandler = (val:any) => {
-        console.log(val);
-        dispatch(updateAccent({key: EAccent.ButtonWholeStitch, payload: val}));
+        const {code} = val;
+        if(code === EAccentChildrens.All) {
+            dispatch(updateAccent({key: EAccent.ButtonWholeStitch, payload: val}));
+        }
+
+        if(code === EAccentButtonColor.All) {
+            console.log('Update the febric for the button')
+        }
+       
     }
 
     return (
