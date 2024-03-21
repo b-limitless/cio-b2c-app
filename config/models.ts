@@ -28,7 +28,6 @@ export enum EAccent {
   ButtonColors='buttonColors'
 }
 
-const childrenPrefix = 'AccentChild';
 
 export enum EAccentChildrens {
   Default='DefaultButtonWholeColor',

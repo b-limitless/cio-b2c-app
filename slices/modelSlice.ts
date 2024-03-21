@@ -143,7 +143,6 @@ const modelSlice = createSlice({
     },
     updateAllProps: (state: IModelAction, action: PayloadAction<IModelAction>) => {
       const { ...rest } = action.payload;
-      // console.log('action.payload', action.payload)
       return { ...state, ...rest };
     },
   },

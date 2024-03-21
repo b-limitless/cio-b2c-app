@@ -33,9 +33,6 @@ const Item = ({ title, value }: IRow) => {
 
 
 export default function Model({ show, setShow, cart }: IModel) {
-
-
-
     return (
         <div className={styles.model__container + ' ' + (show > 0 ? styles.show : styles.hide)}>
             <div className={styles.model}>

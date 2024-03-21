@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { buttonThreadBaseURI } from "config/default";
 
 export interface ThreadColor {
     id: string; 
@@ -15,7 +14,7 @@ export interface ButtonColor extends ThreadColor {
 const initialState: ButtonColor[] = [
     {
         id: '1',
-        title: 'Black',
+        title: 'blue',
         texture: `/img/buttons/texture/blue.png`,
         price: 0,
         febric: `/img/buttons/icon/blue.png`
@@ -29,10 +28,38 @@ const initialState: ButtonColor[] = [
     }, 
     {
         id: '3',
-        title: 'Black',
+        title: 'red',
         texture: `/img/buttons/texture/red.png`,
         price: 0,
         febric: `/img/buttons/icon/red.png`
+    }, 
+    {
+        id: '4',
+        title: 'Brown',
+        texture: `/img/buttons/texture/brown.png`,
+        price: 0,
+        febric: `/img/buttons/icon/brown.png`
+    }, 
+    {
+        id: '5',
+        title: 'Brown',
+        texture: `/img/buttons/texture/md-blue.png`,
+        price: 0,
+        febric: `/img/buttons/icon/md-blue.png`
+    },
+    {
+        id: '6',
+        title: 'Brown',
+        texture: `/img/buttons/texture/light-blue.png`,
+        price: 0,
+        febric: `/img/buttons/icon/light-blue.png`
+    }, 
+    {
+        id: '7',
+        title: 'Brown',
+        texture: `/img/buttons/texture/pink.png`,
+        price: 0,
+        febric: `/img/buttons/icon/pink.png`
     }
 ];
 

@@ -9,7 +9,6 @@
  * for web-based applications.
 */
 'use client';
-import { Email } from '@mui/icons-material';
 import { OrbitControls } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
 import { defaultCuffModel } from 'config/default';
@@ -39,10 +38,6 @@ export enum EModel {
   ThreadWholes='threadWholes', 
   Buttons='buttons'
   
-}
-
-interface CollarInterface extends BaseModel {
-
 }
 
 interface ShirtModelInterface extends BaseModel {
@@ -96,7 +91,6 @@ const Shirt3DModel = ({
       <mesh receiveShadow castShadow />
 
       <perspectiveCamera
-        // This makes this camera the default camera for the scene
         fov={15}
         aspect={window.innerWidth / window.innerHeight}
         near={0.1}
@@ -276,8 +270,6 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType
       {children}
     </group>
   );
-
-
 }
 
 
@@ -293,9 +285,6 @@ const AddColorToModel = ({ meshName, children }: AddColorToModel) => {
     });
   }, []);
 
-
-
-  // Set the material to the specific mesh in the model
 
   const setMaterial = (parent: THREE.Object3D, meshName: string[], mtl: THREE.Material) => {
 
@@ -316,7 +305,6 @@ const AddColorToModel = ({ meshName, children }: AddColorToModel) => {
       {children}
     </group>
   );
-
 
 }
 

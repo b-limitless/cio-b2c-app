@@ -1,12 +1,10 @@
-import React from "react";
-import { ForwardedRef, Fragment, MouseEventHandler, RefObject, forwardRef } from "react";
-import styles from '../styles.module.scss';
 import { EAccentButtonColor, EAccentChildrens } from "config/models";
-import Image from "next/image";
 import { ItemInterface } from "interface/IProductStyle.interface";
-import { buttonThreadBaseURI } from "config/default";
+import Image from "next/image";
+import React, { ForwardedRef, Fragment, MouseEventHandler, forwardRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import styles from '../styles.module.scss';
 
 export interface ThreadColor {
     id: string; 
@@ -18,69 +16,6 @@ export interface ThreadColor {
 export interface ButtonColor extends ThreadColor {
     texture: string;
 }
-
-const buttonWholeThreadColors: ThreadColor[] = [
-    {
-        id: '1',
-        title: 'Black',
-        febric: `${buttonThreadBaseURI}/thread-black.png`,
-        price: 0
-    },
-    {
-        id: '2',
-        title: 'Blue',
-        febric: `${buttonThreadBaseURI}/thread-blue.png`,
-        price: 0
-    },
-    {
-        id: '3',
-        title: 'Brown',
-        febric: `${buttonThreadBaseURI}/thread-brown.png`,
-        price: 0
-    },
-    {
-        id: '4',
-        title: 'Gray',
-        febric: `${buttonThreadBaseURI}/thread-gray.png`,
-        price: 0
-    },
-    {
-        id: '5',
-        title: 'Green',
-        febric: `${buttonThreadBaseURI}/thread-green.png`,
-        price: 0
-    },
-    {
-        id: '6',
-        title: 'Red',
-        febric: `${buttonThreadBaseURI}/thread-red.png`,
-        price: 0
-    }
-];
-
-const buttonColor: ButtonColor[] = [
-    {
-        id: '1',
-        title: 'Black',
-        texture: `/img/buttons/texture/blue.png`,
-        price: 0,
-        febric: `/img/buttons/icon/blue.png`
-    }, 
-    {
-        id: '2',
-        title: 'Black',
-        texture: `/img/buttons/texture/black.png`,
-        price: 0,
-        febric: `/img/buttons/icon/black.png`
-    }, 
-    {
-        id: '3',
-        title: 'Black',
-        texture: `/img/buttons/texture/red.png`,
-        price: 0,
-        febric: `/img/buttons/icon/red.png`
-    }
-];
 
 
 interface IColorPalate {
