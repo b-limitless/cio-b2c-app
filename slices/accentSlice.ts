@@ -28,6 +28,7 @@ export interface IAccentGlobal {
   buttonWholeAndStitch: TBase;
   buttonColors: TBase;
 }
+
 export const accentProperties: IAccentGlobal = {
   collar: {
     id: 12,

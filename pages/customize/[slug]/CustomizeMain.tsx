@@ -73,7 +73,11 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
     const cart = useSelector((state: RootState) => state.cart);
     
 
-    const { collar: collarAccent, buttonWholeAndStitch:{febric : buttonWholesFebric} } = accent;
+    const {
+           buttonColors:{texture:buttonsColorTexture}, 
+           collar: collarAccent, 
+           buttonWholeAndStitch:{febric : buttonWholesFebric} 
+        } = accent;
     const { cuff: cuffAccent } = accent;
     const [takeScreenShot, setTakeScreenShot] = useState<tSnapShotUploadingStates>(tSnapShotUploadingStates.Ideal);
 
@@ -291,6 +295,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                                 cuffAccent={cuffAccent}
                                 chestPocket={!!chestPocket}
                                 buttonWholesFebric={buttonWholesFebric}
+                                buttonsColorTexture={buttonsColorTexture ?? ''}
                             />
 
                             <CaptureModelScreenShot

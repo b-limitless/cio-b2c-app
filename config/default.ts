@@ -11,4 +11,12 @@ export const defaultContrastButtonThread:ThreadColor = {
   febric: `${buttonThreadBaseURI}/thread-black.png`,
   price:0
 };
+
+export const defaultButtonColor = {
+  id: '1',
+  title: 'Black',
+  texture: `/img/buttons/texture/blue.png`,
+  price: 0,
+  febric: `/img/buttons/icon/blue.png`
+}
 //?timestamp=${Date.now()}

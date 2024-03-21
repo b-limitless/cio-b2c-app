@@ -10,7 +10,7 @@ import Image from 'next/image';
 import useOnClickOutside from 'hooks/useOnClickOutSide';
 import { useAspect } from '@react-three/drei';
 import Items, { ColorPalate } from './Items';
-import { defaultContrastButtonThread } from 'config/default';
+import { defaultButtonColor, defaultContrastButtonThread } from 'config/default';
 
 
 export default function ProductStyles({ label, childrens, code, setShowAccentFebricModel, type, setActiveAccent, collarAccent, cuffAccent }: ProductStylesInterface) {
@@ -62,6 +62,10 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
 
         // If childcode happens to be default then simply dispatch default febric
         // User does not need to select any febric in that case
+        if(childCode === EAccentButtonColor.Default) {
+            dispatch(updateAccent({key: EAccent.ButtonColors, payload: defaultButtonColor}));
+        }
+
         if(childCode === EAccentChildrens.Default) {
             dispatch(updateAccent({key: EAccent.ButtonWholeStitch, payload: defaultContrastButtonThread as any})); 
         }
@@ -105,12 +109,15 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
 
     const onColorClickHandler = (val:any) => {
         const {code} = val;
+
+        
+
         if(code === EAccentChildrens.All) {
             dispatch(updateAccent({key: EAccent.ButtonWholeStitch, payload: val}));
         }
 
         if(code === EAccentButtonColor.All) {
-            console.log('Update the febric for the button')
+            dispatch(updateAccent({key: EAccent.ButtonColors, payload: val}));
         }
        
     }
@@ -141,8 +148,6 @@ export default function ProductStyles({ label, childrens, code, setShowAccentFeb
                     showColorPlateOne={showColorPlateOne}
                     ref={ref}
                     onColorClickHandler={onColorClickHandler}
-
-
                     
 
                 />)}

@@ -6,10 +6,6 @@ import Image from "next/image";
 import { ItemInterface } from "interface/IProductStyle.interface";
 import { buttonThreadBaseURI } from "config/default";
 
-
-
-
-
 export interface ThreadColor {
     id: string; // MongoDB document ID
     title: string; // Color name
