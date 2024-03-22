@@ -113,7 +113,7 @@ const Shirt3DModel = ({
         <AddModelToScene name='collar' modelURI={collar}/>
       </AddTextureToModel>
 
-      {/* <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName ?? []} fullBody={cuffAccent?.meshName?.length === 0} modelType={EModel.Cuff}>
+       <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName ?? []} fullBody={cuffAccent?.meshName?.length === 0} modelType={EModel.Cuff}>
         <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
       </AddTextureToModel>
 
@@ -130,10 +130,11 @@ const Shirt3DModel = ({
       
       
      
-
       {chestPocket && <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Pocket}>
         <AddModelToScene name='pocket' modelURI={modelsURL.pocket} />
-      </AddTextureToModel>}   */}
+      </AddTextureToModel>}   
+      
+
  {/* <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} /> */}
 
       

@@ -8,9 +8,8 @@ export const modelsURL = {
   // shirt: '/models/shirt/Metres.glb',
   shirt: '/models/shirt/shirt-v3-darco.glb',
   buttonsWholes: '/models/shirt/buttons-wholes.glb',
-  buttons: '/models/button/buttons.glb',
-  singleCuffOneButton: '/models/cuffs/buttons/single-cuff-1-button.glb',
-  button2DWhole:'/models/shirt/button-whole.png', 
+  buttons: '/models/button/buttons-draco.glb',
+  singleCuffOneButton: '/models/cuffs/buttons/single-cuff-1-button.glb', 
   pocket: '/models/shirt/pocket.glb',
   
 };
@@ -105,7 +104,7 @@ export const productStyles = [
         label: 'single 1 button',
         code: 'single_cuff',
         mediaUrl: '/icon/cuff/french.svg',
-        modelURL: `/models/cuffs/cuff-1.glb`,
+        modelURL: `/models/cuffs/cuff-1-draco.glb`,
         iconClass: 'icon-68'
       },
       {
@@ -113,7 +112,7 @@ export const productStyles = [
         label: 'double 2 buttons',
         code: '2_buttons',
         mediaUrl: '/icon/cuff/one-button.svg',
-        modelURL: `/models/cuffs/cuff-1.glb`,
+        modelURL: `/models/cuffs/cuff-1-draco.glb`,
         iconClass: 'icon-69'
       },
       {
@@ -121,7 +120,7 @@ export const productStyles = [
         label: 'two button cut',
         code: 'two_button_cut',
         mediaUrl: '/icon/cuff/three-button.svg',
-        modelURL: `/models/cuffs/cuff-1.glb`,
+        modelURL: `/models/cuffs/cuff-1-draco.glb`,
         iconClass: 'icon-76'
       },
       {
@@ -129,7 +128,7 @@ export const productStyles = [
         label: 'rounded 1 button',
         code: 'rounded_1_button',
         mediaUrl: '/icon/cuff/three-button.svg',
-        modelURL: `/models/cuffs/cuff-1.glb`,
+        modelURL: `/models/cuffs/cuff-1-draco.glb`,
         iconClass: 'icon-77'
       }, 
       {
@@ -137,7 +136,7 @@ export const productStyles = [
         label: 'double squared',
         code: 'double_squared',
         mediaUrl: '/icon/cuff/three-button.svg',
-        modelURL: `/models/cuffs/cuff-1.glb`,
+        modelURL: `/models/cuffs/cuff-1-draco.glb`,
         iconClass: 'icon-78'
       }
     ],
