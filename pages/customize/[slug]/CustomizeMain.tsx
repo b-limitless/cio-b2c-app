@@ -30,7 +30,7 @@ import { tSnapShotUploadingStates } from 'interface/ICart.interface';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import AccentFebricModel from 'pages/customize/Febric/AccentFebricModel';
+// import AccentFebricModel from 'pages/customize/Febric/AccentFebricModel';
 import React, { Suspense, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
@@ -38,11 +38,10 @@ import { TCheckIfItemIsSameToUpdateCart } from 'slices/cartSlice';
 import { TFebric, updateFebric } from 'slices/febricSlice';
 import { RootState } from 'store';
 import { selectionProcess } from '../../../types/enums';
-import Filter from '../Febric/Filter';
+// import Filter from '../Febric/Filter';
 
-import Accents from '../Select/Accents';
 
-import Styles from '../Select/Styles';
+
 import styles from '../customize.module.scss';
 import CaptureModelScreenShot from './CaptureModelScreenShot';
 import { EFebricFilter, updaeFebricsPage, updatFebricFilter } from 'slices/febricsSlice';
@@ -54,6 +53,13 @@ import Loader from 'components/Loader';
 const FebricDetails = React.lazy(() => import('../FebricDetails'));
 const Febrics = React.lazy(() => import('../Select/Febrics'));
 const Shirt3DModel = React.lazy(() => import('pages/customize/3DModel/Shirt'));
+const AccentFebricModel = React.lazy(() => import('pages/customize/Febric/AccentFebricModel'));
+const Filter = React.lazy(() => import('../Febric/Filter'));
+const Styles = React.lazy(() => import('../Select/Styles'));
+const Accents = React.lazy(() => import('../Select/Accents'));
+// import Accents from '../Select/Accents';
+
+// import Styles =  from '../Select/Styles';
 
 // Lets lanzy load this
 // FebricDetails, Febrics, Shirt3DModel
@@ -247,18 +253,23 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                 }
             </Suspense>
 
+            <Suspense fallback={<Loader />}>
+                <Filter
+                    setShowFilterModel={setShowFilterModel}
+                    showFilterModel={showFilterModel}
+                    updateFebricFiltersHandler={updateFebricFiltersHandler}
+                />
 
-            <Filter
-                setShowFilterModel={setShowFilterModel}
-                showFilterModel={showFilterModel}
-                updateFebricFiltersHandler={updateFebricFiltersHandler}
-            />
+            </Suspense>
 
-            <AccentFebricModel
-                setShowFilterModel={setShowAccentFebricModel}
-                showFilterModel={showAccentFebricModel}
-                onClickHandler={updateAccentHandler}
-            />
+            <Suspense fallback={<Loader />}>
+                <AccentFebricModel
+                    setShowFilterModel={setShowAccentFebricModel}
+                    showFilterModel={showAccentFebricModel}
+                    onClickHandler={updateAccentHandler}
+                />
+            </Suspense>
+
 
             <div className={styles.container}>
                 <Header
@@ -285,17 +296,24 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                         }
 
                         {designJourney === selectionProcess.styles &&
-                            <Styles
-                                collarAccent={collarAccent}
-                                cuffAccent={cuffAccent}
+                            <Suspense fallback={<Loader />}>
+                                <Styles
+                                    collarAccent={collarAccent}
+                                    cuffAccent={cuffAccent}
 
-                            />}
+                                />
+                            </Suspense>
+                        }
 
-                        {designJourney === selectionProcess.accents && <Accents
-                            setShowAccentFebricModel={setShowAccentFebricModel}
-                            showAccentFebricModel={showAccentFebricModel}
-                            setActiveAccent={setActiveAccent}
-                        />}
+                        {designJourney === selectionProcess.accents &&
+                            <Suspense fallback={<Loader />}>
+                                <Accents
+                                    setShowAccentFebricModel={setShowAccentFebricModel}
+                                    showAccentFebricModel={showAccentFebricModel}
+                                    setActiveAccent={setActiveAccent}
+                                />
+                            </Suspense>
+                        }
 
                     </div>
                     <div className={styles.model}>
