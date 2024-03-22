@@ -1,10 +1,10 @@
 
 'use client';
 
-if(process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 }
- 
+
 
 
 /**
@@ -29,9 +29,9 @@ import useFetchFebrics from 'hooks/useFetchFebric';
 import { tSnapShotUploadingStates } from 'interface/ICart.interface';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Shirt3DModel from 'pages/customize/3DModel/Shirt';
+
 import AccentFebricModel from 'pages/customize/Febric/AccentFebricModel';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { Suspense, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
 import { TCheckIfItemIsSameToUpdateCart } from 'slices/cartSlice';
@@ -39,16 +39,24 @@ import { TFebric, updateFebric } from 'slices/febricSlice';
 import { RootState } from 'store';
 import { selectionProcess } from '../../../types/enums';
 import Filter from '../Febric/Filter';
-import FebricDetails from '../FebricDetails';
+
 import Accents from '../Select/Accents';
-import Febrics from '../Select/Febrics';
+
 import Styles from '../Select/Styles';
 import styles from '../customize.module.scss';
 import CaptureModelScreenShot from './CaptureModelScreenShot';
 import { EFebricFilter, updaeFebricsPage, updatFebricFilter } from 'slices/febricsSlice';
 import { isScrolledToBottom } from 'functions/scrollToBottom';
 import { ERoute } from 'config/route';
-import { styleOne } from '../styles';
+import { styleOne } from '../../../styles/styles';
+import Loader from 'components/Loader';
+
+const FebricDetails = React.lazy(() => import('../FebricDetails'));
+const Febrics = React.lazy(() => import('../Select/Febrics'));
+const Shirt3DModel = React.lazy(() => import('pages/customize/3DModel/Shirt'));
+
+// Lets lanzy load this
+// FebricDetails, Febrics, Shirt3DModel
 
 interface ICustomizeMain {
     userId: string | string[]
@@ -63,7 +71,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
 
     const model = useSelector((state: RootState) => state.model);
     const { collar, cuff, chestpocket } = model;
-    const {id: chestPocket} = chestpocket;
+    const { id: chestPocket } = chestpocket;
     const febric = useSelector((state: RootState) => state.febric);
     const accent = useSelector((state: RootState) => state.accent);
     const febrics = useSelector((state: RootState) => state.febrics);
@@ -71,13 +79,13 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
     const { modelType } = useSelector((state: RootState) => state.modelType);
     const { index } = useSelector((state: RootState) => state.cartIndexToupdate);
     const cart = useSelector((state: RootState) => state.cart);
-    
+
 
     const {
-           buttonColors:{texture:buttonsColorTexture}, 
-           collar: collarAccent, 
-           buttonWholeAndStitch:{febric : buttonWholesFebric} 
-        } = accent;
+        buttonColors: { texture: buttonsColorTexture },
+        collar: collarAccent,
+        buttonWholeAndStitch: { febric: buttonWholesFebric }
+    } = accent;
     const { cuff: cuffAccent } = accent;
     const [takeScreenShot, setTakeScreenShot] = useState<tSnapShotUploadingStates>(tSnapShotUploadingStates.Ideal);
 
@@ -226,16 +234,19 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                     'default';
     }, [designJourney]);
 
-   
+
 
     return (
         <>
-            {showFebricDetailsModel > -1 && <FebricDetails
-                setShowFebricDetailsModel={setShowFebricDetailsModel}
-                showFebricDetailsModel={showFebricDetailsModel}
-                febric={showFebricDetailsModel > -1 ? febrics.data.febrics[showFebricDetailsModel] : null}
-            />
-            }
+            <Suspense fallback={<Loader />}>
+                {showFebricDetailsModel > -1 && <FebricDetails
+                    setShowFebricDetailsModel={setShowFebricDetailsModel}
+                    showFebricDetailsModel={showFebricDetailsModel}
+                    febric={showFebricDetailsModel > -1 ? febrics.data.febrics[showFebricDetailsModel] : null}
+                />
+                }
+            </Suspense>
+
 
             <Filter
                 setShowFilterModel={setShowFilterModel}
@@ -261,13 +272,17 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                     <div className={styles.filter}>
                         <div className={styles.title}>Select {designJourney}</div>
 
+
                         {designJourney === selectionProcess.febrics &&
-                            <Febrics
-                                setShowFilterModel={setShowFilterModel}
-                                setShowFebricDetailsModel={setShowFebricDetailsModel}
-                                onClickHandler={updateFebricHandler}
-                                febrics={febrics}
-                            />}
+                            <Suspense fallback={<Loader />}>
+                                <Febrics
+                                    setShowFilterModel={setShowFilterModel}
+                                    setShowFebricDetailsModel={setShowFebricDetailsModel}
+                                    onClickHandler={updateFebricHandler}
+                                    febrics={febrics}
+                                />
+                            </Suspense>
+                        }
 
                         {designJourney === selectionProcess.styles &&
                             <Styles
@@ -284,42 +299,44 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
 
                     </div>
                     <div className={styles.model}>
-                        <Canvas>
-                            <Shirt3DModel
-                                collar={collar?.modelURL ?? defaultCollarModel}
-                                cuff={cuff}
-                                febricURI={originalImageUrl ?? defaultFebric}
-                                collarAccent={collarAccent}
-                                cuffAccent={cuffAccent}
-                                chestPocket={!!chestPocket}
-                                buttonWholesFebric={buttonWholesFebric}
-                                buttonsColorTexture={buttonsColorTexture ?? ''}
-                            />
+                        <Suspense fallback={<Loader />}>
+                            <Canvas>
+                                <Shirt3DModel
+                                    collar={collar?.modelURL ?? defaultCollarModel}
+                                    cuff={cuff}
+                                    febricURI={originalImageUrl ?? defaultFebric}
+                                    collarAccent={collarAccent}
+                                    cuffAccent={cuffAccent}
+                                    chestPocket={!!chestPocket}
+                                    buttonWholesFebric={buttonWholesFebric}
+                                    buttonsColorTexture={buttonsColorTexture ?? ''}
+                                />
 
-                            <CaptureModelScreenShot
-                                dispatch={dispatch}
-                                takeScreenShot={takeScreenShot}
-                                setTakeScreenShot={setTakeScreenShot}
-                                index={index}
-                                cartData={
-                                    {
-                                        model,
-                                        accent,
-                                        modelType,
-                                        subTotal: computePrice,
-                                        qty: 1,
-                                        discount: 0,
-                                        availability: '',
-                                        id: cart.length + 1,
-                                        deliveryTime: '3 weeks',
-                                        febric,
+                                <CaptureModelScreenShot
+                                    dispatch={dispatch}
+                                    takeScreenShot={takeScreenShot}
+                                    setTakeScreenShot={setTakeScreenShot}
+                                    index={index}
+                                    cartData={
+                                        {
+                                            model,
+                                            accent,
+                                            modelType,
+                                            subTotal: computePrice,
+                                            qty: 1,
+                                            discount: 0,
+                                            availability: '',
+                                            id: cart.length + 1,
+                                            deliveryTime: '3 weeks',
+                                            febric,
 
+                                        }
                                     }
-                                }
-                                cart={cart}
+                                    cart={cart}
 
-                            />
-                        </Canvas>
+                                />
+                            </Canvas>
+                        </Suspense>
 
                     </div>
                     <div className={styles.infomration}>

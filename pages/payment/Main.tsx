@@ -15,8 +15,8 @@ import { updatePaymentType } from "slices/paymentSlice";
 import { updateShippingToInitialState } from "slices/shippingSlice";
 import { OrderProcess } from "types/enums";
 import { request } from "utils/request";
-import { onApprove } from "./on-approve";
-import { createOrder } from "./create-order";
+import { onApprove } from "../../apis/on-approve";
+import { createOrder } from "../../apis/create-order";
 
 // This value is from the props in the UI
 const style: any = { "layout": "vertical" };
