@@ -34,12 +34,12 @@ interface BaseModel {
 
 export enum EModel {
   Shirt = 'shirt',
-  Pocket = 'pocket', 
-  Cuff='cuff',
-  Collar='collar', 
-  ThreadWholes='threadWholes', 
-  Buttons='buttons'
-  
+  Pocket = 'pocket',
+  Cuff = 'cuff',
+  Collar = 'collar',
+  ThreadWholes = 'threadWholes',
+  Buttons = 'buttons'
+
 }
 
 interface ShirtModelInterface extends BaseModel {
@@ -48,8 +48,8 @@ interface ShirtModelInterface extends BaseModel {
   cuffAccent: TBase;
   cuff: RowType;
   chestPocket: boolean
-  buttonWholesFebric:string;
-  buttonsColorTexture:string;
+  buttonWholesFebric: string;
+  buttonsColorTexture: string;
 }
 
 interface AddTextureModel {
@@ -72,14 +72,14 @@ interface IAddModelToScene {
 
 
 const Shirt3DModel = ({
-     buttonsColorTexture, 
-     buttonWholesFebric, 
-     collar, 
-     cuff, 
-     febricURI, 
-     collarAccent, 
-     cuffAccent, 
-     chestPocket }: ShirtModelInterface) => {
+  buttonsColorTexture,
+  buttonWholesFebric,
+  collar,
+  cuff,
+  febricURI,
+  collarAccent,
+  cuffAccent,
+  chestPocket }: ShirtModelInterface) => {
 
 
   return (
@@ -110,38 +110,38 @@ const Shirt3DModel = ({
         autoRotateSpeed={0.2}
       />
       <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName ?? []} fullBody={collarAccent?.meshName?.length === 0} modelType={EModel.Collar}>
-        <AddModelToScene name='collar' modelURI={collar}/>
+        <AddModelToScene name='collar' modelURI={collar} />
       </AddTextureToModel>
 
-       <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName ?? []} fullBody={cuffAccent?.meshName?.length === 0} modelType={EModel.Cuff}>
+      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName ?? []} fullBody={cuffAccent?.meshName?.length === 0} modelType={EModel.Cuff}>
         <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
       </AddTextureToModel>
 
-      
+
 
       <AddTextureToModel textureURL={buttonsColorTexture} meshName={[]} fullBody={true} modelType={EModel.Buttons}>
         <AddModelToScene name='buttons' modelURI={modelsURL.buttons} />
       </AddTextureToModel>
 
-      
-      <AddTextureToModel textureURL={buttonWholesFebric} meshName={[]} modelType= {EModel.ThreadWholes} fullBody>
+
+      <AddTextureToModel textureURL={buttonWholesFebric} meshName={[]} modelType={EModel.ThreadWholes} fullBody>
         <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} />
       </AddTextureToModel>
-      
-      
-     
+
+
+
       {chestPocket && <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Pocket}>
         <AddModelToScene name='pocket' modelURI={modelsURL.pocket} />
-      </AddTextureToModel>}   
-      
+      </AddTextureToModel>}
 
- {/* <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} /> */}
 
-      
-        
-        
-        <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Shirt}>
-<Model />
+      {/* <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} /> */}
+
+
+
+
+      <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Shirt}>
+        <Model />
       </AddTextureToModel>
 
 
@@ -192,8 +192,8 @@ const AddModelToScene = ({ name, modelURI }: IAddModelToScene) => {
 
 
   const { scene } = useLoader(GLTFLoader, modelURI, (loader) => {
-      loader.setDRACOLoader(dracoLoader); // Set the DRACOLoader instance for the GLTFLoader
-    })
+    loader.setDRACOLoader(dracoLoader); // Set the DRACOLoader instance for the GLTFLoader
+  })
 
   // const { scene } = useLoader(GLTFLoader, modelURI);
 
@@ -220,13 +220,13 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType
 
   const modelRef = useRef<Group<Object3DEventMap>>(null);
 
-  const getTexture = modelType === EModel.Shirt ? 'timestamp=1' 
-                     : modelType === EModel.Pocket ? 'timestamp=2'
-                     : modelType === EModel.Cuff ? 'timestamp=3'
-                     : modelType === EModel.Collar ? 'timestamp=4'
-                     : modelType === EModel.ThreadWholes ? 'timestamp=5'
-                     
-                     :'timestamp=3'
+  const getTexture = modelType === EModel.Shirt ? 'timestamp=1'
+    : modelType === EModel.Pocket ? 'timestamp=2'
+      : modelType === EModel.Cuff ? 'timestamp=3'
+        : modelType === EModel.Collar ? 'timestamp=4'
+          : modelType === EModel.ThreadWholes ? 'timestamp=5'
+
+            : 'timestamp=3'
 
   // Load texture using userLoader 
   const texture = useLoader(TextureLoader, `${textureURL}?${getTexture}`);
@@ -239,29 +239,29 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType
   // Realistic experiences for the model
   // Write code in this way [EModel.Cuff, EModel.Collar, EModel.Shirt].includes(modelType)
 
-  if(modelType === EModel.Cuff) {
+  if (modelType === EModel.Cuff) {
     texture.repeat.set(4, 4);
   }
-  
+
 
   if (modelType === EModel.Pocket) {
     texture.repeat.set(2, 2);
 
   }
 
-  if(modelType === EModel.Collar) {
+  if (modelType === EModel.Collar) {
     texture.repeat.set(4, 4)
   }
- 
+
   if (modelType === EModel.Shirt) {
     texture.repeat.set(4, 4);
 
-  } 
-  if(modelType === EModel.ThreadWholes) {
+  }
+  if (modelType === EModel.ThreadWholes) {
     texture.repeat.set(1, 1);
   }
 
-  if(modelType === EModel.Buttons) {
+  if (modelType === EModel.Buttons) {
     texture.repeat.set(1, 1);
   }
 
