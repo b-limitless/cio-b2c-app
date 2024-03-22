@@ -168,10 +168,7 @@ const Model = () => {
   const dracoLoader = new DRACOLoader(); // Create a DRACOLoader instance
   dracoLoader.setDecoderConfig({ type: 'js' });
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/'); // Set the path to the Draco decoder
-
-  // const gltfLoader = new GLTFLoader(); // Create a GLTFLoader instance
-  // gltfLoader.setDRACOLoader(dracoLoader); // Set the DRACOLoader instance for the GLTFLoader
-
+  
   const { scene } = useLoader(GLTFLoader, modelsURL.shirt, (loader) => {
     loader.setDRACOLoader(dracoLoader); // Set the DRACOLoader instance for the GLTFLoader
   });
