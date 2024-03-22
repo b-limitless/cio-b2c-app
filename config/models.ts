@@ -67,7 +67,7 @@ export const productStyles = [
         label: 'cutway',
         code: 'cutway',
         mediaUrl: '/icon/collars/cutway.svg',
-        modelURL: `/models/collars/collar-1.glb`,
+        modelURL: `/models/collars/collar-1-draco.glb`,
         iconClass: 'icon-62'
       },
       {

@@ -109,11 +109,11 @@ const Shirt3DModel = ({
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
-      {/* <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName ?? []} fullBody={collarAccent?.meshName?.length === 0} modelType={EModel.Collar}>
+      <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName ?? []} fullBody={collarAccent?.meshName?.length === 0} modelType={EModel.Collar}>
         <AddModelToScene name='collar' modelURI={collar}/>
       </AddTextureToModel>
 
-      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName ?? []} fullBody={cuffAccent?.meshName?.length === 0} modelType={EModel.Cuff}>
+      {/* <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName ?? []} fullBody={cuffAccent?.meshName?.length === 0} modelType={EModel.Cuff}>
         <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
       </AddTextureToModel>
 
@@ -133,7 +133,7 @@ const Shirt3DModel = ({
 
       {chestPocket && <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Pocket}>
         <AddModelToScene name='pocket' modelURI={modelsURL.pocket} />
-      </AddTextureToModel>}  */}
+      </AddTextureToModel>}   */}
  {/* <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} /> */}
 
       
@@ -168,7 +168,7 @@ const Model = () => {
   const dracoLoader = new DRACOLoader(); // Create a DRACOLoader instance
   dracoLoader.setDecoderConfig({ type: 'js' });
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/'); // Set the path to the Draco decoder
-  
+
   const { scene } = useLoader(GLTFLoader, modelsURL.shirt, (loader) => {
     loader.setDRACOLoader(dracoLoader); // Set the DRACOLoader instance for the GLTFLoader
   });
@@ -185,7 +185,16 @@ const Model = () => {
 
 const AddModelToScene = ({ name, modelURI }: IAddModelToScene) => {
 
-  const { scene } = useLoader(GLTFLoader, modelURI);
+  const dracoLoader = new DRACOLoader(); // Create a DRACOLoader instance
+  dracoLoader.setDecoderConfig({ type: 'js' });
+  dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/'); // Set the path to the Draco decoder
+
+
+  const { scene } = useLoader(GLTFLoader, modelURI, (loader) => {
+      loader.setDRACOLoader(dracoLoader); // Set the DRACOLoader instance for the GLTFLoader
+    })
+
+  // const { scene } = useLoader(GLTFLoader, modelURI);
 
 
   const existingCollar = scene.getObjectByName(name);
