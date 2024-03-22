@@ -52,11 +52,12 @@ import Loader from 'components/Loader';
 
 const FebricDetails = React.lazy(() => import('../FebricDetails'));
 const Febrics = React.lazy(() => import('../Select/Febrics'));
-const Shirt3DModel = React.lazy(() => import('pages/customize/3DModel/Shirt'));
+// const Shirt3DModel = React.lazy(() => import('pages/customize/3DModel/Shirt'));
 const AccentFebricModel = React.lazy(() => import('pages/customize/Febric/AccentFebricModel'));
 const Filter = React.lazy(() => import('../Febric/Filter'));
 const Styles = React.lazy(() => import('../Select/Styles'));
 const Accents = React.lazy(() => import('../Select/Accents'));
+import Shirt3DModel from 'pages/customize/3DModel/Shirt';
 // import Accents from '../Select/Accents';
 
 // import Styles =  from '../Select/Styles';
@@ -317,7 +318,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
 
                     </div>
                     <div className={styles.model}>
-                        <Suspense fallback={<Loader />}>
+                        {/* <Suspense fallback={<Loader />}></Suspense> */}
                             <Canvas>
                                 <Shirt3DModel
                                     collar={collar?.modelURL ?? defaultCollarModel}
@@ -354,7 +355,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
 
                                 />
                             </Canvas>
-                        </Suspense>
+                        
 
                     </div>
                     <div className={styles.infomration}>

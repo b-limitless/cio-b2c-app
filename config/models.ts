@@ -6,7 +6,7 @@ export const modelsURL = {
   // shirt: '/models/shirt/shirt-without-collar-and-cuff.glb',
   // shirt: '/models/shirt/MainGLBNew.glb',
   // shirt: '/models/shirt/Metres.glb',
-  shirt: '/models/shirt/shirt-v3.glb',
+  shirt: '/models/shirt/shirt-v3-darco.glb',
   buttonsWholes: '/models/shirt/buttons-wholes.glb',
   buttons: '/models/button/buttons.glb',
   singleCuffOneButton: '/models/cuffs/buttons/single-cuff-1-button.glb',

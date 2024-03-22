@@ -19,7 +19,9 @@ import { TBase } from 'slices/accentSlice';
 import { RowType } from 'slices/modelSlice';
 import * as THREE from 'three';
 import { Group, MeshPhongMaterial, Object3DEventMap, TextureLoader } from 'three';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+
 
 
 
@@ -107,7 +109,7 @@ const Shirt3DModel = ({
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
-      <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName ?? []} fullBody={collarAccent?.meshName?.length === 0} modelType={EModel.Collar}>
+      {/* <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName ?? []} fullBody={collarAccent?.meshName?.length === 0} modelType={EModel.Collar}>
         <AddModelToScene name='collar' modelURI={collar}/>
       </AddTextureToModel>
 
@@ -127,15 +129,18 @@ const Shirt3DModel = ({
       </AddTextureToModel>
       
       
-      {/* <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} /> */}
+     
 
       {chestPocket && <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Pocket}>
         <AddModelToScene name='pocket' modelURI={modelsURL.pocket} />
-      </AddTextureToModel>} 
+      </AddTextureToModel>}  */}
+ {/* <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} /> */}
 
-
-      <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Shirt}>
-        <Model />
+      
+        
+        
+        <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Shirt}>
+<Model />
       </AddTextureToModel>
 
 
@@ -146,15 +151,36 @@ const Shirt3DModel = ({
 };
 
 
-const Model = () => {
+// const Model = () => {
 
-  const { scene } = useLoader(GLTFLoader, modelsURL.shirt);
+//   const { scene } = useLoader(GLTFLoader, modelsURL.shirt);
+
+//   scene.scale.set(modelScale, modelScale, modelScale);
+//   // Optionally adjust position or scale here
+//   scene.position.y = modelYPostion;
+//   scene.position.x = 0;
+//   scene.name = 'shirt-model-without-collar'
+
+//   return <primitive object={scene} />;
+// };
+
+const Model = () => {
+  const dracoLoader = new DRACOLoader(); // Create a DRACOLoader instance
+  dracoLoader.setDecoderConfig({ type: 'js' });
+  dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/'); // Set the path to the Draco decoder
+
+  // const gltfLoader = new GLTFLoader(); // Create a GLTFLoader instance
+  // gltfLoader.setDRACOLoader(dracoLoader); // Set the DRACOLoader instance for the GLTFLoader
+
+  const { scene } = useLoader(GLTFLoader, modelsURL.shirt, (loader) => {
+    loader.setDRACOLoader(dracoLoader); // Set the DRACOLoader instance for the GLTFLoader
+  });
 
   scene.scale.set(modelScale, modelScale, modelScale);
   // Optionally adjust position or scale here
   scene.position.y = modelYPostion;
   scene.position.x = 0;
-  scene.name = 'shirt-model-without-collar'
+  scene.name = 'shirt-model-without-collar';
 
   return <primitive object={scene} />;
 };
