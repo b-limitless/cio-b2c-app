@@ -51,6 +51,7 @@ interface ShirtModelInterface extends BaseModel {
   chestPocket: boolean
   buttonWholesFebric: string;
   buttonsColorTexture: string;
+  frontPacketTexture:string;
 }
 
 interface AddTextureModel {
@@ -80,7 +81,9 @@ const Shirt3DModel = ({
   febricURI,
   collarAccent,
   cuffAccent,
-  chestPocket }: ShirtModelInterface) => {
+  chestPocket,
+  frontPacketTexture
+ }: ShirtModelInterface) => {
 
 
   return (
@@ -129,7 +132,7 @@ const Shirt3DModel = ({
         <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} />
       </AddTextureToModel>
 
-      <AddTextureToModel textureURL={febricURI} meshName={[]} modelType={EModel.FrontPlacket} fullBody>
+      <AddTextureToModel textureURL={frontPacketTexture} meshName={[]} modelType={EModel.FrontPlacket} fullBody>
         <AddModelToScene name='frontPlacket' modelURI={modelsURL.frontPlacket} />
       </AddTextureToModel>
 

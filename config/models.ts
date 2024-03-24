@@ -25,7 +25,8 @@ export enum EAccent {
   ButtonWholeStitch='buttonWholeAndStitch', 
   Collar='collar',
   Cuff='cuff', 
-  ButtonColors='buttonColors'
+  ButtonColors='buttonColors', 
+  FrontPlacket='frontPlacket'
 }
 
 
@@ -39,6 +40,11 @@ export enum EAccentButtonColor {
   Default='ButtonColorDefault',
   All='ButtonColorAll',
   CuffOnly='ButtonColorCuffOnly'
+}
+
+export enum EAccentFrontPacket {
+  Default='defaultFrontPacket',
+  All='allFrontPacket',
 }
 
 export const productStyles = [
@@ -294,7 +300,34 @@ export const accentsStyles = [
         iconClass: 'icon-21'
       },
     ]
-  }
+  }, 
+  {
+    label: 'Front Packet',
+    code: EAccent.FrontPlacket, 
+    childrens: [
+      {
+        id: 1,
+        label: 'default',
+        code: EAccentFrontPacket.Default,
+        mediaUrl: '/icon/collars/button-down.svg',
+        type: EAccentFrontPacket.Default,
+        meshName: [],
+        price: defaultPrices.collar,
+        iconClass: 'icon-52'
+      }, 
+      {
+        id: 2,
+        label: 'All',
+        code: EAccentFrontPacket.All,
+        mediaUrl: '/icon/collars/button-down.svg',
+        type: EAccentFrontPacket.All,
+        meshName: [],
+        price: defaultPrices.collar,
+        iconClass: 'icon-58'
+      },
+    ]
+  },
+  
 ];
 
 export const accentFebrics:any = [

@@ -81,6 +81,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
     const { id: chestPocket } = chestpocket;
     const febric = useSelector((state: RootState) => state.febric);
     const accent = useSelector((state: RootState) => state.accent);
+
     const febrics = useSelector((state: RootState) => state.febrics);
     const { data: { filters, page, limit, affectedRows }, loading } = febrics;
     const { modelType } = useSelector((state: RootState) => state.modelType);
@@ -91,7 +92,8 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
     const {
         buttonColors: { texture: buttonsColorTexture },
         collar: collarAccent,
-        buttonWholeAndStitch: { febric: buttonWholesFebric }
+        buttonWholeAndStitch: { febric: buttonWholesFebric }, 
+        frontPlacket: {febric: frontPacketTexture}
     } = accent;
     const { cuff: cuffAccent } = accent;
     const [takeScreenShot, setTakeScreenShot] = useState<tSnapShotUploadingStates>(tSnapShotUploadingStates.Ideal);
@@ -329,6 +331,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                                     chestPocket={!!chestPocket}
                                     buttonWholesFebric={buttonWholesFebric}
                                     buttonsColorTexture={buttonsColorTexture ?? ''}
+                                    frontPacketTexture={frontPacketTexture}
                                 />
 
                                 <CaptureModelScreenShot

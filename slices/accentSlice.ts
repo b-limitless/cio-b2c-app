@@ -27,6 +27,7 @@ export interface IAccentGlobal {
   cuff: TBase;
   buttonWholeAndStitch: TBase;
   buttonColors: TBase;
+  frontPlacket: TBase
 }
 
 export const accentProperties: IAccentGlobal = {
@@ -55,6 +56,13 @@ export const accentProperties: IAccentGlobal = {
     price: defaultPrices.cuff,
   },
   buttonColors: {
+    id: '2',
+    title: 'Black',
+    texture: `/img/buttons/texture/black.png`,
+    price: 0,
+    febric: `/img/buttons/icon/black.png`,
+  },
+  frontPlacket: {
     id: '2',
     title: 'Black',
     texture: `/img/buttons/texture/black.png`,
@@ -110,6 +118,12 @@ const initialState: TAccent = {
     texture: `/img/buttons/texture/black.png`,
     price: 0,
     febric: `/img/buttons/icon/black.png`,
+  },
+  frontPlacket: {
+    id: '2',
+    title: 'Black',
+    price: 0,
+    febric: defaultFebric,
   },
 };
 
