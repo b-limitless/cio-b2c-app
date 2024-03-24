@@ -11,6 +11,7 @@ export const modelsURL = {
   buttons: '/models/button/buttons-draco.glb',
   singleCuffOneButton: '/models/cuffs/buttons/single-cuff-1-button.glb', 
   pocket: '/models/shirt/pocket.glb',
+  frontPlacket: '/models/shirt/front-placket.glb',
   
 };
 

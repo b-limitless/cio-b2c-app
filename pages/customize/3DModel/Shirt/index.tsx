@@ -38,7 +38,8 @@ export enum EModel {
   Cuff = 'cuff',
   Collar = 'collar',
   ThreadWholes = 'threadWholes',
-  Buttons = 'buttons'
+  Buttons = 'buttons', 
+  FrontPlacket='frontPlacket'
 
 }
 
@@ -126,6 +127,10 @@ const Shirt3DModel = ({
 
       <AddTextureToModel textureURL={buttonWholesFebric} meshName={[]} modelType={EModel.ThreadWholes} fullBody>
         <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} />
+      </AddTextureToModel>
+
+      <AddTextureToModel textureURL={febricURI} meshName={[]} modelType={EModel.FrontPlacket} fullBody>
+        <AddModelToScene name='frontPlacket' modelURI={modelsURL.frontPlacket} />
       </AddTextureToModel>
 
 
@@ -250,6 +255,10 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType
   }
 
   if (modelType === EModel.Collar) {
+    texture.repeat.set(4, 4)
+  }
+
+  if (modelType === EModel.FrontPlacket) {
     texture.repeat.set(4, 4)
   }
 
