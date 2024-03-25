@@ -123,7 +123,7 @@ const initialState: TAccent = {
     id: '2',
     title: 'Black',
     price: 0,
-    febric: defaultFebric,
+    febric: '',
   },
 };
 
