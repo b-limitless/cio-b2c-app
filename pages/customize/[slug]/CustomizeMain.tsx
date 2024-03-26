@@ -37,7 +37,7 @@ import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSl
 import { TCheckIfItemIsSameToUpdateCart } from 'slices/cartSlice';
 import { TFebric, updateFebric } from 'slices/febricSlice';
 import { RootState } from 'store';
-import { selectionProcess } from '../../../types/enums';
+import { selectionProcess } from 'types/enums';
 // import Filter from '../Febric/Filter';
 
 
@@ -47,23 +47,17 @@ import CaptureModelScreenShot from './CaptureModelScreenShot';
 import { EFebricFilter, updaeFebricsPage, updatFebricFilter } from 'slices/febricsSlice';
 import { isScrolledToBottom } from 'functions/scrollToBottom';
 import { ERoute } from 'config/route';
-import { styleOne } from '../../../styles/styles';
+import { styleOne } from 'styles/styles';
 import Loader from 'components/Loader';
+
 
 const FebricDetails = React.lazy(() => import('../FebricDetails'));
 const Febrics = React.lazy(() => import('../Select/Febrics'));
-// const Shirt3DModel = React.lazy(() => import('pages/customize/3DModel/Shirt'));
 const AccentFebricModel = React.lazy(() => import('pages/customize/Febric/AccentFebricModel'));
 const Filter = React.lazy(() => import('../Febric/Filter'));
 const Styles = React.lazy(() => import('../Select/Styles'));
 const Accents = React.lazy(() => import('../Select/Accents'));
 import Shirt3DModel from 'pages/customize/3DModel/Shirt';
-// import Accents from '../Select/Accents';
-
-// import Styles =  from '../Select/Styles';
-
-// Lets lanzy load this
-// FebricDetails, Febrics, Shirt3DModel
 
 interface ICustomizeMain {
     userId: string | string[]

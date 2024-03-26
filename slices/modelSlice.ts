@@ -88,7 +88,7 @@ export type IModelAction = Record<ModelKeys, RowType>;
 const initialState: IModelAction = {
   collar: {
     id: 12,
-    modelURL: `/models/collars/collar-button-down.glb?timestamp=${Date.now()}`,
+    modelURL: `/models/collars/collar-1-draco.glb?timestamp=${Date.now()}`,
     price: 0,
     title: 'Default collar model',
     label: 'default',

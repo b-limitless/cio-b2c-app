@@ -11,7 +11,6 @@
 'use client';
 import { OrbitControls } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
-import { colors } from 'config/colors';
 import { defaultCollarModel, defaultCuffModel } from 'config/default';
 import { modelsURL } from 'config/models';
 import dynamic from 'next/dynamic';
@@ -175,18 +174,6 @@ const Shirt3DModel = ({
 };
 
 
-// const Model = () => {
-
-//   const { scene } = useLoader(GLTFLoader, modelsURL.shirt);
-
-//   scene.scale.set(modelScale, modelScale, modelScale);
-//   // Optionally adjust position or scale here
-//   scene.position.y = modelYPostion;
-//   scene.position.x = 0;
-//   scene.name = 'shirt-model-without-collar'
-
-//   return <primitive object={scene} />;
-// };
 
 const Model = () => {
   const dracoLoader = new DRACOLoader(); // Create a DRACOLoader instance
