@@ -1,12 +1,16 @@
+import Loader from 'components/Loader';
+import { storeID } from 'config/user';
 import { useRouter } from 'next/router'
-import React from 'react'
-import Main from './Main';
+import React, { Suspense } from 'react'
+const Main = React.lazy(() => import('./Main'));
 
 export default function Signup() {
   const router = useRouter();
-  const {userId} = router.query;
+  const { userId } = router.query;
 
   return (
-    <Main userId={userId ?? ''}/>
+    <Suspense fallback={<Loader />}>
+      <Main userId={storeID} />
+    </Suspense>
   )
 }

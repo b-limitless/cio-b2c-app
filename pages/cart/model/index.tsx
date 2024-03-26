@@ -1,15 +1,10 @@
 import Image from 'next/image';
 import { ICartItem } from 'slices/cartSlice';
 import styles from './model.module.scss';
-
+import { Item } from './Item';
 
 
 const dummyCount = new Array(5).fill(0);
-
-interface IRow {
-    title: string;
-    value: string;
-}
 
 interface IModel {
     show: number;
@@ -17,20 +12,6 @@ interface IModel {
     setSelectedCartIndex: Function;
     cart: ICartItem | null
 }
-
-const Item = ({ title, value }: IRow) => {
-    return <div className={styles.item}>
-        <span className={styles.title}>
-            {title}
-        </span>
-
-        <span className={styles.value}>
-            {value}
-        </span>
-    </div>;
-}
-
-
 
 export default function Model({ show, setShow, cart }: IModel) {
     return (
@@ -51,13 +32,6 @@ export default function Model({ show, setShow, cart }: IModel) {
                                 <Image src='/icon/close-blue.svg' width={20} height={20} alt='close' onClick={() => setShow(-1)} />
                             </div>
                         </div>
-
-                        {/* <div className={styles.row}>
-                            <span className={styles.details}>
-                                Details
-                            </span>
-                        </div> */}
-
                         <div className={styles.row}>
                             <div className={styles.list__details}>
                                 <div className={styles.group}>

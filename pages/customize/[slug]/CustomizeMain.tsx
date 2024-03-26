@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 import { Canvas } from '@react-three/fiber';
 import { Button } from 'components/Button';
 import Header from 'components/Header/Header';
-import { defaultCollarModel, defaultFebric } from 'config/default';
+import { defaultFebric } from 'config/default';
 import { productNavigation } from 'config/product';
 import { removeTimestamp } from 'functions/removeTimeStamp';
 import useFetchFebrics from 'hooks/useFetchFebric';
@@ -30,7 +30,7 @@ import { tSnapShotUploadingStates } from 'interface/ICart.interface';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-// import AccentFebricModel from 'pages/customize/Febric/AccentFebricModel';
+
 import React, { Suspense, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IAccentGlobal, UpdateAccentAction, updateAccent } from 'slices/accentSlice';
@@ -38,17 +38,17 @@ import { TCheckIfItemIsSameToUpdateCart } from 'slices/cartSlice';
 import { TFebric, updateFebric } from 'slices/febricSlice';
 import { RootState } from 'store';
 import { selectionProcess } from 'types/enums';
-// import Filter from '../Febric/Filter';
 
 
 
+import Loader from 'components/Loader';
+import { ERoute } from 'config/route';
+import { isScrolledToBottom } from 'functions/scrollToBottom';
+import Shirt3DModel from 'pages/customize/3DModel/Shirt';
+import { EFebricFilter, updaeFebricsPage, updatFebricFilter } from 'slices/febricsSlice';
+import { styleOne } from 'styles/styles';
 import styles from '../customize.module.scss';
 import CaptureModelScreenShot from './CaptureModelScreenShot';
-import { EFebricFilter, updaeFebricsPage, updatFebricFilter } from 'slices/febricsSlice';
-import { isScrolledToBottom } from 'functions/scrollToBottom';
-import { ERoute } from 'config/route';
-import { styleOne } from 'styles/styles';
-import Loader from 'components/Loader';
 
 
 const FebricDetails = React.lazy(() => import('../FebricDetails'));
@@ -57,7 +57,6 @@ const AccentFebricModel = React.lazy(() => import('pages/customize/Febric/Accent
 const Filter = React.lazy(() => import('../Febric/Filter'));
 const Styles = React.lazy(() => import('../Select/Styles'));
 const Accents = React.lazy(() => import('../Select/Accents'));
-import Shirt3DModel from 'pages/customize/3DModel/Shirt';
 
 interface ICustomizeMain {
     userId: string | string[]
@@ -236,7 +235,6 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                 designJourney === selectionProcess.accents ? styles.styles :
                     'default';
     }, [designJourney]);
-
 
 
     return (
