@@ -1,7 +1,7 @@
 import { Button } from 'components/Button';
 import Input from 'components/Input';
 import CountrySelect from 'components/Select/CountrySelect';
-import { IShippingFrom } from '../../../types/common.interface';
+import { IShippingFrom } from 'types/common.interface';
 import FormTemplate from '../template/form';
 import styles from 'style-module/shipping.module.scss';
 import Loader from 'components/Loader';

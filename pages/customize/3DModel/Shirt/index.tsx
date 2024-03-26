@@ -63,9 +63,6 @@ interface AddTextureModel {
 
 }
 
-interface AddColorToModel extends Omit<AddTextureModel, 'textureURL'> {
-
-}
 
 interface IAddModelToScene {
   name: string;
@@ -156,12 +153,6 @@ const Shirt3DModel = ({
         <AddModelToScene name='pocket' modelURI={modelsURL.pocket} />
       </AddTextureToModel>}
 
-
-      {/* <AddModelToScene name='cuffButtons' modelURI={modelsURL.singleCuffOneButton} /> */}
-
-
-
-
       <AddTextureToModel textureURL={febricURI} meshName={[]} fullBody={true} modelType={EModel.Shirt}>
         <Model />
       </AddTextureToModel>
@@ -172,7 +163,6 @@ const Shirt3DModel = ({
 
   );
 };
-
 
 
 const Model = () => {
@@ -225,9 +215,6 @@ const AddModelToScene = ({ name, modelURI }: IAddModelToScene) => {
 
 
 const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType }: AddTextureModel) => {
-
-  // console.log(`textureURL, meshName, children, fullBody`, textureURL, meshName, children, fullBody);
-
   const modelRef = useRef<Group<Object3DEventMap>>(null);
 
   const getTexture = modelType === EModel.Shirt ? 'timestamp=1'
@@ -320,39 +307,6 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType
 }
 
 
-const AddColorToModel = ({ meshName, children }: AddColorToModel) => {
 
-  const modelRef = useRef<Group<Object3DEventMap>>(null);
-
-  // Define material with the loaded texture
-  const material = useMemo(() => {
-    return new MeshPhongMaterial({
-      color: parseInt("0x" + '008000'), // Assuming color is a hex string, if not, adjust accordingly
-      shininess: 10 // You can adjust shininess as needed
-    });
-  }, []);
-
-
-  const setMaterial = (parent: THREE.Object3D, meshName: string[], mtl: THREE.Material) => {
-
-    parent.traverse((o) => {
-      if (o instanceof THREE.Mesh && meshName.includes(o.name)) {
-        o.material = mtl;
-      }
-    })
-  }
-
-  useEffect(() => {
-    if (modelRef.current) setMaterial(modelRef.current, meshName, material);
-
-  }, [material, meshName]);
-
-  return (
-    <group ref={modelRef}>
-      {children}
-    </group>
-  );
-
-}
 
 export default dynamic(() => Promise.resolve(Shirt3DModel), { ssr: false });

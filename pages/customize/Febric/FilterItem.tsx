@@ -1,4 +1,4 @@
-import { FilterItemInterface } from "../../../types/filter.interface"
+import { FilterItemInterface } from "types/filter.interface"
 import styles from './filter.module.scss';
 import Image from "next/image";
 import { CheckboxWithLabel } from "components/Checkbox/Checkbox";

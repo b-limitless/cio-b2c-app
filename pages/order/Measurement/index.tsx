@@ -5,7 +5,7 @@ import { IShirtMeasurement } from 'interface/IShirtMeasurement';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { IMeasurementForm } from '../../../types/common.interface';
+import { IMeasurementForm } from 'types/common.interface';
 import styles from './measurement.module.scss';
 import BaseProductMeasurementForm from './product/base';
 import ProductShirt from './product/shirt';

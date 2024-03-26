@@ -29,11 +29,10 @@ export default function AccentFebricModel({ onClickHandler, setShowFilterModel, 
                     Febrics
                 </span>
             </div>
-            {/* Rather we will show different kind of febrics here */}
 
             <div className={febricStyle.febrics}>
 
-                {accentFebrics.map((febric:any, i:number) => <Febric
+                {accentFebrics.map((febric: any, i: number) => <Febric
                     febric={febric}
                     index={i}
                     febricImageURI={febric.febricURI}
