@@ -17,6 +17,7 @@ const modelProperties = {
     modelURL: defaultFebric,
     price: 0,
     title: '',
+    
   },
   cuff: {
     id: null,
@@ -78,6 +79,8 @@ export type RowType = {
   material?: string;
   tone?: string;
   febricTypes?: string;
+  buttonsMeshNames?:string[], 
+  buttonWholeMeshNames?:string[]
 };
 
 export type IModelAction = Record<ModelKeys, RowType>;
@@ -85,11 +88,13 @@ export type IModelAction = Record<ModelKeys, RowType>;
 const initialState: IModelAction = {
   collar: {
     id: 12,
-    modelURL: `/models/collars/collar-1-draco.glb?timestamp=${Date.now()}`,
+    modelURL: `/models/collars/collar-button-down.glb?timestamp=${Date.now()}`,
     price: 0,
     title: 'Default collar model',
     label: 'default',
     code: 'default',
+    buttonsMeshNames:['MatShape_21501_Node', 'MatShape_21509_Node'], 
+    buttonWholeMeshNames:['Collar_2_Node', 'Collar_1_Node']
   },
   cuff: {
     id: 12,
@@ -98,6 +103,8 @@ const initialState: IModelAction = {
     title: 'default cuff model',
     label: 'default',
     code: 'default',
+    buttonsMeshNames:['MatShape_382057_Node', 'MatShape_238060_Node'], 
+    buttonWholeMeshNames:['MatShape_383887_Node', 'MatShape_383876_Node']
   },
   chestpocket: {
     id: null,

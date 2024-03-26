@@ -57,8 +57,10 @@ export const productStyles = [
         label: 'button down',
         code: 'button_down',
         mediaUrl: '/icon/collars/button-down.svg',
-        modelURL: `/models/collars/collar-3-3.glb`,
-        iconClass: 'icon-65'
+        modelURL: `/models/collars/collar-button-down.glb`,
+        iconClass: 'icon-65',
+        buttonsMeshNames:['MatShape_21501_Node', 'MatShape_21509_Node'], 
+        buttonWholeMeshNames:['Collar_2_Node', 'Collar_1_Node']
       },
       {
         id: 2,
@@ -66,7 +68,9 @@ export const productStyles = [
         code: 'club',
         mediaUrl: '/icon/collars/club.svg',
         modelURL: `/models/collars/collar-2-2.glb`,
-        iconClass: 'icon-59'
+        iconClass: 'icon-59', 
+        buttonsMeshNames:[], 
+        buttonWholeMeshNames:[]
       },
       {
         id: 3,
@@ -74,7 +78,9 @@ export const productStyles = [
         code: 'cutway',
         mediaUrl: '/icon/collars/cutway.svg',
         modelURL: `/models/collars/collar-1-draco.glb`,
-        iconClass: 'icon-62'
+        iconClass: 'icon-62', 
+        buttonsMeshNames:[], 
+        buttonWholeMeshNames:[]
       },
       {
         id: 3,
@@ -82,7 +88,9 @@ export const productStyles = [
         code: 'standup',
         mediaUrl: '/icon/collars/cutway.svg',
         modelURL: `/models/collars/collar-1-1.glb`,
-        iconClass: 'icon-66'
+        iconClass: 'icon-66', 
+        buttonsMeshNames:[], 
+        buttonWholeMeshNames:[]
       }, 
       {
         id: 3,
@@ -112,15 +120,19 @@ export const productStyles = [
         code: 'single_cuff',
         mediaUrl: '/icon/cuff/french.svg',
         modelURL: `/models/cuffs/cuff-1-draco.glb`,
-        iconClass: 'icon-68'
+        iconClass: 'icon-68', 
+        buttonsMeshNames:['MatShape_21501_Node', 'MatShape_21509_Node'], 
+        buttonWholeMeshNames:['Collar_2_Node', 'Collar_1_Node']
       },
       {
         id: 6,
         label: 'double 2 buttons',
         code: '2_buttons',
         mediaUrl: '/icon/cuff/one-button.svg',
-        modelURL: `/models/cuffs/cuff-1-draco.glb`,
-        iconClass: 'icon-69'
+        modelURL: `/models/cuffs/two-buttons-cuff.glb`,
+        iconClass: 'icon-69',
+        buttonsMeshNames:['MatShape_360712_Node', 'MatShape_360720_Node', 'MatShape_118371_Node', 'MatShape_206902_Node'], 
+        buttonWholeMeshNames:['MatShape_363070_Node', 'MatShape_363078_Node', 'Cuffs_13_Node', 'Cuffs_14_Node']
       },
       {
         id: 7,

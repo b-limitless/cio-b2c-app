@@ -323,7 +323,7 @@ export default function CustomizeMain({ userId }: ICustomizeMain) {
                         {/* <Suspense fallback={<Loader />}></Suspense> */}
                             <Canvas>
                                 <Shirt3DModel
-                                    collar={collar?.modelURL ?? defaultCollarModel}
+                                    collar={collar}
                                     cuff={cuff}
                                     febricURI={originalImageUrl ?? defaultFebric}
                                     collarAccent={collarAccent}

@@ -11,7 +11,8 @@
 'use client';
 import { OrbitControls } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
-import { defaultCuffModel } from 'config/default';
+import { colors } from 'config/colors';
+import { defaultCollarModel, defaultCuffModel } from 'config/default';
 import { modelsURL } from 'config/models';
 import dynamic from 'next/dynamic';
 import { ReactNode, useEffect, useMemo, useRef } from 'react';
@@ -29,7 +30,7 @@ const modelScale = 8;
 const modelYPostion = -10.5;
 
 interface BaseModel {
-  collar: string;
+  collar: RowType;
 }
 
 export enum EModel {
@@ -38,8 +39,8 @@ export enum EModel {
   Cuff = 'cuff',
   Collar = 'collar',
   ThreadWholes = 'threadWholes',
-  Buttons = 'buttons', 
-  FrontPlacket='frontPlacket'
+  Buttons = 'buttons',
+  FrontPlacket = 'frontPlacket'
 
 }
 
@@ -51,7 +52,7 @@ interface ShirtModelInterface extends BaseModel {
   chestPocket: boolean
   buttonWholesFebric: string;
   buttonsColorTexture: string;
-  frontPacketTexture:string;
+  frontPacketTexture: string;
 }
 
 interface AddTextureModel {
@@ -83,7 +84,7 @@ const Shirt3DModel = ({
   cuffAccent,
   chestPocket,
   frontPacketTexture
- }: ShirtModelInterface) => {
+}: ShirtModelInterface) => {
 
 
   return (
@@ -113,13 +114,27 @@ const Shirt3DModel = ({
         autoRotate={false}
         autoRotateSpeed={0.2}
       />
-      <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName ?? []} fullBody={collarAccent?.meshName?.length === 0} modelType={EModel.Collar}>
-        <AddModelToScene name='collar' modelURI={collar} />
+
+
+      <AddTextureToModel textureURL={buttonWholesFebric} meshName={collar.buttonWholeMeshNames ?? []} fullBody={false} modelType={EModel.ThreadWholes}>
+        <AddTextureToModel textureURL={buttonsColorTexture} meshName={collar.buttonsMeshNames ?? []} fullBody={false} modelType={EModel.Buttons}>
+          <AddTextureToModel textureURL={collarAccent.febric} meshName={collarAccent.meshName ?? []} fullBody={collarAccent?.meshName?.length === 0} modelType={EModel.Collar}>
+            <AddModelToScene name='collar' modelURI={collar.modelURL ?? defaultCollarModel} />
+          </AddTextureToModel>
+        </AddTextureToModel>
       </AddTextureToModel>
 
-      <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName ?? []} fullBody={cuffAccent?.meshName?.length === 0} modelType={EModel.Cuff}>
-        <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
+
+
+
+      <AddTextureToModel textureURL={buttonWholesFebric} meshName={cuff.buttonWholeMeshNames ?? []} fullBody={false} modelType={EModel.ThreadWholes}>
+        <AddTextureToModel textureURL={buttonsColorTexture} meshName={cuff.buttonsMeshNames ?? []} fullBody={false} modelType={EModel.Buttons}>
+          <AddTextureToModel textureURL={cuffAccent.febric} meshName={cuffAccent.meshName ?? []} fullBody={cuffAccent?.meshName?.length === 0} modelType={EModel.Cuff}>
+            <AddModelToScene name='cuff' modelURI={cuff.modelURL ?? defaultCuffModel} />
+          </AddTextureToModel>
+        </AddTextureToModel>
       </AddTextureToModel>
+
 
 
 
@@ -132,7 +147,7 @@ const Shirt3DModel = ({
         <AddModelToScene name='buttonsWholes' modelURI={modelsURL.buttonsWholes} />
       </AddTextureToModel>
 
-      <AddTextureToModel textureURL={frontPacketTexture} meshName={[]} modelType={EModel.FrontPlacket} fullBody>
+      <AddTextureToModel textureURL={!frontPacketTexture ? febricURI : frontPacketTexture} meshName={[]} modelType={EModel.FrontPlacket} fullBody>
         <AddModelToScene name='frontPlacket' modelURI={modelsURL.frontPlacket} />
       </AddTextureToModel>
 
