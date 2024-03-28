@@ -1,11 +1,16 @@
-import React from 'react'
-import CustomizeMain from './CustomizeMain'
-import { useRouter } from 'next/router'
+import React, { Suspense } from 'react';
+import { useRouter } from 'next/router';
+import Loader from 'components/Loader';
+
+const CustomizeMain = React.lazy(() => import('./CustomizeMain'));
 
 export default function CustomizeRouteBaseUserId() {
   const router = useRouter();
-  const {userId} = router.query;
+  const { userId } = router.query;
   return (
-    <CustomizeMain userId={userId ?? ''}/>
+    <Suspense fallback={<Loader />}>
+      <CustomizeMain userId={userId ?? ''} />
+    </Suspense>
+
   )
 }

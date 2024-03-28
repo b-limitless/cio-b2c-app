@@ -133,10 +133,10 @@ const Shirt3DModel = ({
 
 
 
-
+{/* 
       <AddTextureToModel textureURL={buttonsColorTexture} meshName={[]} fullBody={true} modelType={EModel.Buttons}>
         <AddModelToScene name='buttons' modelURI={modelsURL.buttons} />
-      </AddTextureToModel>
+      </AddTextureToModel> */}
 
 
       <AddTextureToModel textureURL={buttonWholesFebric} meshName={[]} modelType={EModel.ThreadWholes} fullBody>
@@ -237,7 +237,7 @@ const AddTextureToModel = ({ textureURL, meshName, children, fullBody, modelType
   // Write code in this way [EModel.Cuff, EModel.Collar, EModel.Shirt].includes(modelType)
 
   if (modelType === EModel.Cuff) {
-    texture.repeat.set(4, 4);
+    texture.repeat.set(2, 2);
   }
 
 

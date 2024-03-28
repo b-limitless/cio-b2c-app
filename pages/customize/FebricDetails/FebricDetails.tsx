@@ -17,7 +17,7 @@ type TObjectTypeV1 = {
 
 enum EValue {
     array = 'array',
-    object = 'objecg',
+    object = 'object',
     primitive = 'primitive'
 }
 
@@ -37,6 +37,7 @@ interface IFebricDetailsV1 {
     febric: FebricAttrs | null;
     setShowFebricDetailsModel: Function;
 }
+
 export default function FebricDetailsV1({ setShowFebricDetailsModel, febric }: IFebricDetailsV1) {
 
     const GetPrimitiveValueType = () => {
@@ -50,8 +51,6 @@ export default function FebricDetailsV1({ setShowFebricDetailsModel, febric }: I
                 }
             });
         }
-
-
         return primitiveValues;
     }
 

@@ -3,13 +3,10 @@ export const defaultPrices = {
   cuff: 10,
 };
 export const modelsURL = {
-  // shirt: '/models/shirt/shirt-without-collar-and-cuff.glb',
-  // shirt: '/models/shirt/MainGLBNew.glb',
-  // shirt: '/models/shirt/Metres.glb',
+
   shirt: '/models/shirt/shirt-v3-darco.glb',
   buttonsWholes: '/models/shirt/buttons-wholes.glb',
-  buttons: '/models/button/buttons-draco.glb',
-  singleCuffOneButton: '/models/cuffs/buttons/single-cuff-1-button.glb', 
+  buttons: '/models/button/buttons-draco.glb', 
   pocket: '/models/shirt/pocket.glb',
   frontPlacket: '/models/shirt/front-placket.glb',
   
@@ -77,7 +74,7 @@ export const productStyles = [
         label: 'cutway',
         code: 'cutway',
         mediaUrl: '/icon/collars/cutway.svg',
-        modelURL: `/models/collars/collar-1-draco.glb`,
+        modelURL: `/models/collars/collar-single-button.glb`,
         iconClass: 'icon-62', 
         buttonsMeshNames:[], 
         buttonWholeMeshNames:[]
@@ -119,10 +116,10 @@ export const productStyles = [
         label: 'single 1 button',
         code: 'single_cuff',
         mediaUrl: '/icon/cuff/french.svg',
-        modelURL: `/models/cuffs/cuff-1-draco.glb`,
+        modelURL: `/models/cuffs/single-button-cuff.glb`,
         iconClass: 'icon-68', 
-        buttonsMeshNames:['MatShape_21501_Node', 'MatShape_21509_Node'], 
-        buttonWholeMeshNames:['Collar_2_Node', 'Collar_1_Node']
+        buttonsMeshNames:['MatShape_121254_Node', 'MatShape_123668_Node'], 
+        buttonWholeMeshNames:['Cuffs_6_Node', 'Cuffs_3_Node']
       },
       {
         id: 6,
@@ -134,30 +131,30 @@ export const productStyles = [
         buttonsMeshNames:['MatShape_360712_Node', 'MatShape_360720_Node', 'MatShape_118371_Node', 'MatShape_206902_Node'], 
         buttonWholeMeshNames:['MatShape_363070_Node', 'MatShape_363078_Node', 'Cuffs_13_Node', 'Cuffs_14_Node']
       },
-      {
-        id: 7,
-        label: 'two button cut',
-        code: 'two_button_cut',
-        mediaUrl: '/icon/cuff/three-button.svg',
-        modelURL: `/models/cuffs/cuff-1-draco.glb`,
-        iconClass: 'icon-76'
-      },
-      {
-        id: 7,
-        label: 'rounded 1 button',
-        code: 'rounded_1_button',
-        mediaUrl: '/icon/cuff/three-button.svg',
-        modelURL: `/models/cuffs/cuff-1-draco.glb`,
-        iconClass: 'icon-77'
-      }, 
-      {
-        id: 7,
-        label: 'double squared',
-        code: 'double_squared',
-        mediaUrl: '/icon/cuff/three-button.svg',
-        modelURL: `/models/cuffs/cuff-1-draco.glb`,
-        iconClass: 'icon-78'
-      }
+      // {
+      //   id: 7,
+      //   label: 'two button cut',
+      //   code: 'two_button_cut',
+      //   mediaUrl: '/icon/cuff/three-button.svg',
+      //   modelURL: `/models/cuffs/cuff-1-draco.glb`,
+      //   iconClass: 'icon-76'
+      // },
+      // {
+      //   id: 7,
+      //   label: 'rounded 1 button',
+      //   code: 'rounded_1_button',
+      //   mediaUrl: '/icon/cuff/three-button.svg',
+      //   modelURL: `/models/cuffs/cuff-1-draco.glb`,
+      //   iconClass: 'icon-77'
+      // }, 
+      // {
+      //   id: 7,
+      //   label: 'double squared',
+      //   code: 'double_squared',
+      //   mediaUrl: '/icon/cuff/three-button.svg',
+      //   modelURL: `/models/cuffs/cuff-1-draco.glb`,
+      //   iconClass: 'icon-78'
+      // }
     ],
   },
   {

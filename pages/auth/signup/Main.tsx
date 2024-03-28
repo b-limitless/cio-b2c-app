@@ -138,8 +138,6 @@ function Main({ userId }: IMain) {
                     body: { ...form }
                 });
 
-                
-
             } catch (err: any) {
                 const { response: { data: { errors } } } = err;
                 errors.forEach((error: any, i: number) => {

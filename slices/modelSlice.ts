@@ -88,7 +88,7 @@ export type IModelAction = Record<ModelKeys, RowType>;
 const initialState: IModelAction = {
   collar: {
     id: 12,
-    modelURL: `/models/collars/collar-1-draco.glb?timestamp=${Date.now()}`,
+    modelURL: `/models/collars/collar-single-button.glb?timestamp=${Date.now()}`,
     price: 0,
     title: 'Default collar model',
     label: 'default',
@@ -103,8 +103,8 @@ const initialState: IModelAction = {
     title: 'default cuff model',
     label: 'default',
     code: 'default',
-    buttonsMeshNames:['MatShape_382057_Node', 'MatShape_238060_Node'], 
-    buttonWholeMeshNames:['MatShape_383887_Node', 'MatShape_383876_Node']
+    buttonsMeshNames:['MatShape_121254_Node', 'MatShape_123668_Node'], 
+    buttonWholeMeshNames:['Cuffs_6_Node', 'Cuffs_3_Node']
   },
   chestpocket: {
     id: null,

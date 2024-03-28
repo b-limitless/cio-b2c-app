@@ -35,7 +35,7 @@ interface ICartMain {
   usedFrom: TCartUsedFrom
   setMeasurementJourney?: Function;
 }
-// cart-shirt, add, copy, eye, delete, hunburg
+
 export default function Cart({ userId, children, usedFrom, setMeasurementJourney }: ICartMain) {
   const [showCartDetailsModel, setShowCartDetailsModel] = useState<number>(-1);
   const [selectedCartIndex, setSelectedCartIndex] = useState<null | number>(null);

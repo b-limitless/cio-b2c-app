@@ -68,7 +68,7 @@ const CartItem = ({ id,
                         <span className={styles.icon}><Image src='/icon/copy.svg' width={20} height={20} alt='menu' /></span>
                         <span className={styles.text} onClick={() => duplicateCartItem({ index: id, id: cart.id })}>Duplicate</span>
                     </li>
-                    {/* We are setting index of cart? as value to access */}
+                    
                     <li onClick={() => setShowCartDetailsModel(id + 1)}>
                         <span className={styles.icon}><Image src='/icon/eye.svg' width={20} height={20} alt='menu' /></span>
                         <span className={styles.text}>View</span>
